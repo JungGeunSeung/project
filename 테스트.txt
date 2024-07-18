@@ -1,0 +1,10 @@
+<<<<<<< HEAD
+테스트입니다
+=======
+sfjdlkajsfjlksjdfljlaskdjflka
+>>>>>>> origin/소원
+<<<<<<< HEAD
+12:21 테스트
+=======
+dsjfkljjfklsdjflkds
+>>>>>>> origin/소원
