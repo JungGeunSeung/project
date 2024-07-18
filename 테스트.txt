@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 테스트입니다
+=======
+sfjdlkajsfjlksjdfljlaskdjflka
+>>>>>>> origin/소원
