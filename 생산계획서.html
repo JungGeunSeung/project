@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <Style>
+        .topMenu {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .topMenu li {
+            margin-right: 10px;
+        }
+
+        .topMenu button {
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            border-radius : 15px;
+        }
+
+        .topMenu button:hover {
+            background-color: #e9e9e9;
+        }
+
+        .workform {
+            font-size: 18px;
+            height: 100%;
+            border-collapse: collapse;
+        }
+
+
+
+        .workform>th,
+        td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 8px;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-weight: bold;
+        }
+
+        .textarea {
+            height: 100px;
+            text-align: left;
+            vertical-align: top;
+            padding: 8px;
+        }
+    </Style>
+</head>
+
+<body>
+    <ul class="topMenu">
+        <li><button>저장</button></li>
+        <li><button>수정</button></li>
+        <li><button>출력</button></li>
+        <li><button>삭제</button></li>
+    </ul>
+    <table border : 1px; class="workform">
+        <tr>
+            <th colspan="6" class="title">생산계획서</th>
+        </tr>
+        <tr>
+            <th>번호</th>
+            <td>1</td>
+            <th>발행일자</th>
+            <td>2024-07-12</td>
+            <th>계획기간</th>
+            <td>2024-07-20 ~ 2024-07-22</td>
+        </tr>
+        <tr>
+            <th>제품명</th>
+            <td>제품코드</td>
+            <td>pva-145o100</td>
+            <th>제품사양</th>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <th>사용 원료</th>
+            <td colspan="2">목표수량(EA)</td>
+            <th>1,000</th>
+            <th>발주처</th>
+            <td>(주)휴먼ENC</td>
+        </tr>
+        <tr>
+            <td colspan="6" class="textarea">추가 기재 내용 :</td>
+        </tr>
+        <tr>
+            <th>생산 시작일</th>
+            <td>2024-07-20</td>
+            <th>생산완료일</th>
+            <td>2024-07-22</td>
+            <th>일일 생산량</th>
+            <td>200/D</td>
+        </tr>
+        <tr>
+            <th>작업 책임자</th>
+            <td>정다올</td>
+            <th>작업 팀원</th>
+            <td>생산 1팀</td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td colspan="6" class="textarea">추가 기재 내용 :</td>
+        </tr>
+        <tr>
+            <th>품질기준</th>
+            <td colspan="2"></td>
+            <th>검사일정</th>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <th>검사자</th>
+            <td colspan="5"></td>
+        </tr>
+        <tr>
+            <td colspan="6" class="textarea">추가 기재 내용 :</td>
+        </tr>
+        <tr>
+            <th>승인일자</th>
+            <td colspan="3"></td>
+            <th>승인자</th>
+            <td></td>
+        </tr>
+    </table>
+
+</body>
+
+</html>
