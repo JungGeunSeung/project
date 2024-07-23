@@ -1,0 +1,115 @@
+/* 공통 스타일 */
+body {
+    /* background-color: #e6e6e6; */
+}
+
+/* .topMenu 관련 스타일 */
+.topMenu {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-evenly; /* 또는 center로 변경 가능 */
+}
+
+.topMenu li {
+    margin-right: 10px;
+}
+
+.topMenu button {
+    padding: 3px 10px; /* 또는 10px 20px으로 변경 가능 */
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+.topMenu button:hover {
+    background-color: #ffffff;
+}
+
+/* .date와 .box 관련 스타일 */
+.date {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    margin: 0 10px;
+    border-radius: 10px;
+    width: 250px;
+}
+
+.box h3 {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.box .date-btns {
+    margin-bottom: 10px;
+}
+
+.box .date-btns button {
+    margin: 5px 0;
+    border-radius: 10px;
+}
+
+.box .date-btns button:hover {
+    background-color: #ffffff;
+}
+
+.box .period-btns {
+    display: flex;
+}
+
+.box .period-btns button {
+    margin: 0 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.box .period-btns button:hover {
+    background-color: #ffffff;
+}
+
+/* .workform 관련 스타일 */
+.workform {
+    font-size: 18px;
+    border-collapse: collapse;
+    display: flex;
+    justify-content: center;
+}
+
+.workform>tr, th, td {
+    border: 1px solid black;
+}
+
+.workform>th, td {
+    text-align: center;
+    font-size: 10px;
+    line-height: 30px;
+    min-width: 50px;
+}
+
+tr {
+    height: 30px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.section-title {
+    font-weight: bold;
+}
+
+.textarea {
+    height: 100px;
+    text-align: left;
+    vertical-align: top;
+    padding: 8px;
+}

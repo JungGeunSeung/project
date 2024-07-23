@@ -5,101 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        .topMenu {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            justify-content: space-evenly;
-        }
-
-        .topMenu li {
-            margin-right: 10px;
-        }
-
-        .topMenu button {
-            padding: 3px 10px;
-            cursor: pointer;
-            border-radius: 15px;
-        }
-
-        .topMenu button:hover {
-            background-color: #ffffff;
-        }
-
-        .date {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .box {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 10px;
-            margin: 0 10px;
-            border-radius: 10px;
-            width: 250px;
-        }
-
-        .box .date-btns {
-            margin-bottom: 10px;
-        }
-
-        .box .date-btns button {
-            margin: 5px 0;
-            border-radius: 10px;
-        }
-
-        .box .date-btns button:hover {
-            background-color: #ffffff;
-        }
-
-        .box .period-btns {
-            display: flex;
-        }
-
-        .box .period-btns button {
-            margin: 0 5px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 10px;
-        }
-
-        .box .period-btns button:hover {
-            background-color: #ffffff;
-        }
-
-        .workform {
-            font-size: 18px;
-            border-collapse: collapse;
-            display: flex;
-            justify-content: center;
-        }
-
-        .workform>tr,
-        td,
-        td {
-            border: 1px solid black;
-        }
-
-        .workform>td,
-        td {
-            text-align: center;
-            font-size: 10px;
-            line-height: 30px;
-            min-width: 50px;
-        }
-
-        tr {
-            height: 30px;
-        }
-    </style>
+    <link rel="stylesheet" href="page.css">
 </head>
 
 <body>
-    <div class = "container">
+    <div class="container">
         <div class="date">
             <div>
                 <h3>날짜</h3>
@@ -134,9 +44,7 @@
         <table class="workform">
             <tr>
                 <td class="t-list">
-                    <!-- 여기 어떻게 해야하지..? -->
-                    품질기준
-                    <br>시험항목
+                    시험항목
                 </td>
                 <td>
                     문서명
