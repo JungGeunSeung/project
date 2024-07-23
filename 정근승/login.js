@@ -1,3 +1,21 @@
-const params = new URLSearchParams(window.location.search);
-document.getElementById('name').textContent = params.get('name');
-document.getElementById('email').textContent = params.get('email');
+const params = new URLSearchParams(window.location.search); // params 변수에 로그인에서 넘어온 정보를 담는 변수
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
