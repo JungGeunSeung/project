@@ -4,17 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        #a{
+            margin: auto;
+            text-align: center;
+        }
+        #b{
+            margin: auto;
+            text-align: center;
+         }
+         #c{
+            border-collapse: collapse;
+            border: 1px solid black;
+            text-align: center;
+            border-collapse: collapse;
+            border: 1px solid black;
+            text-align: center;
+            margin: auto;
+         }
+    </style>
 </head>
 <body>
+    <div id="a">
     <input value="전체" type="button">
     <input value="검사완료" type="button">
     <input value="검사중" type="button">
     <input value="검사전" type="button">
+    </div>
+    <div id="b">
     <div>입고날짜<input type="date"> 출고날짜<input type="date"></div>
     <input value="일주일" type="button"> <input value="1개월" type="button">
     <input value="3개월" type="button"> <input value="일주일" type="button">
     <input value="1개월" type="button"> <input value="3개월" type="button">
-    <table border="1">
+    </div>
+    <table id="c" border="1">
         <tr>
             <td>번호</td>
             <td>제품번호</td>

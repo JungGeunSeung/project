@@ -1,0 +1,54 @@
+ /* 사이드바 스타일 */
+
+.profile {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile img {
+    width: 80px;
+    height: 80px;
+    border-radius: 10%;
+    margin-bottom: 10px;
+    padding-top: 20px;
+}
+
+.profile h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.profile p {
+    margin: 0;
+    font-size: 1rem;
+    color: #000;
+
+}
+
+
+
+img.Logo {
+    width: 200px;
+    height: 100px;
+    display: block;
+    float: left;
+}
+
+.main_box {
+    border: solid rgb(98, 162, 245);
+    width: 1000px;
+    height: auto;
+}
+
+ul.item {
+    list-style-type: none;
+    display: flex;
+    float: left;
+    margin: 10px;
+}
+
+#category {
+    margin: 10px;
+    border: solid rgb(86, 151, 250);
+    color: #fff;
+}

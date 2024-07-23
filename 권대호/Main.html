@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="calender_nomall.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="Main.css">
+    <title>사이드바와 내용이 있는 웹 페이지</title>
+    <style>
+        /* 전체 페이지 스타일링 */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            min-height: 100vh;
+            /* 화면 전체 높이를 최소한으로 설정 */
+            margin: 0;
+        }
+
+        /* 사이드바 스타일 */
+        .sidebar {
+            width: 250px;
+            background-color: #f0f0f0;
+            padding: 20px;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+        /* 기본 내용 영역 스타일 */
+        .content {
+            flex: 1;
+            /* 남은 공간 모두를 차지하도록 설정 */
+            padding: 20px;
+        }
+
+        /* 반응형 디자인: 화면이 작아질 때 */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                /* 세로로 쌓이도록 변경 */
+            }
+
+            .sidebar {
+                width: 100%;
+                /* 모바일에서 사이드바가 전체 너비를 차지하도록 변경 */
+                order: 2;
+                /* 사이드바를 아래로 이동 */
+            }
+
+            .content {
+                order: 1;
+                /* 기본 내용을 위로 이동 */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <a href="#홈으로&새로고침!!">
+            <img class="Logo"
+                src="https://cdn.discordapp.com/attachments/1263407024335491114/1263407039590301769/dd2e2a86195af069.png?ex=669f64ff&is=669e137f&hm=47a77c4c4b18b7240c7af196b675dc0f2f667a7a59fda866b6de03f7063d3ca0&"
+                alt=""></a>
+
+
+        <div class="profile">
+            <img src="https://cdn.discordapp.com/attachments/1263407024335491114/1264860101810851900/images.jpeg?ex=669f6844&is=669e16c4&hm=46357740f631f6df92043e8ed1e2e9d732f37b5072ba4409f6e93e5ab78674a9&"
+                alt="프로필 사진">
+            <h2>권대호</h2>
+            <p>웹 개발자</p>
+            <div>
+                <input type="button" value="마이페이지">
+                <input type="button" value="관리자페이지">
+            </div>
+        </div>
+
+        <div>
+            <div id="calendar"></div>
+            <script src="calendar_nomall.js"></script>
+        </div>
+
+        <h3>열어본 페이지 목록</h3>
+        <ul>
+            <li>
+                <a href="#가장최근에 열어본 페이지">재고관리</a>
+            </li>
+            <li>
+                <a href="#열어본 페이지">생산관리</a>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="content">
+        <div class="topbar">
+            <div class="top1">
+                <a href="">정보/BOM</a>
+                <a href="">재고관리</a>
+                <a href="">생산관리</a>
+                <a href="">작업지시</a>
+                <a href="">품질관리</a>
+                <a href="">설비관리</a>
+            </div>
+            <div class="top2">
+                <a href="날짜별생산계획.html" id="loadPage">날짜별생산계획</a>
+                <a href="">설비 코드</a>
+                <a href="">조직도</a>
+                <a href="">문서관리</a>
+                <a href="">창고 단면도</a>
+            </div>
+        </div>
+        <div class="page" id="pageContent"></div>
+    
+        <script src="Main.js"></script>
+    </div>
+</body>
+
+</html>
