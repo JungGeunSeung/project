@@ -5,26 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<link rel="stylesheet" href="inventory.css">
+<link rel="stylesheet" href="page.css">
 <body>
-    <div class="inventory1">lot 날짜<input type="date">정렬기준
-    <select>
-        <option>LOT ID</option>
-        <option>생성날짜</option>
-        <option>lot에 포함된 수량</option>
-        <option>제품 id</option>
-        <option>제조일자</option>
-        <option>업데이트 날짜</option>
-        <option>위치</option>
-        <option>검사자</option>
-    </select>
-    </div>
-    <div class="inventory2">
-    <input value="일주일" type="button">
-    <input value="1개월" type="button">
-    <input value="3개월" type="button">
-    </div>
-    <table class="inventory3" border="1">
+    <div class="container">
+        <div class="date">
+            <div>
+                <h3>날짜</h3>
+            </div>
+            <div class="box">
+                <div class="date-btns">
+                    <button><input type="date">~<input type="date"></button>
+                </div>
+                <div class="period-btns">
+                    <button>일주일</button>
+                    <button>1개월</button>
+                    <button>3개월</button>
+                </div>
+            </div>
+            <div>정렬기준
+                <select>
+                    <option>LOT ID</option>
+                    <option>생성날짜</option>
+                    <option>lot에 포함된 수량</option>
+                    <option>제품 id</option>
+                    <option>제조일자</option>
+                    <option>업데이트 날짜</option>
+                    <option>위치</option>
+                    <option>검사자</option>
+                </select>
+            </div>
+        </div>
+    <table class="workform">
         <tr>
             <td>LOT ID</td>
             <td>생성날짜</td>

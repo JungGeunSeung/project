@@ -31,6 +31,10 @@ body {
     justify-content: center;
     margin-bottom: 20px;
 }
+.sort {
+    display: flex;
+    justify-content: right;
+}
 
 .box {
     display: flex;
@@ -76,18 +80,18 @@ body {
 }
 
 /* .workform 관련 스타일 */
-.workform {
+table.workform{
     font-size: 18px;
     border-collapse: collapse;
     display: flex;
     justify-content: center;
 }
 
-.workform>tr, th, td {
+table.workform>tr, th, td {
     border: 1px solid black;
 }
 
-.workform>th, td {
+table.workform>th, td {
     text-align: center;
     font-size: 10px;
     line-height: 30px;
