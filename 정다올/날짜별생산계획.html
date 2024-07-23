@@ -26,7 +26,7 @@
         }
 
         .topMenu button:hover {
-            background-color: #e9e9e9;
+            background-color: #ffffff;
         }
 
         .date {
@@ -40,10 +40,10 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            border: 1px solid #000;
+            /* border: 1px solid #000; */
             padding: 10px;
             margin: 0 10px;
-            background-color: #f9f9f9;
+            /* background-color: #f9f9f9; */
             border-radius: 15px;
             width: 250px;
         }
@@ -61,6 +61,9 @@
             margin: 5px 0;
             border-radius: 15px;
         }
+        .box .date-btns button:hover {
+            background-color: #ffffff;
+        }
 
         .box .period-btns {
             display: flex;
@@ -68,16 +71,15 @@
 
         .box .period-btns button {
             margin: 0 5px;
-            /* padding: 10px 20px; */
             font-size: 16px;
-            border: 1px solid #000;
+            /* border: 1px solid #000; */
             background-color: #e0e0e0;
             cursor: pointer;
             border-radius: 15px;
         }
 
         .box .period-btns button:hover {
-            background-color: #d0d0d0;
+            background-color: #ffffff;
         }
 
         .workform {
@@ -86,17 +88,14 @@
             border-collapse: collapse;
             display: flex;
             justify-content: center;
+            /* border: 1px solid black; */
 
         }
 
-        .firstLine {
-            font-size: 20px;
-            font-weight: bold;
-        }
 
-        .workform>th,
-        td {
-            border: 1px solid black;
+
+        .workform>th, td {
+            /* border: 1px solid black; */
             text-align: center;
             font-size: 10px;
             line-height: 30px;
@@ -143,44 +142,44 @@
         </div>
     </div>
 
-    <table border : 1px; class="workform">
-        <tr class="firstLine">
-            <td>
+    <table border = "1" class="workform">
+        <tr>
+            <th>
                 순위
-            </td>
-            <td>
+            </th>
+            <th>
                 품목
-            </td>
-            <td>
+            </th>
+            <th>
                 생산 날짜
-            </td>
-            <td>
+            </th>
+            <th>
                 모델명
-            </td>
-            <td>
+            </th>
+            <th>
                 사용 원료
-            </td>
-            <td>
+            </th>
+            <th>
                 현 재고(EA)
-            </td>
-            <td>
+            </th>
+            <th>
                 목표수량(EA)
-            </td>
-            <td>
+            </th>
+            <th>
                 단가
-            </td>
-            <td>
+            </th>
+            <th>
                 발주처
-            </td>
-            <td>
+            </th>
+            <th>
                 작업 위치
-            </td>
-            <td>
+            </th>
+            <th>
                 승인자
-            </td>
-            <td>
+            </th>
+            <th>
                 비고
-            </td>
+            </th>
         </tr>
         <tr>
             <td>
@@ -1208,7 +1207,7 @@
 
             </td>
         </tr>
-        
+
     </table>
 
 </body>
