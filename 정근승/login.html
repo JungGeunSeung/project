@@ -5,20 +5,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인페이지</title>
+
+    <style>
+        .loginbox {
+            display: inline-block;
+            border: 1px solid black;
+            padding: 15px;
+            text-align: center;
+            margin-top: 50px;
+            margin: 50px 20px;
+        }
+
+        img {
+            margin-left: 5px;
+        }
+
+        #id, #pw {
+            width: 200px;
+            height: 2em;
+            font-size: 16px;
+        }
+
+        #id {
+            margin-left: 9px;
+        }
+        #submit {
+            width: 100px;
+            height: 40px;
+        }
+
+        #logo {
+            width: 300px;
+        }
+
+        .center {
+            margin: 0px auto;
+            border: 1px solid black;
+            display: inline-block;
+            position: relative;
+            left: 50%;
+            translate: -50%;
+
+            /* display: flex;
+  justify-content: center; */
+        }
+        #falseID {
+            font-size: 12px;
+            color: red;
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
-    <div>
+    <div class="center">
         <div>
+            <img id="logo" src="https://cdn.discordapp.com/attachments/1263407024335491114/1263407039590301769/dd2e2a86195af069.png?ex=66a15f3f&is=66a00dbf&hm=a03b2b856ec9925b3eb97029fce53e36d067b6b868d55fbfb4c47022111855cc&" alt="">
+        </div>
+        <div class="loginbox">
             <form action="Main.html" method="get">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name"><br><br>
-                <label for="email">Email:</label>
-                <input type="password" id="email" name="email"><br><br>
-                <input type="submit" value="Submit">
+                <label for="id">ID:</label>
+                <input type="text" id="id" name="id" placeholder="아이디 또는 사원번호"><br>
+                <label for="pw">PW:</label>
+                <input type="password" id="pw" name="PW" placeholder="비밀번호"><br><br>
+                <span id="falseID">아이디 또는 비밀번호가 다릅니다.</span> <br><br>
+                <input type="submit" value="로그인" id="submit">
             </form>
         </div>
     </div>
 </body>
 
+<script src="login.js"></script>
 </html>

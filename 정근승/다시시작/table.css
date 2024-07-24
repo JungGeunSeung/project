@@ -1,0 +1,28 @@
+/* 테이블 */
+.tableID {
+    text-align: center;
+    border: 0px;
+    border-collapse: collapse;
+}
+.tableID th {
+    background-color: rgb(59 130 246 / 0.8);
+    color: white;
+}
+
+.tableID td {
+    background-color: rgb(59 130 246 / 0.3);
+}
+
+.tableID a {
+    text-decoration: none;
+    color: black;
+}
+
+.tableID tr:hover {
+    background-color: rgb(59 130 246);
+}
+
+#tablechk {
+    width: 30px;
+    height: 20px;
+}
