@@ -1,0 +1,10 @@
+.searchID .btn {
+    text-align: left;
+}
+
+.divbtn {
+    display: inline;
+    text-align: left;
+    /* border: 1px solid black; */
+    margin-right: 100px;
+}
