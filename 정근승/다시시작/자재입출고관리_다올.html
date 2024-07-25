@@ -81,7 +81,7 @@
                         </ul>
                     </div>
                 </li>
-                
+
                 <li class="menu-item">
                     <a href="#">품질관리</a>
                     <div class="submenu">
@@ -129,7 +129,7 @@
                 <span>자재를 입/출고 날짜 별로 조회하여 관리하는 페이지</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
-             <div class="cntdiv">
+            <div class="cntdiv">
                 <span>게시물</span>
                 <select name="cnt" id="cnt">
                     <option value="1">10개씩</option>
@@ -138,21 +138,7 @@
                     <option value="4">40개씩</option>
                     <option value="5">50개씩</option>
                 </select>
-                <!-- 정렬기준을 바꿀 select -->
-                <div>
-                    <span>정렬기준</span>
-                    <select name="cdt" id="cdt">
-                        <option value="1">번호</option>
-                        <option value="2">제품번호</option>
-                        <option value="3">LOT번호</option>
-                        <option value="4">제품명</option>
-                        <option value="5">수량</option>
-                        <option value="6">검사상태</option>
-                        <option value="7">입고날짜</option>
-                        <option value="8">출고날짜</option>
-                        <option value="9">검수자</option>
-                    </select>
-                </div>
+
                 <div class="divbtn">
                     <button class="btn">전체</button>
                     <button class="btn">검사전</button>
@@ -165,7 +151,7 @@
                     <span>날짜별 조회</span>
                     <input type="date"> ~ <input type="date" value=>
 
-                </div> 
+                </div>
 
             </div>
         </div>
@@ -175,7 +161,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>선택</th>
                         <th>번호</th>
                         <th>제품번호</th>
                         <th>LOT 번호</th>
@@ -227,118 +213,143 @@
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
                         <td>4</td>
-                        <td>00024</td>
-                        <td>SC19005</td>
-                        <td>32mm 소켓</td>
-                        <td>480</td>
-                        <td>검사전</td>
-                        <td>24.07.22</td>
-                        <td>24.07.27</td>
+                        <td>00021</td>
+                        <td>GC19002</td>
+                        <td>Pipe 16mm</td>
+                        <td>801</td>
+                        <td>검사완료</td>
+                        <td>24.07.19</td>
+                        <td>24.07.21</td>
                         <td>정근승</td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
                         <td>5</td>
-                        <td>00025</td>
-                        <td>SC19006</td>
-                        <td>32mm 소켓</td>
-                        <td>550</td>
-                        <td>검사완료</td>
-                        <td>24.07.30</td>
-                        <td>24.08.03</td>
-                        <td>김소원</td>
+                        <td>00022</td>
+                        <td>SC19003</td>
+                        <td>45° Elbow 32mm</td>
+                        <td>902</td>
+                        <td>검사중</td>
+                        <td>24.07.20</td>
+                        <td>24.07.31</td>
+                        <td>박경민</td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
                         <td>6</td>
-                        <td>00026</td>
-                        <td>SC19007</td>
-                        <td>32mm 소켓</td>
-                        <td>672</td>
-                        <td>검사완료</td>
-                        <td>24.07.31</td>
-                        <td>24.08.04</td>
-                        <td>권대호</td>
+                        <td>00023</td>
+                        <td>SC19004</td>
+                        <td>90° Elbow 48mm</td>
+                        <td>328</td>
+                        <td>검사전</td>
+                        <td>24.07.19</td>
+                        <td>24.07.25</td>
+                        <td>최영준</td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
                         <td>7</td>
-                        <td>00027</td>
-                        <td>SC19008</td>
-                        <td>32mm 소켓</td>
-                        <td>985</td>
-                        <td>검사전</td>
-                        <td>24.07.29</td>
-                        <td>24.08.02</td>
-                        <td>정다올</td>
+                        <td>00024</td>
+                        <td>SC19005</td>
+                        <td>Socket 50mm</td>
+                        <td>500</td>
+                        <td>검사완료</td>
+                        <td>24.07.21</td>
+                        <td>24.07.22</td>
+                        <td>서수찬</td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
                         <td>8</td>
-                        <td>00028</td>
-                        <td>SC19009</td>
-                        <td>32mm 소켓</td>
-                        <td>647</td>
+                        <td>00025</td>
+                        <td>SC19006</td>
+                        <td>End Cap 63mm</td>
+                        <td>700</td>
                         <td>검사중</td>
-                        <td>24.07.24</td>
-                        <td>24.08.05</td>
-                        <td>김소원</td>
+                        <td>24.07.22</td>
+                        <td>24.07.29</td>
+                        <td>김승환</td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
                         <td>9</td>
-                        <td>00029</td>
-                        <td>SC19010</td>
-                        <td>32mm 소켓</td>
-                        <td>819</td>
+                        <td>00026</td>
+                        <td>GC19007</td>
+                        <td>Pipe 75mm</td>
+                        <td>1200</td>
                         <td>검사전</td>
-                        <td>24.07.22</td>
-                        <td>24.08.02</td>
-                        <td>권대호</td>
+                        <td>24.07.23</td>
+                        <td>24.07.27</td>
+                        <td>조민정</td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
                         <td>10</td>
-                        <td>00030</td>
-                        <td>SC19011</td>
-                        <td>32mm 소켓</td>
-                        <td>258</td>
-                        <td>검사전</td>
-                        <td>24.07.22</td>
+                        <td>00027</td>
+                        <td>SC19008</td>
+                        <td>45° Elbow 90mm</td>
+                        <td>300</td>
+                        <td>검사완료</td>
+                        <td>24.07.24</td>
                         <td>24.07.28</td>
-                        <td>김소원</td>
+                        <td>김성령</td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
                         <td>11</td>
-                        <td>00031</td>
-                        <td>SC19012</td>
-                        <td>32mm 소켓</td>
-                        <td>361</td>
+                        <td>00028</td>
+                        <td>SC19009</td>
+                        <td>90° Elbow 110mm</td>
+                        <td>1500</td>
                         <td>검사중</td>
                         <td>24.07.25</td>
+                        <td>24.07.30</td>
+                        <td>박규태</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="tablechk"></td>
+                        <td>12</td>
+                        <td>00029</td>
+                        <td>SC19010</td>
+                        <td>Socket 140mm</td>
+                        <td>4500</td>
+                        <td>검사전</td>
+                        <td>24.07.26</td>
+                        <td>24.07.31</td>
+                        <td>이제섭</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="tablechk"></td>
+                        <td>13</td>
+                        <td>00030</td>
+                        <td>SC19011</td>
+                        <td>End Cap 160mm</td>
+                        <td>2600</td>
+                        <td>검사완료</td>
                         <td>24.07.27</td>
-                        <td>정근승</td>
+                        <td>24.08.01</td>
+                        <td>박규태</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        
-        
+
+
         <hr>
         <div class="pagenum">
-                    <a id="a1" href="">1</a>
-                    <a href="">2</a>
-                    <a href="">3</a>
-                    <a href="">4</a>
-                    <a href="">5</a>
-                    <a href="">6</a>
-                    <a href="">7</a>
-                </div>
-        
+            <a id="a1" href="">1</a>
+            <a href="">2</a>
+            <a href="">3</a>
+            <a href="">4</a>
+            <a href="">5</a>
+            <a href="">6</a>
+            <a href="">7</a>
+        </div>
+
 
     </div>
 
 </body>
-    <script src="calendar_nomall.js"></script>
+<script src="calendar_nomall.js"></script>
+
 </html>
