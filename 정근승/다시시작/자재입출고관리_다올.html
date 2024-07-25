@@ -140,12 +140,12 @@
                 </select>
 
                 <div class="divbtn">
-                    <button class="btn">전체</button>
-                    <button class="btn">검사전</button>
-                    <button class="btn">검사중</button>
-                    <button class="btn">검사후</button>
-                    <button class="btn">합격</button>
-                    <button class="btn">불합격</button>
+                    <button class="btn" onclick="showAllRows()">전체</button>
+                    <button class="btn" onclick="filterByStatus('검사전')">검사전</button>
+                    <button class="btn" onclick="filterByStatus('검사중')">검사중</button>
+                    <button class="btn" onclick="filterByStatus('검사후')">검사후</button>
+                    <button class="btn" onclick="filterByStatus('합격')">합격</button>
+                    <button class="btn" onclick="filterByStatus('불합격')">불합격</button>
                 </div>
                 <div>
                     <span>날짜별 조회</span>
@@ -350,6 +350,8 @@
     </div>
 
 </body>
-<script src="calendar_nomall.js"></script>
-
+    <script src="calendar_nomall.js"></script>
+    <script src="button.js"></script>
+    <script src="sort.js"></script>
+    <script src="date.js"></script>
 </html>

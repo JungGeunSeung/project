@@ -147,12 +147,12 @@
                 <!-- 검색조건을 바꿀 select -->
                 <div>
                     <div class="divbtn">
-                        <button class="btn">전체</button>
-                        <button class="btn">생산 초</button>
-                        <button class="btn">생산 중</button>
-                        <button class="btn">생산 종</button>
-                        <button class="btn">합격</button>
-                        <button class="btn">불합격</button>
+                        <button class="btn" onclick="showAllRows()">전체</button>
+                        <button class="btn" onclick="filterByStatus('초')">생산 초</button>
+                        <button class="btn" onclick="filterByStatus('중')">생산 중</button>
+                        <button class="btn" onclick="filterByStatus('종')">생산 종</button>
+                        <button class="btn" onclick="filterByStatus('합격')">합격</button>
+                        <button class="btn" onclick="filterByStatus('불합격')">불합격</button>
                     </div>
                     <div>
                     <span>날짜별 조회</span>
@@ -357,6 +357,9 @@
 
 </body>
     <script src="calendar_nomall.js"></script>
+    <script src="sort.js"></script>
+    <script src="date.js"></script>
+    <script src="button.js"></script>
     <script src="sort.js"></script>
     <script src="date.js"></script>
 </html>

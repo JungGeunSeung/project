@@ -140,12 +140,12 @@
                     <option value="5">50개씩</option>
                 </select>                
                 <div class="divbtn">
-                    <button class="btn">전체</button>
-                    <button class="btn">검사전</button>
-                    <button class="btn">검사중</button>
-                    <button class="btn">검사후</button>
-                    <button class="btn">합격</button>
-                    <button class="btn">불합격</button>
+                    <button class="btn" onclick="showAllRows()">전체</button>
+                    <button class="btn" onclick="filterByStatus('검사전')">검사전</button>
+                    <button class="btn" onclick="filterByStatus('검사중')">검사중</button>
+                    <button class="btn" onclick="filterByStatus('검사후')">검사후</button>
+                    <button class="btn" onclick="filterByStatus('합격')">합격</button>
+                    <button class="btn" onclick="filterByStatus('불합격')">불합격</button>
                 </div>
                 <div>
                     <span>날짜별 조회</span>
@@ -167,6 +167,7 @@
                         <th>품목</th>
                         <th>생산시작일</th>
                         <th>생산완료일</th>
+                        <th>생산상태</th>
                         <th>모델명</th>
                         <th>사용 원료</th>
                         <th>현 재고(EA)</th>
@@ -187,6 +188,7 @@
                         <td>2024.07.12</td>
                         <td>2024.07.15</td>
                         <td>pva-145o100</td>
+                        <td>생산완료</td>
                         <td>폴리에틸렌</td>
                         <td>50</td>
                         <td>1,000</td>
@@ -195,7 +197,7 @@
                         <td>A-12</td>
                         <td>정근승</td>
                         <td>박경민</td>
-                        <td>작업 지시서 확인</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
@@ -204,6 +206,7 @@
                         <td>2024.07.08</td>
                         <td>2024.07.12</td>
                         <td>pvt-145o80</td>
+                        <td>생산완료</td>
                         <td>폴리에틸렌</td>
                         <td>0</td>
                         <td>450</td>
@@ -212,7 +215,7 @@
                         <td>A-5</td>
                         <td>정근승</td>
                         <td>김승환</td>
-                        <td>재고 부족</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
@@ -221,6 +224,7 @@
                         <td>2024.07.10</td>
                         <td>2024.07.14</td>
                         <td>gsk-120o50</td>
+                        <td>생산완료</td>
                         <td>폴리에틸렌</td>
                         <td>30</td>
                         <td>800</td>
@@ -229,7 +233,7 @@
                         <td>B-7</td>
                         <td>김소원</td>
                         <td>최영준</td>
-                        <td>검토 완료</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
@@ -238,6 +242,7 @@
                         <td>2024.07.05</td>
                         <td>2024.07.20</td>
                         <td>val-200o150</td>
+                        <td>생산완료</td>
                         <td>폴리에틸렌</td>
                         <td>20</td>
                         <td>500</td>
@@ -246,7 +251,7 @@
                         <td>C-3</td>
                         <td>정다올</td>
                         <td>서수찬</td>
-                        <td>출고 준비 중</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
@@ -255,6 +260,7 @@
                         <td>2024.07.01</td>
                         <td>2024.07.10</td>
                         <td>seal-90o40</td>
+                        <td>생산완료</td>
                         <td>폴리에틸렌</td>
                         <td>60</td>
                         <td>1,200</td>
@@ -263,7 +269,7 @@
                         <td>D-8</td>
                         <td>김수현</td>
                         <td>김성령</td>
-                        <td>완료</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
@@ -272,6 +278,7 @@
                         <td>2024.07.07</td>
                         <td>2024.07.18</td>
                         <td>cou-150o100</td>
+                        <td>생산완료</td>
                         <td>폴리에틸렌</td>
                         <td>40</td>
                         <td>900</td>
@@ -280,7 +287,7 @@
                         <td>E-4</td>
                         <td>이상훈</td>
                         <td>조민정</td>
-                        <td>검사 대기 중</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
@@ -289,6 +296,7 @@
                         <td>2024.07.11</td>
                         <td>2024.07.17</td>
                         <td>sock-100o60</td>
+                        <td>생산완료</td>
                         <td>폴리에틸렌</td>
                         <td>15</td>
                         <td>600</td>
@@ -297,7 +305,7 @@
                         <td>G-9</td>
                         <td>김소원</td>
                         <td>김아영</td>
-                        <td>생산 중</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
@@ -306,6 +314,7 @@
                         <td>2024.07.03</td>
                         <td>2024.07.15</td>
                         <td>ende-200o50</td>
+                        <td>생산완료</td>
                         <td>폴리에틸렌</td>
                         <td>25</td>
                         <td>700</td>
@@ -314,7 +323,7 @@
                         <td>F-5</td>
                         <td>정다올</td>
                         <td>강희연</td>
-                        <td>출고 준비 중</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
@@ -323,6 +332,7 @@
                         <td>2024.07.02</td>
                         <td>2024.07.12</td>
                         <td>drain-100o80</td>
+                        <td>생산완료</td>
                         <td>폴리에틸렌</td>
                         <td>35</td>
                         <td>600</td>
@@ -331,7 +341,7 @@
                         <td>G-4</td>
                         <td>김정호</td>
                         <td>김진홍</td>
-                        <td>검사 완료</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
@@ -340,6 +350,7 @@
                         <td>2024.07.06</td>
                         <td>2024.07.16</td>
                         <td>drain-150o100</td>
+                        <td>생산완료</td>
                         <td>폴리에틸렌</td>
                         <td>45</td>
                         <td>500</td>
@@ -348,7 +359,7 @@
                         <td>B-9</td>
                         <td>김수현</td>
                         <td>김아영</td>
-                        <td>생산 중</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="tablechk"></td>
@@ -357,6 +368,7 @@
                         <td>2024.07.09</td>
                         <td>2024.07.20</td>
                         <td>tap-100o50</td>
+                        <td>생산완료</td>
                         <td>폴리에틸렌</td>
                         <td>20</td>
                         <td>700</td>
@@ -365,7 +377,7 @@
                         <td>B-5</td>
                         <td>김아영</td>
                         <td>권대호</td>
-                        <td>생산 완료</td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -388,6 +400,8 @@
     </div>
 
 </body>
-<script src="calendar_nomall.js"></script>
-
+    <script src="calendar_nomall.js"></script>
+    <script src="button.js"></script>
+    <script src="sort.js"></script>
+    <script src="date.js"></script>
 </html>
