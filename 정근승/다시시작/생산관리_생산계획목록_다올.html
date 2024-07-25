@@ -97,9 +97,7 @@
                     <div class="submenu">
                         <ul>
                             <li><a href="">생산계획목록</a></li>
-                            <li><a href="">생산계획서작성</a></li>
                             <li><a href="">작업지시목록</a></li>
-                            <li><a href="">작업지시서작성</a></li>
                             <li><a href="">생산실적</a></li>
                         </ul>
                     </div>
@@ -127,7 +125,7 @@
             <h1>생산계획서 목록</h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
-                <span>생산계획서를 조회</span> <br>
+                <span>생산계획서를 날짜별로 조회하고 관리하는 페이지</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
             <div class="cntdiv">
@@ -139,9 +137,9 @@
                     <option value="4">40개씩</option>
                     <option value="5">50개씩</option>
                 </select>
-                <!-- 검색조건을 바꿀 select -->
+                <!-- 정렬기준을 바꿀 select -->
                 <div>
-                    <span>검색조건</span>
+                    <span>정렬기준</span>
                     <select name="cdt" id="cdt">
                         <option value="1">순위</option>
                         <option value="2">정보 품명</option>
@@ -159,6 +157,14 @@
                         <option value="14">작업 책임자</option>
                     </select>
                 </div>
+                <div class="divbtn">
+                    <button class="btn">전체</button>
+                    <button class="btn">검사전</button>
+                    <button class="btn">검사중</button>
+                    <button class="btn">검사후</button>
+                    <button class="btn">합격</button>
+                    <button class="btn">불합격</button>
+                </div>
                 <div>
                     <span>날짜별 조회</span>
                     <input type="date"> ~ <input type="date" value=>
@@ -174,7 +180,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>선택</th>
                         <th>순위</th>
                         <th>품목</th>
                         <th>생산시작일</th>
@@ -193,7 +199,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
+                        <td><input type="checkbox" id="tablechk"></td> 
                         <td>1</td>
                         <td>PVC 파이프</td>
                         <td>2024.07.12</td>
@@ -386,8 +392,15 @@
 
 
 
-        <div>
-            <hr>
+        <hr>
+        <div class="pagenum">
+            <a id="a1" href="">1</a>
+            <a href="">2</a>
+            <a href="">3</a>
+            <a href="">4</a>
+            <a href="">5</a>
+            <a href="">6</a>
+            <a href="">7</a>
         </div>
 
     </div>

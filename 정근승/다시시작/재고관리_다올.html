@@ -97,9 +97,7 @@
                     <div class="submenu">
                         <ul>
                             <li><a href="">생산계획목록</a></li>
-                            <li><a href="">생산계획서작성</a></li>
                             <li><a href="">작업지시목록</a></li>
-                            <li><a href="">작업지시서작성</a></li>
                             <li><a href="">생산실적</a></li>
                         </ul>
                     </div>
@@ -127,7 +125,7 @@
             <h1>재고관리 목록</h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
-                <span>상품의 재고를 관리하는 페이지</span> <br>
+                <span>상품의 재고를 기준에 따라 조회하고 정렬해서 관리하는 페이지</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
              <div class="cntdiv">
@@ -139,9 +137,9 @@
                     <option value="4">40개씩</option>
                     <option value="5">50개씩</option>
                 </select>
-                <!-- 검색조건을 바꿀 select -->
+                <!-- 정렬기준을 바꿀 select -->
                 <div>
-                    <span>검색조건</span>
+                    <span>정렬기준</span>
                     <select name="cdt" id="cdt">
                         <option value="1">Lot번호</option>
                         <option value="2">제품 타입</option>
@@ -155,7 +153,7 @@
                         <option value="10">검사자</option>
                         
                     </select>
-                </div>
+                </div>                
                 <div>
                     <span>날짜별 조회</span>
                     <input type="date"> ~ <input type="date" value=>
@@ -387,8 +385,15 @@
         
         
         
-        <div>
-            <hr>
+        <hr>
+        <div class="pagenum">
+            <a id="a1" href="">1</a>
+            <a href="">2</a>
+            <a href="">3</a>
+            <a href="">4</a>
+            <a href="">5</a>
+            <a href="">6</a>
+            <a href="">7</a>
         </div>
 
     </div>
