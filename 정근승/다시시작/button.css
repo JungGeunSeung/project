@@ -1,5 +1,6 @@
 /* 전체 버튼에 대한 css */
 .btn {
+    display: inline;
     color: rgb(0, 11, 110);
     background-color: rgb(85, 246, 255);
     border: 0px;
@@ -24,8 +25,12 @@
 .divbtn {
     display: inline;
     /* border: 1px solid black; */
-    margin-right: 100px;
+    /* margin-right: 100px; */
     /* background-color: aqua; */
     height: 120px;
+}
+
+#startdate, #enddate {
+    height: 25px;
 }
 
