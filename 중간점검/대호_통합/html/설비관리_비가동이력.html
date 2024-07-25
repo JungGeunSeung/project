@@ -4,12 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="sidebar.css">
-    <link rel="stylesheet" href="topbar.css">
-    <link rel="stylesheet" href="calender.css">
-    <link rel="stylesheet" href="common.css">
-    <link rel="stylesheet" href="display.css">
-    <link rel="stylesheet" href="table.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/button.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/calender.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/common.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/display.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/mobile.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/sidebar.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/table.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/topbar.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/게시판.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/mobile.css">
     <title>소원을 들어주는 MES</title>
     <link rel="stylesheet" href="button.css">
 </head>
@@ -17,7 +21,7 @@
 <body>
     <!-- 사이드바 -->
     <div class="sidebar">
-        <a href="/project_kwon/test/html/main.html">
+        <a href="/중간점검/대호_통합/html/main.html">
             <img class="Logo"
                 src="https://cdn.discordapp.com/attachments/1263407024335491114/1265561412386816092/a43c6d2305345130.png?ex=66a1f569&is=66a0a3e9&hm=5b7f362c0fa64ddee21e4a2ae3f155f521b55fcaf876820eb06e9a9fcd6b19ca&"
                 alt=""></a>
@@ -31,13 +35,13 @@
 
             <div>
                 <input type="button" value="마이페이지" class="btn">
-                <input type="button" value="관리자페이지" class="btn">
+                <input type="button" value="관리자페이지" class="btn" onclick="location.href='관리자.html'">
             </div>
         </div>
 
         <div class="cal_kwon">
             <div id="calendar"></div>
-            <script src="calendar_nomall.js"></script>
+            <script src="/중간점검/대호_통합/js/calendar_nomall.js"></script>
         </div>
 
         <h3>열어본 페이지 목록</h3>
@@ -64,10 +68,10 @@
                     <div class="submenu">
                         <ul>
                             <!--하위메뉴-->
-                            <li><a href="BOM_BOM.html">BOM</a></li>
-                            <li><a href="BOM_설비코드.html">설비코드</a></li>
+                            <li><a href="정보_BOM.html">BOM</a></li>
+                            <li><a href="정보_설비코드.html">설비코드</a></li>
                             <li><a href="#">조직도</a></li>
-                            <li><a href="BOM-문서관리.html">BOM문서관리(양식서)</a></li>
+                            <li><a href="정보_BOM문서관리(양식서).html">BOM문서관리(양식서)</a></li>
                         </ul>
                     </div>
                 </li>
@@ -75,20 +79,20 @@
                     <a href="#">재고관리</a>
                     <div class="submenu">
                         <ul>
-                            <li><a href="#">자재입출고(자재관리)</a></li>
-                            <li><a href="#">재고관리</a></li>
+                            <li><a href="재고관리_자재입출고관리(자재관리).html">자재입출고(자재관리)</a></li>
+                            <li><a href="재고관리_재고관리.html">재고관리</a></li>
                             <li><a href="#">저장위치(MAP)</a></li>
                         </ul>
                     </div>
                 </li>
-                
+
                 <li class="menu-item">
                     <a href="#">품질관리</a>
                     <div class="submenu">
                         <ul>
-                            <li><a href="#">제품별 시험항목/품질기준</a></li>
-                            <li><a href="#">생산겸사현황</a></li>
-                            <li><a href="#">검사현황</a></li>
+                            <li><a href="품질관리_시험항목_품질기준.html">제품별 시험항목/품질기준</a></li>
+                            <li><a href="품질관리_생산검사현황.html">생산검사현황</a></li>
+                            <li><a href="품질관리_검사현황.html">검사현황</a></li>
                         </ul>
                     </div>
                 </li>
@@ -97,9 +101,9 @@
                     <a href="#">생산관리</a>
                     <div class="submenu">
                         <ul>
-                            <li><a href="">생산계획목록</a></li>
-                            <li><a href="">작업지시목록</a></li>
-                            <li><a href="">생산실적</a></li>
+                            <li><a href="생산관리_생산계획목록.html">생산계획목록</a></li>
+                            <li><a href="날짜별생산계획.html">작업지시목록(생산계획_권)</a></li>
+                            <li><a href="#">생산실적</a></li>
                         </ul>
                     </div>
                 </li>
@@ -109,27 +113,24 @@
                     <div class="submenu">
                         <ul>
                             <li><a href="#">공정별설비관리/수리보고서</a></li>
-                            <li><a href="#">설비고장/수리이력</a></li>
-                            <li><a href="#">비가동이력</a></li>
+                            <li><a href="설비관리_설비고장_수리이력.html">설비고장/수리이력</a></li>
+                            <li><a href="설비관리_비가동이력.html">비가동이력</a></li>
                         </ul>
                     </div>
                 </li>
-
             </ul>
         </div>
         <hr>
         <!-- 메인메뉴 아레 정보가 표시될 영역 -->
         <div class="searchID">
-            <!-- 검색어를 통해 검색할수 있는 input -->
-            <input type="text" class="search"><button class="searchbtn">검색</button>
             <!-- 해당 페이지의 제목 -->
-            <h1>문서관리(양식서)</h1>
+            <h1>비가동이력</h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
                 <span>생산계획서를 조회</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
-             <div class="cntdiv">
+            <div class="cntdiv">
                 <span>게시물</span>
                 <select name="cnt" id="cnt">
                     <option value="1">10개씩</option>
@@ -142,11 +143,16 @@
                 <div>
                     <span>정렬기준</span>
                     <select name="cdt" id="cdt">
-                        <option value="1">문서번호</option>
-                        <option value="2">문서명</option>
-                        <option value="3">부서명</option>
-                        <option value="4">다운로드</option>
-                        <option value="5">작성/개정자</option>
+                        <option value="1">번호</option>
+                        <option value="2">설비코드</option>
+                        <option value="3">설비번호</option>
+                        <option value="4">사유</option>
+                        <option value="5">위치</option>
+                        <option value="6">업체</option>
+                        <option value="7">관리자</option>
+                        <option value="8">위치</option>
+                        <option value="9">작성자</option>
+                        <option value="10">상태</option>
                     </select>
                 </div>
                 <div>
@@ -154,62 +160,49 @@
                     <input type="date" id="startdate"> ~ <input type="date" id="enddate">
                     <button class="btn">검색</button>
 
-                </div> 
+                </div>
+            </div>
+
+            <!-- 해당 목록 -->
+            <div class="tableID">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>선택</th>
+                            <th>번호</th>
+                            <th>설비코드</th>
+                            <th>설비번호</th>
+                            <th>사유</th>
+                            <th>위치</th>
+                            <th>업체</th>
+                            <th>관리자</th>
+                            <th>작성자</th>
+                            <th>상태</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
 
             </div>
-        </div>
-
-        <!-- 해당 목록 -->
-        <div class="tableID">
-            <table>
-                <thead>
-                  <tr>
-                    <th>선택</th>
-                    <th>문서번호</th>
-                    <th>문서명</th>
-                    <th>부서명</th>
-                    <th>다운로드</th>
-                    <th>작성/개정자</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>GS001</td>
-                    <td>자사 품질 기준</td>
-                    <td>품질관리 팀</td>
-                    <td>CLICK</td>
-                    <td>조민정</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>KS0012</td>
-                    <td>KS표준인증</td>
-                    <td>품질관리 팀</td>
-                    <td>CLICK</td>
-                    <td>박규태</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-        </div>
-        <div>
-            <hr>
-            <div class="pagenum">
-                <a id="a1" href="">1</a>
-                <a href="">2</a>
-                <a href="">3</a>
-                <a href="">4</a>
-                <a href="">5</a>
-                <a href="">6</a>
-                <a href="">7</a>
+            <div>
+                <hr>
+                <div class="pagenum">
+                    <a id="a1" href="">1</a>
+                    <a href="">2</a>
+                    <a href="">3</a>
+                    <a href="">4</a>
+                    <a href="">5</a>
+                    <a href="">6</a>
+                    <a href="">7</a>
+                </div>
             </div>
-        </div>
 
-    </div>
+        </div>
 
 </body>
-    <script src="calendar_nomall.js"></script>
-    <script src="sort.js"></script>
-    <script src="date.js"></script>
+<script src="/중간점검/대호_통합/js/sort.js"></script>
+<script src="/중간점검/대호_통합/js/date.js"></script>
+<script src="/중간점검/대호_통합/js/button.js"></script>
+
 </html>

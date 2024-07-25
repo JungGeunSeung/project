@@ -20,7 +20,7 @@ window.onload = function () {
                 localStorage.setItem('dataid', id.value);
                 localStorage.setItem('datapw', pw.value);
                 // 하이퍼링크로 해당 html로 이동
-                window.location.href = "Main.html";
+                window.location.href = "/project_jang/main.html";
             } else {
                 // 틀렸을때, 로그인 버튼위에 글씨를 출력
                 document.querySelector('#falseID').setAttribute('style', 'display: block')
@@ -30,19 +30,3 @@ window.onload = function () {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -15,3 +15,26 @@ body {
     padding: 20px;
     background-color: #e5e7eb;
 }
+
+.main_page {
+    padding: 0;
+    margin: 10px;
+    display: inline;
+    /* border: solid red; */
+}
+
+.main_page_kw {
+    display: flex;
+    padding: 10px;
+    margin: 10px;
+    border: solid black;
+}
+
+.main_page_kw>div {
+    padding: 10px;
+    margin: 10px;
+    width: 70%;
+    height: 500px;
+    border: solid gray;
+    overflow: scroll;
+}

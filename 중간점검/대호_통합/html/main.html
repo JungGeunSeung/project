@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/button.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/calender.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/common.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/display.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/mobile.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/sidebar.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/table.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/topbar.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/게시판.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/mobile.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <title>소원을 들어주는 MES</title>
+
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- 사이드바 -->
+    <div class="sidebar">
+        <a href="/중간점검/대호_통합/html/main.html">
+            <img class="Logo"
+                src="https://cdn.discordapp.com/attachments/1263407024335491114/1265561412386816092/a43c6d2305345130.png?ex=66a1f569&is=66a0a3e9&hm=5b7f362c0fa64ddee21e4a2ae3f155f521b55fcaf876820eb06e9a9fcd6b19ca&"
+                alt=""></a>
+
+
+        <div class="profile">
+            <img src="https://cdn.discordapp.com/attachments/1263407024335491114/1264860101810851900/images.jpeg?ex=66a16284&is=66a01104&hm=721e2a3042a0e936a94836366e7280d55f677a886e7b0d4499fccaacfdc1d1a6&"
+                alt="프로필 사진">
+            <h2>권대호</h2>
+            <p>웹 개발자</p>
+
+            <div>
+                <input type="button" value="마이페이지" class="btn">
+                <input type="button" value="관리자페이지" class="btn" onclick="location.href='관리자.html'">
+            </div>
+        </div>
+
+        <div class="cal_kwon">
+            <div id="calendar"></div>
+            <script src="/중간점검/대호_통합/js/calendar_nomall.js"></script>
+        </div>
+
+        <h3>열어본 페이지 목록</h3>
+        <ul>
+            <li>
+                <a href="#가장최근에 열어본 페이지">재고관리</a>
+            </li>
+            <li>
+                <a href="#열어본 페이지">생산관리</a>
+            </li>
+        </ul>
+
+    </div>
+
+    <!--/////////////////////////////////////////////////////////////-->
+    <!-- 메인 영역의 큰 div ->이유는 body에 flex를 적용하여 -->
+    <div class="content">
+        <div class="menu">
+            <ul>
+                <!--상위 메뉴-->
+                <li class="menu-item">
+                    <a href="#">정보/BOM</a>
+                    <div class="submenu">
+                        <ul>
+                            <!--하위메뉴-->
+                            <li><a href="정보_BOM.html">BOM</a></li>
+                            <li><a href="정보_설비코드.html">설비코드</a></li>
+                            <li><a href="#">조직도</a></li>
+                            <li><a href="정보_BOM문서관리(양식서).html">BOM문서관리(양식서)</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#">재고관리</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="재고관리_자재입출고관리(자재관리).html">자재입출고(자재관리)</a></li>
+                            <li><a href="재고관리_재고관리.html">재고관리</a></li>
+                            <li><a href="#">저장위치(MAP)</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="menu-item">
+                    <a href="#">품질관리</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="품질관리_시험항목_품질기준.html">제품별 시험항목/품질기준</a></li>
+                            <li><a href="품질관리_생산검사현황.html">생산검사현황</a></li>
+                            <li><a href="품질관리_검사현황.html">검사현황</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="menu-item">
+                    <a href="#">생산관리</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="생산관리_생산계획목록.html">생산계획목록</a></li>
+                            <li><a href="날짜별생산계획.html">작업지시목록(생산계획_권)</a></li>
+                            <li><a href="#">생산실적</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="menu-item">
+                    <a href="#">설비관리</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="#">공정별설비관리/수리보고서</a></li>
+                            <li><a href="설비관리_설비고장_수리이력.html">설비고장/수리이력</a></li>
+                            <li><a href="설비관리_비가동이력.html">비가동이력</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+        <hr>
+        <!-- 메인메뉴 아레 정보가 표시될 영역 -->
+
+        <div class="main_page">
+            <!-- <h3>현황판</h3> -->
+            <div class="main_page_kw">
+                <div class="main_page_kw2">
+                    <!-- 생산계획 -->
+                    <h1>생산계획/작업지시서</h1>
+
+
+                </div>
+                <div>
+                    <!-- 공정현황 -->
+                    <h2>공정현황</h2>
+                    <div class="container">
+                        <!-- 차트를 표시할 캔버스 요소 -->
+                        <canvas id="bar-chart" width="300" height="200"></canvas>
+                        <script src="/중간점검/대호_통합/js/chart.js"></script>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="main_page_kw">
+                <div>
+                    <!-- 품질관리 현황 -->
+                    <h1>생산실적현황</h1>
+                </div>
+                <div>
+                    <!-- 게시판 -->
+                    <!-- <h2>공지사항(게시판)</h2> -->
+
+                    <table class="table">
+                        <tr>
+                            <td colspan="5">
+                                <h2>공지사항(게시판)</h2>
+                            </td>
+                        </tr>
+                        <tr class="header">
+                            <td class="num">번호</td>
+                            <td class="title">제목</td>
+                            <td>작성자</td>
+                            <td>작성날짜</td>
+                            <td>관리</td>
+                        </tr>
+                        <tbody id="post-list"></tbody>
+                    </table>
+                    <br>
+                    <table>
+                        <tr>
+                            <td><button id="button1" onclick="location.href='add_게시판.html'">글쓰기</button></td>
+                        </tr>
+                    </table>
+                    <div id="pagination"></div>
+
+
+                    <script src="/중간점검/대호_통합/js/게시판.js"></script>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+</body>
+<script src="/중간점검/대호_통합/js/sort.js"></script>
+<script src="/중간점검/대호_통합/js/date.js"></script>
+<script src="/중간점검/대호_통합/js/button.js"></script>
+</html>

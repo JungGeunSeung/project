@@ -12,7 +12,6 @@
     display: flex;
     /* 리스트 가로방향 배치 */
     flex-direction: row;
-    /* display: inline; */
 }
 
 .menu-item {

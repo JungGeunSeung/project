@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/button.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/calender.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/common.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/display.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/mobile.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/sidebar.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/table.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/topbar.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/게시판.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/mobile.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <title>소원을 들어주는 MES</title>
+
+    <style>
+        .management_kw {
+            margin: 10px;
+            padding: 10px;
+            border: solid red;
+            margin-right: 50px;
+
+            width: 100%;
+            height: 700px;
+        }
+
+        .management_profile{
+            width: 200px;
+            height: 200px;
+            border-radius: 70%;
+            border: solid gray;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        }
+
+        .id_poto_kw {
+            width: 100%;
+            height: 120%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 사이드바 -->
+    <div class="sidebar">
+        <a href="/중간점검/대호_통합/html/main.html">
+            <img class="Logo"
+                src="https://cdn.discordapp.com/attachments/1263407024335491114/1263407039590301769/dd2e2a86195af069.png?ex=66a15f3f&is=66a00dbf&hm=a03b2b856ec9925b3eb97029fce53e36d067b6b868d55fbfb4c47022111855cc&"
+                alt=""></a>
+
+
+        <div class="profile">
+            <img src="https://cdn.discordapp.com/attachments/1263407024335491114/1264860101810851900/images.jpeg?ex=66a16284&is=66a01104&hm=721e2a3042a0e936a94836366e7280d55f677a886e7b0d4499fccaacfdc1d1a6&"
+                alt="프로필 사진">
+            <h2>권대호</h2>
+            <p>웹 개발자</p>
+
+            <div>
+                <input type="button" value="마이페이지" id="my_page_kw" class="btn">
+                <input type="button" value="관리자페이지" id="management_kw" class="btn">
+            </div>
+        </div>
+
+        <div class="cal_kwon">
+            <div id="calendar"></div>
+            <script src="calendar_nomall.js"></script>
+        </div>
+
+        <h3>열어본 페이지 목록</h3>
+        <ul>
+            <li>
+                <a href="#가장최근에 열어본 페이지">재고관리</a>
+            </li>
+            <li>
+                <a href="#열어본 페이지">생산관리</a>
+            </li>
+        </ul>
+
+    </div>
+
+    <!--/////////////////////////////////////////////////////////////-->
+    <!-- 메인 영역의 큰 div ->이유는 body에 flex를 적용하여 -->
+    <div class="content">
+        <div class="menu">
+            <ul>
+                <!--상위 메뉴-->
+                <li class="menu-item">
+                    <a href="#">정보/BOM</a>
+                    <div class="submenu">
+                        <ul>
+                            <!--하위메뉴-->
+                            <li><a href="정보_BOM.html">BOM</a></li>
+                            <li><a href="정보_설비코드.html">설비코드</a></li>
+                            <li><a href="#">조직도</a></li>
+                            <li><a href="정보_BOM문서관리(양식서).html">BOM문서관리(양식서)</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#">재고관리</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="재고관리_자재입출고관리(자재관리).html">자재입출고(자재관리)</a></li>
+                            <li><a href="재고관리_재고관리.html">재고관리</a></li>
+                            <li><a href="#">저장위치(MAP)</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="menu-item">
+                    <a href="#">품질관리</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="품질관리_시험항목_품질기준.html">제품별 시험항목/품질기준</a></li>
+                            <li><a href="품질관리_생산검사현황.html">생산검사현황</a></li>
+                            <li><a href="품질관리_검사현황.html">검사현황</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="menu-item">
+                    <a href="#">생산관리</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="생산관리_생산계획목록.html">생산계획목록</a></li>
+                            <li><a href="날짜별생산계획.html">작업지시목록(생산계획_권)</a></li>
+                            <li><a href="#">생산실적</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="menu-item">
+                    <a href="#">설비관리</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="#">공정별설비관리/수리보고서</a></li>
+                            <li><a href="설비관리_설비고장_수리이력.html">설비고장/수리이력</a></li>
+                            <li><a href="설비관리_비가동이력.html">비가동이력</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <hr>
+        <!-- 메인메뉴 아레 정보가 표시될 영역 -->
+
+
+
+        <div class="main_page">
+            <h2>관리자페이지</h2>
+
+            <div style="display: flex;">
+                <div class="management_kw">
+                    <div class="management_profile">
+                        <img class="id_poto_kw"
+                            src="https://cdn.discordapp.com/attachments/1263370478534393872/1265859815494778880/image0.jpg?ex=66a30b52&is=66a1b9d2&hm=8891df7c4bd8a492a2234356e9c7f24a098bf2c612af7852aceb5d4b008b6d42&"
+                            alt="">
+                    </div>
+
+                    <div style="display: inline; width: 300px;">
+                        <h3>권대호 / 사원</h3>
+                        <input type="button" value="수정" id="correction_kw">
+                    </div>
+
+                    <script>
+                        document.getElementById('correction_kw').addEventListener('click', function () {
+                            window.open('관리자수정.html', 'Input Form', 'width=400,height=500');
+                        });
+                    </script>
+
+                    <!-- 기존에 만든 각 개인정보를 스크립트에 전달해준다 -->
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    </div>
+
+</body>
+
+</html>
