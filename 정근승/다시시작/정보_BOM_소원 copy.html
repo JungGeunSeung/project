@@ -97,9 +97,7 @@
                     <div class="submenu">
                         <ul>
                             <li><a href="">생산계획목록</a></li>
-                            <li><a href="">생산계획서작성</a></li>
                             <li><a href="">작업지시목록</a></li>
-                            <li><a href="">작업지시서작성</a></li>
                             <li><a href="">생산실적</a></li>
                         </ul>
                     </div>
@@ -141,7 +139,7 @@
                 </select>
                 <!-- 검색조건을 바꿀 select -->
                 <div>
-                    <span>검색조건</span>
+                    <span>정렬기준</span>
                     <select name="cdt" id="cdt">
                         <option value="1">정보</option>
                         <option value="2">사용원료</option>
@@ -166,6 +164,7 @@
             <table>
                 <thead>
                   <tr>
+                    <th>선택</th>
                     <th>정보</th>
                     <th>사용원료</th>
                     <th>단위(kg)</th>
@@ -177,6 +176,7 @@
                 </thead>
                 <tbody>
                   <tr>
+                    <td><input type="checkbox" id="tablechk"></td>
                     <td>EF 16mm 45 deg Elbow</td>
                     <td>E298749</td>
                     <td>0.12</td>
@@ -186,6 +186,7 @@
                     <td>KS 품질기준</td>
                   </tr>
                   <tr>
+                    <td><input type="checkbox" id="tablechk"></td>
                     <td>EF 32mm 45 deg Elbow</td>
                     <td>E298749</td>
                     <td>0.32</td>
@@ -195,6 +196,7 @@
                     <td>KCS 인증</td>
                   </tr>
                   <tr>
+                    <td><input type="checkbox" id="tablechk"></td>
                     <td>EF 48mm 45 deg Elbow</td>
                     <td>E298749</td>
                     <td>0.41</td>
@@ -204,6 +206,7 @@
                     <td>KE인증기관</td>
                   </tr>
                   <tr>
+                    <td><input type="checkbox" id="tablechk"></td>
                     <td>EF 50mm 45 deg Elbow</td>
                     <td>E298749</td>
                     <td>0.79</td>
@@ -213,6 +216,7 @@
                     <td>GES 인증</td>
                   </tr>
                   <tr>
+                    <td><input type="checkbox" id="tablechk"></td>
                     <td>EF 63mm 45 deg Elbow</td>
                     <td>R88912</td>
                     <td>1.12</td>
@@ -222,6 +226,7 @@
                     <td>KS 품질기준</td>
                   </tr>
                   <tr>
+                    <td><input type="checkbox" id="tablechk"></td>
                     <td>EF 75mm 45 deg Elbow</td>
                     <td>R88912</td>
                     <td>1.54</td>
@@ -231,6 +236,7 @@
                     <td>KE인증기관</td>
                   </tr>
                   <tr>
+                    <td><input type="checkbox" id="tablechk"></td>
                     <td>EF 90mm 45 deg Elbow</td>
                     <td>R88912</td>
                     <td>2.16</td>
@@ -240,6 +246,7 @@
                     <td>GES 인증</td>
                   </tr>
                   <tr>
+                    <td><input type="checkbox" id="tablechk"></td>
                     <td>EF 110mm 45 deg Elbow</td>
                     <td>R88912</td>
                     <td>3.16</td>
@@ -249,6 +256,7 @@
                     <td>KS 품질기준</td>
                   </tr>
                   <tr>
+                    <td><input type="checkbox" id="tablechk"></td>
                     <td>EF 63mm soket</td>
                     <td>E92881</td>
                     <td>1.12</td>
@@ -258,6 +266,7 @@
                     <td>KCS 인증</td>
                   </tr>
                   <tr>
+                    <td><input type="checkbox" id="tablechk"></td>
                     <td>EF 90mm soket</td>
                     <td>E92881</td>
                     <td>2.16</td>
@@ -267,6 +276,7 @@
                     <td>KE인증기관</td>
                   </tr>
                   <tr>
+                    <td><input type="checkbox" id="tablechk"></td>
                     <td>EF 110mm soket</td>
                     <td>E92881</td>
                     <td>3.16</td>
@@ -276,6 +286,7 @@
                     <td>GES 인증</td>
                   </tr>
                   <tr>
+                    <td><input type="checkbox" id="tablechk"></td>
                     <td>EF 140mm soket</td>
                     <td>E92881</td>
                     <td>5.12</td>
@@ -290,6 +301,15 @@
         </div>
         <div>
             <hr>
+            <div class="pagenum">
+                <a id="a1" href="">1</a>
+                <a href="">2</a>
+                <a href="">3</a>
+                <a href="">4</a>
+                <a href="">5</a>
+                <a href="">6</a>
+                <a href="">7</a>
+            </div>
         </div>
 
     </div>
