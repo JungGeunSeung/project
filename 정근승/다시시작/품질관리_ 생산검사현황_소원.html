@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="sidebar.css">
     <link rel="stylesheet" href="topbar.css">
-    <link rel="stylesheet" href="calender.css">
+    <!-- <link rel="stylesheet" href="calender.css"> -->
     <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="display.css">
     <link rel="stylesheet" href="table.css">
-    <title>소원을 들어주는 MES</title>
     <link rel="stylesheet" href="button.css">
+    <title>소원을 들어주는 MES</title>
 </head>
 
 <body>
@@ -30,8 +30,8 @@
             <p>대표이사</p>
 
             <div>
-                <input type="button" value="마이페이지" class="btn">
-                <input type="button" value="관리자페이지" class="btn">
+                <input type="button" value="마이페이지">
+                <input type="button" value="관리자페이지">
             </div>
         </div>
 
@@ -139,19 +139,6 @@
                     <option value="5">50개씩</option>
                 </select>
                 <!-- 검색조건을 바꿀 select -->
-                <div>
-                    <span>정렬기준</span>
-                    <select name="cdt" id="cdt">
-                        <option value="1">품질기준 시험항목</option>
-                        <option value="2">번호</option>
-                        <option value="3">문서번호</option>
-                        <option value="4">문서명</option>
-                        <option value="5">작성자</option>
-                        <option value="6">생산상태</option>
-                        <option value="7">검사날짜</option>
-                        <option value="8">관리자</option>
-                    </select>
-                </div>
                 <div>
                     <div class="divbtn">
                         <button class="btn">전체</button>
@@ -329,7 +316,7 @@
                     <td></td>
                     <td></td>
                   </tr>
-                  <tr>
+                  <tr class="tabletest">
                     <td><input type="checkbox" id="tablechk"></td>
                     <td>160x90 이경티</td>
                     <td>14</td>
@@ -361,4 +348,6 @@
 
 </body>
     <script src="calendar_nomall.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="sort.js"></script>
 </html>
