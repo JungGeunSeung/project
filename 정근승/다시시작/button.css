@@ -1,10 +1,31 @@
-.searchID .btn {
-    text-align: left;
+/* 전체 버튼에 대한 css */
+.btn {
+    color: rgb(0, 11, 110);
+    background-color: rgb(85, 246, 255);
+    border: 0px;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 4px;
 }
-
+/* 버튼에 마우스 올렸을때 */
+.btn:hover {
+    background-color: rgb(174, 251, 255);
+}
+/* 버튼을 클릭했을때 */
+.btn:active {
+    background-color: rgb(18, 153, 221);
+}
+/* 컨텐츠 영역에 있는 버튼 css */
+.divbtn .btn {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+/* 컨텐츠 영역에 있는 버튼 div css */
 .divbtn {
     display: inline;
-    text-align: left;
     /* border: 1px solid black; */
     margin-right: 100px;
+    /* background-color: aqua; */
+    height: 120px;
 }
+
