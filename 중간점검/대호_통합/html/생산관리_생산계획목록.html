@@ -131,12 +131,12 @@
             <!-- 게시물의 개수를 표시할 select -->
              <div class="cntdiv">
                 <span>게시물</span>
-                <select name="cnt" id="cnt">
-                    <option value="1">10개씩</option>
-                    <option value="2">20개씩</option>
-                    <option value="3">30개씩</option>
-                    <option value="4">40개씩</option>
-                    <option value="5">50개씩</option>
+                <select name="cnt" id="cnt" onchange="changePageSize()">
+                    <option value="10">10개씩</option>
+                    <option value="20">20개씩</option>
+                    <option value="30">30개씩</option>
+                    <option value="40">40개씩</option>
+                    <option value="50">50개씩</option>
                 </select>
                 <!-- 검색조건을 바꿀 select -->
                 <div>
@@ -372,4 +372,20 @@
     <script src="/중간점검/대호_통합/js/sort.js"></script>
     <script src="/중간점검/대호_통합/js/date.js"></script>
     <script src="/중간점검/대호_통합/js/button.js"></script>
+    <script>
+        function changePageSize() {
+            var selectElement = document.getElementById('cnt');
+            var selectedValue = selectElement.value;
+            
+            var tableRows = document.querySelectorAll('.tableID tbody tr');
+            
+            tableRows.forEach(function(row, index) {
+                if (index < selectedValue) {
+                    row.style.display = ''; // 선택한 개수까지 보이게 설정
+                } else {
+                    row.style.display = 'none'; // 선택한 개수 이후는 숨기기
+                }
+            });
+        }
+    </script>
 </html>
