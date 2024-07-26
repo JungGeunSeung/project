@@ -153,7 +153,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>선택</th>
+                        <th>선택<input type="checkbox" id="allchk"></th>
                         <th>정보 품명</th>
                         <th>Lot번호</th>
                         <th>제품 타입</th>
@@ -387,20 +387,5 @@
 <script src="/중간점검/대호_통합/js/sort.js"></script>
 <script src="/중간점검/대호_통합/js/date.js"></script>
 <script src="/중간점검/대호_통합/js/button.js"></script>
-<script>
-    function changePageSize() {
-        var selectElement = document.getElementById('cnt');
-        var selectedValue = selectElement.value;
-        
-        var tableRows = document.querySelectorAll('.tableID tbody tr');
-        
-        tableRows.forEach(function(row, index) {
-            if (index < selectedValue) {
-                row.style.display = ''; // 선택한 개수까지 보이게 설정
-            } else {
-                row.style.display = 'none'; // 선택한 개수 이후는 숨기기
-            }
-        });
-    }
-</script>
+<script src="/중간점검/대호_통합/js/table.js"></script>
 </html>
