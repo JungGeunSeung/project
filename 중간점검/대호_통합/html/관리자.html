@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/중간점검/대호_통합/css/게시판.css">
     <link rel="stylesheet" href="/중간점검/대호_통합/css/mobile.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/중간점검/대호_통합/js/load_info.js"></script>
 
     <title>소원을 들어주는 MES</title>
 
@@ -22,7 +23,7 @@
         .management_kw {
             margin: 10px;
             padding: 10px;
-            border: solid red;
+            border: solid gray;
             margin-right: 50px;
 
             width: 100%;
@@ -51,25 +52,69 @@
     <div class="sidebar">
         <a href="/중간점검/대호_통합/html/main.html">
             <img class="Logo"
-                src="https://cdn.discordapp.com/attachments/1263407024335491114/1263407039590301769/dd2e2a86195af069.png?ex=66a15f3f&is=66a00dbf&hm=a03b2b856ec9925b3eb97029fce53e36d067b6b868d55fbfb4c47022111855cc&"
+                src="https://cdn.discordapp.com/attachments/1263407024335491114/1265561412386816092/a43c6d2305345130.png?ex=66a1f569&is=66a0a3e9&hm=5b7f362c0fa64ddee21e4a2ae3f155f521b55fcaf876820eb06e9a9fcd6b19ca&"
                 alt=""></a>
 
 
-        <div class="profile">
-            <img src="https://cdn.discordapp.com/attachments/1263407024335491114/1264860101810851900/images.jpeg?ex=66a16284&is=66a01104&hm=721e2a3042a0e936a94836366e7280d55f677a886e7b0d4499fccaacfdc1d1a6&"
+        <div class="profile" id="bos">
+            <img src="https://cdn.discordapp.com/attachments/1263370478534393872/1265864419951247432/20200404_170001_723.png?ex=66a3b85c&is=66a266dc&hm=bc221d1f6c06e7759b9c484c4cba5f21fab5e4aa65e7ac41ecd9d19b02584e3a&"
                 alt="프로필 사진">
-            <h2>권대호</h2>
-            <p>웹 개발자</p>
+            <h2>정근승</h2>
+            <p>대표이사</p>
+            <input type="button" value="로그아웃" class="btn" onclick="location.href='login.html'">
 
             <div>
-                <input type="button" value="마이페이지" id="my_page_kw" class="btn">
-                <input type="button" value="관리자페이지" id="management_kw" class="btn">
+                <input type="button" value="마이페이지" class="btn">
+                <input type="button" value="관리자페이지" class="btn" onclick="location.href='관리자.html'">
             </div>
         </div>
 
+        <div class="profile" id="kwon">
+            <img src="https://cdn.discordapp.com/attachments/1263370478534393872/1265859815494778880/image0.jpg?ex=66a3b412&is=66a26292&hm=f609ff69c6b202989d53b544911bf2e3277c5eb4a65a4448b1da11def599f51a&"
+                alt="프로필 사진">
+            <h2>권대호</h2>
+            <p>상무</p>
+            <input type="button" value="로그아웃" class="btn" onclick="location.href='login.html'">
+
+            <div>
+                <input type="button" value="마이페이지" class="btn">
+                <input type="button" value="관리자페이지" class="btn" onclick="location.href='관리자.html'">
+            </div>
+        </div>
+
+        <div class="profile" id="daall">
+            <img src="https://cdn.discordapp.com/attachments/1263370478534393872/1265860502869905538/394874e75ae4e04d.jpg?ex=66a3b4b6&is=66a26336&hm=a543c75cf75e5b07509185e842ce4ca6d60f0a0500511a2113c477bc54686d38&"
+                alt="프로필 사진">
+            <h2>정다올</h2>
+            <p>생산관리팀 부장</p>
+            <input type="button" value="로그아웃" class="btn" onclick="location.href='login.html'">
+
+            <div>
+                <input type="button" value="마이페이지" class="btn">
+                <input type="button" value="관리자페이지" class="btn" onclick="location.href='관리자.html'">
+            </div>
+        </div>
+
+        <div class="profile" id="sowon">
+            <img src="https://cdn.discordapp.com/attachments/1263370478534393872/1265860502869905538/394874e75ae4e04d.jpg?ex=66a3b4b6&is=66a26336&hm=a543c75cf75e5b07509185e842ce4ca6d60f0a0500511a2113c477bc54686d38&"
+                alt="프로필 사진">
+            <h2>김소원</h2>
+            <p>생산팀 부장</p>
+            <input type="button" value="로그아웃" class="btn" onclick="location.href='login.html'">
+
+            <div>
+                <input type="button" value="마이페이지" class="btn">
+                <input type="button" value="관리자페이지" class="btn" onclick="location.href='관리자.html'">
+            </div>
+        </div>
+
+
+
+
+
         <div class="cal_kwon">
             <div id="calendar"></div>
-            <script src="calendar_nomall.js"></script>
+            <script src="/중간점검/대호_통합/js/calendar_nomall.js"></script>
         </div>
 
         <h3>열어본 페이지 목록</h3>
@@ -84,6 +129,8 @@
 
     </div>
 
+    </div>
+
     <!--/////////////////////////////////////////////////////////////-->
     <!-- 메인 영역의 큰 div ->이유는 body에 flex를 적용하여 -->
     <div class="content">
@@ -95,10 +142,10 @@
                     <div class="submenu">
                         <ul>
                             <!--하위메뉴-->
-                            <li><a href="/중간점검/대호_통합/html/정보_BOM.html">BOM</a></li>
-                            <li><a href="/중간점검/대호_통합/html/정보_설비코드.html">설비코드</a></li>
-                            <li><a href="/중간점검/대호_통합/html/정보_조직도.html">조직도</a></li>
-                            <li><a href="/중간점검/대호_통합/html/정보_BOM문서관리(양식서).html">BOM문서관리(양식서)</a></li>
+                            <li><a href="정보_BOM.html">BOM</a></li>
+                            <li><a href="정보_설비코드.html">설비코드</a></li>
+                            <li><a href="정보_조직도.html">조직도</a></li>
+                            <li><a href="정보_BOM문서관리(양식서).html">BOM문서관리(양식서)</a></li>
                         </ul>
                     </div>
                 </li>
@@ -106,9 +153,9 @@
                     <a href="#">재고관리</a>
                     <div class="submenu">
                         <ul>
-                            <li><a href="/중간점검/대호_통합/html/재고관리_자재입출고관리(자재관리).html">자재입출고(자재관리)</a></li>
-                            <li><a href="/중간점검/대호_통합/html/재고관리_재고관리.html">재고관리</a></li>
-                            <li><a href="/중간점검/대호_통합/html/재고관리_저장위치(map).html">저장위치(MAP)</a></li>
+                            <li><a href="재고관리_자재입출고관리(자재관리).html">자재입출고(자재관리)</a></li>
+                            <li><a href="재고관리_재고관리.html">재고관리</a></li>
+                            <li><a href="재고관리_저장위치(map).html">저장위치(MAP)</a></li>
                         </ul>
                     </div>
                 </li>
@@ -117,9 +164,9 @@
                     <a href="#">품질관리</a>
                     <div class="submenu">
                         <ul>
-                            <li><a href="/중간점검/대호_통합/html/품질관리_시험항목_품질기준.html">제품별 시험항목/품질기준</a></li>
-                            <li><a href="/중간점검/대호_통합/html/품질관리_생산검사현황.html">생산검사현황</a></li>
-                            <li><a href="/중간점검/대호_통합/html/품질관리_검사현황.html">검사현황</a></li>
+                            <li><a href="품질관리_시험항목_품질기준.html">제품별 시험항목/품질기준</a></li>
+                            <li><a href="품질관리_생산검사현황.html">생산검사현황</a></li>
+                            <li><a href="품질관리_검사현황.html">검사현황</a></li>
                         </ul>
                     </div>
                 </li>
@@ -128,9 +175,9 @@
                     <a href="#">생산관리</a>
                     <div class="submenu">
                         <ul>
-                            <li><a href="/중간점검/대호_통합/html/생산관리_생산계획목록.html">생산계획목록</a></li>
-                            <li><a href="/중간점검/대호_통합/html/날짜별생산계획.html">작업지시목록(생산계획_권)</a></li>
-                            <li><a href="/중간점검/대호_통합/html/생산관리생산실적.html">생산실적</a></li>
+                            <li><a href="생산관리_생산계획목록.html">생산계획목록</a></li>
+                            <li><a href="날짜별생산계획.html">작업지시목록(생산계획_권)</a></li>
+                            <li><a href="#">생산실적</a></li>
                         </ul>
                     </div>
                 </li>
@@ -139,13 +186,14 @@
                     <a href="#">설비관리</a>
                     <div class="submenu">
                         <ul>
-                            <li><a href="/중간점검/대호_통합/html/설비관리공정별 설비관리">공정별설비관리/수리보고서</a></li> 
-                            <li><a href="/중간점검/대호_통합/html/설비관리_설비고장_수리이력.html">설비고장/수리이력</a></li>
-                            <li><a href="/중간점검/대호_통합/html/설비관리_비가동이력.html">비가동이력</a></li>
+                            <li><a href="#">공정별설비관리/수리보고서</a></li>
+                            <li><a href="설비관리_설비고장_수리이력.html">설비고장/수리이력</a></li>
+                            <li><a href="설비관리_비가동이력.html">비가동이력</a></li>
                         </ul>
                     </div>
                 </li>
             </ul>
+
         </div>
         <hr>
         <!-- 메인메뉴 아레 정보가 표시될 영역 -->

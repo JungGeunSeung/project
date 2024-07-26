@@ -59,16 +59,3 @@
     color: rgb(0, 140, 255);
     border-radius: 3px;
 }
-
-.shorttable table {
-    width: 60%;
-    margin: auto;
-}
-
-.summary-item{
-    background-color: rgba(167, 190, 197, 0.3);
-}
-
-.tableHI{
-    display: none;
-}

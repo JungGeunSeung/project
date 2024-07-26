@@ -14,11 +14,11 @@
 }
 
 .profile img {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 150px;
     border-radius: 10%;
-    margin-bottom: 10px;
-    padding-top: 20px;
+    margin: 10px 0;
+    /* padding-top: 20px; */
 }
 
 .profile h2 {
@@ -29,7 +29,10 @@
 .profile p {
     margin: 0;
     font-size: 1rem;
+}
 
+.profile_btn{
+    margin-top: 10px;
 }
 
 img.Logo {
@@ -40,7 +43,23 @@ img.Logo {
     margin-left: 20px;
 }
 
-.history li a {
+.history > li  a {
     color: white;
     text-decoration: none;
 }
+.profile {
+    display: none;
+}
+#bos{
+    display: none;
+}
+#kwon{
+    display: none;
+}
+#daall{
+    display: none;
+}
+#sowon {
+    display: none;
+}
+
