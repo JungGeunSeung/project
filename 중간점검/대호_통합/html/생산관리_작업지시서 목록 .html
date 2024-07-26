@@ -4,84 +4,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/project01/css/button.css">
-    <link rel="stylesheet" href="/project01/css/calender.css">
-    <link rel="stylesheet" href="/project01/css/common.css">
-    <link rel="stylesheet" href="/project01/css/display.css">
-    <link rel="stylesheet" href="/project01/css/mobile.css">
-    <link rel="stylesheet" href="/project01/css/sidebar.css">
-    <link rel="stylesheet" href="/project01/css/table.css">
-    <link rel="stylesheet" href="/project01/css/topbar.css">
-    <link rel="stylesheet" href="/project01/css/게시판.css">
-    <link rel="stylesheet" href="/project01/css/mobile.css">
-    <script src="/project01/JavaScript/load_info.js"></script>
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/button.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/calender.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/common.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/display.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/mobile.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/sidebar.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/table.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/topbar.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/게시판.css">
+    <link rel="stylesheet" href="/중간점검/대호_통합/css/mobile.css">
     <title>소원을 들어주는 MES</title>
 </head>
 
 <body>
     <!-- 사이드바 -->
     <div class="sidebar">
-        <a href="main.html">
+        <a href="/중간점검/대호_통합/html/main.html">
             <img class="Logo"
                 src="https://cdn.discordapp.com/attachments/1263407024335491114/1265561412386816092/a43c6d2305345130.png?ex=66a1f569&is=66a0a3e9&hm=5b7f362c0fa64ddee21e4a2ae3f155f521b55fcaf876820eb06e9a9fcd6b19ca&"
                 alt=""></a>
 
 
-        <div class="profile" id="bos">
-            <img src="https://cdn.discordapp.com/attachments/1263370478534393872/1265864419951247432/20200404_170001_723.png?ex=66a3b85c&is=66a266dc&hm=bc221d1f6c06e7759b9c484c4cba5f21fab5e4aa65e7ac41ecd9d19b02584e3a&"
+        <div class="profile">
+            <img src="https://cdn.discordapp.com/attachments/1263407024335491114/1264860101810851900/images.jpeg?ex=66a16284&is=66a01104&hm=721e2a3042a0e936a94836366e7280d55f677a886e7b0d4499fccaacfdc1d1a6&"
                 alt="프로필 사진">
             <h2>정근승</h2>
             <p>대표이사</p>
-            <input type="button" value="로그아웃" class="btn" onclick="location.href='login.html'">
 
-            <div class="profile_btn">
+            <div>
                 <input type="button" value="마이페이지" class="btn">
                 <input type="button" value="관리자페이지" class="btn" onclick="location.href='관리자.html'">
-            </div>
-        </div>
-
-        <div class="profile" id="kwon">
-            <img src="https://cdn.discordapp.com/attachments/1263370478534393872/1265859815494778880/image0.jpg?ex=66a3b412&is=66a26292&hm=f609ff69c6b202989d53b544911bf2e3277c5eb4a65a4448b1da11def599f51a&"
-                alt="프로필 사진">
-            <h2>권대호</h2>
-            <p>상무</p>
-
-
-            <input type="button" value="로그아웃" class="btn" onclick="location.href='login.html'">
-
-            <div class="profile_btn">
-                <input type="button" value="마이페이지" class="btn">
-                <input type="button" value="관리자페이지" class="btn" onclick="location.href='관리자.html'">
-            </div>
-        </div>
-
-        <div class="profile" id="daall">
-            <img src="https://cdn.discordapp.com/attachments/1263370478534393872/1265860502869905538/394874e75ae4e04d.jpg?ex=66a3b4b6&is=66a26336&hm=a543c75cf75e5b07509185e842ce4ca6d60f0a0500511a2113c477bc54686d38&"
-                alt="프로필 사진">
-            <h2>정다올</h2>
-            <p>생산관리팀 부장</p>
-
-            <div class="profile_btn">
-                <input type="button" value="마이페이지" class="btn">
-                <input type="button" value="로그아웃" class="btn" onclick="location.href='login.html'">
-            </div>
-        </div>
-
-        <div class="profile" id="sowon">
-            <img src="https://cdn.discordapp.com/attachments/1263370478534393872/1265862209314099221/2024-07-25_114407.png?ex=66a3b64d&is=66a264cd&hm=563589ad45c1c11569b7cd2b20bad53d7a53aad2000df9f3e14129d53eb000bd&"
-                alt="프로필 사진">
-            <h2>김소원</h2>
-            <p>생산팀 부장</p>
-
-            <div class="profile_btn">
-                <input type="button" value="마이페이지" class="btn">
-                <input type="button" value="로그아웃" class="btn" onclick="location.href='login.html'">
             </div>
         </div>
 
         <div class="cal_kwon">
             <div id="calendar"></div>
-            <script src="/project01/javascript/calendar_nomall.js"></script>
+            <script src="/중간점검/대호_통합/js/calendar_nomall.js"></script>
         </div>
 
         <h3>열어본 페이지 목록</h3>
@@ -109,7 +68,7 @@
                         <ul>
                             <!--하위메뉴-->
                             <li><a href="정보_BOM.html">BOM</a></li>
-                            <li class="manager"><a href="정보_설비코드.html">설비코드</a></li>
+                            <li><a href="정보_설비코드.html">설비코드</a></li>
                             <li><a href="정보_조직도.html">조직도</a></li>
                             <li><a href="정보_BOM문서관리(양식서).html">BOM문서관리(양식서)</a></li>
                         </ul>
@@ -120,13 +79,13 @@
                     <div class="submenu">
                         <ul>
                             <li><a href="재고관리_자재입출고관리(자재관리).html">자재입출고(자재관리)</a></li>
-                            <li class="manager"><a href="재고관리_재고관리.html">재고관리</a></li>
-                            <li><a href="재고관리_저장위치(map).html">저장위치(MAP)</a></li>
+                            <li><a href="재고관리_재고관리.html">재고관리</a></li>
+                            <li><a href="#">저장위치(MAP)</a></li>
                         </ul>
                     </div>
                 </li>
 
-                <li class="menu-item manager">
+                <li class="menu-item">
                     <a href="#">품질관리</a>
                     <div class="submenu">
                         <ul>
@@ -142,13 +101,13 @@
                     <div class="submenu">
                         <ul>
                             <li><a href="생산관리_생산계획목록.html">생산계획목록</a></li>
-                            <li><a href="생산관리_작업지시서목록.html">작업지시목록</a></li>
-                            <li><a href="생산관리_생산실적.html">생산실적</a></li>
+                            <li><a href="날짜별생산계획.html">작업지시목록(생산계획_권)</a></li>
+                            <li><a href="생산관리생산실적.html">생산실적</a></li>
                         </ul>
                     </div>
                 </li>
 
-                <li class="menu-item manager">
+                <li class="menu-item">
                     <a href="#">설비관리</a>
                     <div class="submenu">
                         <ul>
@@ -348,10 +307,10 @@
     </div>
 
 </body>
-<script src="/project01/javascript/sort.js"></script>
-<script src="/project01/javascript/date.js"></script>
-<script src="/project01/javascript/button.js"></script>
-<script src="/project01/javascript/table.js"></script>
-<script src="/project01/javascript/table.js"></script>
+<script src="/중간점검/대호_통합/js/sort.js"></script>
+<script src="/중간점검/대호_통합/js/date.js"></script>
+<script src="/중간점검/대호_통합/js/button.js"></script>
+<script src="/중간점검/대호_통합/js/table.js"></script>
+<script src="/중간점검/대호_통합/js/table.js"></script>
 
 </html>

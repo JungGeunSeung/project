@@ -1,0 +1,41 @@
+/* 캘린더 스타일 */
+#calendar {
+    width: 250px;
+    font-family: Arial, sans-serif;
+    /* border: 1px solid #000000; */
+    /* padding: 10px; */
+    margin: 0 auto;
+    box-sizing: border-box;
+    color: white;
+}
+
+.cal_kwon table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.cal_kwon table th,
+.cal_kwon table td {
+    width: calc(100%/7);
+    border: 1px solid #53b8f7;
+    padding: 3px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.cal_kwon table th {
+    background-color: #a7ddf7;
+}
+
+/* 호버 효과 추가 */
+.calendar-day:hover {
+    background-color: #219fee;
+    cursor: pointer;
+}
+
+/* 현재 날짜 스타일 */
+.today {
+    background-color: #ce79f3;
+    /* 연한 파란색 */
+}
