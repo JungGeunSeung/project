@@ -147,8 +147,9 @@
                     <div class="submenu">
                         <ul>
                             <li><a href="생산관리_생산계획목록.html">생산계획목록</a></li>
-                            <li><a href="날짜별생산계획.html">작업지시목록(생산계획_권)</a></li>
-                            <li><a href="#">생산실적</a></li>
+                            <li><a href="생산관리_작업지시서 목록 .html">작업지시목록(생산계획_권)</a></li>
+                            <li><a href="생산관리_생산실적.html">생산실적</a></li>
+                            <li><a href="생산관리_생산실적보고서.html">생산실적</a></li>
                         </ul>
                     </div>
                 </li>
@@ -176,7 +177,7 @@
                 <span>생산계획서를 조회</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
-             <div class="cntdiv">
+            <div class="cntdiv">
                 <span>게시물</span>
                 <select name="cnt" id="cnt">
                     <option value="1">10개씩</option>
@@ -201,7 +202,7 @@
                     <span>날짜별 조회</span>
                     <input type="date" id="startdate"> ~ <input type="date" id="enddate">
                     <button class="btn">검색</button>
-                </div> 
+                </div>
 
             </div>
         </div>
@@ -210,146 +211,146 @@
         <div class="tableID">
             <table>
                 <thead>
-                  <tr>
-                    <th>선택</th>
-                    <th>설비사진</th>
-                    <th>설비명</th>
-                    <th>설비설명</th>
-                    <th>설비코드</th>
-                    <th>구입날짜</th>
-                    <th>최근 수리/점검 일자</th>
-                  </tr>
+                    <tr>
+                        <th>선택</th>
+                        <th>설비사진</th>
+                        <th>설비명</th>
+                        <th>설비설명</th>
+                        <th>설비코드</th>
+                        <th>구입날짜</th>
+                        <th>최근 수리/점검 일자</th>
+                    </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>img</td>
-                    <td>사출장치</td>
-                    <td>설명서.pdf</td>
-                    <td>AC2055</td>
-                    <td>02-01-31</td>
-                    <td>22-09-21</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>img</td>
-                    <td>사출장치</td>
-                    <td>설명서.pdf</td>
-                    <td>BD2645</td>
-                    <td>02-05-04</td>
-                    <td>22-09-30</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>img</td>
-                    <td>사출장치</td>
-                    <td>설명서.pdf</td>
-                    <td>GD6823</td>
-                    <td>02-08-30</td>
-                    <td>22-10-05</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>img</td>
-                    <td>후 처리 장치</td>
-                    <td>설명서.pdf</td>
-                    <td>FE8562</td>
-                    <td>03-05-07</td>
-                    <td>22-10-15</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>img</td>
-                    <td>재단장치</td>
-                    <td>설명서.pdf</td>
-                    <td>SG5871</td>
-                    <td>03-11-04</td>
-                    <td>22-11-14</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>img</td>
-                    <td>공조장치</td>
-                    <td>설명서.pdf</td>
-                    <td>TD2245</td>
-                    <td>04-03-15</td>
-                    <td>22-11-30</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>img</td>
-                    <td>공조장치</td>
-                    <td>설명서.pdf</td>
-                    <td>SF6587</td>
-                    <td>04-06-25</td>
-                    <td>22-12-06</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>img</td>
-                    <td>재단장치</td>
-                    <td>설명서.pdf</td>
-                    <td>US3412</td>
-                    <td>05-07-31</td>
-                    <td>22-12-31</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>img</td>
-                    <td>후 처리 장치</td>
-                    <td>설명서.pdf</td>
-                    <td>EH6352</td>
-                    <td>05-12-31</td>
-                    <td>23-01-05</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>img</td>
-                    <td>후 처리 장치</td>
-                    <td>설명서.pdf</td>
-                    <td>UG31455</td>
-                    <td>06-02-26</td>
-                    <td>23-04-13</td>
-                  </tr>
-                  <tr> 
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>img</td>
-                    <td>사출장치</td>
-                    <td>설명서.pdf</td>
-                    <td>UH2365</td>
-                    <td>06-09-18</td>
-                    <td>23-05-06</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>img</td>
-                    <td>공조장치</td>
-                    <td>설명서.pdf</td>
-                    <td>OG0357</td>
-                    <td>07-11-18</td>
-                    <td>23-06-08</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>img</td>
-                    <td>후 처리 장치</td>
-                    <td>설명서.pdf</td>
-                    <td>PS5874</td>
-                    <td>08-04-28</td>
-                    <td>23-07-15</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>img</td>
-                    <td>사출장치</td>
-                    <td>설명서.pdf</td>
-                    <td>GM6473</td>
-                    <td>09-08-29</td>
-                    <td>23-08-24</td>
-                  </tr>
+                    <tr>
+                        <td><input type="checkbox" id="tablechk"></td>
+                        <td>img</td>
+                        <td>사출장치</td>
+                        <td>설명서.pdf</td>
+                        <td>AC2055</td>
+                        <td>02-01-31</td>
+                        <td>22-09-21</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="tablechk"></td>
+                        <td>img</td>
+                        <td>사출장치</td>
+                        <td>설명서.pdf</td>
+                        <td>BD2645</td>
+                        <td>02-05-04</td>
+                        <td>22-09-30</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="tablechk"></td>
+                        <td>img</td>
+                        <td>사출장치</td>
+                        <td>설명서.pdf</td>
+                        <td>GD6823</td>
+                        <td>02-08-30</td>
+                        <td>22-10-05</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="tablechk"></td>
+                        <td>img</td>
+                        <td>후 처리 장치</td>
+                        <td>설명서.pdf</td>
+                        <td>FE8562</td>
+                        <td>03-05-07</td>
+                        <td>22-10-15</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="tablechk"></td>
+                        <td>img</td>
+                        <td>재단장치</td>
+                        <td>설명서.pdf</td>
+                        <td>SG5871</td>
+                        <td>03-11-04</td>
+                        <td>22-11-14</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="tablechk"></td>
+                        <td>img</td>
+                        <td>공조장치</td>
+                        <td>설명서.pdf</td>
+                        <td>TD2245</td>
+                        <td>04-03-15</td>
+                        <td>22-11-30</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="tablechk"></td>
+                        <td>img</td>
+                        <td>공조장치</td>
+                        <td>설명서.pdf</td>
+                        <td>SF6587</td>
+                        <td>04-06-25</td>
+                        <td>22-12-06</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="tablechk"></td>
+                        <td>img</td>
+                        <td>재단장치</td>
+                        <td>설명서.pdf</td>
+                        <td>US3412</td>
+                        <td>05-07-31</td>
+                        <td>22-12-31</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="tablechk"></td>
+                        <td>img</td>
+                        <td>후 처리 장치</td>
+                        <td>설명서.pdf</td>
+                        <td>EH6352</td>
+                        <td>05-12-31</td>
+                        <td>23-01-05</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="tablechk"></td>
+                        <td>img</td>
+                        <td>후 처리 장치</td>
+                        <td>설명서.pdf</td>
+                        <td>UG31455</td>
+                        <td>06-02-26</td>
+                        <td>23-04-13</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="tablechk"></td>
+                        <td>img</td>
+                        <td>사출장치</td>
+                        <td>설명서.pdf</td>
+                        <td>UH2365</td>
+                        <td>06-09-18</td>
+                        <td>23-05-06</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="tablechk"></td>
+                        <td>img</td>
+                        <td>공조장치</td>
+                        <td>설명서.pdf</td>
+                        <td>OG0357</td>
+                        <td>07-11-18</td>
+                        <td>23-06-08</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="tablechk"></td>
+                        <td>img</td>
+                        <td>후 처리 장치</td>
+                        <td>설명서.pdf</td>
+                        <td>PS5874</td>
+                        <td>08-04-28</td>
+                        <td>23-07-15</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="tablechk"></td>
+                        <td>img</td>
+                        <td>사출장치</td>
+                        <td>설명서.pdf</td>
+                        <td>GM6473</td>
+                        <td>09-08-29</td>
+                        <td>23-08-24</td>
+                    </tr>
                 </tbody>
-              </table>
-              
+            </table>
+
         </div>
         <div>
             <hr>
@@ -370,4 +371,5 @@
 <script src="/project01/JavaScript/sort.js"></script>
 <script src="/project01/JavaScript/date.js"></script>
 <script src="/project01/JavaScript/button.js"></script>
+
 </html>
