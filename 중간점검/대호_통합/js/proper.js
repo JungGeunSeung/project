@@ -22,10 +22,13 @@ let nov = document.querySelector('#btn11')
 let ele = document.querySelector('.monthHI11월')
 let dec = document.querySelector('#btn12')
 let twe = document.querySelector('.monthHI12월')
+let HI = document.querySelector('.tableHI')
+let all = document.querySelector('#btn0')
+let All = HI;
 
-let All = null;
-
-
+all.addEventListener('click',function(){
+    HI.setAttribute('style','display:block')
+})
 jan.addEventListener('click',function(){
     if(All){
         All.setAttribute('style','display:none')
