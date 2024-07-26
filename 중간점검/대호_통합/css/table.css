@@ -10,7 +10,6 @@
 .tableID table {
     border-collapse: collapse;
     border: 1px solid black;
-    font-size: 12px;
 }
 
 .tableID th {
@@ -18,7 +17,6 @@
     color: white;
     font-size: 20px;
     border: 1px solid black;
-    font-size: 18px;
 }
 
 .tableID td {
