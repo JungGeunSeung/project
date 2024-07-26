@@ -1,21 +1,20 @@
 .table {
     margin: auto;
-    width: 400px;
     border-radius: 5px;
     border-collapse: collapse;
     border-top: none;
 }
 
 .header {
-    background-color: rgb(218, 231, 255);
+    background-color: rgb(173, 216, 230);
     text-align: center;
 }
 
 .table td,
 .table th {
-    border-bottom: 1px lightgray solid;
+    border-bottom: 1px rgb(135, 206, 250);
     height: 20px;
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .num {
@@ -35,24 +34,12 @@
 }
 
 #button1 {
-    width: 65px;
-    height: 20px;
-    font-size: 15px;
-    border: 0;
-    outline: 1.5px rgb(68, 136, 244) solid;
-    border-radius: 5px;
-    padding-left: 10px;
-    background-color: rgb(164, 199, 255);
+    margin-bottom: 10px;
 }
 
 #button1:active {
-    width: 60px;
-    height: 20px;
-    font-size: 15px;
-    border: 0;
+    border: 1px solid blue;
     border-radius: 5px;
-    outline: 1.5px rgb(27, 76, 155) solid;
-    padding-left: 10px;
     background-color: rgb(68, 136, 244);
 }
 
@@ -61,4 +48,33 @@
     font-size: 12px;
     padding: 5px 10px;
     margin-left: 5px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgb(100, 149, 237);
+    color: white;
+    cursor: pointer;
+    text-align: center;
 }
+
+.edit-btn:hover,
+.delete-btn:hover {
+    background-color: rgb(70, 130, 180);
+}
+
+#pagination {
+    background-color: rgb(240, 248, 255);
+    text-align: center; /* 중앙 정렬 */
+    margin-top: 20px; /* 상단 여백 */
+    padding: 10px; /* 내부 여백 */
+}
+
+#pagination > button {
+    background-color: inherit;
+    border: 0px;
+}
+
+#pagination > button:hover {
+    background-color: #9b9b9b;
+}
+

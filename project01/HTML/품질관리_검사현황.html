@@ -22,14 +22,14 @@
 <body>
     <!-- 사이드바 -->
     <div class="sidebar">
-        <a href="/project01/html/main.html">
+        <a href="main.html">
             <img class="Logo"
-                src="https://cdn.discordapp.com/attachments/1263407024335491114/1265561412386816092/a43c6d2305345130.png?ex=66a1f569&is=66a0a3e9&hm=5b7f362c0fa64ddee21e4a2ae3f155f521b55fcaf876820eb06e9a9fcd6b19ca&"
+                src="/project01/Image/로고.png"
                 alt=""></a>
 
 
         <div class="profile" id="bos">
-            <img src="https://cdn.discordapp.com/attachments/1263370478534393872/1265864419951247432/20200404_170001_723.png?ex=66a3b85c&is=66a266dc&hm=bc221d1f6c06e7759b9c484c4cba5f21fab5e4aa65e7ac41ecd9d19b02584e3a&"
+            <img src="/project01/Image/정근승.png"
                 alt="프로필 사진">
             <h2>정근승</h2>
             <p>대표이사</p>
@@ -42,7 +42,7 @@
         </div>
 
         <div class="profile" id="kwon">
-            <img src="https://cdn.discordapp.com/attachments/1263370478534393872/1265859815494778880/image0.jpg?ex=66a3b412&is=66a26292&hm=f609ff69c6b202989d53b544911bf2e3277c5eb4a65a4448b1da11def599f51a&"
+            <img src="/project01/Image/권대호.png"
                 alt="프로필 사진">
             <h2>권대호</h2>
             <p>상무</p>
@@ -55,7 +55,7 @@
         </div>
 
         <div class="profile" id="daall">
-            <img src="https://cdn.discordapp.com/attachments/1263370478534393872/1265860502869905538/394874e75ae4e04d.jpg?ex=66a3b4b6&is=66a26336&hm=a543c75cf75e5b07509185e842ce4ca6d60f0a0500511a2113c477bc54686d38&"
+            <img src="/project01/Image/정다올.png"
                 alt="프로필 사진">
             <h2>정다올</h2>
             <p>생산관리팀 부장</p>
@@ -67,7 +67,7 @@
         </div>
 
         <div class="profile" id="sowon">
-            <img src="https://cdn.discordapp.com/attachments/1263370478534393872/1265862209314099221/2024-07-25_114407.png?ex=66a3b64d&is=66a264cd&hm=563589ad45c1c11569b7cd2b20bad53d7a53aad2000df9f3e14129d53eb000bd&"
+            <img src="/project01/Image/김소원.png"
                 alt="프로필 사진">
             <h2>김소원</h2>
             <p>생산팀 부장</p>
@@ -170,17 +170,17 @@
             <h1>검사 현황</h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
-                <span>생산계획서를 조회</span> <br>
+                <span>품질 검사 현황을 볼 수 있는 페이지 입니다.</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
              <div class="cntdiv">
                 <span>게시물</span>
-                <select name="cnt" id="cnt">
-                    <option value="1">10개씩</option>
-                    <option value="2">20개씩</option>
-                    <option value="3">30개씩</option>
-                    <option value="4">40개씩</option>
-                    <option value="5">50개씩</option>
+                 <select name="cnt" id="cnt" onchange="changePageSize()">
+                    <option value="10">10개씩</option>
+                    <option value="20">20개씩</option>
+                    <option value="30">30개씩</option>
+                    <option value="40">40개씩</option>
+                    <option value="50" selected>50개씩</option>
                 </select>
                 <div>
                     <div class="divbtn">
@@ -192,6 +192,7 @@
                         <button class="btn">불합격</button>
                     </div>
                     <div>
+                    <button onclick="delchk()" class="btn Lbtn">선택된 열 삭제</button>
                     <span>날짜별 조회</span>
                     <input type="date" id="startdate"> ~ <input type="date" id="enddate">
                     <button class="btn">검색</button>
@@ -207,7 +208,7 @@
             <table>
                 <thead>
                   <tr>
-                    <th>선택</th>
+                    <th><input type="checkbox" id="allchk"></th>
                     <th>품질기준 시험항목</th>
                     <th>시험 개수</th>
                     <th>제품 개수</th>

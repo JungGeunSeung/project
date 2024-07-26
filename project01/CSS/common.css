@@ -3,6 +3,7 @@ body {
     font-family: Arial, sans-serif;
     display: flex;
     min-height: 100vh;
+    color: rgb(0, 51, 102);
     /* 화면 전체 높이를 최소한으로 설정 */
     margin: 0;
 }
@@ -13,7 +14,7 @@ body {
     display: inline;
     /* 오른쪽 영역이 위아레로 쌓일 수 있도록 설정 */
     padding: 20px;
-    background-color: #e5e7eb;
+    background-color: rgb(240, 248, 255);
 }
 
 .main_page {
@@ -21,13 +22,14 @@ body {
     margin: 10px;
     display: inline;
     /* border: solid red; */
+    
 }
 
 .main_page_kw {
     display: flex;
     padding: 10px;
     margin: 10px;
-    border: solid black;
+    border: solid rgb(70, 130, 180);
 }
 
 .main_page_kw>div {
@@ -35,6 +37,6 @@ body {
     margin: 10px;
     width: 70%;
     height: 500px;
-    border: solid gray;
+    border: solid rgb(100, 149, 237);
     overflow: scroll;
 }

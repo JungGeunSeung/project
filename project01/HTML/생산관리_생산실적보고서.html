@@ -21,21 +21,59 @@
 <body>
     <!-- 사이드바 -->
     <div class="sidebar">
-        <a href="/중간점검/대호_통합/html/main.html">
+        <a href="main.html">
             <img class="Logo"
-                src="https://cdn.discordapp.com/attachments/1263407024335491114/1265561412386816092/a43c6d2305345130.png?ex=66a1f569&is=66a0a3e9&hm=5b7f362c0fa64ddee21e4a2ae3f155f521b55fcaf876820eb06e9a9fcd6b19ca&"
+                src="/project01/Image/로고.png"
                 alt=""></a>
+                "/project01/Image/로고.png"
 
-
-        <div class="profile">
-            <img src="https://cdn.discordapp.com/attachments/1263407024335491114/1264860101810851900/images.jpeg?ex=66a16284&is=66a01104&hm=721e2a3042a0e936a94836366e7280d55f677a886e7b0d4499fccaacfdc1d1a6&"
+        <div class="profile" id="bos">
+            <img src="/project01/Image/정근승.png"
                 alt="프로필 사진">
             <h2>정근승</h2>
             <p>대표이사</p>
+            <input type="button" value="로그아웃" class="btn" onclick="location.href='login.html'">
 
-            <div>
+            <div class="profile_btn">
                 <input type="button" value="마이페이지" class="btn">
                 <input type="button" value="관리자페이지" class="btn" onclick="location.href='관리자.html'">
+            </div>
+        </div>
+
+        <div class="profile" id="kwon">
+            <img src="/project01/Image/권대호.png"
+                alt="프로필 사진">
+            <h2>권대호</h2>
+            <p>상무</p>
+            <input type="button" value="로그아웃" class="btn" onclick="location.href='login.html'">
+
+            <div class="profile_btn">
+                <input type="button" value="마이페이지" class="btn">
+                <input type="button" value="관리자페이지" class="btn" onclick="location.href='관리자.html'">
+            </div>
+        </div>
+
+        <div class="profile" id="daall">
+            <img src="/project01/Image/정다올.png"
+                alt="프로필 사진">
+            <h2>정다올</h2>
+            <p>생산관리팀 부장</p>
+
+            <div class="profile_btn">
+                <input type="button" value="마이페이지" class="btn">
+                <input type="button" value="로그아웃" class="btn" onclick="location.href='login.html'">
+            </div>
+        </div>
+
+        <div class="profile" id="sowon">
+            <img src="/project01/Image/김소원.png"
+                alt="프로필 사진">
+            <h2>김소원</h2>
+            <p>생산팀 부장</p>
+            
+            <div class="profile_btn">
+                <input type="button" value="마이페이지" class="btn">
+                <input type="button" value="로그아웃" class="btn" onclick="location.href='login.html'">
             </div>
         </div>
 
@@ -125,10 +163,10 @@
         <!-- 메인메뉴 아레 정보가 표시될 영역 -->
         <div class="searchID">
             <!-- 해당 페이지의 제목 -->
-            <h1>제품별 시험항목,품질기준</h1>
+            <h1>생산 실적 보고서</h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
-                <span>생산계획서를 조회</span> <br>
+                <span>생산 실적 보고서를 작성하는 페이지 입니다.</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
             <div class="cntdiv">
@@ -138,10 +176,10 @@
                     <option value="20">20개씩</option>
                     <option value="30">30개씩</option>
                     <option value="40">40개씩</option>
-                    <option value="50">50개씩</option>
+                    <option value="50" selected>50개씩</option>
                 </select>
-                <!-- 검색조건을 바꿀 select -->
                 <div>
+                    <button onclick="delchk()" class="btn Lbtn">선택된 열 삭제</button>
                     <span>날짜별 조회</span>
                     <input type="date" id="startdate"> ~ <input type="date" id="enddate">
                     <button class="btn">검색</button>

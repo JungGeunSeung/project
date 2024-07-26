@@ -22,14 +22,14 @@
 <body>
     <!-- 사이드바 -->
     <div class="sidebar">
-        <a href="/project01/html/main.html">
+        <a href="main.html">
             <img class="Logo"
-                src="https://cdn.discordapp.com/attachments/1263407024335491114/1265561412386816092/a43c6d2305345130.png?ex=66a1f569&is=66a0a3e9&hm=5b7f362c0fa64ddee21e4a2ae3f155f521b55fcaf876820eb06e9a9fcd6b19ca&"
+                src="/project01/Image/로고.png"
                 alt=""></a>
 
 
         <div class="profile" id="bos">
-            <img src="https://cdn.discordapp.com/attachments/1263370478534393872/1265864419951247432/20200404_170001_723.png?ex=66a3b85c&is=66a266dc&hm=bc221d1f6c06e7759b9c484c4cba5f21fab5e4aa65e7ac41ecd9d19b02584e3a&"
+            <img src="/project01/Image/정근승.png"
                 alt="프로필 사진">
             <h2>정근승</h2>
             <p>대표이사</p>
@@ -42,7 +42,7 @@
         </div>
 
         <div class="profile" id="kwon">
-            <img src="https://cdn.discordapp.com/attachments/1263370478534393872/1265859815494778880/image0.jpg?ex=66a3b412&is=66a26292&hm=f609ff69c6b202989d53b544911bf2e3277c5eb4a65a4448b1da11def599f51a&"
+            <img src="/project01/Image/권대호.png"
                 alt="프로필 사진">
             <h2>권대호</h2>
             <p>상무</p>
@@ -55,7 +55,7 @@
         </div>
 
         <div class="profile" id="daall">
-            <img src="https://cdn.discordapp.com/attachments/1263370478534393872/1265860502869905538/394874e75ae4e04d.jpg?ex=66a3b4b6&is=66a26336&hm=a543c75cf75e5b07509185e842ce4ca6d60f0a0500511a2113c477bc54686d38&"
+            <img src="/project01/Image/정다올.png"
                 alt="프로필 사진">
             <h2>정다올</h2>
             <p>생산관리팀 부장</p>
@@ -67,7 +67,7 @@
         </div>
 
         <div class="profile" id="sowon">
-            <img src="https://cdn.discordapp.com/attachments/1263370478534393872/1265862209314099221/2024-07-25_114407.png?ex=66a3b64d&is=66a264cd&hm=563589ad45c1c11569b7cd2b20bad53d7a53aad2000df9f3e14129d53eb000bd&"
+            <img src="/project01/Image/김소원.png"
                 alt="프로필 사진">
             <h2>김소원</h2>
             <p>생산팀 부장</p>
@@ -171,32 +171,20 @@
             <h1>BOM</h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
-                <span>생산계획서를 조회</span> <br>
+                <span>제품의 BOM을 조회하는 페이지입니다.</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
              <div class="cntdiv">
                 <span>게시물</span>
-                <select name="cnt" id="cnt">
-                    <option value="1">10개씩</option>
-                    <option value="2">20개씩</option>
-                    <option value="3">30개씩</option>
-                    <option value="4">40개씩</option>
-                    <option value="5">50개씩</option>
+                 <select name="cnt" id="cnt" onchange="changePageSize()">
+                    <option value="10">10개씩</option>
+                    <option value="20">20개씩</option>
+                    <option value="30">30개씩</option>
+                    <option value="40">40개씩</option>
+                    <option value="50" selected>50개씩</option>
                 </select>
-                <!-- 검색조건을 바꿀 select -->
                 <div>
-                    <span>정렬기준</span>
-                    <select name="cdt" id="cdt">
-                        <option value="1">정보</option>
-                        <option value="2">사용원료</option>
-                        <option value="3">단위(kg)</option>
-                        <option value="4">사용금형</option>
-                        <option value="5">사용 전선</option>
-                        <option value="6">시간</option>
-                        <option value="7">품질기준</option>
-                    </select>
-                </div>
-                <div>
+                    <button onclick="delchk()" class="btn Lbtn">선택된 열 삭제</button>
                     <span>날짜별 조회</span>
                     <input type="date" id="startdate"> ~ <input type="date" id="enddate">
                     <button class="btn">검색</button>
@@ -208,144 +196,55 @@
 
         <!-- 해당 목록 -->
         <div class="tableID">
-            <table>
-                <thead>
-                  <tr>
-                    <th>선택</th>
-                    <th>정보</th>
-                    <th>사용원료</th>
-                    <th>단위(kg)</th>
-                    <th>사용금형</th>
-                    <th>사용 전선</th>
-                    <th>시간</th>
-                    <th>품질기준</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>EF 16mm 45 deg Elbow</td>
-                    <td>E298749</td>
-                    <td>0.12</td>
-                    <td>SN0827</td>
-                    <td>0.3mm 구리</td>
-                    <td>900s</td>
-                    <td>KS 품질기준</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>EF 32mm 45 deg Elbow</td>
-                    <td>E298749</td>
-                    <td>0.32</td>
-                    <td>SN0830</td>
-                    <td>0.3mm 구리</td>
-                    <td>1000s</td>
-                    <td>KCS 인증</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>EF 48mm 45 deg Elbow</td>
-                    <td>E298749</td>
-                    <td>0.41</td>
-                    <td>SN0350</td>
-                    <td>0.3mm 구리</td>
-                    <td>1100s</td>
-                    <td>KE인증기관</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>EF 50mm 45 deg Elbow</td>
-                    <td>E298749</td>
-                    <td>0.79</td>
-                    <td>SN0400</td>
-                    <td>0.3mm 구리</td>
-                    <td>1200s</td>
-                    <td>GES 인증</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>EF 63mm 45 deg Elbow</td>
-                    <td>R88912</td>
-                    <td>1.12</td>
-                    <td>SN0158</td>
-                    <td>0.3mm 구리</td>
-                    <td>1300s</td>
-                    <td>KS 품질기준</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>EF 75mm 45 deg Elbow</td>
-                    <td>R88912</td>
-                    <td>1.54</td>
-                    <td>SN0945</td>
-                    <td>0.3mm 구리</td>
-                    <td>1400s</td>
-                    <td>KE인증기관</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>EF 90mm 45 deg Elbow</td>
-                    <td>R88912</td>
-                    <td>2.16</td>
-                    <td>SN6473</td>
-                    <td>0.3mm 구리</td>
-                    <td>1500s</td>
-                    <td>GES 인증</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>EF 110mm 45 deg Elbow</td>
-                    <td>R88912</td>
-                    <td>3.16</td>
-                    <td>SN0450</td>
-                    <td>0.3mm 구리</td>
-                    <td>1600s</td>
-                    <td>KS 품질기준</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>EF 63mm soket</td>
-                    <td>E92881</td>
-                    <td>1.12</td>
-                    <td>SN4856</td>
-                    <td>0.3mm 구리</td>
-                    <td>700s</td>
-                    <td>KCS 인증</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>EF 90mm soket</td>
-                    <td>E92881</td>
-                    <td>2.16</td>
-                    <td>SN3658</td>
-                    <td>0.3mm 구리</td>
-                    <td>800s</td>
-                    <td>KE인증기관</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>EF 110mm soket</td>
-                    <td>E92881</td>
-                    <td>3.16</td>
-                    <td>SN7651</td>
-                    <td>0.3mm 구리</td>
-                    <td>900s</td>
-                    <td>GES 인증</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>EF 140mm soket</td>
-                    <td>E92881</td>
-                    <td>5.12</td>
-                    <td>SN2654</td>
-                    <td>0.3mm 구리</td>
-                    <td>1200s</td>
-                    <td>KS 품질기준</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-        </div>
+                <table>
+                    <thead>
+                    <tr><th><input type="checkbox" id="allchk"></th><th>제품코드</th><th>제품명</th><th>규격(mm)</th><th>단가</th><th>사용원료</th><th>원료규격</th><th>단위(kg)</th><th>사용금형</th><th>사용 전선</th><th>사출시간</th><th>품질기준</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EL4563</td><td>E/F 45도 엘보</td><td>63</td><td>28000</td><td>E298749</td><td>PE100</td><td>12.3</td><td>LSF006</td><td>0.3mm 구리</td><td>920</td><td>KAB품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EL4575</td><td>E/F 45도 엘보</td><td>75</td><td>30000</td><td>E298749</td><td>PE100</td><td>10.9</td><td>LSF007</td><td>0.3mm 구리</td><td>1100</td><td>KC품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EL4590</td><td>E/F 45도 엘보</td><td>90</td><td>32000</td><td>E298749</td><td>PE100</td><td>9.0</td><td>LSF008</td><td>0.3mm 구리</td><td>1200</td><td>ISO품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EL45110</td><td>E/F 45도 엘보</td><td>110</td><td>45000</td><td>E298749</td><td>PE100</td><td>6.6</td><td>LSF009</td><td>0.3mm 구리</td><td>1430</td><td>NSF품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EL45125</td><td>E/F 45도 엘보</td><td>125</td><td>55000</td><td>E298749</td><td>PE100</td><td>4.8</td><td>LSF010</td><td>0.3mm 구리</td><td>1500</td><td>KR품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EL45140</td><td>E/F 45도 엘보</td><td>140</td><td>67000</td><td>E298749</td><td>PE100</td><td>2.9</td><td>LSF011</td><td>0.3mm 구리</td><td>1600</td><td>ISO품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EL45160</td><td>E/F 45도 엘보</td><td>160</td><td>81000</td><td>E298749</td><td>PE100</td><td>0.5</td><td>LSF012</td><td>0.3mm 구리</td><td>2100</td><td>ISO품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EL9063</td><td>E/F 90도 엘보</td><td>63</td><td>28000</td><td>E298749</td><td>PE100</td><td>12.3</td><td>LSF023</td><td>0.3mm 구리</td><td>920</td><td>FM품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EL9075</td><td>E/F 90도 엘보</td><td>75</td><td>30000</td><td>E298749</td><td>PE100</td><td>10.9</td><td>LSF024</td><td>0.3mm 구리</td><td>1100</td><td>IAF품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EL9090</td><td>E/F 90도 엘보</td><td>90</td><td>32000</td><td>E298749</td><td>PE100</td><td>9.0</td><td>LSF025</td><td>0.3mm 구리</td><td>1200</td><td>KAB품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EL90110</td><td>E/F 90도 엘보</td><td>110</td><td>45000</td><td>E298749</td><td>PE100</td><td>6.6</td><td>LSF026</td><td>0.4mm 구리</td><td>1430</td><td>KR품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EL90125</td><td>E/F 90도 엘보</td><td>125</td><td>55000</td><td>E298749</td><td>PE100</td><td>4.8</td><td>LSF027</td><td>0.4mm 구리</td><td>1500</td><td>ISO품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EL90140</td><td>E/F 90도 엘보</td><td>140</td><td>67000</td><td>E298749</td><td>PE100</td><td>2.9</td><td>LSF028</td><td>0.4mm 구리</td><td>1600</td><td>FM품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EL90160</td><td>E/F 90도 엘보</td><td>160</td><td>81000</td><td>E298749</td><td>PE100</td><td>0.5</td><td>LSF029</td><td>0.4mm 구리</td><td>2100</td><td>KSA품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>SK63</td><td>E/F 소켓</td><td>63</td><td>28000</td><td>E298749</td><td>PE100</td><td>12.3</td><td>LSF040</td><td>0.3mm 구리</td><td>920</td><td>TUV품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>SK75</td><td>E/F 소켓</td><td>75</td><td>30000</td><td>E298749</td><td>PE100</td><td>10.9</td><td>LSF041</td><td>0.3mm 구리</td><td>1100</td><td>CE품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>SK90</td><td>E/F 소켓</td><td>90</td><td>32000</td><td>E298749</td><td>PE100</td><td>9.0</td><td>LSF042</td><td>0.3mm 구리</td><td>1200</td><td>FM품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>SK110</td><td>E/F 소켓</td><td>110</td><td>45000</td><td>E298749</td><td>PE100</td><td>10.0</td><td>LSF043</td><td>0.4mm 구리</td><td>1430</td><td>CE품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>SK125</td><td>E/F 소켓</td><td>125</td><td>55000</td><td>E298749</td><td>PE100</td><td>12.0</td><td>LSF044</td><td>0.4mm 구리</td><td>1500</td><td>TUV품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>SK140</td><td>E/F 소켓</td><td>140</td><td>67000</td><td>E298749</td><td>PE100</td><td>14.0</td><td>LSF045</td><td>0.4mm 구리</td><td>1600</td><td>NSF품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>SK160</td><td>E/F 소켓</td><td>160</td><td>81000</td><td>E298749</td><td>PE100</td><td>16.0</td><td>LSF046</td><td>0.4mm 구리</td><td>2100</td><td>KC품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EC63</td><td>E/F 앤드캡</td><td>63</td><td>28000</td><td>E298749</td><td>PE100</td><td>5.0</td><td>LSF057</td><td>0.3mm 구리</td><td>920</td><td>IAF품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EC75</td><td>E/F 앤드캡</td><td>75</td><td>30000</td><td>E298749</td><td>PE100</td><td>7.0</td><td>LSF058</td><td>0.3mm 구리</td><td>1100</td><td>KAB품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EC90</td><td>E/F 앤드캡</td><td>90</td><td>32000</td><td>E298749</td><td>PE100</td><td>9.0</td><td>LSF059</td><td>0.3mm 구리</td><td>1200</td><td>KSA품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EC110</td><td>E/F 앤드캡</td><td>110</td><td>45000</td><td>E298749</td><td>PE100</td><td>10.0</td><td>LSF060</td><td>0.4mm 구리</td><td>1430</td><td>ISO품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EC125</td><td>E/F 앤드캡</td><td>125</td><td>55000</td><td>E298749</td><td>PE100</td><td>12.0</td><td>LSF061</td><td>0.4mm 구리</td><td>1500</td><td>FM품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EC140</td><td>E/F 앤드캡</td><td>140</td><td>67000</td><td>E298749</td><td>PE100</td><td>14.0</td><td>LSF062</td><td>0.4mm 구리</td><td>1600</td><td>KR품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>EC160</td><td>E/F 앤드캡</td><td>160</td><td>81000</td><td>E298749</td><td>PE100</td><td>16.0</td><td>LSF063</td><td>0.4mm 구리</td><td>2100</td><td>CE품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>RC63</td><td>E/F 레듀사</td><td>63</td><td>28000</td><td>E298749</td><td>PE100</td><td>5.0</td><td>LSF074</td><td>0.3mm 구리</td><td>920</td><td>NSF품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>RC75</td><td>E/F 레듀사</td><td>75</td><td>30000</td><td>E298749</td><td>PE100</td><td>7.0</td><td>LSF075</td><td>0.3mm 구리</td><td>1100</td><td>TUV품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>RC90</td><td>E/F 레듀사</td><td>90</td><td>32000</td><td>E298749</td><td>PE100</td><td>9.0</td><td>LSF076</td><td>0.3mm 구리</td><td>1200</td><td>KC품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>RC110</td><td>E/F 레듀사</td><td>110</td><td>45000</td><td>E298749</td><td>PE100</td><td>10.0</td><td>LSF077</td><td>0.4mm 구리</td><td>1430</td><td>IAF품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>RC125</td><td>E/F 레듀사</td><td>125</td><td>55000</td><td>E298749</td><td>PE100</td><td>12.0</td><td>LSF078</td><td>0.4mm 구리</td><td>1500</td><td>KAB품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>RC140</td><td>E/F 레듀사</td><td>140</td><td>67000</td><td>E298749</td><td>PE100</td><td>14.0</td><td>LSF079</td><td>0.4mm 구리</td><td>1600</td><td>KSA품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>RC160</td><td>E/F 레듀사</td><td>160</td><td>81000</td><td>E298749</td><td>PE100</td><td>16.0</td><td>LSF080</td><td>0.4mm 구리</td><td>2100</td><td>ISO품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>ET63</td><td>E/F 티</td><td>63</td><td>28000</td><td>E298749</td><td>PE100</td><td>5.0</td><td>LSF091</td><td>0.3mm 구리</td><td>920</td><td>FM품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>ET75</td><td>E/F 티</td><td>75</td><td>30000</td><td>E298749</td><td>PE100</td><td>7.0</td><td>LSF092</td><td>0.3mm 구리</td><td>1100</td><td>KR품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>ET90</td><td>E/F 티</td><td>90</td><td>32000</td><td>E298749</td><td>PE100</td><td>9.0</td><td>LSF093</td><td>0.3mm 구리</td><td>1200</td><td>CE품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>ET110</td><td>E/F 티</td><td>110</td><td>45000</td><td>E298749</td><td>PE100</td><td>10.0</td><td>LSF094</td><td>0.4mm 구리</td><td>1430</td><td>NSF품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>ET125</td><td>E/F 티</td><td>125</td><td>55000</td><td>E298749</td><td>PE100</td><td>12.0</td><td>LSF095</td><td>0.4mm 구리</td><td>1500</td><td>TUV품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>ET140</td><td>E/F 티</td><td>140</td><td>67000</td><td>E298749</td><td>PE100</td><td>14.0</td><td>LSF096</td><td>0.4mm 구리</td><td>1600</td><td>KC품질기준</td></tr>
+                    <tr><td><input type="checkbox" id="tablechk"></td><td>ET160</td><td>E/F 티</td><td>160</td><td>81000</td><td>E298749</td><td>PE100</td><td>16.0</td><td>LSF097</td><td>0.4mm 구리</td><td>2100</td><td>IAF품질기준</td></tr>
+                    </tbody>
+                </table>
         <div>
             <hr>
             <div class="pagenum">
@@ -365,4 +264,5 @@
 <script src="/project01/javascript/sort.js"></script>
 <script src="/project01/javascript/date.js"></script>
 <script src="/project01/javascript/button.js"></script>
+<script src="/project01/JavaScript/table.js"></script>
 </html>

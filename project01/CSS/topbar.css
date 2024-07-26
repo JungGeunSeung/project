@@ -1,6 +1,5 @@
 .menu {
-    /*메뉴바 배경생*/
-    background-color: rgb(59 130 246 / 0.5);
+    background-color: rgb(135, 206, 250 , 0.5); /* 하늘색 반투명 */
     padding: 10px;
 }
 
@@ -28,7 +27,7 @@
     /* 상위 메뉴의 가로배치 */
     display: block;
     padding: 10px 20px;
-    background-color: rgb(59 130 246 / 0.5);
+    background-color: rgb(135, 206, 250 , 0.5); /* 하늘색 배경 */
     color: #ffffff;
     /* a태그 밑줄 제거 */
     text-decoration: none;
@@ -43,7 +42,7 @@
     top: 100%;
     /* 부모요소 왼쪽에 정렬 -> 위치를 다시 지정할 필요가 있음 */
     left: 0;
-    background-color: rgb(59 130 246 / 0.5);
+    background-color: rgba(100, 149, 237 , 0.5);
     color: white;
     padding: 10px;
     border: 1px solid white;
@@ -68,7 +67,7 @@
 }
 
 .submenu li a:hover {
-    background-color: rgb(59 130 246 / 0.5);
+    background-color: rgb(0, 123, 255 / 0.5);
 }
 
 .menu-item:hover .submenu {

@@ -68,17 +68,17 @@
         function addPost(event) {
             event.preventDefault();
 
-            const title = document.getElementById('post-title').value;
-            const author = document.getElementById('post-author').value;
-            const content = document.getElementById('post-content').value;
+            let title = document.getElementById('post-title').value;
+            let author = document.getElementById('post-author').value;
+            let content = document.getElementById('post-content').value;
 
             if (!title || !author || !content) {
                 alert('모든 필드를 입력해주세요.');
                 return;
             }
 
-            const posts = JSON.parse(localStorage.getItem('posts')) || [];
-            const newPost = {
+            let posts = JSON.parse(localStorage.getItem('posts')) || [];
+            let newPost = {
                 title: title,
                 author: author,
                 content: content,

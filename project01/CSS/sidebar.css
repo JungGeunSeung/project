@@ -1,11 +1,11 @@
 .sidebar {
     width: 250px;
-    background-color: rgb(59 130 246);
     padding: 20px;
     position: sticky;
     top: 0;
     height: 100vh;
-    color: white;
+    background-color: rgb(135, 206, 250); /* 하늘색 배경 */
+    color: rgb(0, 51, 102); /* 짙은 파랑 폰트 */
 }
 
 .profile {

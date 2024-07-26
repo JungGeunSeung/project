@@ -1,8 +1,8 @@
 /* 전체 버튼에 대한 css */
 .btn {
     display: inline;
-    color: rgb(0, 11, 110);
-    background-color: rgb(85, 246, 255);
+    color: rgb(0, 51, 102);
+    background-color: rgb(173, 216, 230);
     border: 0px;
     font-size: 16px;
     padding: 5px 10px;
@@ -10,11 +10,13 @@
 }
 /* 버튼에 마우스 올렸을때 */
 .btn:hover {
-    background-color: rgb(174, 251, 255);
+    background-color: rgb(135, 206, 250);
+    border: solid 1px rgb(20, 81, 134);
+    padding: 4px 9px;
 }
 /* 버튼을 클릭했을때 */
 .btn:active {
-    background-color: rgb(18, 153, 221);
+    background-color: rgb(70, 130, 180);
 }
 /* 컨텐츠 영역에 있는 버튼 css */
 .divbtn .btn {
@@ -34,3 +36,6 @@
     height: 25px;
 }
 
+.Lbtn {
+    text-align: left;
+}

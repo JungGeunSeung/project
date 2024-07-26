@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const table = document.querySelector('.tableID > table');
-    const headers = table.querySelectorAll('th');
+    let table = document.querySelector('.tableID > table');
+    let headers = table.querySelectorAll('th');
     let currentSortColumn = -1;
     let isAscending = true;
 
@@ -11,9 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function sortTableByColumn(table, columnIndex) {
-        const tbody = table.querySelector('tbody');
-        const rowsArray = Array.from(tbody.querySelectorAll('tr'));
-        const dataType = headers[columnIndex].dataset.type;
+        let tbody = table.querySelector('tbody');
+        let rowsArray = Array.from(tbody.querySelectorAll('tr'));
+        let dataType = headers[columnIndex].dataset.type;
 
         // 기본 정렬 방향을 오름차순으로 설정
         if (currentSortColumn === columnIndex) {
@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
         currentSortColumn = columnIndex;
 
         rowsArray.sort((rowA, rowB) => {
-            const cellA = rowA.children[columnIndex].innerText.trim();
-            const cellB = rowB.children[columnIndex].innerText.trim();
+            let cellA = rowA.children[columnIndex].innerText.trim();
+            let cellB = rowB.children[columnIndex].innerText.trim();
 
             if (dataType === 'number') {
                 return isAscending ? cellA - cellB : cellB - cellA;

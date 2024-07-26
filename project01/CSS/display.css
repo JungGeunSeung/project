@@ -2,7 +2,7 @@
 
 .searchID {
     text-align: right;
-    background-color: rgba(0, 208, 255, 0.1);
+    background-color: rgba(100, 149, 237, 0.1);
 }
 
 .searchID > h1 {
@@ -10,26 +10,6 @@
     margin: 0;
     margin-left: 10px;
     
-}
-
-.search {
-    margin-top: 10px;
-    width: 200px;
-    font-size: 20px;
-    vertical-align: bottom;
-    border: 1px solid rgb(74, 74, 255);
-    
-}
-
-.searchbtn {
-    height: 28px;
-    margin: 0 10px;
-    background-color: rgb(37, 37, 221);
-    color: white;
-    border: 0;
-    font-size: 20px;
-    padding: 0px 10px;
-    text-align: center;
 }
 
 .subhead {
