@@ -68,3 +68,7 @@
 .summary-item{
     background-color: rgba(167, 190, 197, 0.3);
 }
+
+.tableHI{
+    display: none;
+}
