@@ -14,6 +14,12 @@
 
 .subhead {
     text-align: left;
+    margin: 20px;
+    display: flex;
+}
+
+.result {
+    display: flex;
 }
 
 #cnt, #cdt {
@@ -24,3 +30,27 @@
     width: 100%;
 }
 
+.resultdiv {
+    margin-bottom: 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+    background-color: rgb(240, 248, 255);
+    border: 1px solid rgb(70, 130, 180);
+}
+
+.resultdiv span {
+    display: block;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    
+}
+.searchID > span {
+    text-align: left;
+}
+.btn {
+    margin: 5px;
+}
+
+.searchID span {
+    text-align: center;
+}

@@ -15,7 +15,10 @@
     <link rel="stylesheet" href="/project01/css/게시판.css">
     <link rel="stylesheet" href="/project01/css/mobile.css">
     <script src="/project01/JavaScript/load_info.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>소원을 들어주는 MES</title>
+    <style>
+    </style>
 </head>
 
 <body>
@@ -170,11 +173,16 @@
                 <span>생산실적을 조회하는 페이지입니다.</span> <br>
             </div>
         </div>
+        <h2>생산실적 요약</h2>
+        <div class="canvasdiv">
+            <canvas id="productionChart" width="400" height="400"></canvas>
+            <canvas id="achievementChart" width="400" height="400"></canvas>
+        </div>
+        <!-- 실적 테이블 -->
         <div>
             <section id="summary">
                 <!-- 생산실적 요약 정보 -->
-                <h2>생산실적 요약</h2>
-                <div class="summary-item tableID">
+                <div class="summary-item tableID shorttable">
                     <h3>총 생산량</h3>
                     <p id="total">합계 : *****</p>
                     <table id="totaltable">
@@ -212,9 +220,9 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="summary-item tableID">
+                <div class="summary-item tableID shorttable">
                     <h3>목표 달성률</h3>
-                    <p id="monavg">금년도 평균 월별 달성률 : **%</p>
+                    <p id="monavg"></p>
                     <table id="montable">
                         <thead>
                             <tr>
@@ -252,7 +260,7 @@
                 </div>
                 <div class="summary-item tableID shorttable">
                     <h3>이번 주 생산량</h3>
-                    <p id="weekavg">이번주 평균 생산 달성률 : **%</p>
+                    <p id="weekavg"></p>
                     <table id="weektable">
                         <thead>
                             <tr>
@@ -284,7 +292,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="summary-item tableID ">
+                <div class="summary-item tableID shorttable ">
                     <h3>주요 제품별 생산량</h3>
                     <table>
                         <thead>
@@ -413,7 +421,7 @@
             <div class="summary-item tableID shorttable">
                 <section id="details">
                     <h3>상세 제품별 생산실적</h3>
-                    <table>
+                    <table style="width: 100%; text-align: center;">
                         <thead>
                             <tr>
                                 <th>날짜</th>
@@ -551,6 +559,7 @@
 <script src="/project01/javascript/date.js"></script>
 <script src="/project01/javascript/button.js"></script>
 <script src="/project01/javascript/table.js"></script>
-<script src="/project01/javascript/table.js"></script>
+<script src="/project01/JavaScript/performance.js"></script>
+<script src="/project01/JavaScript/perchart.js"></script>
 
 </html>

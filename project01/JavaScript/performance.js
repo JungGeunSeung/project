@@ -19,5 +19,5 @@ function avg(selector) {
 
 document.getElementById("total").innerText ="총 생산량 : " + avg('#totaltable');
 document.getElementById("monavg").innerText = avg('#montable') + "%";
-document.getElementById("weekavg").innerText = avg('#weektable');
+// document.getElementById("weekavg").innerText = avg('#weektable');
 document.getElementById("mongrowavg").innerText = avg('#mongrowtable').toFixed(2) + '%';

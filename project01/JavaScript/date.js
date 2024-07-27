@@ -1,3 +1,4 @@
+// 인풋 타입 데이트 타입에 태그에 현재 날짜와 일주일 전을 표시하게 하는 함수
 function getTodayDate() {
     let today = new Date();
     let year = today.getFullYear();

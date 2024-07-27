@@ -63,3 +63,8 @@
 .tableHI {
     display: none;
 }
+
+.shorttable {
+    width: 85%;
+    margin: auto;
+}

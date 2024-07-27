@@ -1,3 +1,4 @@
+// 버튼 클릭시 전달인자에 해당하는 열이 있는 테이블의 열만 보여주는 함수
 function filterByStatus(status) {
     let tableRows = document.querySelectorAll('.tableID tbody tr');
     
@@ -10,6 +11,8 @@ function filterByStatus(status) {
         }
     });
 }
+
+// 모든 행을 보이게 하는 함수
 function showAllRows() {
 let tableRows = document.querySelectorAll('.tableID tbody tr');
 
