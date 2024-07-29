@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="/project01/css/mobile.css">
     <script src="/project01/javascript/load_info.js"></script>
     <title>소원을 들어주는 MES</title>
-    <link rel="stylesheet" href="button.css">
 </head>
 
 <body>
@@ -177,7 +176,7 @@
             <!-- 게시물의 개수를 표시할 select -->
              <div class="cntdiv">
                 <span>게시물</span>
-                 <select name="cnt" id="cnt" onchange="changePageSize()">
+                 <select name="cnt" id="cnt" onchange="cps()">
                     <option value="10">10개씩</option>
                     <option value="20">20개씩</option>
                     <option value="30">30개씩</option>
@@ -261,9 +260,9 @@
 
     </div>
 
+    <script src="/project01/JavaScript/table.js"></script>
+    <script src="/project01/javascript/sort.js"></script>
+    <script src="/project01/javascript/date.js"></script>
+    <script src="/project01/javascript/button.js"></script>
 </body>
-<script src="/project01/javascript/sort.js"></script>
-<script src="/project01/javascript/date.js"></script>
-<script src="/project01/javascript/button.js"></script>
-<script src="/project01/JavaScript/table.js"></script>
 </html>
