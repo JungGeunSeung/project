@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>글쓰기</title>
     <style>
-        body {
-            background-color: rgb(135, 206, 250, 0.5);
-        }
         table {
             margin: auto;
         }
+
         input[type="text"] {
             border: 1.5px rgb(68, 136, 244) solid;
             width: 500px;
             height: 30px;
             border-radius: 5px;
             padding-left: 10px;
-            background-color: inherit;
         }
+
         textarea {
             border: 1.5px rgb(68, 136, 244) solid;
             width: 500px;
@@ -27,11 +26,12 @@
             padding-left: 10px;
             padding-top: 10px;
             resize: none;
-            background-color: inherit;
         }
+
         .header {
             height: 30px;
         }
+
         input[type="submit"] {
             width: 100px;
             height: 40px;
@@ -42,6 +42,7 @@
             padding-left: 10px;
             background-color: rgb(164, 199, 255);
         }
+
         input[type="submit"]:active {
             width: 100px;
             height: 40px;
@@ -52,31 +53,38 @@
             padding-left: 10px;
             background-color: rgb(68, 136, 244);
         }
-
-        img {
-            width: 100%;
-        }
-        
-        .divimg {
-            margin: auto;
-            width: 200px;
-        }
     </style>
 </head>
+
 <body>
-    <div class="divimg">
-        <img src="/project01/Image/로고.png" alt="">
-    </div>
     <form id="post-form">
-        <table> 
-            <tr><td><h2>글쓰기</h2></td></tr>
-            <tr><td class="header">제목</td></tr>
-            <tr><td><input type="text" id="post-title" placeholder="제목을 입력하세요"></td></tr>
-            <tr><td class="header">작성자</td></tr>
-            <tr><td><input type="text" id="post-author" placeholder="작성자를 입력하세요"></td></tr>
-            <tr><td class="header">내용</td></tr>
-            <tr><td><textarea id="post-content" placeholder="내용을 입력하세요"></textarea></td></tr>
-            <tr><td><input type="submit" value="등록"></td></tr>
+        <table>
+            <tr>
+                <td>
+                    <h2>글쓰기</h2>
+                </td>
+            </tr>
+            <tr>
+                <td class="header">제목</td>
+            </tr>
+            <tr>
+                <td><input type="text" id="post-title" placeholder="제목을 입력하세요"></td>
+            </tr>
+            <tr>
+                <td class="header">작성자</td>
+            </tr>
+            <tr>
+                <td><input type="text" id="post-author" placeholder="작성자를 입력하세요"></td>
+            </tr>
+            <tr>
+                <td class="header">내용</td>
+            </tr>
+            <tr>
+                <td><textarea id="post-content" placeholder="내용을 입력하세요"></textarea></td>
+            </tr>
+            <tr>
+                <td><input type="submit" id="save-btn1" value="등록"></td>
+            </tr>
         </table>
     </form>
 
@@ -111,6 +119,14 @@
 
         // 폼 제출 시 addPost 함수 호출
         document.getElementById('post-form').addEventListener('submit', addPost);
+
+
+        document.getElementById('save-btn1').addEventListener('click', function () {
+            opener.parent.location.reload();
+            window.close();
+            alert("등록이 완료되었습니다.");
+        })
     </script>
 </body>
+
 </html>
