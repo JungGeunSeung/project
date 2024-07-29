@@ -150,6 +150,7 @@
                             <li><a href="생산관리_생산계획목록.html">생산계획목록</a></li>
                             <li><a href="생산관리_작업지시서목록.html">작업지시목록</a></li>
                             <li><a href="생산관리_생산실적.html">생산실적</a></li>
+                            <li><a href="생산관리_생산실적보고서.html">생산실적보고서</a></li>
                         </ul>
                     </div>
                 </li>
@@ -189,12 +190,12 @@
                 </select>
                 <div>
                     <div class="divbtn">
-                        <button class="btn" onclick="showAllRows()">전체</button>
-                        <button class="btn" onclick="filterByStatus('초')">생산 초</button>
-                        <button class="btn" onclick="filterByStatus('중')">생산 중</button>
-                        <button class="btn" onclick="filterByStatus('종')">생산 종</button>
-                        <button class="btn" onclick="filterByStatus('합격')">합격</button>
-                        <button class="btn" onclick="filterByStatus('불합격')">불합격</button>
+                        <button class="btn" onclick="all()">전체</button>
+                        <button class="btn" onclick="filter('초')">생산 초</button>
+                        <button class="btn" onclick="filter('중')">생산 중</button>
+                        <button class="btn" onclick="filter('종')">생산 종</button>
+                        <button class="btn" onclick="filter('합격')">합격</button>
+                        <button class="btn" onclick="filter('불합격')">불합격</button>
                     </div>
                     <div>
                     <button onclick="delchk()" class="btn Lbtn">선택된 열 삭제</button>

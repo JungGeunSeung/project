@@ -44,16 +44,15 @@ document.addEventListener('click', function() {
     all.checked = allChecked;
 });
 
-
 // 게시물의 개수를 조정하여 표시하는 이벤트
 function changePageSize() {
-    let selectElement = document.getElementById('cnt');
-    let selectedValue = selectElement.value;
+    let select = document.getElementById('cnt');
+    let Value = select.value;
     
-    let tableRows = document.querySelectorAll('.tableID tbody tr');
+    let table = document.querySelectorAll('.tableID tbody tr');
     
-    tableRows.forEach(function(row, index) {
-        if (index < selectedValue) {
+    table.forEach(function(row, index) {
+        if (index < Value) {
             row.style.display = ''; // 선택한 개수까지 보이게 설정
         } else {
             row.style.display = 'none'; // 선택한 개수 이후는 숨기기
@@ -65,8 +64,11 @@ function delchk() {
     // 체크된 체크박스를 찾고, 해당 행을 삭제
     let checkboxes = document.querySelectorAll('.tableID tbody input[type="checkbox"]:checked');
 
-    checkboxes.forEach(checkbox => {
-        // 체크박스의 부모의 부모 요소를 삭제 (tr 요소)
-        checkbox.closest('tr').remove();
-    });
+    if(confirm("정말로 삭제하시겠습니까?")){
+
+        checkboxes.forEach(checkbox => {
+            // 체크박스의 부모의 부모 요소를 삭제 (tr 요소)
+            checkbox.closest('tr').remove();
+        });
+    }
 }

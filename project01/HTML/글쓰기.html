@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>글쓰기</title>
     <style>
+        body {
+            background-color: rgb(135, 206, 250, 0.5);
+        }
         table {
             margin: auto;
         }
@@ -14,6 +17,7 @@
             height: 30px;
             border-radius: 5px;
             padding-left: 10px;
+            background-color: inherit;
         }
         textarea {
             border: 1.5px rgb(68, 136, 244) solid;
@@ -23,6 +27,7 @@
             padding-left: 10px;
             padding-top: 10px;
             resize: none;
+            background-color: inherit;
         }
         .header {
             height: 30px;
@@ -47,9 +52,21 @@
             padding-left: 10px;
             background-color: rgb(68, 136, 244);
         }
+
+        img {
+            width: 100%;
+        }
+        
+        .divimg {
+            margin: auto;
+            width: 200px;
+        }
     </style>
 </head>
 <body>
+    <div class="divimg">
+        <img src="/project01/Image/로고.png" alt="">
+    </div>
     <form id="post-form">
         <table> 
             <tr><td><h2>글쓰기</h2></td></tr>
