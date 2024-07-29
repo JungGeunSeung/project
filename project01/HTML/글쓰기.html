@@ -8,6 +8,7 @@
     <style>
         table {
             margin: auto;
+            border-bottom: 1px solid gray;
         }
 
         input[type="text"] {
@@ -68,19 +69,19 @@
                 <td class="header">제목</td>
             </tr>
             <tr>
-                <td><input type="text" id="post-title" placeholder="제목을 입력하세요"></td>
+                <td><input type="text" id="ptitle" placeholder="제목을 입력하세요"></td>
             </tr>
             <tr>
                 <td class="header">작성자</td>
             </tr>
             <tr>
-                <td><input type="text" id="post-author" placeholder="작성자를 입력하세요"></td>
+                <td><input type="text" id="paut" placeholder="작성자를 입력하세요"></td>
             </tr>
             <tr>
                 <td class="header">내용</td>
             </tr>
             <tr>
-                <td><textarea id="post-content" placeholder="내용을 입력하세요"></textarea></td>
+                <td><textarea id="pcontent" placeholder="내용을 입력하세요"></textarea></td>
             </tr>
             <tr>
                 <td><input type="submit" id="save-btn1" value="등록"></td>
@@ -93,9 +94,9 @@
         function addPost(event) {
             event.preventDefault();
 
-            let title = document.getElementById('post-title').value;
-            let author = document.getElementById('post-author').value;
-            let content = document.getElementById('post-content').value;
+            let title = document.getElementById('ptitle').value;
+            let author = document.getElementById('paut').value;
+            let content = document.getElementById('pcontent').value;
 
             if (!title || !author || !content) {
                 alert('모든 필드를 입력해주세요.');

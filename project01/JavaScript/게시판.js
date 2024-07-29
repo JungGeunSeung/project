@@ -3,7 +3,7 @@ let currentPage = 1; // 현재 페이지 번호를 설정
 
 // 로컬스토리지에서 게시글 목록을 불러와서 화면에 표시하는 함수
 function loadPosts() {
-    let postList = document.getElementById('post-list'); // 게시글 목록을 표시할 HTML 요소를 선택
+    let postList = document.getElementById('list'); // 게시글 목록을 표시할 HTML 요소를 선택
     postList.innerHTML = ''; // 게시글 목록을 비움
 
     let posts = JSON.parse(localStorage.getItem('posts')) || []; // 로컬스토리지에서 게시글을 불러오거나, 없으면 빈 배열을 사용
@@ -20,7 +20,7 @@ function loadPosts() {
         numCell.textContent = startIndex + index + 1; // 셀에 번호를 설정
 
         let titleCell = document.createElement('td'); // 제목을 표시할 셀을 생성
-        titleCell.className = 'title'; // 셀에 클래스를 설정
+        titleCell.className = 'title comm'; // 셀에 클래스를 설정
         titleCell.textContent = post.title; // 셀에 제목을 설정
 
         let authorCell = document.createElement('td'); // 작성자를 표시할 셀을 생성
@@ -100,9 +100,12 @@ function editPost(index) {
     }
 }
 
-//게시글 댓글을 함수
+//게시글 댓글 함수
 function comment_btn(index){
     let new_comment = prompt('댓글을 입력하세요', )
+    let comment = document.querySelector('comm')
+    comment.appendChild();
+    comment.createElement('td')
 
 }
 
