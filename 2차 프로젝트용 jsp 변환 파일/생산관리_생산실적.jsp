@@ -1,0 +1,572 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/project_second/assets/CSS/button.css">
+    <link rel="stylesheet" href="/project_second/assets/CSS/calender.css">
+    <link rel="stylesheet" href="/project_second/assets/CSS/common.css">
+    <link rel="stylesheet" href="/project_second/assets/CSS/display.css">
+    <link rel="stylesheet" href="/project_second/assets/CSS/mobile.css">
+    <link rel="stylesheet" href="/project_second/assets/CSS/sidebar.css">
+    <link rel="stylesheet" href="/project_second/assets/CSS/table.css">
+    <link rel="stylesheet" href="/project_second/assets/CSS/topbar.css">
+    <link rel="stylesheet" href="/project_second/assets/CSS/게시판.css">
+    <link rel="stylesheet" href="/project_second/assets/CSS/mobile.css">
+    <script src="/project_second/assets/JavaScript/load_info.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>소원을 들어주는 MES</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <!-- 사이드바 -->
+    <div class="sidebar">
+        <a href="main.html">
+            <img class="Logo"
+                src="/project_second/assets/Image/로고.png"
+                alt=""></a>
+
+
+        <div class="profile" id="bos">
+            <img src="/project_second/assets/Image/정근승.png"
+                alt="프로필 사진">
+            <h2>정근승</h2>
+            <p>대표이사</p>
+            <input type="button" value="로그아웃" class="btn" onclick="location.href='login.html'">
+
+            <div class="profile_btn">
+                <input type="button" value="마이페이지" class="btn">
+                <input type="button" value="관리자페이지" class="btn" onclick="location.href='관리자.html'">
+            </div>
+        </div>
+
+        <div class="profile" id="kwon">
+            <img src="/project_second/assets/Image/권대호.png"
+                alt="프로필 사진">
+            <h2>권대호</h2>
+            <p>상무</p>
+
+
+            <input type="button" value="로그아웃" class="btn" onclick="location.href='login.html'">
+
+            <div class="profile_btn">
+                <input type="button" value="마이페이지" class="btn">
+                <input type="button" value="관리자페이지" class="btn" onclick="location.href='관리자.html'">
+            </div>
+        </div>
+
+        <div class="profile" id="daall">
+            <img src="/project_second/assets/Image/정다올.png"
+                alt="프로필 사진">
+            <h2>정다올</h2>
+            <p>생산관리팀 부장</p>
+
+            <div class="profile_btn">
+                <input type="button" value="마이페이지" class="btn">
+                <input type="button" value="로그아웃" class="btn" onclick="location.href='login.html'">
+            </div>
+        </div>
+
+        <div class="profile" id="sowon">
+            <img src="/project_second/assets/Image/김소원.png"
+                alt="프로필 사진">
+            <h2>김소원</h2>
+            <p>생산팀 부장</p>
+
+            <div class="profile_btn">
+                <input type="button" value="마이페이지" class="btn">
+                <input type="button" value="로그아웃" class="btn" onclick="location.href='login.html'">
+            </div>
+        </div>
+
+        <div class="cal_kwon">
+            <div id="calendar"></div>
+            <script src="/project_second/assets/JavaScript/calendar_nomall.js"></script>
+        </div>
+
+        <h3>열어본 페이지 목록</h3>
+        <ul class="history">
+            <li>
+                <a href="#가장최근에 열어본 페이지">재고관리</a>
+            </li>
+            <li>
+                <a href="#열어본 페이지">생산관리</a>
+            </li>
+        </ul>
+
+    </div>
+
+    <!--/////////////////////////////////////////////////////////////-->
+    <!-- 메인 영역의 큰 div ->이유는 body에 flex를 적용하여 -->
+    <div class="content">
+        <!--메뉴바-->
+        <div class="menu">
+            <ul>
+                <!--상위 메뉴-->
+                <li class="menu-item">
+                    <a href="#">정보/BOM</a>
+                    <div class="submenu">
+                        <ul>
+                            <!--하위메뉴-->
+                            <li><a href="정보_BOM.html">BOM</a></li>
+                            <li class="manager"><a href="정보_설비코드.html">설비코드</a></li>
+                            <li><a href="정보_조직도.html">조직도</a></li>
+                            <li><a href="정보_BOM문서관리(양식서).html">BOM문서관리(양식서)</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#">재고관리</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="재고관리_자재입출고관리(자재관리).html">자재입출고(자재관리)</a></li>
+                            <li class="manager"><a href="재고관리_재고관리.html">재고관리</a></li>
+                            <li><a href="재고관리_저장위치(map).html">저장위치(MAP)</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="menu-item manager">
+                    <a href="#">품질관리</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="품질관리_시험항목_품질기준.html">제품별 시험항목/품질기준</a></li>
+                            <li><a href="품질관리_생산검사현황.html">생산검사현황</a></li>
+                            <li><a href="품질관리_검사현황.html">검사현황</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="menu-item">
+                    <a href="#">생산관리</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="생산관리_생산계획목록.html">생산계획목록</a></li>
+                            <li><a href="생산관리_작업지시서목록.html">작업지시목록</a></li>
+                            <li><a href="생산관리_생산실적.html">생산실적</a></li>
+                            <li><a href="생산관리_생산실적보고서.html">생산실적보고서</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="menu-item manager">
+                    <a href="#">설비관리</a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="설비관리_공정별설비관리.html">공정별설비관리/수리보고서</a></li>
+                            <li><a href="설비관리_설비고장_수리이력.html">설비고장/수리이력</a></li>
+                            <li><a href="설비관리_비가동이력.html">비가동이력</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <hr>
+        <!-- 메인메뉴 아레 정보가 표시될 영역 -->
+        <div class="searchID">
+            <!-- 해당 페이지의 제목 -->
+            <h1>생산실적</h1>
+            <!-- 해당 페이지의 설명 -->
+            <div class="subhead">
+                <span>생산실적을 조회하는 페이지입니다.</span> <br>
+            </div>
+        </div>
+        <h2>생산실적 요약</h2>
+        <div class="canvasdiv">
+            <canvas id="productionChart" width="400" height="400"></canvas>
+            <canvas id="achievementChart" width="400" height="400"></canvas>
+        </div>
+        <!-- 실적 테이블 -->
+        <div>
+            <section id="summary">
+                <!-- 생산실적 요약 정보 -->
+                <div class="summary-item tableID shorttable">
+                    <h3>총 생산량</h3>
+                    <p id="total">합계 : *****</p>
+                    <table id="totaltable">
+                        <thead>
+                            <tr>
+                                <th>1월</th>
+                                <th>2월</th>
+                                <th>3월</th>
+                                <th>4월</th>
+                                <th>5월</th>
+                                <th>6월</th>
+                                <th>7월</th>
+                                <th>8월</th>
+                                <th>9월</th>
+                                <th>10월</th>
+                                <th>11월</th>
+                                <th>12월</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>5180</td>
+                                <td>3250</td>
+                                <td>4680</td>
+                                <td>5190</td>
+                                <td>3750</td>
+                                <td>4430</td>
+                                <td>4970</td>
+                                <td>2310</td>
+                                <td>2430</td>
+                                <td>3890</td>
+                                <td>4860</td>
+                                <td>3750</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="summary-item tableID shorttable">
+                    <h3>목표 달성률</h3>
+                    <p id="monavg"></p>
+                    <table id="montable">
+                        <thead>
+                            <tr>
+                                <th>1월</th>
+                                <th>2월</th>
+                                <th>3월</th>
+                                <th>4월</th>
+                                <th>5월</th>
+                                <th>6월</th>
+                                <th>7월</th>
+                                <th>8월</th>
+                                <th>9월</th>
+                                <th>10월</th>
+                                <th>11월</th>
+                                <th>12월</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>123%</td>
+                                <td>97%</td>
+                                <td>95%</td>
+                                <td>97%</td>
+                                <td>93%</td>
+                                <td>93%</td>
+                                <td>110%</td>
+                                <td>96%</td>
+                                <td>91%</td>
+                                <td>97%</td>
+                                <td>101%</td>
+                                <td>98%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="summary-item tableID shorttable">
+                    <h3>이번 주 생산량</h3>
+                    <p id="weekavg"></p>
+                    <table id="weektable">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>월</th>
+                                <th>화</th>
+                                <th>수</th>
+                                <th>목</th>
+                                <th>금</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>목표생산량</td>
+                                <td>250</td>
+                                <td>260</td>
+                                <td>270</td>
+                                <td>260</td>
+                                <td>280</td>
+                            </tr>
+                            <tr>
+                                <td>현재생산량</td>
+                                <td>240</td>
+                                <td>258</td>
+                                <td>263</td>
+                                <td>248</td>
+                                <td>270</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="summary-item tableID shorttable ">
+                    <h3>주요 제품별 생산량</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>E/F 소켓</th>
+                                <th>E/F 앤드캡</th>
+                                <th>E/F 레듀샤</th>
+                                <th>E/F 서비스티</th>
+                                <th>E/F 45도 엘보</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>목표생산량</td>
+                                <td>235</td>
+                                <td>234</td>
+                                <td>394</td>
+                                <td>872</td>
+                                <td>345</td>
+                            </tr>
+                            <tr>
+                                <td>현재생산량</td>
+                                <td>235</td>
+                                <td>234</td>
+                                <td>394</td>
+                                <td>872</td>
+                                <td>345</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="summary-item tableID shorttable">
+                    <h3>전년 대비 성장률</h3>
+                    <p id="mongrowavg">월별 평균 성장률 : **%</p>
+                    <table id="mongrowtable">
+                        <thead>
+                            <tr>
+                                <th>1월</th>
+                                <th>2월</th>
+                                <th>3월</th>
+                                <th>4월</th>
+                                <th>5월</th>
+                                <th>6월</th>
+                                <th>7월</th>
+                                <th>8월</th>
+                                <th>9월</th>
+                                <th>10월</th>
+                                <th>11월</th>
+                                <th>12월</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>15%</td>
+                                <td>6%</td>
+                                <td>5%</td>
+                                <td>6%</td>
+                                <td>4%</td>
+                                <td>4%</td>
+                                <td>12%</td>
+                                <td>5%</td>
+                                <td>3%</td>
+                                <td>4%</td>
+                                <td>10%</td>
+                                <td>9%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="summary-item tableID shorttable">
+                    <h3>가동률</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>월</th>
+                                <th>화</th>
+                                <th>수</th>
+                                <th>목</th>
+                                <th>금</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>가동률</td>
+                                <td>95%</td>
+                                <td>100%</td>
+                                <td>100%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="summary-item tableID shorttable">
+                    <h3>품질 지표</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>월</th>
+                                <th>화</th>
+                                <th>수</th>
+                                <th>목</th>
+                                <th>금</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>불량률</td>
+                                <td>1%</td>
+                                <td>0%</td>
+                                <td>1%</td>
+                                <td>2%</td>
+                                <td>0%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="summary-item tableID">
+                    <h3>특이사항</h3>
+                    <p>새로운 생산 라인 도입으로 인해 생산 효율 향상</p>
+                </div>
+            </section>
+            <div class="summary-item tableID shorttable">
+                <section id="details">
+                    <h3>상세 제품별 생산실적</h3>
+                    <table style="width: 100%; text-align: center;">
+                        <thead>
+                            <tr>
+                                <th>날짜</th>
+                                <th>제품명</th>
+                                <th>생산량</th>
+                                <th>목표 생산량</th>
+                                <th>달성률</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 데이터 행 -->
+                            <tr>
+                                <td>2024-07-01</td>
+                                <td>E/F 45도 엘보</td>
+                                <td>198</td>
+                                <td>200</td>
+                                <td>99%</td>
+                            </tr>
+                            <tr>
+                                <td>2024-07-03</td>
+                                <td>E/F 90도 엘보</td>
+                                <td>388</td>
+                                <td>400</td>
+                                <td>97%</td>
+                            </tr>
+                            <tr>
+                                <td>2024-07-07</td>
+                                <td>E/F 소켓</td>
+                                <td>392</td>
+                                <td>400</td>
+                                <td>98%</td>
+                            </tr>
+                            <tr>
+                                <td>2024-07-10</td>
+                                <td>E/F 앤드캡</td>
+                                <td>380</td>
+                                <td>390</td>
+                                <td>97%</td>
+                            </tr>
+                            <tr>
+                                <td>2024-07-14</td>
+                                <td>E/F 레듀사</td>
+                                <td>398</td>
+                                <td>400</td>
+                                <td>99%</td>
+                            </tr>
+                            <tr>
+                                <td>2024-07-18</td>
+                                <td>E/F 티</td>
+                                <td>299</td>
+                                <td>300</td>
+                                <td>100%</td>
+                            </tr>
+                            <tr>
+                                <td>2024-07-22</td>
+                                <td>E/F 서비스티</td>
+                                <td>294</td>
+                                <td>300</td>
+                                <td>98%</td>
+                            </tr>
+                            <tr>
+                                <td>2024-07-25</td>
+                                <td>E/F 새들</td>
+                                <td>193</td>
+                                <td>200</td>
+                                <td>97%</td>
+                            </tr>
+                            <tr>
+                                <td>2024-08-01</td>
+                                <td>E/F 45도 엘보</td>
+                                <td>198</td>
+                                <td>200</td>
+                                <td>99%</td>
+                            </tr>
+                            <tr>
+                                <td>2024-08-05</td>
+                                <td>E/F 90도 엘보</td>
+                                <td>388</td>
+                                <td>400</td>
+                                <td>97%</td>
+                            </tr>
+                            <tr>
+                                <td>2024-08-09</td>
+                                <td>E/F 소켓</td>
+                                <td>392</td>
+                                <td>400</td>
+                                <td>98%</td>
+                            </tr>
+                            <tr>
+                                <td>2024-08-12</td>
+                                <td>E/F 앤드캡</td>
+                                <td>380</td>
+                                <td>390</td>
+                                <td>97%</td>
+                            </tr>
+                            <tr>
+                                <td>2024-08-15</td>
+                                <td>E/F 레듀사</td>
+                                <td>398</td>
+                                <td>400</td>
+                                <td>99%</td>
+                            </tr>
+                            <tr>
+                                <td>2024-08-19</td>
+                                <td>E/F 티</td>
+                                <td>299</td>
+                                <td>300</td>
+                                <td>100%</td>
+                            </tr>
+                            <tr>
+                                <td>2024-08-23</td>
+                                <td>E/F 서비스티</td>
+                                <td>294</td>
+                                <td>300</td>
+                                <td>98%</td>
+                            </tr>
+                            <tr>
+                                <td>2024-08-28</td>
+                                <td>E/F 새들</td>
+                                <td>193</td>
+                                <td>200</td>
+                                <td>97%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+            <section id="charts">
+                <!-- 그래프 및 차트 -->
+            </section>
+        </div>
+
+</body>
+<script src="/project_second/assets/JavaScript/sort.js"></script>
+<script src="/project_second/assets/JavaScript/date.js"></script>
+<script src="/project_second/assets/JavaScript/button.js"></script>
+<script src="/project_second/assets/JavaScript/table.js"></script>
+<script src="/project_second/assets/JavaScript/performance.js"></script>
+<script src="/project_second/assets/JavaScript/perchart.js"></script>
+
+</html>
