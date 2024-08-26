@@ -1,4 +1,4 @@
-dtocument.addEventListener('DOMContenLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     let table = document.querySelector('.tableID > table');
     let th = table.querySelectorAll('th');
     let cnt = -1;
@@ -7,6 +7,7 @@ dtocument.addEventListener('DOMContenLoaded', () => {
     th.forEach((header, index) => {
         header.addEventListener('click', () => {
             sortTableByColumn(table, index);
+            console.log(index);
         });
     });
 

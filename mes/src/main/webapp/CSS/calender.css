@@ -1,0 +1,68 @@
+/* 캘린더 스타일 */
+#calendar {
+    width: 250px;
+    font-family: Arial, sans-serif;
+    /* border: 1px solid #000000; */
+    /* padding: 10px; */
+    margin: 0 auto;
+    box-sizing: border-box;
+    color: rgb(70, 130, 180)
+}
+
+.cal_kwon table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.cal_kwon table th,
+.cal_kwon table td {
+    width: calc(100%/7);
+    border: 1px solid #53b8f7;
+    padding: 3px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.cal_kwon table th {
+    background-color: rgb(50, 114, 139);
+}
+
+/* 호버 효과 추가 */
+.calendar-day:hover {
+    background-color: rgb(100, 149, 237);
+    cursor: pointer;
+}
+
+/* 현재 날짜 스타일 */
+.today {
+    background-color: rgb(0, 123, 255);
+    /* 연한 파란색 */
+}
+
+#calendar {
+    color: rgb(0, 51, 102); /* 짙은 파랑 폰트 색상 */
+    background-color: rgb(240, 248, 255); /* AliceBlue 배경 */
+    border: 1px solid black;
+}
+
+.cal_kwon table th {
+    background-color: rgb(70, 130, 180); /* 진한 하늘색 */
+    color: white; /* 흰색 폰트 */
+}
+
+.cal_kwon table td {
+    border: 1px solid rgb(30, 144, 255); /* 진한 파랑 테두리 */
+    color: rgb(0, 51, 102); /* 짙은 파랑 폰트 색상 */
+}
+
+.calendar-day:hover {
+    background-color: rgb(30, 144, 255); /* 호버 시 진한 파랑 */
+    cursor: pointer;
+    color: white; /* 호버 시 흰색 폰트 */
+}
+
+.today {
+    background-color: rgb(0, 123, 255); /* 오늘 날짜 진한 파랑 */
+    color: white; /* 흰색 폰트 */
+}
