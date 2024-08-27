@@ -43,10 +43,19 @@ VALUES
 INSERT INTO bom (bom_id, production_id, mid, bom_quantity)
 VALUES 
 ('bom001', 'prod001', 'mat001', 50),
+('bom006', 'prod001', 'mat002', 30),
+('bom007', 'prod001', 'mat003', 20),
 ('bom002', 'prod002', 'mat002', 30),
+('bom008', 'prod002', 'mat004', 40),
+('bom009', 'prod002', 'mat005', 20),
 ('bom003', 'prod003', 'mat003', 20),
+('bom010', 'prod003', 'mat006', 15),
 ('bom004', 'prod004', 'mat004', 10),
-('bom005', 'prod005', 'mat005', 60);
+('bom011', 'prod004', 'mat001', 25),
+('bom012', 'prod004', 'mat005', 35),
+('bom005', 'prod005', 'mat005', 60),
+('bom013', 'prod005', 'mat006', 30),
+('bom014', 'prod005', 'mat003', 40);
 
 -- category 테이블에 데이터 삽입
 -- 카테고리id, 카테고리이름, 카테고리설명
@@ -157,3 +166,26 @@ VALUES
 ('main003', 'equi003', TO_DATE('2023-11-25', 'YYYY-MM-DD'), '조립 로봇 수리', '이철수'),
 ('main004', 'equi004', TO_DATE('2023-12-30', 'YYYY-MM-DD'), '포장 기계 점검', '박민수'),
 ('main005', 'equi005', TO_DATE('2024-01-10', 'YYYY-MM-DD'), '테스트 장비 교체', '정현수');
+
+--material 테이블에 데이터 삽입
+-- 자재id, 자재lot, 자재명, 규격, 단위, 검수자, 수량
+INSERT INTO material (mid, mlot, mname, mstandard, munit, examiner, quantity)
+VALUES 
+('MAT00123', 'LOT12345', '폴리에틸렌 수지', 'PE100', 'kg', '홍길동', 100);
+
+INSERT INTO material (mid, mlot, mname, mstandard, munit, examiner, quantity)
+VALUES 
+('MAT00234', 'LOT23456', '동 접합선', 'C11000', 'm', '김영희', 200);
+
+INSERT INTO material (mid, mlot, mname, mstandard, munit, examiner, quantity)
+VALUES 
+('MAT00345', 'LOT34567', '고밀도 폴리에틸렌', 'HDPE', 'kg', '이철수', 150);
+
+INSERT INTO material (mid, mlot, mname, mstandard, munit, examiner, quantity)
+VALUES 
+('MAT00456', 'LOT45678', '폴리프로필렌', 'PP-R', 'kg', '박민수', 250);
+
+INSERT INTO material (mid, mlot, mname, mstandard, munit, examiner, quantity)
+VALUES 
+('MAT00567', 'LOT56789', '스테인리스 스틸', '304', 'kg', '정현수', 300);
+
