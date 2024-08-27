@@ -63,47 +63,52 @@ INSERT INTO Product (production_id, pname, pdescription, unitprice, pquantity)
 VALUES ('prod005', '무선 이어폰', '블루투스 무선 이어폰입니다.', 200000, 300);
 
 -- bom 테이블에 데이터 삽입
-INSERT INTO bom (bom_id, production_id, mid, bom_quantity)
-VALUES ('bom001', 'prod001', 'mat001', 50);
+CREATE SEQUENCE bom_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
 
 INSERT INTO bom (bom_id, production_id, mid, bom_quantity)
-VALUES ('bom006', 'prod001', 'mat002', 30);
+VALUES ('BOM' || TO_CHAR(bom_seq.NEXTVAL, 'FM000'), 'prod001', 'mat001', 50);
 
 INSERT INTO bom (bom_id, production_id, mid, bom_quantity)
-VALUES ('bom007', 'prod001', 'mat003', 20);
+VALUES ('BOM' || TO_CHAR(bom_seq.NEXTVAL, 'FM000'), 'prod001', 'mat002', 30);
 
 INSERT INTO bom (bom_id, production_id, mid, bom_quantity)
-VALUES ('bom002', 'prod002', 'mat002', 30);
+VALUES ('BOM' || TO_CHAR(bom_seq.NEXTVAL, 'FM000'), 'prod001', 'mat003', 20);
 
 INSERT INTO bom (bom_id, production_id, mid, bom_quantity)
-VALUES ('bom008', 'prod002', 'mat004', 40);
+VALUES ('BOM' || TO_CHAR(bom_seq.NEXTVAL, 'FM000'), 'prod002', 'mat002', 30);
 
 INSERT INTO bom (bom_id, production_id, mid, bom_quantity)
-VALUES ('bom009', 'prod002', 'mat005', 20);
+VALUES ('BOM' || TO_CHAR(bom_seq.NEXTVAL, 'FM000'), 'prod002', 'mat004', 40);
 
 INSERT INTO bom (bom_id, production_id, mid, bom_quantity)
-VALUES ('bom003', 'prod003', 'mat003', 20);
+VALUES ('BOM' || TO_CHAR(bom_seq.NEXTVAL, 'FM000'), 'prod002', 'mat005', 20);
 
 INSERT INTO bom (bom_id, production_id, mid, bom_quantity)
-VALUES ('bom010', 'prod003', 'mat006', 15);
+VALUES ('BOM' || TO_CHAR(bom_seq.NEXTVAL, 'FM000'), 'prod003', 'mat003', 20);
 
 INSERT INTO bom (bom_id, production_id, mid, bom_quantity)
-VALUES ('bom004', 'prod004', 'mat004', 10);
+VALUES ('BOM' || TO_CHAR(bom_seq.NEXTVAL, 'FM000'), 'prod003', 'mat006', 15);
 
 INSERT INTO bom (bom_id, production_id, mid, bom_quantity)
-VALUES ('bom011', 'prod004', 'mat001', 25);
+VALUES ('BOM' || TO_CHAR(bom_seq.NEXTVAL, 'FM000'), 'prod004', 'mat004', 10);
 
 INSERT INTO bom (bom_id, production_id, mid, bom_quantity)
-VALUES ('bom012', 'prod004', 'mat005', 35);
+VALUES ('BOM' || TO_CHAR(bom_seq.NEXTVAL, 'FM000'), 'prod004', 'mat001', 25);
 
 INSERT INTO bom (bom_id, production_id, mid, bom_quantity)
-VALUES ('bom005', 'prod005', 'mat005', 60);
+VALUES ('BOM' || TO_CHAR(bom_seq.NEXTVAL, 'FM000'), 'prod004', 'mat005', 35);
 
 INSERT INTO bom (bom_id, production_id, mid, bom_quantity)
-VALUES ('bom013', 'prod005', 'mat006', 30);
+VALUES ('BOM' || TO_CHAR(bom_seq.NEXTVAL, 'FM000'), 'prod005', 'mat005', 60);
 
 INSERT INTO bom (bom_id, production_id, mid, bom_quantity)
-VALUES ('bom014', 'prod005', 'mat003', 40);
+VALUES ('BOM' || TO_CHAR(bom_seq.NEXTVAL, 'FM000'), 'prod005', 'mat006', 30);
+
+INSERT INTO bom (bom_id, production_id, mid, bom_quantity)
+VALUES ('BOM' || TO_CHAR(bom_seq.NEXTVAL, 'FM000'), 'prod005', 'mat003', 40);
 
 -- category 테이블에 데이터 삽입
 INSERT INTO category (category_id, cname, cdescription)

@@ -1,16 +1,42 @@
 package geun.BOM.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import geun.BOM.dto.BOM_DTO;
+import geun.BOM.service.BOM_Service;
+
 @WebServlet("/BOM/read")
 public class BOMReadController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("BOMReadController doGet 실행");
+		// 요청받은 파라메터를 변수에 저장
+		String bomid = request.getParameter("bom_id");
+		
+		String bomid2 = null;
+		// 파라메터가 널이 아닐경우 숫자로 변환 (String to int)
+		if(bomid != null) {
+			bomid2 = bomid;
+		} else {
+			System.out.println("bomid : " + "null");
+		}
+		
+		// TodoService를 호출하여 TodoDTO타입의 메소드를 호출하여 dto변수에 저장
+		BOM_Service todoservice = new BOM_Service();
+		BOM_DTO dto = todoservice.get(bomid2);
+		
+		// 요청하는 곳에 키와 벨류로 저장
+		request.setAttribute("dto", dto);
+		
+		// todo/read.jsp 로 forward
+		request.getRequestDispatcher("/WEB-INF/정보_BOM_Read.jsp").forward(request, response);
 	}
 
 }

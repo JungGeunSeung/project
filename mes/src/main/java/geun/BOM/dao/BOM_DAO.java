@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 import geun.BOM.dto.BOM_DTO;
 
 public class BOM_DAO {
@@ -31,41 +31,35 @@ public class BOM_DAO {
 	}
 	
 	public List<BOM_DTO> selectAll() {
-		System.out.println("DAO 실행");
+		System.out.println("BOM_DAO의 selectAll 실행");
 		
 		List<BOM_DTO> list = new ArrayList<BOM_DTO>();
 		
-		String driver = "oracle.jdbc.driver.OracleDriver";
-        String url = "jdbc:oracle:thin:@125.181.132.133:51521:xe";
-        String user = "scott2_5";
-        String password = "tiger";
-        
         try {
-        	Class.forName(driver);
+        	Connection con = getConnection();
         	
-        	Connection con = DriverManager.getConnection(url, user, password);
-        	
-        	String query = "select * from tbl_todo order by tno asc";
+        	String query = "select * from bom";
         	PreparedStatement ps = con.prepareStatement(query);
         	
         	ResultSet rs = ps.executeQuery();
         	
         	while(rs.next()) {
-        		int tno = rs.getInt("tno");
-        		String title = rs.getString("title");
-        		String finished = rs.getString("finished");
-        		LocalDate duedate = rs.getDate("duedate").toLocalDate();
+        		
+        		String id = rs.getString("bom_id");
+        		String prodoction_id = rs.getString("production_id");
+        		String mid = rs.getString("mid");
+        		int bom_quantity = rs.getInt("bom_quantity");
         		
         		
         		BOM_DTO dto = new BOM_DTO();
-        		dto.setTno(tno);
-        		dto.setTitle(title);
-        		dto.setDueDate(duedate);
-        		dto.setFinished( finished.equals("Y") ? true : false );
-        	
+        		dto.setBom_id(id);
+        		dto.setProduction_id(prodoction_id);
+        		dto.setMid(mid);
+        		dto.setBom_quantity(bom_quantity);
+        		
         		list.add(dto);
+        		
         	}
-        	
         	rs.close();
         	ps.close();
         	con.close();
@@ -77,44 +71,37 @@ public class BOM_DAO {
         return list;
 	}
 
-public BOM_DTO selectOne(int tno) {
-	BOM_DTO todoDTO = null;
-	// DB 접속
-	Connection con = getConnection();
-	
-	// 접속 되지 않는 다면 null 리턴하여 메소드 종료
-	if(con == null) return null;
-	
-	try {
+	public BOM_DTO selectOne(String bomid) {
+		BOM_DTO dto = null;
+		Connection con = getConnection();
 		
-		// sql 준비
-		String sql = "select * from tbl_todo where tno = ?";
-	
-		PreparedStatement ps = con.prepareStatement(sql);
-    	// ?를 값으로 채워줌
-		// 첫번째 전달인자는 ?의 순서
-		// 글씨라면 setString 알아서 ''로 감싸준다.
-		ps.setInt(1, tno);
+		if(con == null) return null;
 		
-		// sql 실행 및 결과 확보
-    	ResultSet rs = ps.executeQuery();
-    	
-    	//결과 활용
-    	
-    	// rs.next() : 첫번째 줄
-    	if( rs.next() ) {
-    		todoDTO = new BOM_DTO();
-    		todoDTO.setTno(rs.getInt("tno"));
-    		todoDTO.setTitle(rs.getString("title"));
-    		todoDTO.setDueDate( rs.getDate("duedate").toLocalDate());
-    		todoDTO.setFinished( rs.getString("finished").equals("Y") ? true : false );
-    	}	    	
-    	
+		try {
+			String sql = "select * from bom where bom_id = ?";
 		
-	}catch (Exception e) {
-		e.printStackTrace();
-	}
-	
-		return todoDTO;
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, bomid);
+			
+	    	ResultSet rs = ps.executeQuery();
+	    	
+	    	if( rs.next() ) {
+		    	String id = rs.getString("bom_id");
+	    		String prodoction_id = rs.getString("production_id");
+	    		String mid = rs.getString("mid");
+	    		int bom_quantity = rs.getInt("bom_quantity");
+	    		
+	    		dto = new BOM_DTO();
+	    		dto.setBom_id(id);
+	    		dto.setProduction_id(prodoction_id);
+	    		dto.setMid(mid);
+	    		dto.setBom_quantity(bom_quantity);
+	    	}
+	    	
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
 	}
 }
