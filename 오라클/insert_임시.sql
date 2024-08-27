@@ -107,11 +107,6 @@ VALUES ('bom014', 'prod005', 'mat003', 40);
 
 -- category 테이블에 데이터 삽입
 INSERT INTO category (category_id, cname, cdescription)
-VALUES ('cat001', '전자제품', '모여기에서 모든 테이블에 대한 각 개별적인 `INSERT` 문을 올바르게 수정된 형식으로 작성했습니다:
-
-```sql
--- category 테이블에 데이터 삽입
-INSERT INTO category (category_id, cname, cdescription)
 VALUES ('cat001', '전자제품', '모든 전자제품을 포함합니다.');
 
 INSERT INTO category (category_id, cname, cdescription)
@@ -206,14 +201,6 @@ VALUES ('ins004', 'prod004', 'plan004', TO_DATE('2023-12-30', 'YYYY-MM-DD'), 'Pa
 INSERT INTO QualityInspection (ins_id, production_id, planid, ins_date, result, defect_count, defect_cause, ResultID, taskid)
 VALUES ('ins005', 'prod005', 'plan005', TO_DATE('2024-01-30', 'YYYY-MM-DD'), 'Pass', 20, '마감 불량', 'res005', 'task005');
 
--- DefectRecord 테이블에 데이터 삽입
-INSERT INTO DefectRecord (type_id, report_id, ins_id, production_id, planid, type_name, type_descripton)
-VALUES ('def001', 'rep001', 'ins001', 'prod001', 'plan001', '스크래치', '제품 표면에 미세한 스크래치가 발생했습니다.');
-
-INSERT INTO DefectRecord (type_id, report_id, ins_id, production_id, planid, type_name, type_descripton)
-VALUES ('def002', 'rep002', 'ins003', 'prod003', 'plan003', '제작 결함', '제작아래는 나머지 테이블에 대한 개별 `INSERT` 문입니다.
-
-```sql
 -- DefectRecord 테이블에 데이터 삽입
 INSERT INTO DefectRecord (type_id, report_id, ins_id, production_id, planid, type_name, type_descripton)
 VALUES ('def001', 'rep001', 'ins001', 'prod001', 'plan001', '스크래치', '제품 표면에 미세한 스크래치가 발생했습니다.');
