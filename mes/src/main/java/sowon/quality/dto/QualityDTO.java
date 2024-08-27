@@ -11,8 +11,8 @@ public class QualityDTO {
 		private String result;
 		private int defect_count;
 		private String defect_cause;
-		private String ResultID;
-		private String taskkid;
+		private String resultid;
+		private String taskid;
 		
 		
 		public String getIns_id() {
@@ -36,7 +36,7 @@ public class QualityDTO {
 		public LocalDate getIns_date() {
 			return ins_date;
 		}
-		public void setIns_date(LocalDate ins_date) {
+		public void setIns_Date(LocalDate ins_date) {
 			this.ins_date = ins_date;
 		}
 		public String getResult() {
@@ -58,16 +58,16 @@ public class QualityDTO {
 			this.defect_cause = defect_cause;
 		}
 		public String getResultID() {
-			return ResultID;
+			return resultid;
 		}
-		public void setResultID(String resultID) {
-			ResultID = resultID;
+		public void setResultID(String resultid) {
+			this.resultid = resultid;
 		}
-		public String getTaskkid() {
-			return taskkid;
+		public String getTaskid() {
+			return taskid;
 		}
-		public void setTaskkid(String taskkid) {
-			this.taskkid = taskkid;
+		public void setTaskid(String taskid) {
+			this.taskid = taskid;
 		}
 		public String getPlanid() {
 			return planid;
@@ -82,7 +82,7 @@ public class QualityDTO {
 		public String toString() {
 			return "QualityDTO [ins_id=" + ins_id + ", production_id=" + production_id + ", planid2=" + planid2
 					+ ", ins_date=" + ins_date + ", result=" + result + ", defect_count=" + defect_count
-					+ ", defect_cause=" + defect_cause + ", ResultID=" + ResultID + ", taskkid=" + taskkid + ", planid="
+					+ ", defect_cause=" + defect_cause + ", resultid=" + resultid + ", taskid=" + taskid + ", planid="
 					+ planid + "]";
 		}
 
