@@ -51,7 +51,7 @@ public class QualityDAO {
 	        	while(rs.next()) {
 	        		String ins_id = rs.getString("ins_id");
 	        		String production_id = rs.getString("production_id");
-	        		String planid2 = rs.getString("planid");
+	        		String planid = rs.getString("planid");
 	        		LocalDate ins_date = rs.getDate("ins_date").toLocalDate();
 	        		String result = rs.getString("result");
 	        		int defect_count = rs.getInt("defect_count");
@@ -63,7 +63,7 @@ public class QualityDAO {
 	        		QualityDTO dto = new QualityDTO();
 	        		dto.setIns_id(ins_id);
 	        		dto.setProduction_id(production_id);
-	        		dto.setPlanid2(planid2);
+	        		dto.setPlanid(planid);
 	        		dto.setIns_Date(ins_date);
 	        		dto.setResult( result );
 	        		dto.setDefect_count( defect_count );
@@ -115,7 +115,7 @@ public class QualityDAO {
 		    		qualityDTO = new QualityDTO();
 		    		qualityDTO.setIns_id(rs.getString("ins_id"));
 		    		qualityDTO.setProduction_id(rs.getString("production_id"));
-		    		qualityDTO.setPlanid2(rs.getString("planid"));
+		    		qualityDTO.setPlanid(rs.getString("planid"));
 		    		qualityDTO.setIns_Date(rs.getDate("ins_date").toLocalDate());
 		    		qualityDTO.setResult(rs.getString("result"));
 		    		qualityDTO.setDefect_count(rs.getInt("defect_count"));
