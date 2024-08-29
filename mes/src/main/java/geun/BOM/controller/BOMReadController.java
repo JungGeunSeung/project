@@ -33,7 +33,7 @@ public class BOMReadController extends HttpServlet {
 		BOM_DTO dto = todoservice.get(bomid2);
 		
 		// 요청하는 곳에 키와 벨류로 저장
-		request.setAttribute("dto", dto);
+		request.setAttribute("bom", dto);
 		
 		// todo/read.jsp 로 forward
 		request.getRequestDispatcher("/WEB-INF/정보_BOM_Read.jsp").forward(request, response);

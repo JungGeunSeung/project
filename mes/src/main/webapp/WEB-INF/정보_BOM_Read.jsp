@@ -185,23 +185,23 @@
         <!-- 해당 목록 -->
         <div>
 	        <c:url var="list1" value="/BOM/list"/>
-			<a href="${ list1 }">돌아가기</a>
+			<a href="${ list1 }" class="btn">돌아가기</a>
 			<c:url var="modify" value="/BOM/modify">
-				<c:param name="bom_id" value="${ dto.bom_id }" />
-				<c:param name="production_id" value="${ dto.production_id }" />
-				<c:param name="mid" value="${ dto.mid }" />
-				<c:param name="bom_quantity" value="${ dto.bom_quantity }" />
+				<c:param name="bom_id" value="${ bom.bom_id }" />
+				<c:param name="production_id" value="${ bom.production_id }" />
+				<c:param name="mid" value="${ bom.mid }" />
+				<c:param name="bom_quantity" value="${ bom.bom_quantity }" />
 			</c:url>
-			<a href="${modify}" name="modify">수정하기</a>
+			<a href="${modify}" name="modify" class="btn">수정하기</a>
 		
 			<form method="post" action="delete">
-				<input type="hidden" name="bom_id" value="${dto.bom_id}">
-				<input type="submit" value="삭제하기">
+				<input type="hidden" name="bom_id" value="${bom.bom_id}">
+				<input type="submit" value="삭제하기" class="btn">
 			</form>
-        	<div>BOM코드 : <span>${ dto.bom_id }</span></div>
-        	<div>제품코드 : <span>${ dto.production_id }</span></div>
-        	<div>자재코드 : <span>${ dto.mid }</span></div>
-        	<div>품별 자재사용개수 : <span>${ dto.bom_quantity }</span></div>
+        	<div>BOM코드 : <span>${ bom.bom_id }</span></div>
+        	<div>제품코드 : <span>${ bom.production_id }</span></div>
+        	<div>자재코드 : <span>${ bom.mid }</span></div>
+        	<div>품별 자재사용개수 : <span>${ bom.bom_quantity }</span></div>
         </div>
             <hr>
         </div>

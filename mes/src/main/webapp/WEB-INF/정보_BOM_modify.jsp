@@ -180,78 +180,22 @@
                 <span>제품의 BOM을 조회하는 페이지입니다.</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
-             <div class="cntdiv">
-                <span>게시물</span>
-                 <select name="cnt" id="cnt" onchange="cps()">
-                    <option value="10">10개씩</option>
-                    <option value="20">20개씩</option>
-                    <option value="30">30개씩</option>
-                    <option value="40">40개씩</option>
-                    <option value="50" selected>50개씩</option>
-                </select>
-                <div>
-                    <a href="create" class="btn">새로 작성</a>
-                    <button onclick="delchk()" class="btn Lbtn">선택된 열 삭제</button>
-                    <span>날짜별 조회</span>
-                    <input type="date" id="startdate"> ~ <input type="date" id="enddate">
-                    <button class="btn">검색</button>
-
-                </div> 
-
-            </div>
         </div>
 
         <!-- 해당 목록 -->
-        <div class="tableID">
-                <table>
-                    <thead>
-                    <tr>
-                    	<th>
-                    		<input type="checkbox" id="allchk">
-                    	</th>
-                    	<th>BOM 코드</th>
-                    	<th>상품 코드</th>
-                    	<th>자재 코드</th>
-                    	<th>상품별 자재 사용개수</th>
-                    	<th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="bom" items="${ list }">
-                    	<tr>
-                    		<td><input type="checkbox" id="allchk"></td>
-                    		
-                    		<c:url var="read" value="read">
-                    			<c:param name="bom_id" value="${ bom.bom_id }"/>
-                    		</c:url>
-                    		
-                    		<td><a href="${ read }">${ bom.bom_id }</a> </td>
-                    		<td>${ bom.production_id } </td>
-                    		<td>${ bom.mid } </td>
-                    		<td>${ bom.bom_quantity } </td>
-                    		<c:url var="modify" value="/BOM/modify">
-								<c:param name="bom_id" value="${ bom.bom_id }" />
-								<c:param name="production_id" value="${ bom.production_id }" />
-								<c:param name="mid" value="${ bom.mid }" />
-								<c:param name="bom_quantity" value="${ bom.bom_quantity }" />
-							</c:url>
-                    		<td><a href="${ modify }" class="btn">수정</a><a href="" class="btn">삭제</a></td>
-                    	</tr>
-                    </c:forEach>
-                    </tbody>
-                    
-                </table>
         <div>
+	        <c:url var="list1" value="/BOM/list"/>
+			<a href="${ list1 }" class="btn">돌아가기</a><br>
+			<form method="post" action="modify">
+				<input type="hidden" name="bom_id" value="${bom.bom_id}">
+				제품코드 : <input type="text" name="production_id" placeholder="PRODUCTION ID" value="${bom.production_id}"><br>
+				자재코드 : <input type="text" name="mid" value="${bom.mid}"><br>
+				품별 자재사용개수 : <input type="number" name="bom_quantity" value="${bom.bom_quantity}"><br>
+				<br>
+				<input type="submit" value="글 수정하기" class="btn">
+			</form>
+        </div>
             <hr>
-            <div class="pagenum">
-                <a id="a1" href="">1</a>
-                <a href="">2</a>
-                <a href="">3</a>
-                <a href="">4</a>
-                <a href="">5</a>
-                <a href="">6</a>
-                <a href="">7</a>
-            </div>
         </div>
 
     </div>

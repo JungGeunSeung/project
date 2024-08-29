@@ -2,7 +2,6 @@ package geun.BOM.service;
 
 import java.util.List;
 
-
 import geun.BOM.dao.BOM_DAO;
 import geun.BOM.dto.BOM_DTO;
 
@@ -25,5 +24,24 @@ public class BOM_Service {
 		dto1 = dao.selectOne(bomid);
 		
 		return dto1;
+	}
+	
+	public int register(BOM_DTO dto) {
+		// 원래는 DB에 insert 하는게 있어야 한다.
+		System.out.println("등록중... " + dto.toString());
+		
+		BOM_DAO dao = new BOM_DAO();
+		return dao.insert(dto);
+		
+	}
+	
+	public int update(BOM_DTO dto) {
+		BOM_DAO dao = new BOM_DAO();
+		return dao.update(dto);
+	}
+	
+	public int delete(String id) {
+		BOM_DAO dao = new BOM_DAO();
+		return dao.delete(id);
 	}
 }
