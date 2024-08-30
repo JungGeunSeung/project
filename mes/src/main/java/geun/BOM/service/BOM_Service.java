@@ -1,6 +1,9 @@
 package geun.BOM.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import geun.BOM.dao.BOM_DAO;
 import geun.BOM.dto.BOM_DTO;
@@ -43,5 +46,39 @@ public class BOM_Service {
 	public int delete(String id) {
 		BOM_DAO dao = new BOM_DAO();
 		return dao.delete(id);
+	}
+	
+	public Map getBOMPage(String countPerPage, String page) {
+		int count = Integer.parseInt(countPerPage);
+		int pageNo = Integer.parseInt(page);
+		
+		int start = ((pageNo -1)* count) +1;
+		int end = pageNo * count;
+		
+		BOM_DAO dao = new BOM_DAO();
+		int totalCount = dao.totalBOMPage();
+		List list = dao.selectBOMPage(start, end);
+		
+		Map map = new HashMap();
+		map.put("list", list);
+		map.put("totalCount", totalCount);
+		return map;
+	}
+	
+	public List getBOM(String a) {
+			
+		BOM_DAO dao = new BOM_DAO();
+		List result = dao.selectBOM(a);
+		
+		return result;
+	}
+	
+	public List selectProduct(String bom_id,String production_id) {
+		List list = new ArrayList();
+		
+		BOM_DAO dao = new BOM_DAO();
+		list = dao.selectPro(bom_id, production_id);
+		
+		return list;
 	}
 }

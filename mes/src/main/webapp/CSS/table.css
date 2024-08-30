@@ -68,3 +68,11 @@
     width: 85%;
     margin: auto;
 }
+
+#intableform {
+	display: inline;
+}
+
+.modifyTD {
+	width: 50px;
+}
