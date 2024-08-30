@@ -292,7 +292,7 @@ public class BOM_DAO {
 	}
 	
 	// 주소창에 BOM_ID의 값을 넣어 특정 BOM코드를 찾는 메소드
-	public List selectBOM(String bom_id) {
+	public List selectBOM(String production_id) {
 		List list = new ArrayList();
 		
 		try {
@@ -303,11 +303,13 @@ public class BOM_DAO {
             
             String query = "SELECT * FROM bom ";
             
-            if(bom_id != null && !(bom_id.equals(""))) {
-            	query += "where bom_id= '" + bom_id+"'";
+            if(production_id != null && !(production_id.equals(""))) {
+            	query += "where production_id= '" + production_id+"'";
             }
             
             PreparedStatement ps = con.prepareStatement(query);
+            
+            
 
             ResultSet rs = ps.executeQuery();
 
@@ -337,7 +339,7 @@ public class BOM_DAO {
 		return list;
 	}
 	
-	public List selectPro(String bom_id, String production_id) {
+	public List selectPro(String production_id) {
 		List list = new ArrayList();
 			
 		try {
@@ -347,13 +349,31 @@ public class BOM_DAO {
 
             Connection con = dataSource.getConnection();
             
-            String query = "SELECT * FROM bom where bom_id = ? and production_id = ?";
+            String query = "SELECT * FROM bom where production_id = ?";
             
             
             PreparedStatement ps = con.prepareStatement(query);
+            
+		    ps.setString(1, production_id);
 
             ResultSet rs = ps.executeQuery();
 			
+            while( rs.next() ) {
+            	String id = rs.getString("bom_id");
+        		String prodoction_id = rs.getString("production_id");
+        		String mid = rs.getString("mid");
+        		int bom_quantity = rs.getInt("bom_quantity");
+        		
+        		BOM_DTO dto = new BOM_DTO();
+        		dto.setBom_id(id);
+        		dto.setProduction_id(prodoction_id);
+        		dto.setMid(mid);
+        		dto.setBom_quantity(bom_quantity);
+
+
+                list.add(dto);
+            }
+            
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

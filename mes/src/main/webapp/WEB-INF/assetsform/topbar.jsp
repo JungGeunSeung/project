@@ -36,10 +36,10 @@
                     <div class="submenu">
                         <ul>
                             <!--하위메뉴-->
-                            <li><a href="BOM">BOM</a></li>
+                            <li><a href="/mes/BOM/list">BOM</a></li>
                             <li class="manager"><a href="설비코드">설비코드</a></li>
                             <li><a href="조직도">조직도</a></li>
-                            <li><a href="문서관리">BOM문서관리(양식서)</a></li>
+                            <li><a href="문서관리">문서관리</a></li>
                         </ul>
                     </div>
                 </li>

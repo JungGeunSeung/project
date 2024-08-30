@@ -1,6 +1,7 @@
 package geun.BOM.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +27,8 @@ public class BOMModifyContoller extends HttpServlet {
 		String production_id = request.getParameter("production_id");
 		String mid = request.getParameter("mid");
 		String bom_quantity = request.getParameter("bom_quantity");
+		
+		
 		
 		BOM_DTO dto = new BOM_DTO();
 		dto.setBom_id(bom_id);

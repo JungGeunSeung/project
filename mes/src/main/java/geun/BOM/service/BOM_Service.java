@@ -73,11 +73,11 @@ public class BOM_Service {
 		return result;
 	}
 	
-	public List selectProduct(String bom_id,String production_id) {
+	public List selectProduct(String production_id) {
 		List list = new ArrayList();
 		
 		BOM_DAO dao = new BOM_DAO();
-		list = dao.selectPro(bom_id, production_id);
+		list = dao.selectPro(production_id);
 		
 		return list;
 	}

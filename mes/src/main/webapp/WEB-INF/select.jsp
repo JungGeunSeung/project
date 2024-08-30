@@ -14,9 +14,16 @@
 <!-- 게시물의 개수를 표시하는 if문을 만들어 JSP로 따로 빼서 jsp:include 함 -->
 	<div class="cntdiv">
                 <span>게시물</span>
-                 <form method="get" action="">
+                 <form method="get" action="" style="display: inline-block">
 					<select name="countPerPage" onchange="this.form.submit()">
 					
+					<c:if test="${ countPerPage == null }">
+						<option value="10" selected>10개씩</option>
+							<option value="20">20개씩</option>
+							<option value="30">30개씩</option>
+							<option value="40">40개씩</option>
+							<option value="50">50개씩</option>
+					</c:if>
 					<c:if test="${ countPerPage == 10 }">
 						<option value="10" selected>10개씩</option>
 							<option value="20">20개씩</option>

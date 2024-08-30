@@ -21,6 +21,36 @@
     <link rel="stylesheet" href="/mes/CSS/mobile.css">
     <script src="/mes/JavaScript/load_info.js"></script>
     <title>소원을 들어주는 MES</title>
+    
+    <style>
+    	#readtable {
+    		border-collapse: collapse;
+    		text-align: center;
+    		background-color: rgba(173, 216, 230, 0.3);
+    		border: 1px solid black;
+    	}
+    	
+    	#readtable td {
+   			border: 1px solid black;
+   			padding: 5px
+    	}
+    	
+    	#readtable th {
+   			background-color: rgb(135, 206, 250);
+		    color: white;
+		    font-size: 20px;
+		    border: 1px solid black;
+		    padding: 0px 10px;
+    	}
+    	
+    	#readtable tr:nth-child(2n) {
+    		background-color: rgba(173, 216, 230, 0.6);
+    	}
+    	
+    	#prodTD {
+    		background-color: rgb(135, 206, 250);
+    	}
+    </style>
 </head>
 
 <body>
@@ -57,30 +87,31 @@
 
         <a href="${modify}" name="modify" class="btn">수정하기</a>
 
-        <form method="post" action="delete" style="inline-block">
+        <form method="post" action="delete">
             <input type="hidden" name="bom_id" value="${bom.bom_id}">
             <input type="submit" value="삭제하기" class="btn">
         </form>
-        <div>BOM코드 : <span>${ bom.bom_id }</span></div>
-        <div>제품코드 : <span>${ bom.production_id }</span></div>
-        <div>자재코드 : <span>${ bom.mid }</span></div>
-        <div>품별 자재사용개수 : <span>${ bom.bom_quantity }</span></div>
         <div>
-        	<table border="1px">
+        	<table id="readtable">
         		<tr>
-        			<td rowspan="3">BOM코드 : ${ bom.bom_id }</td>
-        			<td rowspan="3">제품코드 : ${ bom.production_id }</td>
-        			<td>자재코드 : ${ bom.mid }</td>
-        			<td>사용개수 : ${ bom.bom_quantity }</td>
+        			<th>제품코드</th>
+        			<th>BOM 코드</th>
+        			<th>자재 코드</th>
+        			<th>사용 개수</th>
         		</tr>
         		<tr>
-        			<td>자재코드 : ${ bom.mid }</td>
-        			<td>사용개수 : ${ bom.bom_quantity }</td>
+        			<td rowspan="${ promat.size() }" id="prodTD">${ bom.production_id }</td>
+        			<td>${ bom.bom_id }</td>
+        			<td>${ bom.mid }</td>
+        			<td>${ bom.bom_quantity }</td>
         		</tr>
-        		<tr>
-        			<td>자재코드 : ${ bom.mid }</td>
-        			<td>사용개수 : ${ bom.bom_quantity }</td>
-        		</tr>
+        		<c:forEach var="bom" items="${ promat }" begin="1">
+        			<tr>
+        				<td>${ bom.bom_id }</td>
+        				<td>${ bom.mid }</td>
+        				<td>${ bom.bom_quantity }</td>
+        			</tr>
+        		</c:forEach>
         	</table>
         </div>
     </div>

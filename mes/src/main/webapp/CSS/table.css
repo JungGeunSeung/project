@@ -25,7 +25,6 @@
 }
 
 .tableID a {
-    text-decoration: none;
     color: black;
 }
 
@@ -39,18 +38,10 @@
     width: 30px;
     height: 20px;
 }
-.pagenum { 
-    /* display: inline; */
-    margin: auto;
-    text-align: center;
-}
-.pagenum > a {
-    width: 50px;
-    padding: 5px 10px;
-    /* border: 1px solid black; */
-    text-decoration: none;
-    color: black;
-    text-align: center;
+
+#selectchk {
+    width: 30px;
+    height: 20px;
 }
 
 #a1 {
@@ -75,4 +66,8 @@
 
 .modifyTD {
 	width: 50px;
+}
+
+#underline:hover {
+	text-decoration: underline;
 }
