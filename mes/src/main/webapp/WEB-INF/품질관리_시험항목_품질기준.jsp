@@ -205,33 +205,35 @@
                 <thead>
                   <tr>
                     <th><input type="checkbox" id="allchk"></th>
-                    <th>품질기준 시험항목</th>
-                    <th>문서명</th>
-                    <th>관리자</th>
-                    <th>인증기관</th>
-                    <th>개정연도</th>
-                    <th>다운로드</th>
+                    <th>품질검사 ID</th>
+                    <th>제품 ID</th>
+                    <th>계획 ID</th>
+                    <th>검사날짜</th>
+                    <th>검사결과</th>
+                    <th>불량개수</th>
+                    <th>불량유형</th>
+                    <th>결과 ID</th>
+                    <th>실적 ID</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>32mm 소켓</td>
-                    <td>KS표준인증</td>
-                    <td>정다올</td>
-                    <td>KS</td>
-                    <td>2022</td>
-                    <td>CLIICK</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>32mm 소켓</td>
-                    <td>자사품질기준</td>
-                    <td>정근승</td>
-                    <td>자사 품질관리 팀</td>
-                    <td>2024</td>
-                    <td>CLIICK</td>
-                  </tr>
+                 <c:forEach var="dto" items="${list1}">
+                 	<tr>
+                 		<th><input type="checkbox" id="allchk"></th>
+                 		<c:url var="url1" value="/quality/read">
+			            <c:param name="tno" value="${ dto.ins_id }" />
+			            </c:url>
+			            <td><a href="${ url1 }">${dto.ins_id}</a></td>
+                 		<td>${dto.production_id}</td>
+                 		<td>${dto.planid}</td>
+                 		<td>${dto.ins_date}</td>
+                 		<td>${dto.result}</td>
+                 		<td>${dto.defect_count}</td>
+                 		<td>${dto.defect_cause}</td>
+                 		<td>${dto.resultID}</td>
+                 		<td>${dto.taskid}</td>
+                 	</tr>
+                 </c:forEach>
                 </tbody>
               </table> 
         </div>
