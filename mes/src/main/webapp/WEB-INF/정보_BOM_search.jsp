@@ -44,7 +44,7 @@
                 <span>제품의 BOM을 조회하는 페이지입니다.</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
-		<jsp:include page="select.jsp">
+		<jsp:include page="정보_BOM_SelectForm.jsp">
 			<jsp:param name="select" value="select"/>
 		</jsp:include>
         
