@@ -46,20 +46,7 @@
         </div>
 
         <!-- 해당 목록 -->
-        <div>
-	        <c:url var="list1" value="/BOM/list"/>
-			<a href="${ list1 }" class="btn">돌아가기</a><br>
-			<form method="post" action="modify">
-				<input type="hidden" name="bom_id" value="${bom.bom_id}">
-				제품코드 : <input type="text" name="production_id" placeholder="PRODUCTION ID" value="${bom.production_id}"><br>
-				자재코드 : <input type="text" name="mid" value="${bom.mid}"><br>
-				품별 자재사용개수 : <input type="number" name="bom_quantity" value="${bom.bom_quantity}"><br>
-				<br>
-				<input type="submit" value="글 수정하기" class="btn">
-			</form>
-        </div>
-            <hr>
-        </div>
+        
 
     </div>
 

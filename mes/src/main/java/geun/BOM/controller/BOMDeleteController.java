@@ -25,6 +25,7 @@ public class BOMDeleteController extends HttpServlet {
 		
 		response.sendRedirect("list");
 	
+		
 	}
 
 }

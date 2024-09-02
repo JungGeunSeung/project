@@ -1,3 +1,4 @@
+
 package geun.BOM.dao;
 
 import java.sql.Connection;
@@ -215,6 +216,7 @@ public class BOM_DAO {
 		            query += "        order by bom_id ";
 		            query += "    ) ";
 		            query += " ) ";
+		            
 		            query += " where rnum >= ? and rnum <= ?";
             
 		    PreparedStatement ps = con.prepareStatement(query);
