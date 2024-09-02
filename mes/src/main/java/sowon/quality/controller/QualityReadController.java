@@ -16,13 +16,14 @@ public class QualityReadController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String tno2 = request.getParameter("tno");
-
+        System.out.println("QualityReadController doGet 실행");
+    	String ins_id = request.getParameter("ins_id");
+    	System.out.println(ins_id);
         // 파라메터가 널이 아닐경우 처리
-        if(tno2 != null) {
+        if(ins_id != null) {
             QualityService qualityservice = new QualityService();
-            QualityDTO dto = qualityservice.get(tno2);
-
+            QualityDTO dto = qualityservice.get(ins_id);
+            System.out.println(dto);
             // 요청하는 곳에 키와 벨류로 저장
             request.setAttribute("dto", dto);
 

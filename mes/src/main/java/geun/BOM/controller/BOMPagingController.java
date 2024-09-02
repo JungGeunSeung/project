@@ -31,6 +31,7 @@ public class BOMPagingController extends HttpServlet {
 		
 		Map map = service.getBOMPage(countPerPage, page);
 		
+		System.out.println(map);
 		
 		request.setAttribute("map", map);
 		request.setAttribute("countPerPage", countPerPage);

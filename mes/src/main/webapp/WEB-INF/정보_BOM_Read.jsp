@@ -68,7 +68,7 @@
     <div class="searchID">
 
         <!-- 해당 페이지의 제목 -->
-        <h1>BOM</h1>
+        <h1><a href="/mes/BOM/list">BOM</a></h1>
         <!-- 해당 페이지의 설명 -->
         <div class="subhead">
             <span>제품의 BOM을 조회하는 페이지입니다.</span> <br>

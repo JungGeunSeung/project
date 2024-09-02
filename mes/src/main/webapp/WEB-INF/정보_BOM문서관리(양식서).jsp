@@ -100,22 +100,8 @@
                   </tr>
                 </tbody>
               </table>
-              
         </div>
-        <div>
             <hr>
-            <div class="pagenum">
-                <a id="a1" href="">1</a>
-                <a href="">2</a>
-                <a href="">3</a>
-                <a href="">4</a>
-                <a href="">5</a>
-                <a href="">6</a>
-                <a href="">7</a>
-            </div>
-        </div>
-
-    </div>
 
 </body>
 <script src="/mes/JavaScript/sort.js"></script>

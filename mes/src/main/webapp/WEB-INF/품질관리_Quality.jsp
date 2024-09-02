@@ -49,7 +49,7 @@
                 <span>품질 관리 항목을 조회하는 페이지입니다.</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
-		<jsp:include page="select.jsp">
+		<jsp:include page="정보_BOM_SelectForm.jsp">
 			<jsp:param name="select" value="select"/>
 		</jsp:include>
         
@@ -101,7 +101,7 @@
                     		<td>${ quality.result } </td>
                     		<td>${ quality.defect_count } </td>
                     		<td>${ quality.defect_cause } </td>
-                    		<td>${ quality.resultid } </td>
+                    		<td>${ quality.resultID } </td>
                     		<td>${ quality.taskid } </td>
                     		<c:url var="modify" value="/quality/modify">
 								<c:param name="ins_id" value="${ quality.ins_id }" />
@@ -111,7 +111,7 @@
 								<c:param name="result" value="${ quality.result }" />
 								<c:param name="defect_count" value="${ quality.defect_count }" />
 								<c:param name="defect_cause" value="${ quality.defect_cause }" />
-								<c:param name="resultid" value="${ quality.resultid }" />
+								<c:param name="resultid" value="${ quality.resultID }" />
 								<c:param name="taskid" value="${ quality.taskid }" />
 							</c:url>
 							<c:url var="delete" value="/quality/delete">
