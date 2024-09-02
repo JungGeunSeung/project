@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 import sowon.quality.dto.QualityDTO;
 
@@ -130,4 +132,308 @@ public class QualityDAO {
 			
 			return qualityDTO;
 		}		
+		public int update(QualityDTO dto) {
+		    int result = 0;
+		    try {
+		        Context ctx = new InitialContext();
+		        DataSource dataFactory = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
+		        Connection con = dataFactory.getConnection();
+		        
+		        String query = "UPDATE qualityinspection SET ins_date=?, result=?, defect_count=?, defect_cause=? WHERE ins_ID=?";
+		        PreparedStatement ps = con.prepareStatement(query);
+		        
+		        // LocalDate를 java.sql.Date로 변환
+		        LocalDate localDate = dto.getIns_date();
+		        java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
+		        
+		        // DTO에서 값 가져오기 및 PreparedStatement에 설정
+		        ps.setDate(1, sqlDate);
+		        ps.setString(2, dto.getResult());
+		        ps.setInt(3, dto.getDefect_count());
+		        ps.setString(4, dto.getDefect_cause());
+		        ps.setString(5, dto.getIns_id());
+		        
+		        result = ps.executeUpdate();
+		        System.out.println("업데이트된 행 수: " + result);
+		        
+		        ps.close();
+		        con.close();
+		        
+		    } catch(Exception e) {
+		        e.printStackTrace();
+		    }
+		    
+		    return result;
+		}
+		
+		public int delete(String ins_id) {
+			
+			int result = 0;
+			try {
+				Context ctx = new InitialContext();
+				DataSource dataFactory = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
+				Connection con = dataFactory.getConnection();
+				
+				String query = "delete from qualityinspection where ins_id=?";
+				
+				PreparedStatement ps = con.prepareStatement(query);
+				
+				ps.setString(1, ins_id);
+				
+				result = ps.executeUpdate();
+				
+				ps.close();
+				con.close();
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return result;
+		}
+		    public void addDto(QualityDTO dto) {
+		        // 데이터베이스에 dto 추가 로직
+		    
+		}
+		    public List selectQualityPage(int start, int end) {
+		        List list = new ArrayList();
+		        
+		        Connection con = null;
+		        PreparedStatement ps = null;
+		        ResultSet rs = null;
+		        
+		        try {
+		            Context ctx = new InitialContext();
+		            DataSource dataSource = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
+
+		            con = dataSource.getConnection();
+		            
+		            String query =  " select * ";
+		                    query += " from ( ";
+		                    query += "    select rownum rnum, ins_id, production_id, planid, ins_date, result, defect_count, defect_cause, resultid, taskid";
+		                    query += "    from ( ";
+		                    query += "        select ins_id, production_id, planid, ins_date, result, defect_count, defect_cause, resultid, taskid ";
+		                    query += "        from qualityinspection ";
+		                    query += "        order by ins_id ";
+		                    query += "    ) ";
+		                    query += " ) ";
+		                    query += " where rnum >= ? and rnum <= ?";
+		            
+		            ps = con.prepareStatement(query);
+		            
+		            ps.setInt(1, start);
+		            ps.setInt(2, end);
+		            
+		            rs = ps.executeQuery();
+		            
+		            while(rs.next()) {
+		                String ins_id = rs.getString("ins_id");
+		                String production_id = rs.getString("production_id");
+		                String planid = rs.getString("planid");
+		                LocalDate ins_date = rs.getDate("ins_date").toLocalDate();
+		                String result = rs.getString("result");
+		                int defect_count = rs.getInt("defect_count");
+		                String defect_cause = rs.getString("defect_cause");
+		                String resultid = rs.getString("resultid");
+		                String taskid = rs.getString("taskid");
+		                
+		                QualityDTO dto = new QualityDTO();
+		                dto.setIns_id(ins_id);
+		                dto.setProduction_id(production_id);
+		                dto.setPlanid(planid);
+		                dto.setIns_Date(ins_date);
+		                dto.setResult(result);
+		                dto.setDefect_count(defect_count);
+		                dto.setDefect_cause(defect_cause);
+		                dto.setResultID(resultid);
+		                dto.setTaskid(taskid);
+		            
+		                list.add(dto);
+		            }
+		            
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        } finally {
+		            try {
+		                if (rs != null) rs.close();
+		                if (ps != null) ps.close();
+		                if (con != null) con.close();
+		            } catch (Exception e) {
+		                e.printStackTrace();
+		            }
+		        }
+		        
+		        return list;
+		    }
+
+		    // 전체 데이터베이스의 데이터 개수를 구하는 메소드
+		    public int totalQualityPage() {
+		        
+		        int result = -1;
+		        
+		        Connection con = null;
+		        PreparedStatement ps = null;
+		        ResultSet rs = null;
+		        
+		        try {
+		            Context ctx = new InitialContext();
+		            DataSource dataSource = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
+
+		            con = dataSource.getConnection();
+		            
+		            String query =  "select count(*) cnt from qualityinspection ";
+		            
+		            ps = con.prepareStatement(query);
+		            
+		            rs = ps.executeQuery();
+		            
+		            if(rs.next()) {
+		                result = rs.getInt("cnt");
+		            }
+		            
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        } finally {
+		            try {
+		                if (rs != null) rs.close();
+		                if (ps != null) ps.close();
+		                if (con != null) con.close();
+		            } catch (Exception e) {
+		                e.printStackTrace();
+		            }
+		        }
+		        
+		        return result;
+		    }
+
+		    // 주소창에 quality_ID의 값을 넣어 특정 quality코드를 찾는 메소드
+		    public List selectQuality(String production_id) {
+		        List list = new ArrayList();
+		        
+		        Connection con = null;
+		        PreparedStatement ps = null;
+		        ResultSet rs = null;
+		        
+		        try {
+		            Context ctx = new InitialContext();
+		            DataSource dataSource = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
+
+		            con = dataSource.getConnection();
+		            
+		            String query = "SELECT * FROM qualityinspection ";
+		            
+		            if(production_id != null && !(production_id.equals(""))) {
+		                query += " where production_id= '" + production_id + "'";
+		            }
+		            
+		            ps = con.prepareStatement(query);
+
+		            rs = ps.executeQuery();
+
+		            while(rs.next()) {
+		                String ins_id = rs.getString("ins_id");
+		                String prod_id = rs.getString("production_id");
+		                String planid = rs.getString("planid");
+		                LocalDate ins_date = rs.getDate("ins_date").toLocalDate();
+		                String result = rs.getString("result");
+		                int defect_count = rs.getInt("defect_count");
+		                String defect_cause = rs.getString("defect_cause");
+		                String resultid = rs.getString("resultid");
+		                String taskid = rs.getString("taskid");
+		                
+		                QualityDTO dto = new QualityDTO();
+		                dto.setIns_id(ins_id);
+		                dto.setProduction_id(prod_id);
+		                dto.setPlanid(planid);
+		                dto.setIns_Date(ins_date);
+		                dto.setResult(result);
+		                dto.setDefect_count(defect_count);
+		                dto.setDefect_cause(defect_cause);
+		                dto.setResultID(resultid);
+		                dto.setTaskid(taskid);
+
+		                list.add(dto);
+		            }
+		            
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        } finally {
+		            try {
+		                if (rs != null) rs.close();
+		                if (ps != null) ps.close();
+		                if (con != null) con.close();
+		            } catch (Exception e) {
+		                e.printStackTrace();
+		            }
+		        }
+		        
+		        return list;
+		    }
+
+		    public List selectPro(String production_id) {
+		        List list = new ArrayList();
+		            
+		        Connection con = null;
+		        PreparedStatement ps = null;
+		        ResultSet rs = null;
+		        
+		        try {
+		            Context ctx = new InitialContext();
+		            DataSource dataSource = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
+
+		            con = dataSource.getConnection();
+		            
+		            String query = "SELECT * FROM qualityinspection WHERE ins_id = ?";
+		            
+		            ps = con.prepareStatement(query);
+		            
+		            ps.setString(1, production_id);
+
+		            rs = ps.executeQuery();
+		            
+		            while(rs.next()) {
+		                String ins_id = rs.getString("ins_id");
+		                String prod_id = rs.getString("production_id");
+		                String planid = rs.getString("planid");
+		                LocalDate ins_date = rs.getDate("ins_date").toLocalDate();
+		                String result = rs.getString("result");
+		                int defect_count = rs.getInt("defect_count");
+		                String defect_cause = rs.getString("defect_cause");
+		                String resultid = rs.getString("resultid");
+		                String taskid = rs.getString("taskid");
+		                
+		                QualityDTO dto = new QualityDTO();
+		                dto.setIns_id(ins_id);
+		                dto.setProduction_id(prod_id);
+		                dto.setPlanid(planid);
+		                dto.setIns_Date(ins_date);
+		                dto.setResult(result);
+		                dto.setDefect_count(defect_count);
+		                dto.setDefect_cause(defect_cause);
+		                dto.setResultID(resultid);
+		                dto.setTaskid(taskid);
+		            
+		                list.add(dto);
+		            }
+		            
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        } finally {
+		            try {
+		                if (rs != null) rs.close();
+		                if (ps != null) ps.close();
+		                if (con != null) con.close();
+		            } catch (Exception e) {
+		                e.printStackTrace();
+		            }
+		        }
+		        
+		        return list;
+		    }
+		    public QualityDTO get(String id) {
+		        QualityDAO dao = new QualityDAO();
+		        return dao.selectOne(id);  // tno 속성을 사용하지 않도록 수정
+		    }
+
+		
 }

@@ -2,6 +2,7 @@ package sowon.quality.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,9 +22,8 @@ public class QualityListController extends HttpServlet {
 		
 		QualityService service = new QualityService();
 		List<QualityDTO> list = service.getList();
-		
+		System.out.println(list);
 		request.setAttribute("list1", list);
-		
 		
 		
 		request.getRequestDispatcher("/WEB-INF/품질관리_시험항목_품질기준.jsp").forward(request, response);

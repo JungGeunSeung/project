@@ -48,14 +48,14 @@ public class QualityModityController extends HttpServlet {
 		dto.setTaskid( taskid );
 		
 		request.setAttribute("dto", dto);
-		request.getRequestDispatcher("/WEB-INF/quality/modify.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/품질관리_Quality_modify.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8;");
 		
-		System.out.println("/todo/modify doPost 실행");
+		
 		
 		String ins_id = request.getParameter("ins_id");
 		String production_id = request.getParameter("production_id");
@@ -88,9 +88,12 @@ public class QualityModityController extends HttpServlet {
 		QualityService service = new QualityService();
 		int result1 = service.update(dto);
 		System.out.println("insert 결과 :"+ result);
+		System.out.println("update 결과 :" + result);
+		System.out.println("delete 결과 :" + result);
 		
 		String contextPath = request.getContextPath();
-		response.sendRedirect(contextPath + "/todo/list");
+		response.sendRedirect(contextPath + "/quality");
+
 	}
 
 }

@@ -24,7 +24,77 @@
     <title>소원을 들어주는 MES</title>
     <link rel="stylesheet" href="button.css">
 </head>
+<style>
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
 
+th, td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+}
+
+th {
+	background-color: #f2f2f2;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	margin: 20px 0;
+}
+
+.pagination a {
+	margin: 0 5px;
+	padding: 8px 16px;
+	text-decoration: none;
+	border: 1px solid #ddd;
+	color: #333;
+}
+
+.pagination a.active {
+	background-color: #4CAF50;
+	color: white;
+	border: 1px solid #4CAF50;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
 <body>
     <!-- 사이드바 -->
 	<jsp:include page="assetsform/sidebar.jsp">
