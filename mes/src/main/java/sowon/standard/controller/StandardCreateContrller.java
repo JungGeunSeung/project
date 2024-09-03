@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sowon.quality.dto.QualityDTO;
-import sowon.quality.service.QualityService;
+import sowon.standard.dto.StandardDTO;
+import sowon.standard.service.StandardService;
 
 
 @WebServlet("/standard/create")
@@ -34,35 +34,27 @@ public class StandardCreateContrller extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8;");
 		
-		String ins_id = request.getParameter("ins_id");
-		String production_id = request.getParameter("production_id");
-		String planid2 = request.getParameter("planid");
-		String ins_date = request.getParameter("ins_date");
-		String result = request.getParameter("result");
-		String defect_count = request.getParameter("defect_count");
-		String defect_cause = request.getParameter("defect_cause");
-		String resultid = request.getParameter("resultid");
-		String taskid = request.getParameter("taskid");
-		String finished = request.getParameter("finished");
-		
-		LocalDate parsedInsDate = null;
-		if (ins_date != null && !ins_date.isEmpty()) {
-		    parsedInsDate = LocalDate.parse(ins_date);
+		String quality_id = request.getParameter("quality_id");
+		String title = request.getParameter("title");
+		String mgr = request.getParameter("mgr");
+		String insti = request.getParameter("insti");
+		String revision = request.getParameter("revision");
+	
+		LocalDate revision = null;
+		if (revision != null && !revision.isEmpty()) {
+		    parsedInsDate = LocalDate.parse(revision);
 		}
 		
-		QualityDTO dto = new QualityDTO();
-		dto.setIns_id(ins_id);
-		dto.setProduction_id(production_id);
-		dto.setPlanid(planid2);
-		dto.setIns_Date(parsedInsDate);
-		dto.setResult( result );
-		dto.setDefect_count(Integer.parseInt(defect_count));
-		dto.setDefect_cause( defect_cause );
-		dto.setResultID( resultid );
-		dto.setTaskid( taskid );
+		StandardDTO dto = new StandardDTO();
+		dto.setQuality_id(quality_id);
+		dto.setTitle(title);
+		dto.setMgr( mgr );
+		dto.setInsti( insti );
+		dto.setrevision(revision);
+		
 	
 		// DB 의 insert까지 실행하여 가져와 담는다.
-		QualityService service = new QualityService();
+		StandardService service = new StandardService();
 		int result1 = service.register(dto);
 		System.out.println("insert 결과 :"+ result);
 		

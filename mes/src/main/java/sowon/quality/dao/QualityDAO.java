@@ -375,7 +375,7 @@ public class QualityDAO {
 
 	            con = dataSource.getConnection();
 	            
-	            String query = "SELECT * FROM qualityinspection WHERE ins_id = ?";
+	            String query = "SELECT * FROM qualityinspection WHERE production_id = ?";
 	            
 	            ps = con.prepareStatement(query);
 	            
@@ -419,56 +419,13 @@ public class QualityDAO {
 	                e.printStackTrace();
 	            }
 	        }
-	        
-	        return list;
+
+	        return list;  // 결과 반환
 	    }
 	    public QualityDTO get(String id) {
 	        QualityDAO dao = new QualityDAO();
 	        return dao.selectOne(id);  // tno 속성을 사용하지 않도록 수정
 	    }
-	    public List<QualityDTO> selectQuality(String production_id) {
-	        List<QualityDTO> list = new ArrayList<>();
-	        Connection con = null;
-	        PreparedStatement ps = null;
-	        ResultSet rs = null;
-
-	        try {
-	            con = getConnection();
-	            String query = "SELECT * FROM qualityinspection WHERE production_id = ?";
-	            ps = con.prepareStatement(query);
-	            ps.setString(1, production_id);
-
-	            rs = ps.executeQuery();
-
-	            while (rs.next()) {
-	                QualityDTO dto = new QualityDTO();
-	                dto.setIns_id(rs.getString("ins_id"));
-	                dto.setProduction_id(rs.getString("production_id"));
-	                dto.setPlanid(rs.getString("planid"));
-	                dto.setIns_Date(rs.getDate("ins_date").toLocalDate());
-	                dto.setResult(rs.getString("result"));
-	                dto.setDefect_count(rs.getInt("defect_count"));
-	                dto.setDefect_cause(rs.getString("defect_cause"));
-	                dto.setResultID(rs.getString("resultid"));
-	                dto.setTaskid(rs.getString("taskid"));
-
-	                list.add(dto);
-	            }
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        } finally {
-	            try {
-	                if (rs != null) rs.close();
-	                if (ps != null) ps.close();
-	                if (con != null) con.close();
-	            } catch (Exception e) {
-	                e.printStackTrace();
-	            }
-	        }
-
-	        return list;
-	    }
-
 
 	
 }

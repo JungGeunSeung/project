@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sowon.quality.dto.QualityDTO;
-import sowon.quality.service.QualityService;
+import sowon.standard.dto.StandardDTO;
+import sowon.standard.service.StandardService;
 
 @WebServlet("/standard/read")
 public class StandardReadController extends HttpServlet {
@@ -17,18 +17,18 @@ public class StandardReadController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("QualityReadController doGet 실행");
-    	String ins_id = request.getParameter("ins_id");
-    	System.out.println(ins_id);
+    	String ins_id = request.getParameter("quality_id ");
+    	System.out.println(quality_id );
         // 파라메터가 널이 아닐경우 처리
-        if(ins_id != null) {
-            QualityService qualityservice = new QualityService();
-            QualityDTO dto = qualityservice.get(ins_id);
+        if(quality_id  != null) {
+            StandardService standardservice = new StandardService();
+            StandardDTO dto = standardservice.get(quality_id );
             System.out.println(dto);
             // 요청하는 곳에 키와 벨류로 저장
             request.setAttribute("dto", dto);
 
             // todo/read.jsp 로 forward
-            request.getRequestDispatcher("/WEB-INF/품질관리_Quality_read.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/시험항목_Standard_modify.jsp").forward(request, response);
         } else {
             System.out.println("null");
         }

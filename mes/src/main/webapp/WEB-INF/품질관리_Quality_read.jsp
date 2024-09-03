@@ -22,7 +22,7 @@
             <h1>생산검사현황</h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
-                <span>제품별 시험항목,품질기준을 조회 할 수 있는 페이지 입니다.</span> <br>
+                <span>품질관리 생산검사현황을 조회하는 페이지 입니다.</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
              <div class="cntdiv">

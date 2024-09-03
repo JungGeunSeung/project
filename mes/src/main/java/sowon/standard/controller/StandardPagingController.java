@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sowon.quality.service.QualityService;
+import sowon.standard.service.StandardService;
 
 @WebServlet("/standard/list")
 public class StandardPagingController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("/quality/page doGet 실행");
+		System.out.println("/standard/page doGet 실행");
 
 		// 한 페이지당 개수
         String countPerPage = request.getParameter("countPerPage");
@@ -27,7 +27,7 @@ public class StandardPagingController extends HttpServlet {
         if(countPerPage == null) countPerPage = "10";
         if(page == null) page = "1";
         
-        QualityService empPageService = new  QualityService();
+        StandardService empPageService = new  StandardService();
         Map map = empPageService.getQualityPage(countPerPage, page);
         System.out.println(map);
         request.setAttribute("map", map);
@@ -35,7 +35,7 @@ public class StandardPagingController extends HttpServlet {
         request.setAttribute("page", page);
 
        
-        request.getRequestDispatcher("/WEB-INF/품질관리_Quality.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/시험항목_Standard_modify.jsp").forward(request, response);
 	}
 	
 }

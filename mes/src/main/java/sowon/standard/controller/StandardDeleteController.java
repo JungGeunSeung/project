@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
-import sowon.quality.service.QualityService;
+import sowon.standard.service.StandardService;
 
 @WebServlet("/standard/delete")
 public class StandardDeleteController extends HttpServlet {
@@ -19,10 +17,10 @@ public class StandardDeleteController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("QualityDeleteController doPost 실행");
         
-	    String ins_id = request.getParameter("ins_id");
+	    String ins_id = request.getParameter("quality_id");
 		
-		QualityService service = new QualityService();
-		int dto = service.delete(ins_id);
+	    StandardService service = new StandardService();
+		int dto = service.delete(quality_id);
 		
 		response.sendRedirect("list");
 		

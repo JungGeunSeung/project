@@ -1,4 +1,4 @@
-package sowon.standard.dao;
+package sowon.quality.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,6 +12,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import sowon.quality.dao.QualityDAO;
 import sowon.quality.dto.QualityDTO;
 
 public class StandardDAO {
@@ -57,14 +58,13 @@ public class StandardDAO {
 	        		String insti = rs.getString("insti");
 	        		LocalDate revision = rs.getDate("revision").toLocalDate();
 	        		
-	        		
 	        		QualityDTO dto = new QualityDTO();
-	        		//dto.setQuality_id(quality_id);
-	        		//dto.setTitle(title);
-	        		//dto.setMgr(mgr);
-	        		//dto.setInsti(insti);
-	        		//dto.setRevision(revision);
-	        		
+	        		dto.setQuality_id(quality_id);
+	        		dto.setTitle(title);
+	        		dto.setMgr(mgr);
+	        		dto.setInsti(insti);
+	        		dto.setRevision(revision);
+	        	
 	        		list.add(dto);
 	        	}
 	        	
@@ -79,7 +79,7 @@ public class StandardDAO {
 	        return list;
 		}
 	
-		public QualityDTO selectOne(String quality_id) {
+		public QualityDTO selectOne(String ins_id) {
 			QualityDTO qualityDTO = null;
 			Connection con = getConnection();
 			
@@ -91,8 +91,8 @@ public class StandardDAO {
 				String sql = "select * from QualityStandards where qualit_id = ?";
 			
 				PreparedStatement ps = con.prepareStatement(sql);
-				System.out.println("DAO : "+quality_id);
-				ps.setString(1, quality_id);
+				System.out.println("DAO : "+ins_id);
+				ps.setString(1, ins_id);
 				System.out.println("ps" + ps);
 				
 		    	ResultSet rs = ps.executeQuery();
@@ -105,13 +105,12 @@ public class StandardDAO {
 		    		qualityDTO.setPlanid(rs.getString("mrg"));
 		    		qualityDTO.setPlanid(rs.getString("insti"));
 		    		qualityDTO.setIns_Date(rs.getDate("revision").toLocalDate());
-		    		
 		    	
 		    	}
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
-			//System.out.println("standardDTO : "+standardDTO);
+			System.out.println("qualityDTO : "+qualityDTO);
 			return qualityDTO;
 		}		
 		public int update(QualityDTO dto) {
@@ -121,7 +120,7 @@ public class StandardDAO {
 		        DataSource dataFactory = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
 		        Connection con = dataFactory.getConnection();
 		        
-		        String query = "UPDATE QualityStandards SET title=?, mgr=?, insti=? revision=? WHERE quality_id=?";
+		        String query = "UPDATE qualityinspection SET title=?, mgr=?, insti=? revision=? WHERE quality_id=?";
 		        PreparedStatement ps = con.prepareStatement(query);
 		        
 		        // LocalDate를 java.sql.Date로 변환
@@ -129,11 +128,10 @@ public class StandardDAO {
 		        java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
 		        
 		        // DTO에서 값 가져오기 및 PreparedStatement에 설정
-		        //ps.setString(1, dto.getTitle());
-		        //ps.setString(2, dto.getMgr());
-		       // ps.setString(3, dto.getInsti());
-		        //ps.setDate(4, dto.getRevision());
-		        
+		        ps.setString(1, dto.getTitle());
+		        ps.setString(2, dto.getMgr());
+		        ps.setString(3, dto.getInsti());
+		        ps.setDate(4, dto.getRevision());
 		        
 		        result = ps.executeUpdate();
 		        System.out.println("업데이트된 행 수: " + result);
@@ -190,15 +188,15 @@ public class StandardDAO {
 	            con = dataSource.getConnection();
 	            
 	            String query =  " select * ";
-	                    query += " from ( ";
-	                    query += "    select rownum rnum, quality_id, title, mgr, insti, revision";
-	                    query += "    from ( ";
-	                    query += "        select quality_id, title, mgr, insti,revision ";
-	                    query += "        from QualityStandards ";
-	                    query += "        order by quality_id ";
-	                    query += "    ) ";
-	                    query += " ) ";
-	                    query += " where rnum >= ? and rnum <= ?";
+			            query += " from ( ";
+		                query += "    select rownum rnum, quality_id, title, mgr, insti, revision";
+		                query += "    from ( ";
+		                query += "        select quality_id, title, mgr, insti,revision ";
+		                query += "        from QualityStandards ";
+		                query += "        order by quality_id ";
+		                query += "    ) ";
+		                query += " ) ";
+		                query += " where rnum >= ? and rnum <= ?";
 	            
 	            ps = con.prepareStatement(query);
 	            
@@ -208,20 +206,20 @@ public class StandardDAO {
 	            rs = ps.executeQuery();
 	            
 	            while(rs.next()) {
-	                String quality_id = rs.getString("quality_id");
+	            	String quality_id = rs.getString("quality_id");
 	                String title = rs.getString("title");
 	                String mgr = rs.getString("mgr");
 	                String insti = rs.getString("insti");
 	                LocalDate revision = rs.getDate("revision").toLocalDate();
-	              
 	                
 	                QualityDTO dto = new QualityDTO();
-//	                dto.setQuality_id(quality_id);
-//	                dto.setTitle(title);
-//	                dto.setMgr(mgr);
-//	                dto.setInsti(insti);
-//	                dto.setRevision(revision);
+	                dto.setQuality_id(quality_id);
+	                dto.setTitle(title);
+	                dto.setMgr(mgr);
+	                dto.setInsti(insti);
+	                dto.setRevision(revision);
 	                
+	            
 	                list.add(dto);
 	            }
 	            
@@ -255,7 +253,7 @@ public class StandardDAO {
 
 	            con = dataSource.getConnection();
 	            
-	            String query =  "select count(*) cnt from QualityStandards ";
+	            String query =  "select count(*) cnt from QualityStandards  ";
 	            
 	            ps = con.prepareStatement(query);
 	            
@@ -297,7 +295,7 @@ public class StandardDAO {
 	            String query = "SELECT * FROM QualityStandards ";
 	            
 	            if(production_id != null && !(production_id.equals(""))) {
-	                query += " where quality_id= '" + production_id + "'";
+	                query += " where quality_id=  '" + production_id + "'";
 	            }
 	            
 	            ps = con.prepareStatement(query);
@@ -312,12 +310,11 @@ public class StandardDAO {
 	                LocalDate revision = rs.getDate("revision").toLocalDate();
 	                
 	                QualityDTO dto = new QualityDTO();
-//	                dto.setQuality_id(quality_id);
-//	                dto.setTitle(title);
-//	                dto.setMgr(mgr);
-//	                dto.setInsti(insti);
-//	                dto.setRevision(revision);
-	               
+	                dto.setQuality_id(quality_id);
+	                dto.setTitle(title);
+	                dto.setMgr(mgr);
+	                dto.setInsti(insti);
+	                dto.setRevision(revision);
 
 	                list.add(dto);
 	            }
@@ -350,7 +347,7 @@ public class StandardDAO {
 
 	            con = dataSource.getConnection();
 	            
-	            String query = "SELECT * FROM QualityStandards WHERE quality_id = ?";
+	            String query = "SELECT * FROM qualityinspection WHERE quality_id = ?";
 	            
 	            ps = con.prepareStatement(query);
 	            
@@ -366,12 +363,12 @@ public class StandardDAO {
 	                 LocalDate revision = rs.getDate("revision").toLocalDate();
 	                
 	                QualityDTO dto = new QualityDTO();
-//	                dto.setQuality_id(quality_id);
-//	                dto.setTitle(title);
-//	                dto.setMgr(mgr);
-//	                dto.setInsti(insti);
-//	                dto.setRevision(revision);
-//	            
+	                dto.setQuality_id(quality_id);
+	                dto.setTitle(title);
+	                dto.setMgr(mgr);
+	                dto.setInsti(insti);
+	                dto.setRevision(revision);
+	            
 	                list.add(dto);
 	            }
 	            
@@ -386,11 +383,11 @@ public class StandardDAO {
 	                e.printStackTrace();
 	            }
 	        }
-	        
-	        return list;
+
+	        return list;  // 결과 반환
 	    }
 	    public QualityDTO get(String id) {
-	        StandardDAO dao = new StandardDAO();
+	        QualityDAO dao = new QualityDAO();
 	        return dao.selectOne(id);  // tno 속성을 사용하지 않도록 수정
 	    }
 

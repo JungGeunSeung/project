@@ -41,15 +41,12 @@
                     <button class="btn">검색</button>
                 </div> 
 	<from method="post" action="modify">
-	품질검사 ID : <input type="hidden" name="ins_id" value="${dto.ins_id}"><br>
-	제품 ID : <input type="hidden" name="production_id" value="${dto.production_id}"><br>
-	계획 ID : <input type="hidden" name="planid" value="${dto.planid}"><br>
-	검사날짜 : <input type="date" name="ins_date" value="${dto.ins_date}"><br>
-	검사결과 : <input type="text" name="result" value="${dto.result}"><br>
-	불량개수 : <input type="number" name="defect_count" value="${dto.defect_count}"><br>
-	불량유형 : <input type="text" name="defect_cause" value="${dto.defect_cause}"><br>
-	결과 ID : <input type="hidden" name="resultID" value="${dto.resultID}"><br>
-	실적 ID : <input type="hidden" name="taskid" value="${dto.taskid}"><br>
+	시험항목 ID : <input type="hidden" name="ins_id" value="${dto.quality_id}"><br>
+	품질기준 : <input type="hidden" name="production_id" value="${dto.title}"><br>
+	관리자 : <input type="hidden" name="planid" value="${dto.mgr}"><br>
+	인증기관 : <input type="date" name="ins_date" value="${dto.insti}"><br>
+	인증날짜 : <input type="text" name="result" value="${dto.revision}"><br>
+
 	<input type="submit" value="수정하기">
 	</from>
             </div>
