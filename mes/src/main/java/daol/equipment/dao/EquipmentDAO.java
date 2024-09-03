@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -31,7 +32,7 @@ public class EquipmentDAO {
         return dataSource.getConnection();
     }
 
-    public List<EquipmentDTO> getEquipmentByPage(int pageSize, int pageNumber) {
+    public List<EquipmentDTO> getEquipmentByPage(int pageSize, int pageNumber, String sortField, String sortOrder) {
         List<EquipmentDTO> equipmentList = new ArrayList<>();
         String sql = "SELECT * FROM ( " +
                      "SELECT e.equiID, e.equiname, e.equitype, m.manager, m.maindate, m.maincontent, " +
@@ -39,6 +40,7 @@ public class EquipmentDAO {
                      "FROM equipment e " +
                      "JOIN maintenance m ON e.equiID = m.equiID " +
                      "WHERE ROWNUM <= ? " +
+                     "ORDER BY " + sortField + " " + sortOrder + 
                      ") WHERE rnum > ?";
 
         try (Connection conn = getConnection();
@@ -66,6 +68,7 @@ public class EquipmentDAO {
         }
         return equipmentList;
     }
+
 
     public int getTotalEquipmentCount() {
         int count = 0;
@@ -97,7 +100,7 @@ public class EquipmentDAO {
             ps.setString(3, equipment.getEquitype());
             ps.executeUpdate();
 
-            psMaintenance.setString(1, "main" + equipment.getEquiID());
+            psMaintenance.setString(1, "main" + UUID.randomUUID().toString());
             psMaintenance.setString(2, equipment.getEquiID());
             psMaintenance.setDate(3, new java.sql.Date(equipment.getMaindate().getTime()));
             psMaintenance.setString(4, equipment.getMaincontent());
