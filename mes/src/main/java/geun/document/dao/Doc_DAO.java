@@ -83,7 +83,7 @@ public class Doc_DAO {
         return list;
 	}
 
-	public DocumentDTO selectOne(String bomid) {
+	public DocumentDTO selectOne(String document_id) {
 		DocumentDTO dto = null;
 		Connection con = getConnection();
 		
@@ -93,7 +93,7 @@ public class Doc_DAO {
 			String sql = "select * from documents where document_id = ?";
 		
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, bomid);
+			ps.setString(1, document_id);
 			
 	    	ResultSet rs = ps.executeQuery();
 	    	

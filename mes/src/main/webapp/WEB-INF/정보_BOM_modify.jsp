@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -26,28 +25,22 @@
 
 <body>
     <!-- 사이드바 -->
-	<jsp:include page="assetsform/sidebar.jsp">
-		<jsp:param name="side" value="sidebar"></jsp:param>
-	</jsp:include>
-	<!-- 	상단바 -->
-	<jsp:include page="assetsform/topbar.jsp">
-		<jsp:param name="top" value="topbar"></jsp:param>
-	</jsp:include>
-        <!-- 메인메뉴 아레 정보가 표시될 영역 -->
-        <div class="searchID">
+    <jsp:include page="assetsform/sidebar.jsp"/>
+    <!-- 	상단바 -->
+    <jsp:include page="assetsform/topbar.jsp"/>
+    <!-- 메인메뉴 아레 정보가 표시될 영역 -->
+    <div class="searchID">
 
-            <!-- 해당 페이지의 제목 -->
-            <h1><a href="/mes/BOM/list">BOM</a></h1>
-            <!-- 해당 페이지의 설명 -->
-            <div class="subhead">
-                <span>제품의 BOM을 조회하는 페이지입니다.</span> <br>
-            </div>
-            <!-- 게시물의 개수를 표시할 select -->
+        <!-- 해당 페이지의 제목 -->
+        <h1><a href="/mes/BOM/list">BOM</a></h1>
+        <!-- 해당 페이지의 설명 -->
+        <div class="subhead">
+            <span>제품의 BOM을 조회하는 페이지입니다.</span> <br>
         </div>
-
-        <!-- 해당 목록 -->
-        
-
+        <!-- 게시물의 개수를 표시할 select -->
+    </div>
+    <!-- 해당 목록 -->
+    <div>
     </div>
 
     <script src="/mes/JavaScript/table.js"></script>
@@ -55,4 +48,5 @@
     <script src="/mes/JavaScript/date.js"></script>
     <script src="/mes/JavaScript/button.js"></script>
 </body>
+
 </html>

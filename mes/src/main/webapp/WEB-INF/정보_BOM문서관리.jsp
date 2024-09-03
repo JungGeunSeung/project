@@ -18,15 +18,45 @@
     <link rel="stylesheet" href="/mes/CSS/common.css">
     <link rel="stylesheet" href="/mes/CSS/display.css">
     <link rel="stylesheet" href="/mes/CSS/mobile.css">
-    <link rel="stylesheet" href="/mes/CSS/sidebar.css">
     <link rel="stylesheet" href="/mes/CSS/table.css">
-    <link rel="stylesheet" href="/mes/CSS/topbar.css">
     <link rel="stylesheet" href="/mes/CSS/게시판.css">
     <link rel="stylesheet" href="/mes/CSS/mobile.css">
     <link rel="stylesheet" href="/mes/CSS/BOMmodal.css">
     <script src="/mes/JavaScript/load_info.js"></script>
     <title>소원을 들어주는 MES</title>
     <link rel="stylesheet" href="button.css">
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	const modal = document.querySelector('.bom_modal');
+	const btn = document.querySelectorAll('.bom_modal_btn');
+	const closeModal = document.querySelector('.closeModal');
+	// 모든 수정 버튼에 클릭 이벤트 리스너 추가
+	btns.forEach(function(btn) {
+		console.log(btn)
+        btn.addEventListener("click", function() {
+            modal.style.display = "flex";
+        });
+    });
+	
+	// 닫기 버튼 클릭 시 모달창 닫기
+    closeModal.addEventListener("click", function() {
+        modal.style.display = "none";
+    });
+	
+ 	// 모달창 외부 클릭 시 모달창 닫기
+    window.addEventListener("click", function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+ 	
+ 	let test = document.querySelector('.test');
+ 	test.addEventListener("click", function() {
+ 		alert("test");
+ 	});
+ 	
+});
+</script>
 </head>
 
 <body>
@@ -64,7 +94,7 @@
             </div>
             <div>
 			<form method="get" action="list/search">
-				<span>상품코드로 검색</span>
+				<span>문서명으로 검색</span>
 				<input type="text" name="title" placeholder="문서명을 입력하세요.">
 				<input type="submit" value="검색" class="btn">
 			</form>
@@ -73,8 +103,6 @@
 		</div>
         </div>
 
-        <!-- 해당 목록 -->
-        
         <!-- 해당 목록 -->
         <div class="tableID">
                 <table>
@@ -110,6 +138,7 @@
                     		<td>${ doc.updated_date } </td>
                     		<td>${ doc.version } </td>
                     		<td><button class="bom_modal_btn">수정</button></td>
+                    		<td><button class="test">수정</button></td>
                     	</tr>
                     </c:forEach>
                     </tbody>
@@ -127,22 +156,13 @@
             			작성일 : <input type="text" name="created_date" value="${ doc.created_date }"><br>
             			수정일 : <input type="text" name="updated_date" value="${ doc.updated_date }"><br>
             			문서버전 : <input type="text" name="version" value="${ doc.version }"><br>
-            			
+            			<input type="submit" name="submit" class="closeModal" value="닫기">
             		</form>
             	</div>
             </div>
 
 </body>
-<script>
-	const modal = document.querySelector('.bom_modal');
-	const btn = document.querySelectorAll('.bom_modal_btn');
-	
-	for(let i=0; i<btn.size(); i++){
-	btm.addEventListener("click", function(){
-		modal.style.display = "flex";
-	})
-	}
-</script>
+
 <script src="/mes/JavaScript/sort.js"></script>
 <script src="/mes/JavaScript/date.js"></script>
 <script src="/mes/JavaScript/button.js"></script>

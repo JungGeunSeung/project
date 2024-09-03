@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -26,42 +25,34 @@
 
 <body>
     <!-- 사이드바 -->
-	<jsp:include page="assetsform/sidebar.jsp">
-		<jsp:param name="side" value="sidebar"></jsp:param>
-	</jsp:include>
-	<!-- 	상단바 -->
-	<jsp:include page="assetsform/topbar.jsp">
-		<jsp:param name="top" value="topbar"></jsp:param>
-	</jsp:include>
-        <!-- 메인메뉴 아레 정보가 표시될 영역 -->
-        <div class="searchID">
+    <jsp:include page="assetsform/sidebar.jsp"/>
+    <!-- 	상단바 -->
+    <jsp:include page="assetsform/topbar.jsp"/>
+    <!-- 메인메뉴 아레 정보가 표시될 영역 -->
+    <div class="searchID">
 
-            <!-- 해당 페이지의 제목 -->
-            <h1><a href="/mes/BOM/list">BOM</a></h1>
-            <!-- 해당 페이지의 설명 -->
-            <div class="subhead">
-                <span>제품의 BOM을 조회하는 페이지입니다.</span> <br>
-            </div>
-			<!-- 게시물 만드는 영역 -->
+        <!-- 해당 페이지의 제목 -->
+        <h1><a href="/mes/BOM/list">BOM</a></h1>
+        <!-- 해당 페이지의 설명 -->
+        <div class="subhead">
+            <span>제품의 BOM을 조회하는 페이지입니다.</span> <br>
         </div>
-				<span>BOM 코드는 자동 생성됩니다.</span>
-			<form method="post" action="create">
-				제품 코드 : <input type="text" name="production_id" placeholder="PRODUCTION ID"><br>
-				자재 코드 : <input type="text" name="mid" placeholder="MATERRIAL ID"><br>		
-				품별 자재사용개수 : <input type="number" name="bom_quantity"><br>
-			<input type="submit" value="작성하기">
-			</form>
-		<div>
-			
-		</div>
-        <!-- 해당 목록 -->
-		
-            <hr>
-        </div>
+        <!-- 게시물 만드는 영역 -->
+    </div>
+
+    <!-- 해당 목록 -->
+    <span>BOM 코드는 자동 생성됩니다.</span>
+    <form method="post" action="create">
+        제품 코드 : <input type="text" name="production_id" placeholder="PRODUCTION ID"><br>
+        자재 코드 : <input type="text" name="mid" placeholder="MATERRIAL ID"><br>
+        품별 자재사용개수 : <input type="number" name="bom_quantity"><br>
+        <input type="submit" value="작성하기">
+    </form>
 
     <script src="/mes/JavaScript/table.js"></script>
     <script src="/mes/JavaScript/sort.js"></script>
     <script src="/mes/JavaScript/date.js"></script>
     <script src="/mes/JavaScript/button.js"></script>
 </body>
+
 </html>

@@ -1,4 +1,4 @@
-package sowon.quality.controller;
+package sowon.standard.controller;
 
 import java.io.IOException;
 
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import sowon.quality.dto.QualityDTO;
 import sowon.quality.service.QualityService;
 
-@WebServlet("/quality/read")
-public class QualityReadController extends HttpServlet {
+@WebServlet("/standard/read")
+public class StandardReadController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,6 +32,5 @@ public class QualityReadController extends HttpServlet {
         } else {
             System.out.println("null");
         }
-        
     }
 }

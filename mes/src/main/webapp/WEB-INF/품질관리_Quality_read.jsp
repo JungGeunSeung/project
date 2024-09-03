@@ -19,7 +19,7 @@
         <!-- 메인메뉴 아레 정보가 표시될 영역 -->
         <div class="searchID">
             <!-- 해당 페이지의 제목 -->
-            <h1>제품별 시험항목,품질기준</h1>
+            <h1>생산검사현황</h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
                 <span>제품별 시험항목,품질기준을 조회 할 수 있는 페이지 입니다.</span> <br>
@@ -53,7 +53,6 @@
     <div>불량유형 : ${ dto.defect_cause }</div>
     <div>결과 ID : ${ dto.resultID }</div>
     <div>실적 ID : ${ dto.taskid }</div>
-	<a href="${ list1 }">목록으로 돌아가기</a>
     <br>
 	 <c:url var="modify" value="/quality/modify">
         <c:param name="ins_id" value="${ dto.ins_id }" />
@@ -73,7 +72,7 @@
             <input type="submit" value="삭제하기" class="btn">
     </form>   
    
-    <a href="/mes/quality" name="list" class="btn" >목록으로가기</a> 
+    <a href="/mes/quality/list" name="list" class="btn" >목록으로가기</a> 
 
 </body>
 </html>

@@ -1,5 +1,3 @@
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -9,61 +7,57 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/mes/CSS/button.css">
-    <link rel="stylesheet" href="/mes/CSS/calender.css">
-    <link rel="stylesheet" href="/mes/CSS/common.css">
-    <link rel="stylesheet" href="/mes/CSS/display.css">
-    <link rel="stylesheet" href="/mes/CSS/mobile.css">
-    <link rel="stylesheet" href="/mes/CSS/sidebar.css">
-    <link rel="stylesheet" href="/mes/CSS/table.css">
-    <link rel="stylesheet" href="/mes/CSS/topbar.css">
-    <link rel="stylesheet" href="/mes/CSS/게시판.css">
-    <link rel="stylesheet" href="/mes/CSS/mobile.css">
-    <script src="/mes/JavaScript/load_info.js"></script>
-    <title>소원을 들어주는 MES</title>
-    
-    <style>
-    	#readtable {
-    		border-collapse: collapse;
-    		text-align: center;
-    		background-color: rgba(173, 216, 230, 0.3);
-    		border: 1px solid black;
-    	}
-    	
-    	#readtable td {
-   			border: 1px solid black;
-   			padding: 5px
-    	}
-    	
-    	#readtable th {
-   			background-color: rgb(135, 206, 250);
-		    color: white;
-		    font-size: 20px;
-		    border: 1px solid black;
-		    padding: 0px 10px;
-    	}
-    	
-    	#readtable tr:nth-child(2n) {
-    		background-color: rgba(173, 216, 230, 0.6);
-    	}
-    	
-    	#prodTD {
-    		background-color: rgb(135, 206, 250);
-    	}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/mes/CSS/button.css">
+<link rel="stylesheet" href="/mes/CSS/calender.css">
+<link rel="stylesheet" href="/mes/CSS/common.css">
+<link rel="stylesheet" href="/mes/CSS/display.css">
+<link rel="stylesheet" href="/mes/CSS/mobile.css">
+<link rel="stylesheet" href="/mes/CSS/sidebar.css">
+<link rel="stylesheet" href="/mes/CSS/table.css">
+<link rel="stylesheet" href="/mes/CSS/topbar.css">
+<link rel="stylesheet" href="/mes/CSS/게시판.css">
+<link rel="stylesheet" href="/mes/CSS/mobile.css">
+<script src="/mes/JavaScript/load_info.js"></script>
+<title>소원을 들어주는 MES</title>
+
+<style>
+    #readtable {
+        border-collapse: collapse;
+        text-align: center;
+        background-color: rgba(173, 216, 230, 0.3);
+        border: 1px solid black;
+    }
+
+    #readtable td {
+        border: 1px solid black;
+        padding: 5px
+    }
+
+    #readtable th {
+        background-color: rgb(135, 206, 250);
+        color: white;
+        font-size: 20px;
+        border: 1px solid black;
+        padding: 0px 10px;
+    }
+
+    #readtable tr:nth-child(2n) {
+        background-color: rgba(173, 216, 230, 0.6);
+    }
+
+    #prodTD {
+        background-color: rgb(135, 206, 250);
+    }
+</style>
 </head>
 
 <body>
     <!-- 사이드바 -->
-    <jsp:include page="assetsform/sidebar.jsp">
-        <jsp:param name="side" value="sidebar"></jsp:param>
-    </jsp:include>
+    <jsp:include page="assetsform/sidebar.jsp"/>
     <!-- 	상단바 -->
-    <jsp:include page="assetsform/topbar.jsp">
-        <jsp:param name="top" value="topbar"></jsp:param>
-    </jsp:include>
+    <jsp:include page="assetsform/topbar.jsp"/>
     <!-- 메인메뉴 아레 정보가 표시될 영역 -->
     <div class="searchID">
 
@@ -94,27 +88,27 @@
             <input type="submit" value="삭제하기" class="btn">
         </form>
         <div>
-        	<table id="readtable">
-        		<tr>
-        			<th>제품코드</th>
-        			<th>BOM 코드</th>
-        			<th>자재 코드</th>
-        			<th>사용 개수</th>
-        		</tr>
-        		<tr>
-        			<td rowspan="${ promat.size() }" id="prodTD">${ bom.production_id }</td>
-        			<td>${ bom.bom_id }</td>
-        			<td>${ bom.mid }</td>
-        			<td>${ bom.bom_quantity }</td>
-        		</tr>
-        		<c:forEach var="bom" items="${ promat }" begin="1">
-        			<tr>
-        				<td>${ bom.bom_id }</td>
-        				<td>${ bom.mid }</td>
-        				<td>${ bom.bom_quantity }</td>
-        			</tr>
-        		</c:forEach>
-        	</table>
+            <table id="readtable">
+                <tr>
+                    <th>제품코드</th>
+                    <th>BOM 코드</th>
+                    <th>자재 코드</th>
+                    <th>사용 개수</th>
+                </tr>
+                <tr>
+                    <td rowspan="${ promat.size() }" id="prodTD">${ bom.production_id }</td>
+                    <td>${ bom.bom_id }</td>
+                    <td>${ bom.mid }</td>
+                    <td>${ bom.bom_quantity }</td>
+                </tr>
+                <c:forEach var="bom" items="${ promat }" begin="1">
+                    <tr>
+                        <td>${ bom.bom_id }</td>
+                        <td>${ bom.mid }</td>
+                        <td>${ bom.bom_quantity }</td>
+                    </tr>
+                </c:forEach>
+            </table>
         </div>
     </div>
     <hr>

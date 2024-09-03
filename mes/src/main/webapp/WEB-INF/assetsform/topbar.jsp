@@ -1,31 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/mes/CSS/button.css">
-    <link rel="stylesheet" href="/mes/CSS/calender.css">
-    <link rel="stylesheet" href="/mes/CSS/common.css">
-    <link rel="stylesheet" href="/mes/CSS/display.css">
-    <link rel="stylesheet" href="/mes/CSS/mobile.css">
-    <link rel="stylesheet" href="/mes/CSS/sidebar.css">
-    <link rel="stylesheet" href="/mes/CSS/table.css">
-    <link rel="stylesheet" href="/mes/CSS/topbar.css">
-    <link rel="stylesheet" href="/mes/CSS/게시판.css">
-    <link rel="stylesheet" href="/mes/CSS/mobile.css">
-    <script src="/mes/JavaScript/load_info.js"></script>
-    <title>소원을 들어주는 MES</title>
-</head>
-
-<body>
-    <!-- 메인 영역의 큰 div ->이유는 body에 flex를 적용하여 -->
+<link rel="stylesheet" href="/mes/CSS/topbar.css">
+    <!-- 일부러 닫는 태그 안씀. -->
     <div class="content">
         <!--메뉴바-->
         <div class="menu">
@@ -88,12 +64,5 @@
                     </div>
                 </li>
             </ul>
-
-        </div>
+		</div>
         <hr>
-    <script src="/mes/JavaScript/table.js"></script>
-    <script src="/mes/JavaScript/sort.js"></script>
-    <script src="/mes/JavaScript/date.js"></script>
-    <script src="/mes/JavaScript/button.js"></script>
-</body>
-</html>

@@ -1,11 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/mes/CSS/button.css">
+    <link rel="stylesheet" href="/mes/CSS/calender.css">
+    <link rel="stylesheet" href="/mes/CSS/common.css">
+    <link rel="stylesheet" href="/mes/CSS/display.css">
+    <link rel="stylesheet" href="/mes/CSS/mobile.css">
+    <link rel="stylesheet" href="/mes/CSS/sidebar.css">
+    <link rel="stylesheet" href="/mes/CSS/table.css">
+    <link rel="stylesheet" href="/mes/CSS/topbar.css">
+    <link rel="stylesheet" href="/mes/CSS/게시판.css">
+    <link rel="stylesheet" href="/mes/CSS/mobile.css">
+    <script src="/mes/JavaScript/load_info.js"></script>
 </head>
 <body>
     <!-- 사이드바 -->
@@ -19,7 +35,7 @@
         <!-- 메인메뉴 아레 정보가 표시될 영역 -->
         <div class="searchID">
             <!-- 해당 페이지의 제목 -->
-            <h1>제품별 시험항목,품질기준</h1>
+            <h1>생산검사현황</h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
                 <span>제품별 시험항목,품질기준을 조회 할 수 있는 페이지 입니다.</span> <br>
@@ -56,11 +72,9 @@
 	결과 ID : <input type="hidden" name="resultID" value="${dto.resultID}">${dto.resultID}<br>
 	실적 ID : <input type="hidden" name="taskid" value="${dto.taskid}">${dto.taskid}<br>
 	<input type="submit" value="수정하기" class="btn">
+	<input type="submit" value="삭제" class="btn"><br>
 	</form>
-
-   
-	<input type="submit" value="삭제"><br>
-	<input type="submit" value="목록으로 돌아가기"> 
+	<input type="submit" value="목록으로 돌아가기" class="btn"> 
 
 </body>
 </html>

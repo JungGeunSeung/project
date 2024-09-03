@@ -1,6 +1,6 @@
 /* 캘린더 스타일 */
 #calendar {
-    width: 250px;
+    width: 150px;
     font-family: Arial, sans-serif;
     /* border: 1px solid #000000; */
     /* padding: 10px; */
@@ -44,6 +44,7 @@
     color: rgb(0, 51, 102); /* 짙은 파랑 폰트 색상 */
     background-color: rgb(240, 248, 255); /* AliceBlue 배경 */
     border: 1px solid black;
+    
 }
 
 .cal_kwon table th {
