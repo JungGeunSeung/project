@@ -15,13 +15,12 @@ public class BOMDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("BOMDeleteController doPost 실행");
+		System.out.println("BOM Delete Controller doPost 실행");
 		String bom_id = request.getParameter("bom_id");
 		
-		
 		BOM_Service service = new BOM_Service();
+		
 		int dto = service.delete(bom_id);
-		System.out.println("삭제 :" + bom_id);
 		
 		response.sendRedirect("list");
 	

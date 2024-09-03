@@ -60,7 +60,7 @@
         </div>
 
         <div class="cal_kwon">
-            <div id="calendar"></div>
+            <div id="calendar" style="width: 200px;"></div>
             <script src="/mes/JavaScript/calendar_nomall.js"></script>
         </div>
 

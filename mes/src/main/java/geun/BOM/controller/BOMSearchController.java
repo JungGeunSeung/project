@@ -16,7 +16,7 @@ public class BOMSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("BOMSearchController doGet 실행");
+		System.out.println("BOM Search Controller doGet 실행");
 
         String production_id = request.getParameter("production_id");
         System.out.println(production_id);
@@ -25,7 +25,7 @@ public class BOMSearchController extends HttpServlet {
 
         request.setAttribute("bom", list);
 
-        request.getRequestDispatcher("/WEB-INF/정보_BOM_search.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/information/BOM/정보_BOM_search.jsp").forward(request, response);
 	
 	}
 

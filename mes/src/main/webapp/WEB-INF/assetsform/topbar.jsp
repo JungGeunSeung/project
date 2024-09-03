@@ -15,7 +15,7 @@
                             <li><a href="/mes/BOM/list">BOM</a></li>
                             <li class="manager"><a href="설비코드">설비코드</a></li>
                             <li><a href="조직도">조직도</a></li>
-                            <li><a href="문서관리">문서관리</a></li>
+                            <li><a href="/mes/doc/list">문서관리</a></li>
                         </ul>
                     </div>
                 </li>

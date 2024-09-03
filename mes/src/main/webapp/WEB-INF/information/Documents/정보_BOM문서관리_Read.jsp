@@ -57,9 +57,9 @@
 
 <body>
     <!-- 사이드바 -->
-    <jsp:include page="assetsform/sidebar.jsp"/>
+    <jsp:include page="/WEB-INF/assetsform/sidebar.jsp" />
     <!-- 	상단바 -->
-    <jsp:include page="assetsform/topbar.jsp"/>
+    <jsp:include page="/WEB-INF/assetsform/topbar.jsp" />
     <!-- 메인메뉴 아레 정보가 표시될 영역 -->
     <div class="searchID">
         <!-- 해당 페이지의 제목 -->

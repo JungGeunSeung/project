@@ -19,16 +19,16 @@ public class BOMCreateContoller extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8;");
 		
-		System.out.println("BOMCreateContoller doGet 실행");
+		System.out.println("BOM Create Contoller doGet 실행");
 		
-		request.getRequestDispatcher("/WEB-INF/정보_BOM_Create.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/information/BOM/정보_BOM_Create.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8;");
 		
-		System.out.println("BOMCreateContoller doPost 실행");
+		System.out.println("BOM Create Contoller doPost 실행");
 		
 		String bom_id = request.getParameter("bom_id");
 		String production_id = request.getParameter("production_id");
@@ -41,14 +41,9 @@ public class BOMCreateContoller extends HttpServlet {
 		dto.setMid(mid);
 		dto.setBom_quantity(Integer.parseInt(bom_quantity));
 		
-		System.out.println(dto);
-		
-		// DB 의 insert까지 실행하여 가져와 담는다.
 		BOM_Service service = new BOM_Service();
 		int result = service.register(dto);
-		System.out.println("insert 결과 :"+ result);
 		
-		// list 목록으로 보내기
 		String contextPath = request.getContextPath();
 		response.sendRedirect(contextPath + "/BOM/list");
 	}

@@ -19,7 +19,7 @@ import geun.document.dto.DocumentDTO;
 public class Doc_DAO {
 	
 	private Connection getConnection () {
-		
+		System.out.println("DB연결 getConnection() 실행");
 		Connection con = null;
 		
 		String driver = "oracle.jdbc.driver.OracleDriver";
@@ -53,9 +53,9 @@ public class Doc_DAO {
         	while(rs.next()) {
         		
         		int docID = rs.getInt("document_id");
-        		String userid = rs.getString("userid");
-        		String title = rs.getString("title");
-        		String content = rs.getString("content");
+        		String userid = rs.getString("userid").trim();
+        		String title = rs.getString("title").trim();
+        		String content = rs.getString("content").trim();
         		Date created_date = rs.getDate("created_date");
         		Date updated_date = rs.getDate("updated_date");
         		int version = rs.getInt("version");
@@ -84,6 +84,7 @@ public class Doc_DAO {
 	}
 
 	public DocumentDTO selectOne(String document_id) {
+		System.out.println("Doc_DAO의 selectOne 실행");
 		DocumentDTO dto = null;
 		Connection con = getConnection();
 		
@@ -99,9 +100,9 @@ public class Doc_DAO {
 	    	
 	    	if( rs.next() ) {
 	    		int docID = rs.getInt("document_id");
-        		String userid = rs.getString("userid");
-        		String title = rs.getString("title");
-        		String content = rs.getString("content");
+        		String userid = rs.getString("userid").trim();
+        		String title = rs.getString("title").trim();
+        		String content = rs.getString("content").trim();
         		Date created_date = rs.getDate("created_date");
         		Date updated_date = rs.getDate("updated_date");
         		int version = rs.getInt("version");
@@ -124,6 +125,7 @@ public class Doc_DAO {
 	}
 	
 	public int insert(DocumentDTO dto) {
+		System.out.println("Doc_DAO의 insert 실행");
 			
 			int result = 0;
 			try {
@@ -155,6 +157,7 @@ public class Doc_DAO {
 		}
 	
 	public int update(DocumentDTO dto) {
+		System.out.println("Doc_DAO의 update 실행");
 			
 			int result = 0;
 			try {
@@ -186,6 +189,7 @@ public class Doc_DAO {
 		}
 	
 	public int delete(int id) {
+		System.out.println("Doc_DAO의 delete 실행");
 			
 			int result = 0;
 			try {
@@ -212,6 +216,7 @@ public class Doc_DAO {
 		}
 	
 	public List selectDocPage(int start, int end) {
+		System.out.println("Doc_DAO의 selectDocPage 실행");
 		List list = new ArrayList();
 		
 		try {
@@ -242,9 +247,9 @@ public class Doc_DAO {
 		    
 		    while( rs.next() ) {
 		    	int docID = rs.getInt("document_id");
-        		String userid = rs.getString("userid");
-        		String title = rs.getString("title");
-        		String content = rs.getString("content");
+        		String userid = rs.getString("userid").trim();
+        		String title = rs.getString("title").trim();
+        		String content = rs.getString("content").trim();
         		Date created_date = rs.getDate("created_date");
         		Date updated_date = rs.getDate("updated_date");
         		int version = rs.getInt("version");
@@ -279,6 +284,7 @@ public class Doc_DAO {
 	
 	// 전체 데이터베이스의 데이터 개수를 구하는 메소드
 	public int totalDocPage() {
+		System.out.println("Doc_DAO의 totalDocPage 실행");
 		
 		int result = -1;
 		
@@ -313,6 +319,7 @@ public class Doc_DAO {
 	
 	// 주소창에 BOM_ID의 값을 넣어 특정 BOM코드를 찾는 메소드
 	public List selectDoc(String document_id) {
+		System.out.println("Doc_DAO의 selectDoc 실행");
 		List list = new ArrayList();
 		
 		try {
@@ -335,9 +342,9 @@ public class Doc_DAO {
 
             while( rs.next() ) {
             	int docID = rs.getInt("document_id");
-        		String userid = rs.getString("userid");
-        		String title = rs.getString("title");
-        		String content = rs.getString("content");
+        		String userid = rs.getString("userid").trim();
+        		String title = rs.getString("title").trim();
+        		String content = rs.getString("content").trim();
         		Date created_date = rs.getDate("created_date");
         		Date updated_date = rs.getDate("updated_date");
         		int version = rs.getInt("version");
@@ -366,6 +373,7 @@ public class Doc_DAO {
 	}
 	
 	public List selectPro(String document_id) {
+		System.out.println("Doc_DAO의 selectPro 실행");
 		List list = new ArrayList();
 			
 		try {
@@ -375,7 +383,7 @@ public class Doc_DAO {
 
             Connection con = dataSource.getConnection();
             
-            String query = "SELECT * FROM docments where document_id = ?";
+            String query = "SELECT * FROM documents where document_id = ?";
             
             
             PreparedStatement ps = con.prepareStatement(query);
@@ -386,9 +394,9 @@ public class Doc_DAO {
 			
             while( rs.next() ) {
             	int docID = rs.getInt("document_id");
-        		String userid = rs.getString("userid");
-        		String title = rs.getString("title");
-        		String content = rs.getString("content");
+        		String userid = rs.getString("userid").trim();
+        		String title = rs.getString("title").trim();
+        		String content = rs.getString("content").trim();
         		Date created_date = rs.getDate("created_date");
         		Date updated_date = rs.getDate("updated_date");
         		int version = rs.getInt("version");

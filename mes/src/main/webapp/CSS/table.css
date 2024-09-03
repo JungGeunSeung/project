@@ -68,6 +68,6 @@
 	width: 50px;
 }
 
-#underline:hover {
+.underline:hover {
 	text-decoration: underline;
 }

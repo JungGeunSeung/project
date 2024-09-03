@@ -19,17 +19,15 @@ public class DocCreateContoller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8;");
+		System.out.println("Doc Create Contoller doGet 실행");
 		
-		System.out.println("BOMCreateContoller doGet 실행");
-		
-		request.getRequestDispatcher("/WEB-INF/정보_BOM문서관리_Create.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/information/Documents/정보_BOM문서관리_Create.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8;");
-		
-		System.out.println("DocCreateContoller doPost 실행");
+		System.out.println("Doc Create Contoller doPost 실행");
 		
 		String docID = request.getParameter("document_id");
 		String userid = request.getParameter("userid");
@@ -66,7 +64,6 @@ public class DocCreateContoller extends HttpServlet {
 		// DB 의 insert까지 실행하여 가져와 담는다.
 		Doc_Service service = new Doc_Service();
 		int result = service.register(dto);
-		System.out.println("insert 결과 :"+ result);
 		
 		// list 목록으로 보내기
 		String contextPath = request.getContextPath();

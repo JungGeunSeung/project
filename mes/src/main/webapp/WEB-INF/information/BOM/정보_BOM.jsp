@@ -10,14 +10,15 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/mes/CSS/button.css">
-    <link rel="stylesheet" href="/mes/CSS/calender.css">
-    <link rel="stylesheet" href="/mes/CSS/common.css">
-    <link rel="stylesheet" href="/mes/CSS/display.css">
-    <link rel="stylesheet" href="/mes/CSS/mobile.css">
-    <link rel="stylesheet" href="/mes/CSS/table.css">
-    <link rel="stylesheet" href="/mes/CSS/게시판.css">
-    <link rel="stylesheet" href="/mes/CSS/mobile.css">
+	<link rel="stylesheet" href="/mes/CSS/button.css">
+	<link rel="stylesheet" href="/mes/CSS/calender.css">
+	<link rel="stylesheet" href="/mes/CSS/common.css">
+	<link rel="stylesheet" href="/mes/CSS/display.css">
+	<link rel="stylesheet" href="/mes/CSS/mobile.css">
+	<link rel="stylesheet" href="/mes/CSS/table.css">
+	<link rel="stylesheet" href="/mes/CSS/게시판.css">
+	<link rel="stylesheet" href="/mes/CSS/mobile.css">
+	<link rel="stylesheet" href="/mes/CSS/BOMmodal.css">
 	<script src="/mes/JavaScript/load_info.js"></script>
 	<title>소원을 들어주는 MES</title>
 
@@ -41,14 +42,54 @@
 			border: 1px solid rgb(173, 216, 225);
 		}
 	</style>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const modal = document.querySelector('.bom_modal');
+			const btns = document.querySelectorAll('.bom_modal_btn');
+			const closeModal = document.querySelector('.closeModal');
+
+			// 모든 수정 버튼에 클릭 이벤트 리스너 추가
+			btns.forEach(function (btn) {
+				btn.addEventListener("click", function () {
+					const tr = btn.closest('tr');
+					const tds = tr.querySelectorAll('td');
+					console.log(tds);
+					document.getElementById('bom_id').textContent = tds[1].textContent;
+					document.getElementById('production_id').value = tds[2].textContent;
+					document.getElementById('mid').value = tds[3].textContent;
+					document.getElementById('bom_quantity').value = tds[4].textContent;
+
+					modal.style.display = "flex";
+				});
+			});
+
+			// 닫기 버튼 클릭 시 모달창 닫기
+			closeModal.addEventListener("click", function () {
+				modal.style.display = "none";
+			});
+
+			// 모달창 외부 클릭 시 모달창 닫기
+			window.addEventListener("click", function (event) {
+				if (event.target === modal) {
+					modal.style.display = "none";
+				}
+			});
+			
+			document.querySelector('.modifyModal').addEventListener('click',function(){
+				document.querySelector('#modalForm').submit();
+			})
+		});
+
+
+	</script>
 </head>
 
 <body>
 	<!-- 사이드바 -->
-	<jsp:include page="assetsform/sidebar.jsp"/>
-	
+	<jsp:include page="/WEB-INF/assetsform/sidebar.jsp" />
+
 	<!-- 	상단바 -->
-	<jsp:include page="assetsform/topbar.jsp"/>
+	<jsp:include page="/WEB-INF/assetsform/topbar.jsp" />
 
 	<!-- 메인메뉴 아레 정보가 표시될 영역 -->
 	<div class="searchID">
@@ -104,23 +145,11 @@
 						<td><a href="${ read }" id="underline">${ bom.production_id }</a> </td>
 						<td>${ bom.mid } </td>
 						<td>${ bom.bom_quantity } </td>
-						<c:url var="modify" value="/BOM/modify">
-							<c:param name="bom_id" value="${ bom.bom_id }" />
-							<c:param name="production_id" value="${ bom.production_id }" />
-							<c:param name="mid" value="${ bom.mid }" />
-							<c:param name="bom_quantity" value="${ bom.bom_quantity }" />
-						</c:url>
-						<c:url var="delete" value="/BOM/delete">
-							<c:param name="bom_id" value="${ bom.bom_id }" />
-						</c:url>
-						<td class="modifyTD"><a href="${ modify }" id="modiA">수정</a>
-						</td>
+						<td><button class="bom_modal_btn">수정</button></td>
 					</tr>
 				</c:forEach>
 			</tbody>
-
 		</table>
-
 		<div>
 			<hr>
 			<div class="pagenum">
@@ -151,8 +180,35 @@
 					</c:forEach>
 					<a href="list?page=${ page + 1 }&countPerPage=${countPerPage}">다음</a>
 			</div>
-
 		</div>
+		<div class="bom_modal">
+		<div class="bom_modal_body">
+			<form id="modalForm" method="post" action="modify">
+				<table id="modalTable">
+					<tr>
+						<td>BOM 코드</td>
+						<td><span id="bom_id"></span><input type="hidden" name="document_id"
+								id="input_bom_id"></td>
+					</tr>
+					<tr>
+						<td>상품 코드</td>
+						<td><input type="text" name="userid" id="production_id">
+						</td>
+					</tr>
+					<tr>
+						<td>자재 코드</td>
+						<td><input type="text" name="title" id="mid"></td>
+					</tr>
+					<tr>
+						<td>재품별 자재 사용개수</td>
+						<td><input type="text" name="content" id="bom_quantity"></td>
+					</tr>
+				</table>
+			</form>
+			<div class="modifyModal" onclick="modifySubmit()">수정하기</div>
+			<div class="closeModal">닫기</div>
+		</div>
+	</div>
 	</div>
 	<script src="/mes/JavaScript/table.js"></script>
 	<script src="/mes/JavaScript/sort.js"></script>

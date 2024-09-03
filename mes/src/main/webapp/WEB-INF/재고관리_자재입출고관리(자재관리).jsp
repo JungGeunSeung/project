@@ -25,14 +25,10 @@
 </head>
 
 <body>
-    <!-- 사이드바 -->
-	<jsp:include page="assetsform/sidebar.jsp">
-		<jsp:param name="side" value="sidebar"></jsp:param>
-	</jsp:include>
-	<!-- 	상단바 -->
-	<jsp:include page="assetsform/topbar.jsp">
-		<jsp:param name="top" value="topbar"></jsp:param>
-	</jsp:include>
+   <!-- 사이드바 -->
+    <jsp:include page="assetsform/sidebar.jsp"/>
+    <!-- 	상단바 -->
+    <jsp:include page="assetsform/topbar.jsp"/>
         <!-- 메인메뉴 아레 정보가 표시될 영역 -->
         <div class="searchID">
 

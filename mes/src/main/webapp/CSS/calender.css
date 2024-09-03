@@ -1,12 +1,17 @@
 /* 캘린더 스타일 */
 #calendar {
-    width: 150px;
+    width: 120px;
     font-family: Arial, sans-serif;
-    /* border: 1px solid #000000; */
-    /* padding: 10px; */
     margin: 0 auto;
     box-sizing: border-box;
-    color: rgb(70, 130, 180)
+    color: rgb(70, 130, 180);
+    font-size: 12px;
+}
+
+#calendar h2 {
+    font-size: 14px;
+    margin: 0;
+    padding: 5px 0;
 }
 
 .cal_kwon table {
@@ -19,9 +24,10 @@
 .cal_kwon table td {
     width: calc(100%/7);
     border: 1px solid #53b8f7;
-    padding: 3px;
+    padding: 2px;
     text-align: center;
     box-sizing: border-box;
+    font-size: 12px;
 }
 
 .cal_kwon table th {

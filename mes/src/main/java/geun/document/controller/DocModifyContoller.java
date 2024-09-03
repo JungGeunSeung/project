@@ -21,8 +21,7 @@ public class DocModifyContoller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=utf-8;");
-        
-        System.out.println("BOMModifyContoller doGet 실행");
+        System.out.println("Doc Modify Contoller doGet 실행");
 		
         String docID = request.getParameter("document_id");
 		String userid = request.getParameter("userid");
@@ -59,14 +58,14 @@ public class DocModifyContoller extends HttpServlet {
 		request.setAttribute("doc", dto);
 		
 		
-		request.getRequestDispatcher("/WEB-INF/정보_BOM문서관리_modify.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/information/Documents/정보_BOM문서관리_modify.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8;");
 		
-		System.out.println("/todo/modify doPost 실행");
+		System.out.println("Doc Modify Contoller doPost 실행");
 		
 		String docID = request.getParameter("document_id");
 		String userid = request.getParameter("userid");
@@ -77,7 +76,7 @@ public class DocModifyContoller extends HttpServlet {
 		String version = request.getParameter("version");
 		
 		DocumentDTO dto = new DocumentDTO();
-		dto.setDocument_id(Integer.parseInt(docID));
+		dto.setDocument_id(Integer.parseInt(docID.trim()));
 		dto.setUserid(userid);
 		dto.setTitle(title);
 		dto.setContent(content);
@@ -102,7 +101,6 @@ public class DocModifyContoller extends HttpServlet {
 		
 		Doc_Service service = new Doc_Service();
 		int result = service.update(dto);
-		System.out.println("update 결과 :"+ result);
 		
 		String contextPath = request.getContextPath();
 		response.sendRedirect(contextPath + "/doc/list");

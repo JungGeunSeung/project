@@ -17,7 +17,7 @@ public class BOMReadController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("BOMReadController doGet 실행");
+		System.out.println("BOM Read Controller doGet 실행");
 		// 요청받은 파라메터를 변수에 저장
 		String bom_id = request.getParameter("bom_id");
 		String production_id = request.getParameter("production_id");
@@ -35,14 +35,13 @@ public class BOMReadController extends HttpServlet {
 		BOM_DTO dto = service.get(bomid2);
 		
 		List promat = service.selectProduct(production_id);
-		System.out.println(promat);
 		
 		// 요청하는 곳에 키와 벨류로 저장
 		request.setAttribute("bom", dto);
 		request.setAttribute("promat", promat);
 		
 		// todo/read.jsp 로 forward
-		request.getRequestDispatcher("/WEB-INF/정보_BOM_Read.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/information/BOM/정보_BOM_Read.jsp").forward(request, response);
 	}
 
 }

@@ -16,14 +16,11 @@ public class DocDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("BOMDeleteController doPost 실행");
-		String bom_id = request.getParameter("bom_id");
-		
+		System.out.println("Doc Delete Controller doPost 실행");
+		String document_id = request.getParameter("document_id");
 		
 		Doc_Service service = new Doc_Service();
-		int dto = service.delete(Integer.parseInt(bom_id));
-		System.out.println("삭제 :" + bom_id);
-		System.out.println("삭제개수 :" + dto);
+		int dto = service.delete(Integer.parseInt(document_id));
 		response.sendRedirect("list");
 	
 		

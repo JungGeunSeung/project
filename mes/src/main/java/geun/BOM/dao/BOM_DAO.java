@@ -17,7 +17,7 @@ import geun.BOM.dto.BOM_DTO;
 public class BOM_DAO {
 	
 	private Connection getConnection () {
-		
+		System.out.println("DB연결 getConnection() 실행");
 		Connection con = null;
 		
 		String driver = "oracle.jdbc.driver.OracleDriver";
@@ -77,6 +77,7 @@ public class BOM_DAO {
 	}
 
 	public BOM_DTO selectOne(String bomid) {
+		System.out.println("BOM_DAO의 selectOne 실행");
 		BOM_DTO dto = null;
 		Connection con = getConnection();
 		
@@ -111,7 +112,7 @@ public class BOM_DAO {
 	}
 	
 	public int insert(BOM_DTO dto) {
-			
+		System.out.println("BOM_DAO의 insert 실행");
 			int result = 0;
 			try {
 				Context ctx = new InitialContext();
@@ -141,7 +142,7 @@ public class BOM_DAO {
 		}
 	
 	public int update(BOM_DTO dto) {
-			
+		System.out.println("BOM_DAO의 update 실행");
 			int result = 0;
 			try {
 				Context ctx = new InitialContext();
@@ -173,7 +174,7 @@ public class BOM_DAO {
 		}
 	
 	public int delete(String id) {
-			
+		System.out.println("BOM_DAO의 delete 실행");
 			int result = 0;
 			try {
 				Context ctx = new InitialContext();
@@ -199,6 +200,7 @@ public class BOM_DAO {
 		}
 	
 	public List selectBOMPage(int start, int end) {
+		System.out.println("BOM_DAO의 selectBOMPage 실행");
 		List list = new ArrayList();
 		
 		try {
@@ -261,7 +263,7 @@ public class BOM_DAO {
 	
 	// 전체 데이터베이스의 데이터 개수를 구하는 메소드
 	public int totalBOMPage() {
-		
+		System.out.println("BOM_DAO의 totalBOMPage 실행");
 		int result = -1;
 		
 		try {
@@ -295,6 +297,7 @@ public class BOM_DAO {
 	
 	// 주소창에 BOM_ID의 값을 넣어 특정 BOM코드를 찾는 메소드
 	public List selectBOM(String production_id) {
+		System.out.println("BOM_DAO의 selectBOM 실행");
 		List list = new ArrayList();
 		
 		try {
@@ -342,6 +345,7 @@ public class BOM_DAO {
 	}
 	
 	public List selectPro(String production_id) {
+		System.out.println("BOM_DAO의 selectPro 실행");
 		List list = new ArrayList();
 			
 		try {

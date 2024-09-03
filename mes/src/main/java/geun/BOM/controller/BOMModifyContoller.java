@@ -21,7 +21,7 @@ public class BOMModifyContoller extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=utf-8;");
         
-        System.out.println("BOMModifyContoller doGet 실행");
+        System.out.println("BOM Modify Contoller doGet 실행");
 		
         String bom_id = request.getParameter("bom_id");
 		String production_id = request.getParameter("production_id");
@@ -39,14 +39,14 @@ public class BOMModifyContoller extends HttpServlet {
 		request.setAttribute("bom", dto);
 		
 		
-		request.getRequestDispatcher("/WEB-INF/정보_BOM_modify.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/information/BOM/정보_BOM_modify.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8;");
 		
-		System.out.println("/todo/modify doPost 실행");
+		System.out.println("BOM Modify Contoller doPost 실행");
 		
 		String bom_id = request.getParameter("bom_id");
 		String production_id = request.getParameter("production_id");
@@ -61,7 +61,6 @@ public class BOMModifyContoller extends HttpServlet {
 		
 		BOM_Service service = new BOM_Service();
 		int result = service.update(dto);
-		System.out.println("update 결과 :"+ result);
 		
 		String contextPath = request.getContextPath();
 		response.sendRedirect(contextPath + "/BOM/list");
