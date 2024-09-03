@@ -1,4 +1,4 @@
-package sowon.quality.service;
+package sowon.standard.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import java.util.Map;
 import sowon.quality.dao.QualityDAO;
 import sowon.quality.dto.QualityDTO;
 
-public class QualityService {
+public class StandardService {
 
 	public List<QualityDTO> getList() {
 		QualityDAO dao = new QualityDAO();

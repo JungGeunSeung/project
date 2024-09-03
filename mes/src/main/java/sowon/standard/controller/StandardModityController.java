@@ -1,4 +1,4 @@
-package sowon.quality.controller;
+package sowon.standard.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -13,8 +13,8 @@ import sowon.quality.dto.QualityDTO;
 import sowon.quality.service.QualityService;
 
 
-@WebServlet("/quality/modify")
-public class QualityModityController extends HttpServlet {
+@WebServlet("/standard/modify")
+public class StandardModityController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
