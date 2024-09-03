@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import sowon.standard.service.StandardService;
 
-@WebServlet("/quality/list/search")
+@WebServlet("/standard/list/search")
 public class StandardSearchController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
