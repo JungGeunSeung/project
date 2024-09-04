@@ -58,7 +58,7 @@
                     <div class="submenu">
                         <ul>
                             <li><a href="공정별설비관리">공정별설비관리/수리보고서</a></li>
-                            <li><a href="설비고장_수리이력">설비고장/수리이력</a></li>
+                            <li><a href="/mes/Equip">설비고장/수리이력</a></li>
                             <li><a href="비가동이력">비가동이력</a></li>
                         </ul>
                     </div>
