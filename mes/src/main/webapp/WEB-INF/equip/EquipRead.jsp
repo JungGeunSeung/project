@@ -23,8 +23,16 @@
                 <td>${equipment.equiname}</td>
             </tr>
             <tr>
+            	<td>설비번호</td>
+            	<td>${equipment.equiID}</td>
+            </tr>
+            <tr>
                 <td>설비유형</td>
                 <td>${equipment.equitype}</td>
+            </tr>
+            <tr>
+                <td>구매일자</td>
+                <td>${equipment.selldate}</td>
             </tr>
             <tr>
                 <td>설비위치</td>
@@ -36,15 +44,15 @@
             </tr>
             <tr>
                 <td>고장/수리내용</td>
-                <td>${equipment.maincontent}</td>
+                <td>${maintenance.maincontent}</td>
             </tr>
             <tr>
                 <td>관리자</td>
-                <td>${equipment.manager}</td>
+                <td>${maintenance.manager}</td>
             </tr>
             <tr>
                 <td>고장/수리일자</td>
-                <td>${equipment.maindate}</td>
+                <td>${maintenance.maindate}</td>
             </tr>
         </tbody>
     </table>

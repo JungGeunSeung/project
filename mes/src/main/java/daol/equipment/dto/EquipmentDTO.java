@@ -12,57 +12,14 @@ public class EquipmentDTO {
 	private String equiID;
 	private String equiname;
 	private String equitype;
+	private String equiloc; // 새로운 속성 추가
+	private Date selldate;
+	private String status;
 	private String manager;
 	private Date maindate;
 	private String maincontent;
-	private String equiloc; // 새로운 속성 추가
-	private String status;
+
 	
-	public List<EquipmentDTO> getEquipmentByPage(int pageSize, int pageNumber, String sortField, String sortOrder) {
-	    List<EquipmentDTO> equipmentList = new ArrayList<>();
-	    String sql = "SELECT * FROM ( " +
-	                 "SELECT e.equiID, e.equiname, e.equitype, m.manager, m.maindate, m.maincontent, " +
-	                 "ROWNUM AS rnum " +
-	                 "FROM equipment e " +
-	                 "JOIN maintenance m ON e.equiID = m.equiID " +
-	                 "ORDER BY " + sortField + " " + sortOrder + " " +
-	                 "WHERE ROWNUM <= ? " +
-	                 ") WHERE rnum > ?";
-
-	    try (Connection conn = getConnection();
-	         PreparedStatement ps = conn.prepareStatement(sql)) {
-
-	        int endRow = pageNumber * pageSize;
-	        int startRow = endRow - pageSize + 1;
-
-	        ps.setInt(1, endRow);
-	        ps.setInt(2, startRow);
-	        ResultSet rs = ps.executeQuery();
-
-	        while (rs.next()) {
-	            EquipmentDTO equipment = new EquipmentDTO();
-	            equipment.setEquiID(rs.getString("equiID"));
-	            equipment.setEquiname(rs.getString("equiname"));
-	            equipment.setEquitype(rs.getString("equitype"));
-	            equipment.setManager(rs.getString("manager"));
-	            equipment.setMaindate(rs.getDate("maindate"));
-	            equipment.setMaincontent(rs.getString("maincontent"));
-	            equipmentList.add(equipment);
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return equipmentList;
-	}
-
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
 	// Getters and Setters
 
@@ -89,7 +46,23 @@ public class EquipmentDTO {
 	public void setEquitype(String equitype) {
 		this.equitype = equitype;
 	}
+	
+	public String getEquiloc() {
+		return equiloc;
+	}
+	
+	public void setEquiloc(String equiloc) {
+		this.equiloc = equiloc;
+	}
 
+	public String getStatus() {
+		return status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 	public String getManager() {
 		return manager;
 	}
@@ -114,13 +87,15 @@ public class EquipmentDTO {
 		this.maincontent = maincontent;
 	}
 
-	public String getEquiloc() { // 새로운 getter 메서드
-		return equiloc;
+	public Date getSelldate() {
+		return selldate;
 	}
 
-	public void setEquiloc(String equiloc) { // 새로운 setter 메서드
-		this.equiloc = equiloc;
+	public void setSelldate(Date selldate) {
+		this.selldate = selldate;
+		
 	}
+
 
 
 

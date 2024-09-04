@@ -25,9 +25,18 @@
         <label for="equiname">설비명:</label>
         <input type="text" id="equiname" name="equiname"><br>
         <label for="equitype">설비유형:</label>
-        <input type="text" id="equitype" name="equitype"><br>
+       <select
+				name="equitype" id="equitype">
+				<option value="검사">검사</option>
+				<option value="포장">포장</option>
+				<option value="조립">조립</option>
+				<option value="제조">제조</option>
+				<option value="절단">절단</option>
+		</select><br>
         <label for="equiloc">설비위치:</label>
         <input type="text" id="equiloc" name="equiloc"><br>
+        <label for="selldate">구매일자:</label>
+        <input type="date" id="selldate" name="selldate"><br>
         <label for="status">상태:</label>
         <input type="text" id="status" name="status"><br>
         <label for="maincontent">고장/수리내용:</label>

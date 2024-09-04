@@ -190,6 +190,7 @@
 						<th>설비명</th>
 						<th>설비유형</th>
 						<th>설비위치</th>
+						<th>구매일자</th>
 						<th>상태</th>
 						<th>고장/수리내용</th>
 						<th>관리자</th>
@@ -208,6 +209,8 @@
 							<td><a href="EquipRead?equiID=${equipment.equiID}">${equipment.equiname}</a></td>
 							<td><a href="EquipRead?equiID=${equipment.equiID}">${equipment.equitype}</a></td>
 							<td><a href="EquipRead?equiID=${equipment.equiID}">${equipment.equiloc}</a></td>
+							<td><a href="EquipRead?equiID=${equipment.equiID}"><fmt:formatDate
+										value="${equipment.selldate}" pattern="yyyy-MM-dd" /></a></td>
 							<td><a href="EquipRead?equiID=${equipment.equiID}">${equipment.status}</a></td>
 							<td><a href="EquipRead?equiID=${equipment.equiID}">${equipment.maincontent}</a></td>
 							<td><a href="EquipRead?equiID=${equipment.equiID}">${equipment.manager}</a></td>

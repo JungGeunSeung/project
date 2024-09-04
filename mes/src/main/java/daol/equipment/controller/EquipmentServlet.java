@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import daol.equipment.dao.EquipmentDAO;
 import daol.equipment.dto.EquipmentDTO;
 import daol.equipment.service.EquipmentService;
 
@@ -105,9 +106,8 @@ public class EquipmentServlet extends HttpServlet {
 			sortOrder = "ASC"; // 기본 정렬 순서 설정
 		}
 
-		List<EquipmentDTO> equipmentList = equipmentService.getEquipmentByPage(pageSize, pageNumber, sortField,
-				sortOrder);
-		int totalEquipmentCount = equipmentService.getTotalEquipmentCount();
+		 List<EquipmentDTO> equipmentList = equipmentService.getEquipmentByPage(pageSize, pageNumber, sortField, sortOrder);
+	        int totalEquipmentCount = equipmentService.getTotalEquipmentCount();
 
 		request.setAttribute("equipmentList", equipmentList);
 		request.setAttribute("totalPages", (int) Math.ceil((double) totalEquipmentCount / pageSize));
