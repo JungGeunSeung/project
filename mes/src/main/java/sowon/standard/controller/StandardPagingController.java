@@ -28,14 +28,14 @@ public class StandardPagingController extends HttpServlet {
         if(page == null) page = "1";
         
         StandardService empPageService = new  StandardService();
-        Map map = empPageService.getQualityPage(countPerPage, page);
+        Map map = empPageService.getStandardPage(countPerPage, page);
         System.out.println(map);
         request.setAttribute("map", map);
         request.setAttribute("countPerPage", countPerPage);
         request.setAttribute("page", page);
 
        
-        request.getRequestDispatcher("/WEB-INF/시험항목_Standard_modify.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/시험항목_Standard.jsp").forward(request, response);
 	}
 	
 }

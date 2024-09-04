@@ -79,12 +79,12 @@
 		<h1>품질 관리</h1>
 		<!-- 해당 페이지의 설명 -->
 		<div class="subhead">
-			<span>품질관리 생산검사현황을 조회하는 페이지 입니다.</span> <br>
+			<span>품질관리 시험항목을 조회하는 페이지 입니다.</span> <br>
 		</div>
 		<!-- 게시물의 개수를 표시할 select -->
 
 		<div>
-			<form method="get" action="/mes/quality/list/search">
+			<form method="get" action="/mes/standard/list/search">
 				<span>상품코드로 검색</span> <input type="text" name="production_id"
 					placeholder="상품코드를 입력하세요."> <input type="submit" value="검색"
 					class="btn">
@@ -101,7 +101,7 @@
 			<form id="addRowForm">
 				<label for="prodNum">시험기준 ID :</label> <input type="text"
 					id="prodNum" name="prodNum" required><br> <label
-					for="LOTNum">줌질기준 : </label> <input type="text" id="LOTNum"
+					for="LOTNum">품질기준 : </label> <input type="text" id="LOTNum"
 					name="LOTNum" required><br> <label for="prodName">관리자
 					 :</label> <input type="text" id="prodName" name="prodName" required><br>
 					 <label for="prodName">인증기관
@@ -122,7 +122,7 @@
 			<thead>
 				<tr>
 					<th><input type="checkbox" id="allchk"></th>
-					<<th>시험기준 ID</th>
+					<th>시험기준 ID</th>
 					<th>품질기준</th>
 					<th>관리자</th>
 					<th>인증기관</th>
@@ -140,9 +140,8 @@
 							<c:param name="title" value="${ standard.title }" />
 						</c:url>
 
-						<td>${ quality.ins_id }</td>
-						<td><a href="${ read }" id="underline">${ standard.quality_id}</a>
-						</td>
+					    
+<%-- 						<td><a href="${ read }" id="underline">${ standard.quality_id}</a></td> --%>
 						<td>${ standard.quality_id }</td>
 						<td>${ standard.title }</td>
 						<td>${ standard.mgr }</td>
@@ -165,8 +164,8 @@
 			</tbody>
 
 		</table>
-
-		<div>
+</div>
+		
 			<hr>
 			<div class="pagenum">
 				<%
@@ -205,7 +204,7 @@
 				<a href="list?page=${ pageNo + 1 }&countPerPage=${countPerPage}">다음</a>
 			</div>
 
-		</div>
+		
 </body>
 <script>
 	var modal = document.getElementById("addRowModal");

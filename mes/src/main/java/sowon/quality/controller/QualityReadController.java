@@ -19,15 +19,15 @@ public class QualityReadController extends HttpServlet {
         System.out.println("QualityReadController doGet 실행");
     	String ins_id = request.getParameter("ins_id");
     	System.out.println(ins_id);
-        // 파라메터가 널이 아닐경우 처리
+        
         if(ins_id != null) {
             QualityService qualityservice = new QualityService();
             QualityDTO dto = qualityservice.get(ins_id);
             System.out.println(dto);
-            // 요청하는 곳에 키와 벨류로 저장
+            
             request.setAttribute("dto", dto);
 
-            // todo/read.jsp 로 forward
+            
             request.getRequestDispatcher("/WEB-INF/품질관리_Quality_read.jsp").forward(request, response);
         } else {
             System.out.println("null");

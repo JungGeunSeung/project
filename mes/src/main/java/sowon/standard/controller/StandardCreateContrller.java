@@ -26,7 +26,7 @@ public class StandardCreateContrller extends HttpServlet {
 	}
 
     public void setDefect_count(int count) {
-        // 기존 로직
+        
     }
 
 
@@ -40,27 +40,24 @@ public class StandardCreateContrller extends HttpServlet {
 		String insti = request.getParameter("insti");
 		String revision = request.getParameter("revision");
 	
-		LocalDate revision = null;
+		LocalDate parsedRevision = null;
 		if (revision != null && !revision.isEmpty()) {
-		    parsedInsDate = LocalDate.parse(revision);
-		}
+			parsedRevision = LocalDate.parse(revision);
+	    }
+	    
+	    StandardDTO dto = new StandardDTO();
+	    dto.setQuality_id(quality_id);
+	    dto.setTitle(title);
+	    dto.setMgr(mgr);
+	    dto.setInsti(insti);
+	    dto.setRevision(parsedRevision); 
+	    
+	    StandardService service = new StandardService();
+	    int result1 = service.register(dto);
+	    System.out.println("insert 결과 :" + result1);
 		
-		StandardDTO dto = new StandardDTO();
-		dto.setQuality_id(quality_id);
-		dto.setTitle(title);
-		dto.setMgr( mgr );
-		dto.setInsti( insti );
-		dto.setrevision(revision);
-		
-	
-		// DB 의 insert까지 실행하여 가져와 담는다.
-		StandardService service = new StandardService();
-		int result1 = service.register(dto);
-		System.out.println("insert 결과 :"+ result);
-		
-		// list 목록으로 보내기
 		String contextPath = request.getContextPath();
-		response.sendRedirect(contextPath + "/quality");
+		response.sendRedirect(contextPath + "/standard");
 	}
 	
 }

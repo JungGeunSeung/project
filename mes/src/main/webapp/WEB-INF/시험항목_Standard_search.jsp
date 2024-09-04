@@ -39,7 +39,7 @@
             <h1><a href="/mes/standard/list">Standard</a></h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
-                <span>품질관리 생산검사현황을 조회하는 페이지 입니다.</span> <br>
+                <span>품질관리 시험항목을 조회하는 페이지 입니다.</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
 		<jsp:include page="시험항목_Standard_SelectForm.jsp">
@@ -70,17 +70,15 @@
 					<th>관리자</th>
 					<th>인증기관</th>
 					<th>인증날짜</th>
-
-                    	
                     	
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="quality" items="${ standard }">
+                    <c:forEach var="standard" items="${ standard }">
                     	<tr>
                     		<td><input type="checkbox" id="allchk"></td>
                     		
-                    		<c:url var="read" value="/quality/read">
+                    		<c:url var="read" value="/standard/read">
                     			<c:param name="quality_id" value="${ standard.quality_id }"/>
                     			<c:param name="title" value="${ standard.title }"/>
                     		</c:url>

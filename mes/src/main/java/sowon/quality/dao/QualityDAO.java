@@ -135,11 +135,9 @@ public class QualityDAO {
 		        String query = "UPDATE qualityinspection SET ins_date=?, result=?, defect_count=?, defect_cause=? WHERE ins_ID=?";
 		        PreparedStatement ps = con.prepareStatement(query);
 		        
-		        // LocalDate를 java.sql.Date로 변환
 		        LocalDate localDate = dto.getIns_date();
 		        java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
 		        
-		        // DTO에서 값 가져오기 및 PreparedStatement에 설정
 		        ps.setDate(1, sqlDate);
 		        ps.setString(2, dto.getResult());
 		        ps.setInt(3, dto.getDefect_count());

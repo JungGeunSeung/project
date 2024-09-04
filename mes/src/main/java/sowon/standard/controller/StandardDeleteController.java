@@ -15,9 +15,8 @@ public class StandardDeleteController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("QualityDeleteController doPost 실행");
         
-	    String ins_id = request.getParameter("quality_id");
+	    String quality_id = request.getParameter("quality_id");
 		
 	    StandardService service = new StandardService();
 		int dto = service.delete(quality_id);

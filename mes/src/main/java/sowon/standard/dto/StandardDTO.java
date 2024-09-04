@@ -11,10 +11,10 @@ public class StandardDTO {
 		private LocalDate revision;
 		
 		
-		public String getQualit_id() {
+		public String getQuality_id() {
 			return quality_id;
 		}
-		public void setQualit_id(String quality_id) {
+		public void setQuality_id(String quality_id) {
 			this.quality_id = quality_id;
 		}
 		public String getTitle() {
@@ -23,10 +23,10 @@ public class StandardDTO {
 		public void setTitle(String title) {
 			this.title = title;
 		}
-		public String getMrg() {
+		public String getMgr() {
 			return mgr;
 		}
-		public void setMrg(String mrg) {
+		public void setMgr(String mgr) {
 			this.mgr = mgr;
 		}
 		public String getInsti() {

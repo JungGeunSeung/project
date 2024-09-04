@@ -18,10 +18,9 @@ public class StandardSearchController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	System.out.println("StandardearchController doGet 실행");
 
-        String production_id = request.getParameter("quality_id");
-        System.out.println(production_id);
+        String title = request.getParameter("title");
         StandardService service = new StandardService();
-        List list = service.getQuality(production_id);
+        List list = service.getStandard(title);
 
         request.setAttribute("standard", list);
         

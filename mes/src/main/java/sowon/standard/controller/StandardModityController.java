@@ -28,16 +28,17 @@ public class StandardModityController extends HttpServlet {
 		String revision = request.getParameter("revision");
 		System.out.println(quality_id + ", "+ title+ ", "+ mgr+ ", "+ insti+ ", "+ revision);
 		
-		LocalDate parsedInsDate = null;
+		LocalDate parsedRevision = null;
 		if (revision != null && !revision.isEmpty()) {
-		    parsedInsDate = LocalDate.parse(revision);
+			parsedRevision = LocalDate.parse(revision);
 		}
-		StandardService dto = new StandardService();
-		dto.setQuality_id(quality_id);
-		dto.setTitle(title);
-		dto.setMgr( mgr );
-		dto.setInsti( insti );
-		dto.setrevision(revision);
+		StandardDTO dto = new StandardDTO();
+		 dto.setQuality_id(quality_id);
+		 dto.setTitle(title);
+		 dto.setMgr(mgr);
+		 dto.setInsti(insti);
+		 dto.setRevision(parsedRevision);
+	
 		
 		request.setAttribute("dto", dto);
 		request.getRequestDispatcher("/WEB-INF/시험항목_Standard_modify.jsp").forward(request, response);
@@ -54,28 +55,28 @@ public class StandardModityController extends HttpServlet {
 		String mgr = request.getParameter("mgr");
 		String insti = request.getParameter("insti");
 		String revision = request.getParameter("revision");
-		
-		
+		LocalDate parsedRevision = null;
+
 		if (revision != null && !revision.isEmpty()) {
-		    parsedInsDate = LocalDate.parse(revision);
+			parsedRevision = LocalDate.parse(revision);
 		}
 		StandardDTO dto = new StandardDTO();
 		dto.setQuality_id(quality_id);
 		dto.setTitle(title);
 		dto.setMgr( mgr );
 		dto.setInsti( insti );
-		dto.setrevision(revision);
-	
+		dto.setRevision(parsedRevision);
+		
 		System.out.println(dto);
 		
 		StandardService service = new StandardService();
 		int result1 = service.update(dto);
-		System.out.println("insert 결과 :"+ result);
-		System.out.println("update 결과 :" + result);
-		System.out.println("delete 결과 :" + result);
+		System.out.println("insert 결과 :"+ result1);
+		System.out.println("update 결과 :" + result1);
+		System.out.println("delete 결과 :" + result1);
 		
 		String contextPath = request.getContextPath();
-		response.sendRedirect(contextPath + "/quality/list");
+		response.sendRedirect(contextPath + "/standard/list");
 
 	}
 
