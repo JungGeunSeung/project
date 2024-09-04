@@ -160,10 +160,7 @@
 				</div>
 			</form>
 
-			<form method="post" action="Equip">
-				<button type="submit" class="btn Lbtn">선택된 열 삭제</button>
-				<input type="hidden" name="action" value="delete">
-			</form>
+
 
 			<form method="post" action="Equip">
 				<span>날짜별 조회</span> <input type="date" name="startDate"
@@ -172,7 +169,15 @@
 				<button type="submit" class="btn">검색</button>
 				<input type="hidden" name="action" value="searchByDate">
 			</form>
+
+			<form method="post" action="Equip">
+				<button type="submit" class="btn Lbtn">선택된 열 삭제</button>
+				<input type="hidden" name="action" value="delete">
+				<button type="button" class="btn" onclick="openAddWindow()">추가</button>
+			</form>
+			<!-- 추가 버튼 -->
 		</div>
+
 
 		<!-- 해당 목록 -->
 		<div class="tableID">
@@ -237,6 +242,11 @@
 			} else {
 				alert('삭제할 항목을 선택하세요.');
 			}
+		}
+
+		function openAddWindow() {
+			window.open('/mes/addEquipment', 'newwindow',
+					'width=600,height=400');
 		}
 	</script>
 

@@ -1,6 +1,7 @@
 package daol.equipment.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -68,6 +69,7 @@ public class EquipmentDAO {
         }
         return equipmentList;
     }
+
 
 
     public int getTotalEquipmentCount() {
@@ -151,4 +153,32 @@ public class EquipmentDAO {
             e.printStackTrace();
         }
     }
+    public List<EquipmentDTO> getEquipmentByDateRange(Date startDate, Date endDate) {
+        List<EquipmentDTO> equipmentList = new ArrayList<>();
+        String sql = "SELECT * FROM equipment e JOIN maintenance m ON e.equiID = m.equiID WHERE m.maindate BETWEEN ? AND ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setDate(1, startDate);
+            ps.setDate(2, endDate);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                EquipmentDTO equipment = new EquipmentDTO();
+                equipment.setEquiID(rs.getString("equiID"));
+                equipment.setEquiname(rs.getString("equiname"));
+                equipment.setEquitype(rs.getString("equitype"));
+                equipment.setManager(rs.getString("manager"));
+                equipment.setMaindate(rs.getDate("maindate"));
+                equipment.setMaincontent(rs.getString("maincontent"));
+                equipmentList.add(equipment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return equipmentList;
+    }
+
+
 }

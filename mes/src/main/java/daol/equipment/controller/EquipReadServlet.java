@@ -22,7 +22,9 @@ public class EquipReadServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    try {
+		request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html; charset=utf-8;");
+		try {
 	        String equiID = request.getParameter("equiID");
 	        if (equiID == null || equiID.isEmpty()) {
 	            throw new IllegalArgumentException("Invalid equipment ID");
@@ -46,6 +48,8 @@ public class EquipReadServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html; charset=utf-8;");
 		String action = request.getParameter("action");
 
 		EquipmentDTO equipment = new EquipmentDTO();

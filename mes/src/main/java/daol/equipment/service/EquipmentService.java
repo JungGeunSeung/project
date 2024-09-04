@@ -1,6 +1,7 @@
 package daol.equipment.service;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -72,4 +73,9 @@ public class EquipmentService {
         }
         return equipment;
     }
+
+	public List<EquipmentDTO> getEquipmentByDateRange(Date startDate, Date endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
