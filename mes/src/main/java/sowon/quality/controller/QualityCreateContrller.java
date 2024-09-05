@@ -22,7 +22,7 @@ public class QualityCreateContrller extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8;");
 		
-		request.getRequestDispatcher("/WEB-INF/품질기준_Quality_register.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/생산검사현황_Quality_register.jsp").forward(request, response);
 	}
 
     public void setDefect_count(int count) {
@@ -64,7 +64,7 @@ public class QualityCreateContrller extends HttpServlet {
 		// DB 의 insert까지 실행하여 가져와 담는다.
 		QualityService service = new QualityService();
 		int result1 = service.register(dto);
-		System.out.println("insert 결과 :"+ result);
+		System.out.println("insert 결과 :"+ result1);
 		
 		// list 목록으로 보내기
 		String contextPath = request.getContextPath();

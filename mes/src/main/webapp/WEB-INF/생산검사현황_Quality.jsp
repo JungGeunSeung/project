@@ -77,10 +77,10 @@
 	<div class="searchID">
 
 		<!-- 해당 페이지의 제목 -->
-		<h1>품질 관리</h1>
+		<h1>생산검사현황</h1>
 		<!-- 해당 페이지의 설명 -->
 		<div class="subhead">
-			<span>품질 관리 항목을 조회하는 페이지입니다.</span> <br>
+			<span>품질관리 생산검사현황을 조회하는 페이지입니다.</span> <br>
 		</div>
 		<!-- 게시물의 개수를 표시할 select -->
 
@@ -94,43 +94,36 @@
 			<button onclick="delchk()" class="btn Lbtn">선택된 열 삭제</button>
 		</div>
 	</div>
-	 <h1>검색 결과</h1>
-    <c:if test="${empty qualityList}">
-        <p>검색 결과가 없습니다.</p>
-    </c:if>
-    <c:forEach var="quality" items="${qualityList}">
-        <p>품질 코드: ${quality.ins_id}</p>
-        <p>상품 코드: ${quality.production_id}</p>
-        <!-- 추가적인 출력 필드 -->
-        <hr>
-    </c:forEach>
 
 	<div id="addRowModal" class="modal">
-		<div class="modal-content">
-			<span class="close">&times;</span>
-			<h2>추가할 품질 정보 입력</h2>
-			<form id="addRowForm">
-				<label for="prodNum">품질검사 ID :</label> <input type="text"
-					id="prodNum" name="prodNum" required><br> <label
-					for="LOTNum">제품 ID : </label> <input type="text" id="LOTNum"
-					name="LOTNum" required><br> <label for="prodName">계획
-					ID :</label> <input type="text" id="prodName" name="prodName" required><br>
-				<label for="date">검사날짜 :</label> <input type="date" id="date"
-					name="date" required><br> <label for="prodName">검사결과
-					: </label> <input type="text" id="prodName" name="prodName" required><br>
-				<label for="count">불량개수 :</label> <input type="number" id="count"
-					name="count" required><br> <label for="prodName">불량유형
-					: </label> <input type="text" id="prodName" name="prodName" required><br>
-				<label for="prodName">결과 ID : </label> <input type="text"
-					id="prodName" name="prodName" required><br> <label
-					for="prodName">실적 ID : </label> <input type="text" id="prodName"
-					name="prodName" required><br>
+      <div class="modal-content">
+         <span class="close">&times;</span>
+         <h2>추가할 품질 정보 입력</h2>
+         <form id="addRowForm">
+            <label for="prodNum">품질검사 ID :</label> <input type="text" id="prodNum"
+               name="prodNum" required><br> <label for="LOTNum">제품 ID :
+               </label> <input type="text" id="LOTNum" name="LOTNum" required><br>
 
+            <label for="prodName">계획 ID :</label> <input type="text" id="prodName"
+               name="prodName" required><br> 
+            <label for="date">검사날짜 :</label> <input type="date" id="date"
+               name="date" required><br> 
+            <label for="prodName">검사결과 : </label> <input type="text" id="prodName"
+               name="prodName" required><br> 
+             <label for="count">불량개수 :</label> <input type="number"
+               id="count" name="count" required><br> 
+            <label for="prodName">불량유형 : </label> <input type="text" id="prodName"
+               name="prodName" required><br> 
+            <label for="prodName">결과 ID : </label> <input type="text" id="prodName"
+               name="prodName" required><br> 
+            <label for="prodName">실적 ID : </label> <input type="text" id="prodName"
+               name="prodName" required><br> 
+               
 
-				<button type="button" onclick="submitAddRowForm()">추가</button>
-			</form>
-		</div>
-	</div>
+            <button type="button" onclick="submitAddRowForm()">추가</button>
+         </form>
+      </div>
+   </div>
 
 	<!-- 해당 목록 -->
 	<div class="tableID">
@@ -234,38 +227,39 @@
 		</div>
 </body>
 <script>
-	var modal = document.getElementById("addRowModal");
+var modal = document.getElementById("addRowModal");
 
-	// Get the button that opens the modal
-	//var addButton = document.querySelector("button[onclick='addRow()']");
-	var addButton = document.querySelector("button[onclick='add()']");
+// Get the button that opens the modal
+var addButton = document.querySelector("button[onclick='addRow()']");
 
-	// Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
 
-	// When the user clicks on the button, open the modal
-	addButton.onclick = function() {
-		modal.style.display = "block";
-	}
+// When the user clicks on the button, open the modal
+addButton.onclick = function() {
+    modal.style.display = "block";
+}
 
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-		var form = document.getElementById("addRowForm");
-		modal.style.display = "none";
-		form.reset();
-	}
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+   var form = document.getElementById("addRowForm");
+    modal.style.display = "none";
+    form.reset();
+}
 
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-		if (event.target == modal) {
-			var form = document.getElementById("addRowForm");
-			modal.style.display = "none";
-			form.reset();
-		}
-	}
-	function add() {
-		modal.style.display = "block";
-	}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+       var form = document.getElementById("addRowForm");
+        modal.style.display = "none";
+        form.reset();
+    }
+}
+function add(){
+	modal.style.display="block";
+}
+
+
 </script>
 <script src="/mes/JavaScript/sort.js"></script>
 <script src="/mes/JavaScript/date.js"></script>

@@ -28,28 +28,26 @@ public class QualityService {
 	}
 	    
 	public int register(QualityDTO dto) {
-        // DB 연결 및 insert 로직 처리
-        // 예: INSERT INTO quality_table (columns...) VALUES (dto.get...);
         
-        int result = 0; // 기본값 설정
+        int result = 0; 
         try {
-            // 데이터베이스에 삽입 후 성공 시 result를 1로 설정
-            result = 1; // 이 부분은 실제 DB 삽입 결과에 따라 달라질 수 있음
+           
+            result = 1; 
         } catch (Exception e) {
             e.printStackTrace();
-            result = 0; // 실패 시 0 설정 또는 예외 처리
+            result = 0; 
         }
         return result;
     }
    
-	public int update(QualityDTO dto) {// 수정
+	public int update(QualityDTO dto) {
 		QualityDAO dao= new QualityDAO();
 		return dao.update(dto);
 	}
 	
-	public void create(QualityDTO dto) { // 추가
+	public void create(QualityDTO dto) { 
 	    QualityDAO qualityDAO = new QualityDAO();
-//	    qualityDAO.addDto(dto); // QualityDAO 객체의 addDto 메서드 호출
+//	    qualityDAO.addDto(dto);
 	}
 
 	public int delete(String dto) { // 삭제

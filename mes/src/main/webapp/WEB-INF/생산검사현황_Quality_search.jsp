@@ -36,18 +36,18 @@
         <div class="searchID">
 
             <!-- 해당 페이지의 제목 -->
-            <h1><a href="/mes/standard/list">Standard</a></h1>
+            <h1><a href="/mes/quality/list">Quality</a></h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
-                <span>품질관리 시험현황을 조회하는 페이지 입니다.</span> <br>
+                <span>품질관리 생산검사현황을 조회하는 페이지 입니다.</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
-		<jsp:include page="시험항목_Standard_SelectForm.jsp">
+		<jsp:include page="생산검사현황_Quality_SelectForm.jsp">
 			<jsp:param name="select" value="select"/>
 		</jsp:include>
         
 		<div>
-			<form method="get" action="/mes/standard/list/search">
+			<form method="get" action="/mes/quality/list/search">
 				<span>상품코드로 검색</span>
 				<input type="text" name="production_id" placeholder="상품코드를 입력하세요.">
 				<input type="submit" value="검색" class="btn">
@@ -65,41 +65,52 @@
                     	<th>
                     		<input type="checkbox" id="allchk">
                     	</th>
-					<th>시험기준 ID</th>
-					<th>품질기준</th>
-					<th>관리자</th>
-					<th>인증기관</th>
-					<th>인증날짜</th>
+                    <th>품질검사 ID</th>
+					<th>제품 ID</th>
+					<th>계획 ID</th>
+					<th>검사 날짜</th>
+					<th>검사 결과</th>
+					<th>불량 수량</th>
+					<th>불량 유형</th>
+					<th>결과 ID</th>
+					<th>작업 ID</th>
+                    	
                     	
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="standard" items="${ standard }">
+                    <c:forEach var="quality" items="${ quality }">
                     	<tr>
                     		<td><input type="checkbox" id="allchk"></td>
                     		
-                    		<c:url var="read" value="/standard/read">
-                    			<c:param name="quality_id" value="${ standard.quality_id }"/>
-                    			<c:param name="title" value="${ standard.title }"/>
+                    		<c:url var="read" value="/quality/read">
+                    			<c:param name="ins_id" value="${ quality.ins_id }"/>
+                    			<c:param name="production_id" value="${ quality.production_id }"/>
                     		</c:url>
                     		
-                    		<td>${  standard.quality_id }</td>
-						<td><a href="${ read }" id="underline">${ standard.title }</a>
+                    		<td>${ quality.ins_id }</td>
+						<td><a href="${ read }" id="underline">${ quality.production_id }</a>
 						</td>
-						<td>${ standard.quality_id }</td>
-						<td>${ standard.title }</td>
-						<td>${ standard.mgr }</td>
-						<td>${ standard.insti }</td>
-						<td>${ standard.revision }</td>
-						<c:url var="modify" value="/standard/modify">
-							<c:param name="ins_id" value="${ standard.quality_id }" />
-							<c:param name="production_id" value="${ standard.title }" />
-							<c:param name="planid" value="${ standard.mgr }" />
-							<c:param name="ins_date" value="${ standard.insti }" />
-							<c:param name="result" value="${ standard.revision }" />
+						<td>${ quality.planid }</td>
+						<td>${ quality.ins_date }</td>
+						<td>${ quality.result }</td>
+						<td>${ quality.defect_count }</td>
+						<td>${ quality.defect_cause }</td>
+						<td>${ quality.resultID }</td>
+						<td>${ quality.taskid }</td>
+						<c:url var="modify" value="/quality/modify">
+							<c:param name="ins_id" value="${ quality.ins_id }" />
+							<c:param name="production_id" value="${ quality.production_id }" />
+							<c:param name="planid" value="${ quality.planid }" />
+							<c:param name="ins_date" value="${ quality.ins_date }" />
+							<c:param name="result" value="${ quality.result }" />
+							<c:param name="defect_count" value="${ quality.defect_count }" />
+							<c:param name="defect_cause" value="${ quality.defect_cause }" />
+							<c:param name="resultid" value="${ quality.resultID }" />
+							<c:param name="taskid" value="${ quality.taskid }" />
 						</c:url>
-						<c:url var="delete" value="/standard/delete">
-							<c:param name="ins_id" value="${ standard.quality_id }" />
+						<c:url var="delete" value="/quality/delete">
+							<c:param name="ins_id" value="${ quality.ins_id }" />
 						</c:url>
                     	</tr>
                     </c:forEach>

@@ -28,7 +28,7 @@ public class QualityReadController extends HttpServlet {
             request.setAttribute("dto", dto);
 
             
-            request.getRequestDispatcher("/WEB-INF/품질관리_Quality_read.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/품질기준_생산관리현황_Quality_read.jsp").forward(request, response);
         } else {
             System.out.println("null");
         }

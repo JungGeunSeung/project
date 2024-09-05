@@ -27,15 +27,11 @@
 <a href="list">목록으로가기</a><br>
 <a href="">삭제</a><br>
 <a href="">수정하기</a><br>
+    <div>불량기록 ID : ${ dto.report_id }</div>
     <div>품질검사 ID : ${ dto.ins_id }</div>
     <div>제품 ID : ${ dto.production_id }</div>
     <div>계획 ID : ${ dto.planid }</div>
-    <div>검사날짜 : ${ dto.ins_date }</div>
-    <div>검사결과 : ${ dto.result }</div>
     <div>불량개수 : ${ dto.defect_count }</div>
-    <div>불량유형 : ${ dto.defect_cause }</div>
-    <div>결과 ID : ${ dto.resultID }</div>
-    <div>실적 ID : ${ dto.taskid }</div>
 		
 </body>
 </html>

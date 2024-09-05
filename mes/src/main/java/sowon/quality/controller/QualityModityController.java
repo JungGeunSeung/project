@@ -48,7 +48,7 @@ public class QualityModityController extends HttpServlet {
 		dto.setTaskid( taskid );
 		
 		request.setAttribute("dto", dto);
-		request.getRequestDispatcher("/WEB-INF/품질관리_Quality_modify.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/생산관리현황_Quality_modify.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -87,9 +87,9 @@ public class QualityModityController extends HttpServlet {
 		
 		QualityService service = new QualityService();
 		int result1 = service.update(dto);
-		System.out.println("insert 결과 :"+ result);
-		System.out.println("update 결과 :" + result);
-		System.out.println("delete 결과 :" + result);
+		System.out.println("insert 결과 :"+ result1);
+		System.out.println("update 결과 :" + result1);
+		System.out.println("delete 결과 :" + result1);
 		
 		String contextPath = request.getContextPath();
 		response.sendRedirect(contextPath + "/quality/list");

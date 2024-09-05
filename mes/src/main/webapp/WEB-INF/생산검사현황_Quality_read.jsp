@@ -3,25 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/mes/CSS/button.css">
-    <link rel="stylesheet" href="/mes/CSS/calender.css">
-    <link rel="stylesheet" href="/mes/CSS/common.css">
-    <link rel="stylesheet" href="/mes/CSS/display.css">
-    <link rel="stylesheet" href="/mes/CSS/mobile.css">
-    <link rel="stylesheet" href="/mes/CSS/sidebar.css">
-    <link rel="stylesheet" href="/mes/CSS/table.css">
-    <link rel="stylesheet" href="/mes/CSS/topbar.css">
-    <link rel="stylesheet" href="/mes/CSS/게시판.css">
-    <link rel="stylesheet" href="/mes/CSS/mobile.css">
-    <script src="/mes/JavaScript/load_info.js"></script>
 </head>
 <body>
     <!-- 사이드바 -->
@@ -38,7 +24,7 @@
             <h1>생산검사현황</h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
-                <span>품질 관리 생산 검사 현황을 조회하는 페이지 입니다.</span> <br>
+                <span>품질관리 생산검사현황을 조회하는 페이지 입니다.</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
              <div class="cntdiv">
@@ -60,21 +46,35 @@
             </div>
         </div>
 
-
-	<form method="post" action="modify">
-	품질검사 ID : <input type="hidden" name="ins_id" value="${dto.ins_id}">${dto.ins_id}<br>
-	제품 ID : <input type="hidden" name="production_id" value="${dto.production_id}">${dto.production_id}<br>
-	계획 ID : <input type="hidden" name="planid" value="${dto.planid}">${dto.planid}<br>
-	검사날짜 : <input type="date" name="ins_date" value="${dto.ins_date}"><br>
-	검사결과 : <input type="text" name="result" value="${dto.result}"><br>
-	불량개수 : <input type="number" name="defect_count" value="${dto.defect_count}"><br>
-	불량유형 : <input type="text" name="defect_cause" value="${dto.defect_cause}"><br>
-	결과 ID : <input type="hidden" name="resultID" value="${dto.resultID}">${dto.resultID}<br>
-	실적 ID : <input type="hidden" name="taskid" value="${dto.taskid}">${dto.taskid}<br>
-	<input type="submit" value="수정하기" class="btn">
-	<input type="submit" value="삭제" class="btn"><br>
-	</form>
-	<input type="submit" value="목록으로 돌아가기" class="btn"> 
+    <div>품질검사 ID : ${ dto.ins_id }</div>
+    <div>제품 ID : ${ dto.production_id }</div>
+    <div>계획 ID : ${ dto.planid }</div>
+    <div>검사날짜 : ${ dto.ins_date }</div>
+    <div>검사결과 : ${ dto.result }</div>
+    <div>불량수량 : ${ dto.defect_count }</div>
+    <div>불량유형 : ${ dto.defect_cause }</div>
+    <div>결과 ID : ${ dto.resultID }</div>
+    <div>실적 ID : ${ dto.taskid }</div>
+    <br>
+	 <c:url var="modify" value="/quality/modify">
+        <c:param name="ins_id" value="${ dto.ins_id }" />
+        <c:param name="production_id" value="${ dto.production_id }" />
+        <c:param name="planid" value="${ dto.planid }" />
+        <c:param name="ins_date" value="${ dto.ins_date }" />
+        <c:param name="result" value="${ dto.result }" />
+        <c:param name="defect_count" value="${ dto.defect_count }" />
+        <c:param name="defect_cause" value="${ dto.defect_cause }" />
+        <c:param name="resultID" value="${ dto.resultID }" />
+        <c:param name="taskid" value="${ dto.taskid }" />
+    </c:url>
+    
+    <a href="${modify}" name="modify" class="btn" >수정하기</a><br>  
+     <form method="post" action="delete">
+            <input type="hidden" name="ins_id" value="${dto.ins_id }">
+            <input type="submit" value="삭제하기" class="btn">
+    </form>   
+   
+    <a href="/mes/quality/list" name="list" class="btn" >목록으로가기</a> 
 
 </body>
 </html>
