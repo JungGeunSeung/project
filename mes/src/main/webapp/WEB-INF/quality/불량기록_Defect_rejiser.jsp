@@ -22,7 +22,7 @@
             <h1>생산검사현황</h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
-                <span>품질관리 시험항목을 조회하는 페이지 입니다.</span> <br>
+                <span>품질관리 불량기록을 조회하는 페이지 입니다.</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
              <div class="cntdiv">
@@ -41,12 +41,11 @@
                     <button class="btn">검색</button>
                 </div> 
 	<from method="post" action="modify">
-	시험항목 ID : <input type="hidden" name="ins_id" value="${dto.quality_id}"><br>
-	품질기준 : <input type="hidden" name="production_id" value="${dto.title}"><br>
-	관리자 : <input type="hidden" name="planid" value="${dto.mgr}"><br>
-	인증기관 : <input type="date" name="ins_date" value="${dto.insti}"><br>
-	인증날짜 : <input type="text" name="result" value="${dto.revision}"><br>
-
+	불량기록 ID : <input type="hidden" name="report_id" value="${dto.report_id}">${dto.report_id}<br>
+	품질검사 ID : <input type="hidden" name="ins_id" value="${dto.ins_id}">${dto.ins_id}<br>
+	제품 ID : <input type="hidden" name="production_id" value="${dto.production_id}">${dto.production_id}<br>
+	계획 ID : <input type="hidden" name="planid" value="${dto.planid}">${dto.planid}<br>
+	불량수량 : <input type="number" name="defect_count" value="${dto.defect_count}"><br>
 	<input type="submit" value="수정하기">
 	</from>
             </div>

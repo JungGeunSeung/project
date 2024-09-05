@@ -1,10 +1,9 @@
-package sowon.quality.dao;
+package sowon.defect.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +11,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import sowon.quality.dto.QualityDTO;
+import sowon.defect.dto.DefectDTO;
 
-public class QualityDAO {
+public class DefectDAO {
 
 		private Connection getConnection () {
 			
@@ -35,43 +34,34 @@ public class QualityDAO {
 			return con;
 		}
 
-		public List<QualityDTO> selectAll() {
+		public List<DefectDTO> selectAll() {
 			System.out.println("DAO 실행");
 			
-			List<QualityDTO> list = new ArrayList<QualityDTO>();
+			List<DefectDTO> list = new ArrayList<DefectDTO>();
 			
 	        
 	        try {
 	        	
 	        	Connection con = getConnection();
 	        	
-	        	String query = "select * from qualityinspection";
+	        	String query = "select * from DefectType";
 	        	PreparedStatement ps = con.prepareStatement(query);
 	        	
 	        	ResultSet rs = ps.executeQuery();
 	        	
 	        	while(rs.next()) {
+	        		String report_id = rs.getString("report_id");
 	        		String ins_id = rs.getString("ins_id");
 	        		String production_id = rs.getString("production_id");
 	        		String planid = rs.getString("planid");
-	        		LocalDate ins_date = rs.getDate("ins_date").toLocalDate();
-	        		String result = rs.getString("result");
 	        		int defect_count = rs.getInt("defect_count");
-	        		String defect_cause = rs.getString("defect_cause");
-	        		String resultid = rs.getString("resultid");
-	        		String taskid = rs.getString("taskid");
 	        		
-	        		
-	        		QualityDTO dto = new QualityDTO();
+	        		DefectDTO dto = new DefectDTO();
+	        		dto.setReport_id( report_id );
 	        		dto.setIns_id(ins_id);
 	        		dto.setProduction_id(production_id);
 	        		dto.setPlanid(planid);
-	        		dto.setIns_Date(ins_date);
-	        		dto.setResult( result );
 	        		dto.setDefect_count( defect_count );
-	        		dto.setDefect_cause( defect_cause );
-	        		dto.setResultID( resultid );
-	        		dto.setTaskid( taskid );
 	        	
 	        		list.add(dto);
 	        	}
@@ -87,62 +77,54 @@ public class QualityDAO {
 	        return list;
 		}
 	
-		public QualityDTO selectOne(String ins_id) {
-			QualityDTO qualityDTO = null;
+		public DefectDTO selectOne(String report_id) {
+			DefectDTO defectDTO = null;
 			Connection con = getConnection();
 			
 			if(con == null) return null;
 			
 			try {
-				System.out.println("QualityDAO의 selectOne 메소드 실행 및 SQL 준비");
+				System.out.println("DefectTypeDAO의 selectOne 메소드 실행 및 SQL 준비");
 				
-				String sql = "select * from qualityinspection where ins_id = ?";
+				String sql = "select * from DefectType where report_id = ?";
 			
 				PreparedStatement ps = con.prepareStatement(sql);
-				System.out.println("DAO : "+ins_id);
-				ps.setString(1, ins_id);
+				System.out.println("DAO : "+ report_id);
+				ps.setString(1, report_id);
 				System.out.println("ps" + ps);
 				
 		    	ResultSet rs = ps.executeQuery();
 		    	
 		    	if( rs.next() ) {
 		    		System.out.println("rs.next() 작동함");
-		    		qualityDTO = new QualityDTO();
-		    		qualityDTO.setIns_id(rs.getString("ins_id"));
-		    		qualityDTO.setProduction_id(rs.getString("production_id"));
-		    		qualityDTO.setPlanid(rs.getString("planid"));
-		    		qualityDTO.setIns_Date(rs.getDate("ins_date").toLocalDate());
-		    		qualityDTO.setResult(rs.getString("result"));
-		    		qualityDTO.setDefect_count(rs.getInt("defect_count"));
-		    		qualityDTO.setDefect_cause(rs.getString("defect_cause"));
-		    		qualityDTO.setResultID(rs.getString("resultid"));
-		    		qualityDTO.setTaskid(rs.getString("taskid"));
+		    		DefectDTO dto = new DefectDTO();
+		    		dto.setReport_id(rs.getString("report_id"));
+		    		dto.setIns_id(rs.getString("ins_id"));
+		    		dto.setProduction_id(rs.getString("production_id"));
+		    		dto.setPlanid(rs.getString("planid"));
+		    		dto.setDefect_count(rs.getInt("defect_count"));
 		    	
 		    	}
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println("qualityDTO : "+qualityDTO);
-			return qualityDTO;
+			System.out.println("defectDTO : "+defectDTO);
+			return defectDTO;
 		}		
-		public int update(QualityDTO dto) {
+		public int update(DefectDTO dto) {
 		    int result = 0;
 		    try {
 		        Context ctx = new InitialContext();
 		        DataSource dataFactory = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
 		        Connection con = dataFactory.getConnection();
 		        
-		        String query = "UPDATE qualityinspection SET ins_date=?, result=?, defect_count=?, defect_cause=? WHERE ins_ID=?";
+		        String query = "UPDATE DefectType SET ins_date=?, production_id=?, planid=?, defect_count=? WHERE report_id=?";
 		        PreparedStatement ps = con.prepareStatement(query);
 		        
-		        LocalDate localDate = dto.getIns_date();
-		        java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
-		        
-		        ps.setDate(1, sqlDate);
-		        ps.setString(2, dto.getResult());
+		        ps.setString(1, dto.getIns_id());
+		        ps.setString(2, dto.getProduction_id());
+		        ps.setString(4, dto.getPlanid());
 		        ps.setInt(3, dto.getDefect_count());
-		        ps.setString(4, dto.getDefect_cause());
-		        ps.setString(5, dto.getIns_id());
 		        
 		        result = ps.executeUpdate();
 		        System.out.println("업데이트된 행 수: " + result);
@@ -157,7 +139,7 @@ public class QualityDAO {
 		    return result;
 		}
 		
-		public int delete(String ins_id) {
+		public int delete(String report_id) {
 			
 			int result = 0;
 			try {
@@ -165,11 +147,11 @@ public class QualityDAO {
 				DataSource dataFactory = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
 				Connection con = dataFactory.getConnection();
 				
-				String query = "delete from qualityinspection where ins_id=?";
+				String query = "delete from DefectType where report_id=?";
 				
 				PreparedStatement ps = con.prepareStatement(query);
 				
-				ps.setString(1, ins_id);
+				ps.setString(1, report_id);
 				
 				result = ps.executeUpdate();
 				
@@ -183,8 +165,8 @@ public class QualityDAO {
 			return result;
 		}
 	    
-		public List selectQualityPage(int start, int end) {
-	        System.out.println("QualityDAO의 selectQualityPage메소드 실행");
+		public List selectDefectPage(int start, int end) {
+	        System.out.println("DefectDAO의 selectDefectPage메소드 실행");
 			
 			List list = new ArrayList();
 	        
@@ -200,11 +182,11 @@ public class QualityDAO {
 	            
 	            String query =  " select * ";
 	                    query += " from ( ";
-	                    query += "    select rownum rnum, ins_id, production_id, planid, ins_date, result, defect_count, defect_cause, resultid, taskid";
+	                    query += "    select rownum rnum, report_id, ins_id, production_id, planid, defect_count ";
 	                    query += "    from ( ";
-	                    query += "        select ins_id, production_id, planid, ins_date, result, defect_count, defect_cause, resultid, taskid ";
-	                    query += "        from qualityinspection ";
-	                    query += "        order by ins_id ";
+	                    query += "        select report_id, ins_id, production_id, planid, defect_count ";
+	                    query += "        from DefectType ";
+	                    query += "        order by report_id ";
 	                    query += "    ) ";
 	                    query += " ) ";
 	                    query += " where rnum >= ? and rnum <= ?";
@@ -217,28 +199,20 @@ public class QualityDAO {
 	            rs = ps.executeQuery();
 	            
 	            while(rs.next()) {
-	                String ins_id = rs.getString("ins_id");
-	                String production_id = rs.getString("production_id");
-	                String planid = rs.getString("planid");
-	                LocalDate ins_date = rs.getDate("ins_date").toLocalDate();
-	                String result = rs.getString("result");
-	                int defect_count = rs.getInt("defect_count");
-	                String defect_cause = rs.getString("defect_cause");
-	                String resultid = rs.getString("resultid");
-	                String taskid = rs.getString("taskid");
-	                
-	                QualityDTO dto = new QualityDTO();
-	                dto.setIns_id(ins_id);
-	                dto.setProduction_id(production_id);
-	                dto.setPlanid(planid);
-	                dto.setIns_Date(ins_date);
-	                dto.setResult(result);
-	                dto.setDefect_count(defect_count);
-	                dto.setDefect_cause(defect_cause);
-	                dto.setResultID(resultid);
-	                dto.setTaskid(taskid);
-	            
-	                list.add(dto);
+	            	String report_id = rs.getString("report_id");
+	        		String ins_id = rs.getString("ins_id");
+	        		String production_id = rs.getString("production_id");
+	        		String planid = rs.getString("planid");
+	        		int defect_count = rs.getInt("defect_count");
+	        		
+	        		DefectDTO dto = new DefectDTO();
+	        		dto.setReport_id( report_id );
+	        		dto.setIns_id(ins_id);
+	        		dto.setProduction_id(production_id);
+	        		dto.setPlanid(planid);
+	        		dto.setDefect_count( defect_count );
+	        	
+	        		list.add(dto);
 	            }
 	            
 	        } catch (Exception e) {
@@ -257,7 +231,7 @@ public class QualityDAO {
 	    }
 
 	    // 전체 데이터베이스의 데이터 개수를 구하는 메소드
-	    public int totalQualityPage() {
+	    public int totalDefectPage() {
 	        
 	        int result = -1;
 	        
@@ -271,7 +245,7 @@ public class QualityDAO {
 
 	            con = dataSource.getConnection();
 	            
-	            String query =  "select count(*) cnt from qualityinspection ";
+	            String query =  "select count(*) cnt from DefectType ";
 	            
 	            ps = con.prepareStatement(query);
 	            
@@ -296,8 +270,7 @@ public class QualityDAO {
 	        return result;
 	    }
 
-	    // 주소창에 quality_ID의 값을 넣어 특정 quality코드를 찾는 메소드
-	    public List selectQuality(String production_id) {
+	    public List selectDefect(String report_id) {
 	        List list = new ArrayList();
 	        
 	        Connection con = null;
@@ -310,10 +283,10 @@ public class QualityDAO {
 
 	            con = dataSource.getConnection();
 	            
-	            String query = "SELECT * FROM qualityinspection ";
+	            String query = "SELECT * FROM DefectType ";
 	            
-	            if(production_id != null && !(production_id.equals(""))) {
-	                query += " where production_id= '" + production_id + "'";
+	            if(report_id != null && !(report_id.equals(""))) {
+	                query += " where report_id= '" + report_id + "'";
 	            }
 	            
 	            ps = con.prepareStatement(query);
@@ -321,28 +294,20 @@ public class QualityDAO {
 	            rs = ps.executeQuery();
 
 	            while(rs.next()) {
-	                String ins_id = rs.getString("ins_id");
-	                String prod_id = rs.getString("production_id");
-	                String planid = rs.getString("planid");
-	                LocalDate ins_date = rs.getDate("ins_date").toLocalDate();
-	                String result = rs.getString("result");
-	                int defect_count = rs.getInt("defect_count");
-	                String defect_cause = rs.getString("defect_cause");
-	                String resultid = rs.getString("resultid");
-	                String taskid = rs.getString("taskid");
-	                
-	                QualityDTO dto = new QualityDTO();
-	                dto.setIns_id(ins_id);
-	                dto.setProduction_id(prod_id);
-	                dto.setPlanid(planid);
-	                dto.setIns_Date(ins_date);
-	                dto.setResult(result);
-	                dto.setDefect_count(defect_count);
-	                dto.setDefect_cause(defect_cause);
-	                dto.setResultID(resultid);
-	                dto.setTaskid(taskid);
-
-	                list.add(dto);
+	        		String report_id1 = rs.getString("report_id");
+	        		String ins_id = rs.getString("ins_id");
+	        		String production_id = rs.getString("production_id");
+	        		String planid = rs.getString("planid");
+	        		int defect_count = rs.getInt("defect_count");
+	        		
+	        		DefectDTO dto = new DefectDTO();
+	        		dto.setReport_id( report_id1 );
+	        		dto.setIns_id(ins_id);
+	        		dto.setProduction_id(production_id);
+	        		dto.setPlanid(planid);
+	        		dto.setDefect_count( defect_count );
+	        	
+	        		list.add(dto);
 	            }
 	            
 	        } catch (Exception e) {
@@ -360,7 +325,7 @@ public class QualityDAO {
 	        return list;
 	    }
 
-	    public List selectPro(String production_id) {
+	    public List selectPro(String report_id) {
 	        List list = new ArrayList();
 	            
 	        Connection con = null;
@@ -373,37 +338,29 @@ public class QualityDAO {
 
 	            con = dataSource.getConnection();
 	            
-	            String query = "SELECT * FROM qualityinspection WHERE production_id = ?";
+	            String query = "SELECT * FROM DefectType WHERE report_id = ?";
 	            
 	            ps = con.prepareStatement(query);
 	            
-	            ps.setString(1, production_id);
+	            ps.setString(1, report_id);
 
 	            rs = ps.executeQuery();
 	            
 	            while(rs.next()) {
-	                String ins_id = rs.getString("ins_id");
-	                String prod_id = rs.getString("production_id");
-	                String planid = rs.getString("planid");
-	                LocalDate ins_date = rs.getDate("ins_date").toLocalDate();
-	                String result = rs.getString("result");
-	                int defect_count = rs.getInt("defect_count");
-	                String defect_cause = rs.getString("defect_cause");
-	                String resultid = rs.getString("resultid");
-	                String taskid = rs.getString("taskid");
-	                
-	                QualityDTO dto = new QualityDTO();
-	                dto.setIns_id(ins_id);
-	                dto.setProduction_id(prod_id);
-	                dto.setPlanid(planid);
-	                dto.setIns_Date(ins_date);
-	                dto.setResult(result);
-	                dto.setDefect_count(defect_count);
-	                dto.setDefect_cause(defect_cause);
-	                dto.setResultID(resultid);
-	                dto.setTaskid(taskid);
-	            
-	                list.add(dto);
+	        		String report_id1 = rs.getString("report_id");
+	        		String ins_id = rs.getString("ins_id");
+	        		String production_id = rs.getString("production_id");
+	        		String planid = rs.getString("planid");
+	        		int defect_count = rs.getInt("defect_count");
+	        		
+	        		DefectDTO dto = new DefectDTO();
+	        		dto.setReport_id( report_id1 );
+	        		dto.setIns_id(ins_id);
+	        		dto.setProduction_id(production_id);
+	        		dto.setPlanid(planid);
+	        		dto.setDefect_count( defect_count );
+	        	
+	        		list.add(dto);
 	            }
 	            
 	        } catch (Exception e) {
@@ -420,8 +377,8 @@ public class QualityDAO {
 
 	        return list;  // 결과 반환
 	    }
-	    public QualityDTO get(String id) {
-	    	QualityDAO dao = new QualityDAO();
+	    public DefectDTO get(String id) {
+	    	DefectDAO dao = new DefectDAO();
 	        return dao.selectOne(id);  // tno 속성을 사용하지 않도록 수정
 	    }
 

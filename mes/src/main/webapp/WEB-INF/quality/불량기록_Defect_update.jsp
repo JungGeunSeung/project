@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="/mes/CSS/table.css">
     <link rel="stylesheet" href="/mes/CSS/topbar.css">
     <link rel="stylesheet" href="/mes/CSS/게시판.css">
-<!--     <link rel="stylesheet" href="/mes/CSS/mobile.css"> -->
+    <link rel="stylesheet" href="/mes/CSS/mobile.css">
     <script src="/mes/JavaScript/load_info.js"></script>
     <title>소원을 들어주는 MES</title>
     <link rel="stylesheet" href="button.css">
@@ -27,12 +27,12 @@
 <a href="list">목록으로가기</a><br>
 <a href="">삭제</a><br>
 <a href="">수정하기</a><br>
-    <div>시험기준 ID :${ dto.quality_id }</div>
-    <div>품질기준 : ${ dto.title }</div>
-    <div>관리자 : ${ dto.mgr }</div>
-    <div>인증기관 : ${ dto.insti }</div>
-    <div>인증날짜 : ${ dto.revision }</div>
-
+    <div>불량기록 ID : ${ dto.report_id }</div>
+    <div>품질검사 ID : ${ dto.ins_id }</div>
+    <div>제품 ID : ${ dto.production_id }</div>
+    <div>계획 ID : ${ dto.planid }</div>
+    <div>검사날짜 : ${ dto.ins_date }</div>
+    <div>불량개수 : ${ dto.defect_count }</div>
 		
 </body>
 </html>

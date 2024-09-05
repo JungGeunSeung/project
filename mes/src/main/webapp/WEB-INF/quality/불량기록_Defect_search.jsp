@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/mes/CSS/table.css">
     <link rel="stylesheet" href="/mes/CSS/topbar.css">
     <link rel="stylesheet" href="/mes/CSS/게시판.css">
-<!--     <link rel="stylesheet" href="/mes/CSS/mobile.css"> -->
+    <link rel="stylesheet" href="/mes/CSS/mobile.css">
     <script src="/mes/JavaScript/load_info.js"></script>
     <title>소원을 들어주는 MES</title>
 </head>
@@ -36,18 +36,18 @@
         <div class="searchID">
 
             <!-- 해당 페이지의 제목 -->
-            <h1><a href="/mes/quality/list">Quality</a></h1>
+            <h1><a href="/mes/defect/list">Defect</a></h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
-                <span>품질관리 생산검사현황을 조회하는 페이지 입니다.</span> <br>
+                <span>품질관리 불량기록을 조회하는 페이지 입니다.</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
-		<jsp:include page="품질관리_Quality_SelectForm.jsp">
+		<jsp:include page="불량기록_Defect_SelectForm.jsp">
 			<jsp:param name="select" value="select"/>
 		</jsp:include>
         
 		<div>
-			<form method="get" action="/mes/quality/list/search">
+			<form method="get" action="/mes/defect/list/search">
 				<span>상품코드로 검색</span>
 				<input type="text" name="production_id" placeholder="상품코드를 입력하세요.">
 				<input type="submit" value="검색" class="btn">
@@ -66,51 +66,46 @@
                     		<input type="checkbox" id="allchk">
                     	</th>
                     		<th>품질 코드</th>
-					<th>상품 코드</th>
-					<th>계획 ID</th>
-					<th>검사 날짜</th>
-					<th>결과</th>
-					<th>불량 개수</th>
-					<th>불량 원인</th>
-					<th>결과 ID</th>
-					<th>작업 ID</th>
+					<th>품질기준 불량기록</th>
+                    <th>불량기록 ID</th>
+                    <th>품질검사 ID</th>
+                    <th>제품 ID</th>
+                    <th>계획 ID</th>
+                    <th>불량 수량</th>
                     	
                     	
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="quality" items="${ quality }">
+                    <c:forEach var="defect" items="${ defect }">
                     	<tr>
                     		<td><input type="checkbox" id="allchk"></td>
                     		
-                    		<c:url var="read" value="/quality/read">
-                    			<c:param name="ins_id" value="${ quality.ins_id }"/>
-                    			<c:param name="production_id" value="${ quality.production_id }"/>
+                    		<c:url var="read" value="/defect/read">
+                    			<c:param name="report_id" value="${ dto.report_id }" />
+						        <c:param name="ins_id" value="${ dto.ins_id }" />
+						        <c:param name="production_id" value="${ dto.production_id }" />
                     		</c:url>
                     		
-                    		<td>${ quality.ins_id }</td>
-						<td><a href="${ read }" id="underline">${ quality.production_id }</a>
+                    		<td>${ defect.ins_id }</td>
+						<td><a href="${ read }" id="underline">${ defect.production_id }</a>
 						</td>
-						<td>${ quality.planid }</td>
-						<td>${ quality.ins_date }</td>
-						<td>${ quality.result }</td>
-						<td>${ quality.defect_count }</td>
-						<td>${ quality.defect_cause }</td>
-						<td>${ quality.resultID }</td>
-						<td>${ quality.taskid }</td>
-						<c:url var="modify" value="/quality/modify">
-							<c:param name="ins_id" value="${ quality.ins_id }" />
-							<c:param name="production_id" value="${ quality.production_id }" />
-							<c:param name="planid" value="${ quality.planid }" />
-							<c:param name="ins_date" value="${ quality.ins_date }" />
-							<c:param name="result" value="${ quality.result }" />
-							<c:param name="defect_count" value="${ quality.defect_count }" />
-							<c:param name="defect_cause" value="${ quality.defect_cause }" />
-							<c:param name="resultid" value="${ quality.resultID }" />
-							<c:param name="taskid" value="${ quality.taskid }" />
+						<td>${ defect.planid }</td>
+						<td>${ defect.ins_date }</td>
+						<td>${ defect.result }</td>
+						<td>${ defect.defect_count }</td>
+						<td>${ defect.resultID }</td>
+						<c:url var="modify" value="/defect/modify">
+							<c:param name="report_id" value="${ dto.report_id }" />
+					        <c:param name="ins_id" value="${ dto.ins_id }" />
+					        <c:param name="production_id" value="${ dto.production_id }" />
+					        <c:param name="planid" value="${ dto.planid }" />
+					        <c:param name="defect_count" value="${ dto.defect_count }" />
 						</c:url>
-						<c:url var="delete" value="/quality/delete">
-							<c:param name="ins_id" value="${ quality.ins_id }" />
+						<c:url var="delete" value="/defect/delete">
+							<c:param name="report_id" value="${ dto.report_id }" />
+						    <c:param name="ins_id" value="${ dto.ins_id }" />
+						    <c:param name="production_id" value="${ dto.production_id }" />
 						</c:url>
                     	</tr>
                     </c:forEach>

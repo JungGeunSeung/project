@@ -40,7 +40,7 @@ public class StandardDAO {
 
 	        try {
 	            Connection con = getConnection();
-	            String query = "select * from QualityStandards";
+	            String query = "select * from Standards";
 	            PreparedStatement ps = con.prepareStatement(query);
 	            ResultSet rs = ps.executeQuery();
 
@@ -182,7 +182,7 @@ public class StandardDAO {
 	            query += "    select rownum rnum, quality_id, title, mgr, insti, revision";
 	            query += "    from ( ";
 	            query += "        select quality_id, title, mgr, insti,revision ";
-	            query += "        from QualityStandards ";
+	            query += "        from Standards ";
 	            query += "        order by quality_id ";
 	            query += "    ) ";
 	            query += " ) ";
@@ -277,7 +277,7 @@ public class StandardDAO {
 
 	            con = dataSource.getConnection();
 	            
-	            String query = "SELECT * FROM QualityStandards ";
+	            String query = "SELECT * FROM Standards ";
 	            
 	            if(title != null && !(title.equals(""))) {
 	                query += " where title= '" + title + "'";
@@ -331,7 +331,7 @@ public class StandardDAO {
 
 	            con = dataSource.getConnection();
 	            
-	            String query = "SELECT * FROM QualityStandards WHERE title = ?";
+	            String query = "SELECT * FROM Standards WHERE title = ?";
 	            
 	            ps = con.prepareStatement(query);
 	            

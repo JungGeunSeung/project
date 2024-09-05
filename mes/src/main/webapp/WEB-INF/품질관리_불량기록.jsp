@@ -75,107 +75,22 @@
                 <thead>
                   <tr>
                     <th><input type="checkbox" id="allchk"></th>
-                    <th>품질기준 시험항목</th>
-                    <th>시험 개수</th>
-                    <th>제품 개수</th>
-                    <th>LOT 번호</th>
-                    <th>제품 상태</th>
-                    <th>작성자</th>
-                    <th>관리자</th>
-                    <th>검사결과</th>
-                    <th>품질기준</th>
+                    <th>품질기준 불량기록</th>
+                    <th>불량기록 ID</th>
+                    <th>품질검사 ID</th>
+                    <th>제품 ID</th>
+                    <th>계획 ID</th>
+                    <th>불량 수량</th>
+                    
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td >32mm 소켓</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>하자</td>
-                    <td>정근승</td>
-                    <td>정다올</td>
-                    <td>불합격</td>
-                    <td >자사</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>생산중</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>생산초</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>생산말</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>하자품에 대한 같은 LOT 제품</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
                 </tbody>
               </table>    
         </div>
-        <div>
-            <hr>
-            <div class="pagenum">
-                <a id="a1" href="">1</a>
-                <a href="">2</a>
-                <a href="">3</a>
-                <a href="">4</a>
-                <a href="">5</a>
-                <a href="">6</a>
-                <a href="">7</a>
-            </div>
-        </div>
+        
 
-    </div>
+
 
 </body>
 
