@@ -15,7 +15,7 @@ import hong.material.service.MaterialStatusService;
 
 
 
-@WebServlet("/재고관리")
+@WebServlet("/stock/list")
 public class 재고관리 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -26,7 +26,7 @@ public class 재고관리 extends HttpServlet {
 		List<MaterialStatusDTO> list = service.getMaterialStatusList();
 		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("/WEB-INF/재고관리_자재현황관리.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/material/재고관리_자재현황관리.jsp").forward(request, response);
 	}
 
 }

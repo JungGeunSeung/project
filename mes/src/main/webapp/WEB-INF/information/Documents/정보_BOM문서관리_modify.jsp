@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -25,24 +24,22 @@
 </head>
 
 <body>
-   <!-- 사이드바 -->
-    <jsp:include page="/WEB-INF/assetsform/sidebar.jsp" />
-    <!-- 	상단바 -->
-    <jsp:include page="/WEB-INF/assetsform/topbar.jsp" />
-        <!-- 메인메뉴 아레 정보가 표시될 영역 -->
-        <div class="searchID">
+    <!-- 카테고리바와 사이드바 동시 jsp -->
+    <jsp:include page="/WEB-INF/topSide/topSide.jsp" />
+    <!-- 메인메뉴 아래 정보가 표시될 영역 -->
+    <div class="searchID">
 
-            <!-- 해당 페이지의 제목 -->
-            <h1><a href="/mes/doc/list">문서관리</a></h1>
-            <!-- 해당 페이지의 설명 -->
-            <div class="subhead">
-                <span>회사가 사용하는 문서를 관리하는 페이지입니다.</span> <br>
-            </div>
-            <!-- 게시물의 개수를 표시할 select -->
+        <!-- 해당 페이지의 제목 -->
+        <h1><a href="/mes/doc/list">문서관리</a></h1>
+        <!-- 해당 페이지의 설명 -->
+        <div class="subhead">
+            <span>회사가 사용하는 문서를 관리하는 페이지입니다.</span> <br>
         </div>
+        <!-- 게시물의 개수를 표시할 select -->
+    </div>
 
-        <!-- 해당 목록 -->
-        
+    <!-- 해당 목록 -->
+
 
     </div>
 
@@ -51,4 +48,5 @@
     <script src="/mes/JavaScript/date.js"></script>
     <script src="/mes/JavaScript/button.js"></script>
 </body>
+
 </html>

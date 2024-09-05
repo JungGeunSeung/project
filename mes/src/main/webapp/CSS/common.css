@@ -17,7 +17,7 @@ body {
     flex: 1;
     /* 남은 공간 모두를 차지하도록 설정 */
     display: inline;
-    /* 오른쪽 영역이 위아레로 쌓일 수 있도록 설정 */
+    /* 오른쪽 영역이 위아래로 쌓일 수 있도록 설정 */
     padding: 20px;
     background-color: rgb(240, 248, 255);
 }

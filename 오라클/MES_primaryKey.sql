@@ -3,15 +3,11 @@ ALTER TABLE usertable ADD CONSTRAINT PK_USERTABLE PRIMARY KEY (
 );
 
 ALTER TABLE writetable ADD CONSTRAINT PK_WRITETABLE PRIMARY KEY (
-	write_id,
-	userid,
-	category_id
+	write_id
 );
 
 ALTER TABLE commtable ADD CONSTRAINT PK_COMMTABLE PRIMARY KEY (
-	comment_id,
-	write_id,
-	category_id
+	comment_id
 );
 
 ALTER TABLE material ADD CONSTRAINT PK_MATERIAL PRIMARY KEY (
@@ -23,9 +19,7 @@ ALTER TABLE Product ADD CONSTRAINT PK_PRODUCT PRIMARY KEY (
 );
 
 ALTER TABLE bom ADD CONSTRAINT PK_BOM PRIMARY KEY (
-	bom_id,
-	production_id,
-	mid
+	bom_id
 );
 
 ALTER TABLE category ADD CONSTRAINT PK_CATEGORY PRIMARY KEY (
@@ -33,52 +27,35 @@ ALTER TABLE category ADD CONSTRAINT PK_CATEGORY PRIMARY KEY (
 );
 
 ALTER TABLE plan ADD CONSTRAINT PK_PLAN PRIMARY KEY (
-	planid,
-	production_id
+	planid
 );
 
 ALTER TABLE task ADD CONSTRAINT PK_TASK PRIMARY KEY (
-	taskid,
-	planid,
-	production_id
+	taskid
 );
 
 ALTER TABLE transaction ADD CONSTRAINT PK_TRANSACTION PRIMARY KEY (
-	transaction_id,
-	production_id
+	transaction_id
 );
 
 ALTER TABLE ProductionResult ADD CONSTRAINT PK_PRODUCTIONRESULT PRIMARY KEY (
-	ResultID,
-	production_id,
-	taskid,
-	planid
+	ResultID
 );
 
 ALTER TABLE QualityInspection ADD CONSTRAINT PK_QUALITYINSPECTION PRIMARY KEY (
-	ins_id,
-	production_id,
-	planid
+	ins_id
 );
 
 ALTER TABLE DefectRecord ADD CONSTRAINT PK_DEFECTRECORD PRIMARY KEY (
-	type_id,
-	report_id,
-	ins_id,
-	production_id,
-	planid
+	type_id
 );
 
 ALTER TABLE DefectType ADD CONSTRAINT PK_DEFECTTYPE PRIMARY KEY (
-	report_id,
-	ins_id,
-	production_id,
-	planid
+	report_id
 );
 
 ALTER TABLE equipmentUsage ADD CONSTRAINT PK_EQUIPMENTUSAGE PRIMARY KEY (
-	resultid,
-	equiID
+	resultid
 );
 
 ALTER TABLE equipment ADD CONSTRAINT PK_EQUIPMENT PRIMARY KEY (
@@ -86,6 +63,5 @@ ALTER TABLE equipment ADD CONSTRAINT PK_EQUIPMENT PRIMARY KEY (
 );
 
 ALTER TABLE maintenance ADD CONSTRAINT PK_MAINTENANCE PRIMARY KEY (
-	mainID,
-	equiID
+	mainID
 );

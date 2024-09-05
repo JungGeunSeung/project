@@ -1,13 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
     <style>
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             width: 100%;
@@ -47,7 +48,8 @@
             margin-bottom: 15px;
             padding-left: 10px;
             border-radius: 5px;
-            box-sizing: border-box; /* padding과 border가 포함된 전체 크기 설정 */
+            box-sizing: border-box;
+            /* padding과 border가 포함된 전체 크기 설정 */
         }
 
         .phone-container {
@@ -56,7 +58,8 @@
         }
 
         .phone-input {
-            width: 60px;  /* 각 입력 필드의 너비 */
+            width: 60px;
+            /* 각 입력 필드의 너비 */
             display: inline-block;
             height: 2.5em;
             font-size: 16px;
@@ -64,8 +67,10 @@
             border: 1px solid #ccc;
             padding-left: 5px;
             border-radius: 5px;
-            margin-right: 5px;  /* 입력 필드 사이 간격 */
-            box-sizing: border-box;  /* 필드 크기에 padding과 border 포함 */
+            margin-right: 5px;
+            /* 입력 필드 사이 간격 */
+            box-sizing: border-box;
+            /* 필드 크기에 padding과 border 포함 */
         }
 
         .phone-label {
@@ -103,8 +108,9 @@
         }
     </style>
 
-    
+
 </head>
+
 <body>
     <div class="center">
         <div class="signupbox">
@@ -120,9 +126,12 @@
                 <!-- 핸드폰 번호 입력 필드 -->
                 <div class="phone-container">
                     <span class="phone-label">핸드폰 번호</span>
-                    <input type="text" id="phone1" name="phone1" placeholder="010" maxlength="3" class="phone-input" oninput="autoHyphen()"> -
-                    <input type="text" id="phone2" name="phone2" placeholder="1234" maxlength="4" class="phone-input" oninput="autoHyphen()"> -
-                    <input type="text" id="phone3" name="phone3" placeholder="5678" maxlength="4" class="phone-input" oninput="autoHyphen()">
+                    <input type="text" id="phone1" name="phone1" placeholder="010" maxlength="3" class="phone-input"
+                        oninput="autoHyphen()"> -
+                    <input type="text" id="phone2" name="phone2" placeholder="1234" maxlength="4"
+                        class="phone-input" oninput="autoHyphen()"> -
+                    <input type="text" id="phone3" name="phone3" placeholder="5678" maxlength="4"
+                        class="phone-input" oninput="autoHyphen()">
                     <!-- 전체 핸드폰 번호를 저장할 히든 필드 -->
                     <input type="hidden" id="full_phone" name="full_phone">
                 </div>
@@ -169,5 +178,5 @@
         }
     </script>
 </body>
+
 </html>
-                

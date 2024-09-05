@@ -18,25 +18,24 @@ public class LoginController extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/mainLogin/login.jsp").forward(request, response);
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
+		
 		LoginService service = new LoginService();
-		
-		
 		UserDTO dto = service.login(id, pw);
-		
+		System.out.println("dto : " + dto);
 		if(dto != null) {
 			HttpSession session = request.getSession();//유저 정보를 세션으로 넘기기
 			session.setAttribute("user", dto);
 			response.sendRedirect("main");
 		}
 		else {
-			 response.sendRedirect("login.jsp?error=true"); // 인증 실패 시 로그인 페이지로 리디렉션
+			 response.sendRedirect("/WEB-INF/mainLogin/login.jsp?error=true"); // 인증 실패 시 로그인 페이지로 리디렉션
 		}
 	}
 }

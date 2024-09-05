@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -122,7 +124,7 @@ public class EquipmentDAO {
 
 			ps.setString(1, equipment.getEquiname());
 			ps.setString(2, equipment.getEquitype());
-			ps.setDate(3, equipment.getSelldate());
+			ps.setDate(3, (Date) equipment.getSelldate());
 			ps.setString(4, equipment.getEquiloc());
 			ps.setString(5, equipment.getStatus());
 			ps.setString(6, equipment.getEquiID());
@@ -171,7 +173,17 @@ public class EquipmentDAO {
 				equipment.setEquiID(rs.getString("equiID"));
 				equipment.setEquiname(rs.getString("equiname"));
 				equipment.setEquitype(rs.getString("equitype"));
-				equipment.setSelldate(rs.getString("selldate"));
+				String dateString = rs.getString("selldate");
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				try {
+				    java.util.Date parsedDate = formatter.parse(dateString);
+
+				    java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
+
+				    equipment.setSelldate(sqlDate);
+				} catch (ParseException e) {
+				    e.printStackTrace();
+				}
 				equipment.setEquiloc(rs.getString("equiloc"));
 				equipment.setStatus(rs.getString("Status"));
 				equipment.setMaincontent(rs.getString("maincontent"));

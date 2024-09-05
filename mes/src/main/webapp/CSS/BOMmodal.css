@@ -13,7 +13,7 @@
     position: absolute;
     top: 50%;
     left: 50%; /* 수평 중앙 정렬 */
-    min-width: 400px;
+    min-width: 450px;
     min-height: 600px;
     padding: 20px;
     text-align: center;
@@ -58,6 +58,27 @@
 
 #modalTable {
     width: 100%;
+    border-collapse: collapse;
+}
+
+#modalTable2 {
+	border-collapse: collapse;
+	width: 100%;
+	margin-top: 20px;
+}
+
+#modalTable2 tr {
+	border: 1px solid black;
+}
+
+#modalTable2 td {
+	height: 30px
+}
+
+#modalTable2 input {
+	border: 0px;
+	height: 30px;
+	background-color: rgb(241, 241, 241);
 }
 
 #modalTable tr {

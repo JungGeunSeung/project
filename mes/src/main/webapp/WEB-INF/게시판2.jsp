@@ -164,7 +164,7 @@
 
         </div>
         <hr>
-        <!-- 메인메뉴 아레 정보가 표시될 영역 -->
+        <!-- 메인메뉴 아래 정보가 표시될 영역 -->
     <div class="board">
         <h1>게시판</h1>
         <button id="postbtn" class="btn">새 글쓰기</button>

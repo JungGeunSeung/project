@@ -1,8 +1,9 @@
-<%@page import="java.text.SimpleDateFormat"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.text.SimpleDateFormat" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,19 +13,24 @@
             width: 100%;
             border-collapse: collapse;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
         }
+
         .pagination {
             display: flex;
             justify-content: center;
             margin: 20px 0;
         }
+
         .pagination a {
             margin: 0 5px;
             padding: 8px 16px;
@@ -32,6 +38,7 @@
             border: 1px solid #ddd;
             color: #333;
         }
+
         .pagination a.active {
             background-color: #4CAF50;
             color: white;
@@ -39,10 +46,11 @@
         }
     </style>
 </head>
+
 <body>
 
     <h2>Data Table with Pagination, Select All, Delete, and Combined Date and Status Filter</h2>
-    
+
     <label for="rowsPerPage">Rows per page:</label>
     <select id="rowsPerPage">
         <option value="5">5</option>
@@ -52,7 +60,7 @@
     </select>
 
     <button id="deleteSelected">Delete Selected</button>
-    
+
 
     <br><br>
     <label for="startDate">Start Date:</label>
@@ -69,7 +77,7 @@
         <option value="검사 전">검사 전</option>
     </select>
     <button id="filterByDateAndStatus">Filter by Date and Status</button>
-	<button id="resetFilters">Reset Filters</button>
+    <button id="resetFilters">Reset Filters</button>
 
     <table id="dataTable">
         <thead>
@@ -83,41 +91,39 @@
             </tr>
         </thead>
         <tbody>
-            <%
-                // 다양한 날짜 데이터를 생성
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Calendar calendar = Calendar.getInstance();
-
-                // 상태 리스트 생성
+            <% // 다양한 날짜 데이터를 생성
+            	SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd"); Calendar
+                calendar=Calendar.getInstance(); // 상태 리스트 생성
                 List<String> statuses = Arrays.asList("검사 완료", "검사 중", "검사 전");
 
                 // 다양한 날짜와 상태 데이터를 생성하여 테이블에 삽입
-                List<String> sampleDates = Arrays.asList("2023-08-01", "2023-07-15", "2023-06-10", 
-                                                        "2023-08-10", "2023-07-22", "2023-05-30", 
-                                                        "2023-06-05", "2023-08-18", "2023-07-05", 
-                                                        "2023-06-25", "2023-05-18", "2023-05-10", 
-                                                        "2023-06-15", "2023-07-01", "2023-08-05");
+                List<String> sampleDates = Arrays.asList("2023-08-01", "2023-07-15", "2023-06-10",
+                    "2023-08-10", "2023-07-22", "2023-05-30",
+                    "2023-06-05", "2023-08-18", "2023-07-05",
+                    "2023-06-25", "2023-05-18", "2023-05-10",
+                    "2023-06-15", "2023-07-01", "2023-08-05");
 
-                Random random = new Random();
+                    Random random = new Random();
 
-                // 데이터 삽입
-                for (int j = 0; j < sampleDates.size(); j++) {
-                    String date = sampleDates.get(j);
-                    String status = statuses.get(random.nextInt(statuses.size())); // 무작위 상태 할당
-                    String column1 = "Data " + (j + 1);
-                    String column2 = "Info " + (j + 1);
-            %>
-                <tr>
-                    <td><input type="checkbox" class="rowCheckbox"></td>
-                    <td>column1 <%= j + 1 %></td>
-                    <td>column2 <%= j + 1 %></td>
-                    <td><%= date %></td>
-                    <td><%= status %></td>
-                    <td><button onclick="editRow('<%=column1 %>','<%=column2 %>')">수정</button></td>
-                </tr>
-            <%
-                }
-            %>
+                    // 데이터 삽입
+                    for (int j = 0; j < sampleDates.size(); j++) { String date=sampleDates.get(j); String
+                        status=statuses.get(random.nextInt(statuses.size())); // 무작위 상태 할당
+                        String column1="Data " + (j + 1); String column2="Info " + (j + 1); %>
+                        <tr>
+                            <td><input type="checkbox" class="rowCheckbox"></td>
+                            <td>column1 <%= j + 1 %>
+                            </td>
+                            <td>column2 <%= j + 1 %>
+                            </td>
+                            <td>
+                                <%= date %>
+                            </td>
+                            <td>
+                                <%= status %>
+                            </td>
+                            <td><button onclick="editRow('<%=column1 %>','<%=column2 %>')">수정</button></td>
+                        </tr>
+                        <% } %>
         </tbody>
     </table>
 
@@ -151,8 +157,8 @@
                 const pageLink = document.createElement("a");
                 pageLink.innerHTML = i;
                 pageLink.href = "#";
-                pageLink.onclick = (function(i) {
-                    return function() {
+                pageLink.onclick = (function (i) {
+                    return function () {
                         const start = (i - 1) * rowsPerPage;
                         const end = start + rowsPerPage;
                         displayRows(start, end);
@@ -173,12 +179,12 @@
             displayRows(0, rowsPerPage);
         }
 
-        document.getElementById("rowsPerPage").addEventListener("change", function() {
+        document.getElementById("rowsPerPage").addEventListener("change", function () {
             rowsPerPage = parseInt(this.value);
             setupPagination();
         });
 
-        selectAllCheckbox.addEventListener("change", function() {
+        selectAllCheckbox.addEventListener("change", function () {
             const rowCheckboxes = document.querySelectorAll(".rowCheckbox");
             const visibleRows = Array.from(filteredRows).filter(row => row.style.display !== 'none');
             for (let checkbox of rowCheckboxes) {
@@ -188,7 +194,7 @@
             }
         });
 
-        document.addEventListener("change", function(event) {
+        document.addEventListener("change", function (event) {
             if (event.target.classList.contains("rowCheckbox")) {
                 if (!event.target.checked) {
                     selectAllCheckbox.checked = false;
@@ -201,7 +207,7 @@
             }
         });
 
-        deleteSelectedButton.addEventListener("click", function() {
+        deleteSelectedButton.addEventListener("click", function () {
             const rowCheckboxes = document.querySelectorAll(".rowCheckbox:checked");
             rowCheckboxes.forEach(checkbox => {
                 const row = checkbox.closest("tr");
@@ -211,7 +217,7 @@
             setupPagination();
         });
 
-        filterByDateAndStatusButton.addEventListener("click", function() {
+        filterByDateAndStatusButton.addEventListener("click", function () {
             const startDateInput = document.getElementById("startDate").value;
             const endDateInput = document.getElementById("endDate").value;
             const selectedStatus = statusFilter.value;
@@ -238,7 +244,7 @@
             setupPagination();
         });
 
-        resetFiltersButton.addEventListener("click", function() {
+        resetFiltersButton.addEventListener("click", function () {
             document.getElementById("startDate").value = '';
             document.getElementById("endDate").value = '';
             statusFilter.value = 'all';
@@ -257,9 +263,10 @@
             const url = `edit.jsp?column1=` + column1 + `&column2=` + column2;
             window.open(url, '_blank', 'width=600,height=400');
         }
-        
+
         setupPagination();
     </script>
 
 </body>
+
 </html>

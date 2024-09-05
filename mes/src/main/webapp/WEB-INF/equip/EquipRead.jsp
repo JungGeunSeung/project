@@ -1,13 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>설비 상세보기</title>
-<link rel="stylesheet" href="/mes/CSS/table.css">
+    <meta charset="UTF-8">
+    <title>설비 상세보기</title>
+    <link rel="stylesheet" href="/mes/CSS/table.css">
 </head>
+
 <body>
     <h1>설비 상세보기</h1>
     <table class="styled-table">
@@ -23,8 +24,8 @@
                 <td>${equipment.equiname}</td>
             </tr>
             <tr>
-            	<td>설비번호</td>
-            	<td>${equipment.equiID}</td>
+                <td>설비번호</td>
+                <td>${equipment.equiID}</td>
             </tr>
             <tr>
                 <td>설비유형</td>
@@ -57,4 +58,5 @@
         </tbody>
     </table>
 </body>
+
 </html>

@@ -107,11 +107,9 @@
 </head>
 
 <body>
-    <!-- 사이드바 -->
-    <jsp:include page="/WEB-INF/assetsform/sidebar.jsp" />
-    <!-- 	상단바 -->
-    <jsp:include page="/WEB-INF/assetsform/topbar.jsp" />
-    <!-- 메인메뉴 아레 정보가 표시될 영역 -->
+    <!-- 카테고리바와 사이드바 동시 jsp -->
+	<jsp:include page="/WEB-INF/topSide/topSide.jsp" />
+    <!-- 메인메뉴 아래 정보가 표시될 영역 -->
     <div class="searchID">
 
         <!-- 해당 페이지의 제목 -->
@@ -172,17 +170,17 @@
 							<td id="production_id"></td>
 						</tr>
 				</table>
-				<table>
-					<c:forEach var="modal" begin="1" end="${ promat.size() }" items="${ promat }">
+				<table id="modalTable2">
 					<tr>
 						<td>BOM 코드</td>
 						<td>자재 코드</td>
 						<td>재품별 자재 사용개수</td>
 					</tr>
+					<c:forEach var="modal" begin="1" end="${ promat.size() }" items="${ promat }">
 					<tr>
-						<td><span id="bom_id"></span><input type="hidden" name="bom_id" id="input_bom_id"></td>
-						<td><input type="text" name="mid" id="mid"></td>
-						<td><input type="number" name="bom_quantity" id="bom_quantity"></td>
+						<td><span id="bom_id">${ modal.bom_id }</span><input type="hidden" name="bom_id" id="input_bom_id" value="${ modal.bom_id }"></td>
+						<td><input type="text" name="mid" id="mid" value="${ modal.mid }"></td>
+						<td><input type="number" name="bom_quantity" id="bom_quantity" value="${ modal.bom_quantity }"></td>
 					</tr>
 					</c:forEach>
 				</table>

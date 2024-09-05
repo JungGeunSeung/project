@@ -24,11 +24,9 @@
 </head>
 
 <body>
-    <!-- 사이드바 -->
-	<jsp:include page="/WEB-INF/assetsform/sidebar.jsp" />
-	<!-- 	상단바 -->
-	<jsp:include page="/WEB-INF/assetsform/topbar.jsp" />
-	<!-- 메인메뉴 아레 정보가 표시될 영역 -->
+    <!-- 카테고리바와 사이드바 동시 jsp -->
+	<jsp:include page="/WEB-INF/topSide/topSide.jsp" />
+	<!-- 메인메뉴 아래 정보가 표시될 영역 -->
 	<div class="searchID">
             <!-- 해당 페이지의 제목 -->
             <h1>저장위치(map)</h1>
@@ -40,7 +38,7 @@
         <div>
             <img style="width: 100%;" src="/mes/Image/맵.png" alt="">
         </div>
-
+    </div>
 </body>
 <script src="/mes/JavaScript/sort.js"></script>
 <script src="/mes/JavaScript/date.js"></script>

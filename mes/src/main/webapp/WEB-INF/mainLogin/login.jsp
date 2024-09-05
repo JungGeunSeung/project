@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -22,7 +21,7 @@
             margin-top: 50px;
             margin: 50px 20px;
             background-color: rgba(0, 208, 255, 0.1);
-        } 
+        }
 
         img {
             margin-left: 5px;
@@ -48,7 +47,8 @@
             width: 100px;
             height: 40px;
         }
-        #open_join{
+
+        #open_join {
             width: 100px;
             height: 40px;
         }
@@ -67,7 +67,7 @@
             background-color: rgba(0, 208, 255, 0.1);
 
             /* display: flex;
-  justify-content: center; */
+justify-content: center; */
         }
 
         #falseID {
@@ -85,9 +85,7 @@
 <body class="bodylogin">
     <div class="center">
         <div>
-            <img id="logo"
-                src="/mes/Image/로고.png"
-                alt="">
+            <img id="logo" src="/mes/Image/로고.png" alt="">
         </div>
         <div class="loginbox">
             <form action="login" method="post">
@@ -96,12 +94,13 @@
                 <label for="pw">PW:</label>
                 <input type="password" id="pw" name="pw" placeholder="비밀번호"><br><br>
                 <input type="submit" value="로그인" id="submit" class="btn">
-                <input type="button" value="회원가입" id="open_join" class="btn" onclick="location.href='signup'">
+                <input type="button" value="회원가입" id="open_join" class="btn"
+                    onclick="location.href='signup'">
                 <!-- <input type="submit2" value="로컬 초기화" id="submit2" class="btn"> -->
             </form>
         </div>
     </div>
-    
+
     <script>
     </script>
 </body>

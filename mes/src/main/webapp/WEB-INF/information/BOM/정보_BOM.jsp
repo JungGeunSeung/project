@@ -19,6 +19,8 @@
 	<link rel="stylesheet" href="/mes/CSS/게시판.css">
 	<link rel="stylesheet" href="/mes/CSS/mobile.css">
 	<link rel="stylesheet" href="/mes/CSS/BOMmodal.css">
+	<link rel="stylesheet" href="/mes/CSS/topbar.css">
+	<link rel="stylesheet" href="/mes/CSS/sidebar.css">
 	<script src="/mes/JavaScript/load_info.js"></script>
 	<title>소원을 들어주는 MES</title>
 
@@ -117,45 +119,43 @@
 			document.querySelector('.modifyModal').addEventListener('click', function () {
 				document.querySelector('#modalForm').submit();
 			})
-		
-		
-///////////////////// create modal js ///////////////////////////////////
-		
-		const createBtn = document.querySelector('.createBtn');
-		const createModal = document.querySelector('.bom_modal_create');
-		const createCloseModal = document.querySelector('.createCloseModal');
-		
-		createBtn.addEventListener('click', function(){
-			createModal.style.display = "flex";
-		})
-		
-		createCloseModal.addEventListener("click", function () {
-			createModal.style.display = "none";
-		});
 
-		// 모달창 외부 클릭 시 모달창 닫기
-		window.addEventListener("click", function (event) {
-			if (event.target === createModal) {
+
+			///////////////////// create modal js ///////////////////////////////////
+
+			const createBtn = document.querySelector('.createBtn');
+			const createModal = document.querySelector('.bom_modal_create');
+			const createCloseModal = document.querySelector('.createCloseModal');
+
+			createBtn.addEventListener('click', function () {
+				createModal.style.display = "flex";
+			})
+
+			createCloseModal.addEventListener("click", function () {
 				createModal.style.display = "none";
-			}
-		});
-		
-		// 수정하기 클릭시 form submit 하기
-		document.querySelector('.createModal').addEventListener('click',function(){
-			document.querySelector('#createmodalForm').submit();
-		});
+			});
+
+			// 모달창 외부 클릭 시 모달창 닫기
+			window.addEventListener("click", function (event) {
+				if (event.target === createModal) {
+					createModal.style.display = "none";
+				}
+			});
+
+			// 수정하기 클릭시 form submit 하기
+			document.querySelector('.createModal').addEventListener('click', function () {
+				document.querySelector('#createmodalForm').submit();
+			});
 
 		});
 	</script>
 </head>
 
 <body>
-	<!-- 사이드바 -->
-	<jsp:include page="/WEB-INF/assetsform/sidebar.jsp" />
-	<!-- 	상단바 -->
-	<jsp:include page="/WEB-INF/assetsform/topbar.jsp" />
+	<!-- 카테고리바와 사이드바 동시 jsp -->
+	<jsp:include page="/WEB-INF/topSide/topSide.jsp" />
 
-	<!-- 메인메뉴 아레 정보가 표시될 영역 -->
+	<!-- 메인메뉴 아래 정보가 표시될 영역 -->
 	<div class="searchID">
 
 		<!-- 해당 페이지의 제목 -->
@@ -217,68 +217,67 @@
 			</tbody>
 		</table>
 	</div>
-<!-- 	페이징 넘버 -->
-		<div>
-			<hr>
-			<div class="pagenum">
-				<% Map map=(Map)request.getAttribute("map"); int
-					totalCount=(int)map.get("totalCount"); String
-					str_countPerPage=(String)request.getAttribute("countPerPage"); int
-					countPerPage=Integer.parseInt(str_countPerPage); String
-					str_pageNo=(String)request.getAttribute("page"); int
-					pageNo=Integer.parseInt(str_pageNo); int lastPage=(int)Math.ceil(
-					(double)totalCount / (double)countPerPage ); int countPerSection=3; int
-					position=(int)Math.ceil((double)pageNo / (double)countPerSection); int
-					sec_first=( ( position - 1 ) * countPerSection ) + 1; int sec_last=position *
-					countPerSection; if(sec_last> lastPage) {
-					sec_last = lastPage;
-					}
-					%>
-					<c:set var="lastPage" value="<%= lastPage %>" scope="page" />
-					<c:set var="countPerSection" value="<%= countPerSection %>" scope="page" />
-					<a href="list?page=${ page - 1 }&countPerPage=${countPerPage}">이전</a>
-					<c:forEach var="i" begin="1" end="${ lastPage }">
-						<c:if test="${ i eq page }">
-							<a
-								href="list?page=${i}&countPerPage=${countPerPage}"><strong>[${i}]</strong></a>
-						</c:if>
-						<c:if test="${ !(i eq page) }">
-							<a href="list?page=${i}&countPerPage=${countPerPage}">[${i}]</a>
-						</c:if>
-					</c:forEach>
-					<a href="list?page=${ page + 1 }&countPerPage=${countPerPage}">다음</a>
-			</div>
+	<!-- 	페이징 넘버 -->
+	<div>
+		<hr>
+		<div class="pagenum">
+			<% Map map=(Map)request.getAttribute("map"); int totalCount=(int)map.get("totalCount");
+				String str_countPerPage=(String)request.getAttribute("countPerPage"); int
+				countPerPage=Integer.parseInt(str_countPerPage); String
+				str_pageNo=(String)request.getAttribute("page"); int
+				pageNo=Integer.parseInt(str_pageNo); int lastPage=(int)Math.ceil( (double)totalCount
+				/ (double)countPerPage ); int countPerSection=3; int
+				position=(int)Math.ceil((double)pageNo / (double)countPerSection); int sec_first=( (
+				position - 1 ) * countPerSection ) + 1; int sec_last=position * countPerSection;
+				if(sec_last> lastPage) {
+				sec_last = lastPage;
+				}
+				%>
+				<c:set var="lastPage" value="<%= lastPage %>" scope="page" />
+				<c:set var="countPerSection" value="<%= countPerSection %>" scope="page" />
+				<a href="list?page=${ page - 1 }&countPerPage=${countPerPage}">이전</a>
+				<c:forEach var="i" begin="1" end="${ lastPage }">
+					<c:if test="${ i eq page }">
+						<a
+							href="list?page=${i}&countPerPage=${countPerPage}"><strong>[${i}]</strong></a>
+					</c:if>
+					<c:if test="${ !(i eq page) }">
+						<a href="list?page=${i}&countPerPage=${countPerPage}">[${i}]</a>
+					</c:if>
+				</c:forEach>
+				<a href="list?page=${ page + 1 }&countPerPage=${countPerPage}">다음</a>
 		</div>
-<!-- 		모달창 -->
-		<div class="bom_modal">
-			<div class="bom_modal_body">
-				<form id="modalForm" method="post" action="modify">
-					<table id="modalTable">
-						<tr>
-							<td>BOM 코드</td>
-							<td><span id="bom_id"></span><input type="hidden" name="bom_id"
-									id="input_bom_id"></td>
-						</tr>
-						<tr>
-							<td>상품 코드</td>
-							<td><input type="text" name="production_id" id="production_id">
-							</td>
-						</tr>
-						<tr>
-							<td>자재 코드</td>
-							<td><input type="text" name="mid" id="mid"></td>
-						</tr>
-						<tr>
-							<td>재품별 자재 사용개수</td>
-							<td><input type="number" name="bom_quantity" id="bom_quantity"></td>
-						</tr>
-					</table>
-				</form>
-				<div class="modifyModal" onclick="modifySubmit()">수정하기</div>
-				<div class="closeModal">닫기</div>
-			</div>
+	</div>
+	<!-- 		모달창 -->
+	<div class="bom_modal">
+		<div class="bom_modal_body">
+			<form id="modalForm" method="post" action="modify">
+				<table id="modalTable">
+					<tr>
+						<td>BOM 코드</td>
+						<td><span id="bom_id"></span><input type="hidden" name="bom_id"
+								id="input_bom_id"></td>
+					</tr>
+					<tr>
+						<td>상품 코드</td>
+						<td><input type="text" name="production_id" id="production_id">
+						</td>
+					</tr>
+					<tr>
+						<td>자재 코드</td>
+						<td><input type="text" name="mid" id="mid"></td>
+					</tr>
+					<tr>
+						<td>재품별 자재 사용개수</td>
+						<td><input type="number" name="bom_quantity" id="bom_quantity"></td>
+					</tr>
+				</table>
+			</form>
+			<div class="modifyModal" onclick="modifySubmit()">수정하기</div>
+			<div class="closeModal">닫기</div>
 		</div>
-		<!-- 	두번째 모달창 -->
+	</div>
+	<!-- 	두번째 모달창 -->
 	<div class="bom_modal_create">
 		<div class="bom_modal_body_create">
 			<form id="createmodalForm" method="post" action="create">

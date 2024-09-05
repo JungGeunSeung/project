@@ -23,44 +23,44 @@
 	<title>소원을 들어주는 MES</title>
 	<link rel="stylesheet" href="button.css">
 	<script>
-	function delchk() {
-	    let selectchk = document.querySelectorAll('.selectchk');
-	    let docIDs = [];
+		function delchk() {
+			let selectchk = document.querySelectorAll('.selectchk');
+			let docIDs = [];
 
-	    // 체크된 체크박스에 대한 docID 수집
-	    for (let checkbox of selectchk) {
-	        if (checkbox.checked) {
-	            let row = checkbox.closest('tr');  // 체크박스가 포함된 <tr> 찾기
-	            let docID = row.querySelector('#docID');  // 해당 <tr> 내의 #docID 요소 찾기
-	            if (docID) {
-	                docIDs.push(docID.textContent);  // docID 값을 배열에 추가
-	            }
-	        }
-	    }
+			// 체크된 체크박스에 대한 docID 수집
+			for (let checkbox of selectchk) {
+				if (checkbox.checked) {
+					let row = checkbox.closest('tr');  // 체크박스가 포함된 <tr> 찾기
+					let docID = row.querySelector('#docID');  // 해당 <tr> 내의 #docID 요소 찾기
+					if (docID) {
+						docIDs.push(docID.textContent);  // docID 값을 배열에 추가
+					}
+				}
+			}
 
-	    // docID 값들을 쉼표로 구분된 문자열로 서블릿에 전송
-	    if (docIDs.length > 0) {
-	        let xhr = new XMLHttpRequest();
-	        xhr.open("POST", "delete/select", true);  // 서블릿 URL로 POST 요청
-	        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			// docID 값들을 쉼표로 구분된 문자열로 서블릿에 전송
+			if (docIDs.length > 0) {
+				let xhr = new XMLHttpRequest();
+				xhr.open("POST", "delete/select", true);  // 서블릿 URL로 POST 요청
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-	        // 데이터를 쉼표로 구분된 문자열 형식으로 전송
-	        xhr.send("docIDs=" + encodeURIComponent(docIDs.join(',')));
+				// 데이터를 쉼표로 구분된 문자열 형식으로 전송
+				xhr.send("docIDs=" + encodeURIComponent(docIDs.join(',')));
 
-	        xhr.onreadystatechange = function() {
-	            if (xhr.readyState === 4 && xhr.status === 200) {
-	                // 서버 응답을 처리하는 부분 (성공시)
-	                console.log("서버로부터 응답:", xhr.responseText);
-	            }
-	        };
-	    } else {
-	        alert("선택된 항목이 없습니다.");
-	    }
-	    
-	    window.location.href = "/mes/doc/list";
-	}
-	
-	
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState === 4 && xhr.status === 200) {
+						// 서버 응답을 처리하는 부분 (성공시)
+						console.log("서버로부터 응답:", xhr.responseText);
+					}
+				};
+			} else {
+				alert("선택된 항목이 없습니다.");
+			}
+
+			window.location.href = "/mes/doc/list";
+		}
+
+
 		document.addEventListener('DOMContentLoaded', function () {
 			const modal = document.querySelector('.bom_modal');
 			const btns = document.querySelectorAll('.bom_modal_btn');
@@ -80,7 +80,7 @@
 					document.getElementById('title').value = tds[3].textContent.trim();
 					const input = tds[4].querySelector('input');
 					document.getElementById('content').value = input.value.trim();
-					
+
 					let created_date = tds[5].textContent.trim();
 					const cDate = new Date(created_date);
 					let updated_date = tds[6].textContent.trim();
@@ -116,22 +116,22 @@
 					modal.style.display = "none";
 				}
 			});
-			
+
 			// 수정하기 클릭시 form submit 하기
-			document.querySelector('.modifyModal').addEventListener('click',function(){
+			document.querySelector('.modifyModal').addEventListener('click', function () {
 				document.querySelector('#modalForm').submit();
 			})
-			
+
 			///////////////////// create modal js ///////////////////////////////////
-			
+
 			const createBtn = document.querySelector('.createBtn');
 			const createModal = document.querySelector('.bom_modal_create');
 			const createCloseModal = document.querySelector('.createCloseModal');
-			
-			createBtn.addEventListener('click', function(){
+
+			createBtn.addEventListener('click', function () {
 				createModal.style.display = "flex";
 			})
-			
+
 			createCloseModal.addEventListener("click", function () {
 				createModal.style.display = "none";
 			});
@@ -142,26 +142,24 @@
 					createModal.style.display = "none";
 				}
 			});
-			
+
 			// 수정하기 클릭시 form submit 하기
-			document.querySelector('.createModal').addEventListener('click',function(){
+			document.querySelector('.createModal').addEventListener('click', function () {
 				document.querySelector('#createmodalForm').submit();
 			})
-			
+
 
 		});
-			
+
 
 
 	</script>
 </head>
 
 <body>
-	<!-- 사이드바 -->
-	<jsp:include page="/WEB-INF/assetsform/sidebar.jsp" />
-	<!-- 	상단바 -->
-	<jsp:include page="/WEB-INF/assetsform/topbar.jsp" />
-	<!-- 메인메뉴 아레 정보가 표시될 영역 -->
+	<!-- 카테고리바와 사이드바 동시 jsp -->
+	<jsp:include page="/WEB-INF/topSide/topSide.jsp" />
+	<!-- 메인메뉴 아래 정보가 표시될 영역 -->
 	<div class="searchID">
 
 		<!-- 해당 페이지의 제목 -->
@@ -217,31 +215,33 @@
 			</thead>
 			<tbody>
 				<c:forEach var="doc" items="${map.list}">
-				    <tr>
-				        <td><input type="checkbox" class="selectchk"></td>
-				
-				        <c:url var="read" value="read">
-				            <c:param name="document_id" value="${doc.document_id}" />
-				        </c:url>
-				
-				        <td id="docID">${doc.document_id}</td>
-				        <td>${doc.userid}</td>
-				        <td><a href="${read}" id="underline">${doc.title}</a></td>
-				        <td>
-				        	<c:choose>
-							    <c:when test="${fn:length(doc.content) > 25}">
-							        ${fn:substring(doc.content, 0, 25)}...<input type="hidden" class="content" name="content" value="${ doc.content }">
-							    </c:when>
-							    <c:otherwise>
-							        ${doc.content} <input type="hidden" class="content" name="content" value="${ doc.content }">
-							    </c:otherwise>
+					<tr>
+						<td><input type="checkbox" class="selectchk"></td>
+
+						<c:url var="read" value="read">
+							<c:param name="document_id" value="${doc.document_id}" />
+						</c:url>
+
+						<td id="docID">${doc.document_id}</td>
+						<td>${doc.userid}</td>
+						<td><a href="${read}" id="underline">${doc.title}</a></td>
+						<td>
+							<c:choose>
+								<c:when test="${fn:length(doc.content) > 25}">
+									${fn:substring(doc.content, 0, 25)}...<input type="hidden"
+										class="content" name="content" value="${ doc.content }">
+								</c:when>
+								<c:otherwise>
+									${doc.content} <input type="hidden" class="content"
+										name="content" value="${ doc.content }">
+								</c:otherwise>
 							</c:choose>
-				        </td>
-				        <td>${doc.created_date}</td>
-				        <td>${doc.updated_date}</td>
-				        <td>${doc.version}</td>
-				        <td><button class="bom_modal_btn">수정</button></td>
-				    </tr>
+						</td>
+						<td>${doc.created_date}</td>
+						<td>${doc.updated_date}</td>
+						<td>${doc.version}</td>
+						<td><button class="bom_modal_btn">수정</button></td>
+					</tr>
 				</c:forEach>
 			</tbody>
 
@@ -288,7 +288,8 @@
 					</tr>
 					<tr>
 						<td>작성자</td>
-						<td><span id="userid"></span><input type="hidden" name="userid" id="input_userid">
+						<td><span id="userid"></span><input type="hidden" name="userid"
+								id="input_userid">
 						</td>
 					</tr>
 					<tr>
@@ -317,7 +318,7 @@
 			<div class="closeModal">닫기</div>
 		</div>
 	</div>
-<!-- 	두번째 모달창 -->
+	<!-- 	두번째 모달창 -->
 	<div class="bom_modal_create">
 		<div class="bom_modal_body_create">
 			<form id="createmodalForm" method="post" action="create">

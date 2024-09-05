@@ -14,15 +14,11 @@ import hong.material.service.MaterialService;
 
 
 
-/**
- * Servlet implementation class MaterialAddController
- */
 @WebServlet("/materialadd")
 public class MaterialAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		MaterialService service = new MaterialService();
 		java.util.Date utildate = new java.util.Date();
 		MaterialDTO dto = new MaterialDTO();

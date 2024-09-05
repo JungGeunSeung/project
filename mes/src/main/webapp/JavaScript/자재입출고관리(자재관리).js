@@ -1,211 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ page import="java.util.*"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@ page import="java.util.Iterator"%>
-<%@ page import="java.sql.Date"%>
-<%@ page import="hong.material.dto.MaterialStatusDTO"%>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/mes/CSS/button.css">
-<link rel="stylesheet" href="/mes/CSS/calender.css">
-<link rel="stylesheet" href="/mes/CSS/common.css">
-<link rel="stylesheet" href="/mes/CSS/display.css">
-<link rel="stylesheet" href="/mes/CSS/mobile.css">
-<link rel="stylesheet" href="/mes/CSS/sidebar.css">
-<link rel="stylesheet" href="/mes/CSS/table.css">
-<link rel="stylesheet" href="/mes/CSS/topbar.css">
-<link rel="stylesheet" href="/mes/CSS/게시판.css">
-<link rel="stylesheet" href="/mes/CSS/mobile.css">
-<style>
-table {
-	width: 100%;
-	border-collapse: collapse;
-}
-
-th, td {
-	border: 1px solid #ddd;
-	padding: 8px;
-	text-align: left;
-}
-
-th {
-	background-color: #f2f2f2;
-}
-
-.pagination {
-	display: flex;
-	justify-content: center;
-	margin: 20px 0;
-}
-
-.pagination a {
-	margin: 0 5px;
-	padding: 8px 16px;
-	text-decoration: none;
-	border: 1px solid #ddd;
-	color: #333;
-}
-
-.pagination a.active {
-	background-color: #4CAF50;
-	color: white;
-	border: 1px solid #4CAF50;
-}
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-</style>
-<script src="/mes/JavaScript/load_info.js"></script>
-<title>소원을 들어주는 MES</title>
-</head>
-
-<body>
-	<!-- 104번부터 127번줄 까지는 추가 버튼 눌렀을 때 나오는 모달 창 -->
-	<div id="addRowModal" class="modal">
-		<div class="modal-content">
-			<span class="close">&times;</span>
-			<h2>추가할 자재 정보 입력</h2>
-			<form id="addRowForm">
-				<label for="prodNum">자재번호:</label> <input type="text" id="prodNum" name="prodnum" required><br> 
-				<label for="LOTNum">LOT번호:</label> <input type="text" id="lotnum" name="lotnum" required><br>
-				<label for="prodName">자재이름:</label> <input type="text" id="prodName" name="prodname" required><br> 
-				<label for="count">규격:</label> <input type="text" id="spec" name="spec" required><br> 
-				<label for="loc">저장위치:</label> <input type="text" id="loc" name="loc" required><br> 
-				
-				<button type="button" onclick="submitAddRowForm()">추가</button>
-			</form>
-		</div>
-	</div>
-	<!-- 사이드바 -->
-	<jsp:include page="/WEB-INF/assetsform/sidebar.jsp" />
-	<!-- 	상단바 -->
-	<jsp:include page="/WEB-INF/assetsform/topbar.jsp" />
-	<!-- 메인메뉴 아레 정보가 표시될 영역 -->
-	<div class="searchID">
-
-			<!-- 해당 페이지의 제목 -->
-			<h1>자재현황관리</h1>
-            <!-- 해당 페이지의 설명 -->
-            <div class="subhead">
-                <span>상품의 재고를 기준에 따라 조회하고 정렬해서 관리하는 페이지</span> <br>
-            </div>
-			<!-- 게시물의 개수를 표시할 select -->
-		</div>
-
-		<!-- 해당 목록 -->
-		<div class="tableID">
-			<label for="rowsPerPage">정렬 갯수 : </label> <select id="rowsPerPage"><!-- 테이블에 표시될 행의 갯수 기본값은 10개 -->
-				<option value="5">5</option>
-				<option value="10" selected>10</option>
-				<option value="15">15</option>
-				<option value="20">20</option>
-			</select>
-
-			<button onclick="addRow()">추가</button>
-			<button id="deleteSelected">체크 된 줄 삭제</button>
-
-			<br> <br> <label for="startDate">Start Date:</label> <input
-				type="date" id="startDate"> <label for="endDate">End
-				Date:</label> <input type="date" id="endDate"> <br>
-			<button id="filterByDateAndStatus">검색</button>
-			<button id="resetFilters">필터 해제</button>
-
-			<table id="dataTable">
-				<thead>
-					<tr>
-						<th><input type="checkbox" id="selectAll"></th>
-						<th>자재번호</th>
-						<th>Lot번호</th>
-						<th>자재이름</th>
-						<th>수량(EA)</th>
-						<th>규격(mm)</th>
-						<th>위치</th>
-						<th>최신화날짜</th>
-						<th>수정</th>
-					</tr>
-				</thead>
-				<tbody>
-					<%
-					List<MaterialStatusDTO> list = (List<MaterialStatusDTO>) request.getAttribute("list");
-					
-					
-					// 데이터 삽입
-					for (int j = 0; j < list.size(); j++) {
-						String prodnum = list.get(j).getProdnum();
-						String lotnum = list.get(j).getLotnum();
-						String prodname = list.get(j).getProdname();
-						int tquantity = list.get(j).getTquantity();
-						String spec = list.get(j).getSpec();
-						String storage_loc = list.get(j).getStorage_loc();
-						Date date = list.get(j).getEditdate();
-						
-					%>
-					<tr>
-						<td><input type="checkbox" class="rowCheckbox"></td>
-						<td><%=prodnum%></td>
-						<td><%=lotnum%></td>
-						<td><%=prodname%></td>
-						<td><%=tquantity%></td>
-						<td><%=spec%></td>
-						<td><%=storage_loc%></td>
-						<td><%=date%></td>
-						<td><button onclick='editRow("<%=prodnum%>")'>수정</button></td>
-					</tr>
-					<%
-					}
-					%>
-				</tbody>
-			</table>
-
-			<div class="pagination" id="pagination">
-				<!-- 페이지네이션 링크가 여기에 동적으로 추가됩니다 -->
-			</div>
-
-
-
-		</div>
-		<script>
-        let rowsPerPage = parseInt(document.getElementById("rowsPerPage").value);
+let rowsPerPage = parseInt(document.getElementById("rowsPerPage").value);
         let table = document.getElementById("dataTable").getElementsByTagName("tbody")[0];
         let rows = table.getElementsByTagName("tr");
         let pagination = document.getElementById("pagination");
@@ -285,20 +78,25 @@ th {
             let url="";
             rowCheckboxes.forEach(checkbox => {
                 let row = checkbox.closest("tr");
-                let prodnum = row.children[1].innerText;
-                url += "prodnum="+prodnum+"&";
+                let inum = row.children[1].innerText;
+                let prodnum = row.children[2].innerText;
+                let inout = row.children[5].innerText;
+                let count = row.children[6].innerText;
+                url += "inum="+inum+"&inout="+inout+"&prodnum="+prodnum+"&count="+count+"&";
                 
                 row.parentNode.removeChild(row);
             });
             url = url.slice(0,-1);
+          	console.log(url);
             var xhr = new XMLHttpRequest();
             
-            xhr.open("POST", "msd", true);
+            xhr.open("POST", "materialdelete", true);
     	    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");   	    
     	    xhr.send(url);
     	    
     	    xhr.onreadystatechange = function() {
     	        if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+    	        	console.log(3)
     	        	filteredRows = Array.from(rows);
 					setupPagination();
     	        }
@@ -342,11 +140,11 @@ th {
             setupPagination();
         });
 
-        function editRow(prodnum) {
+        function editRow(num) {
         	var nWidth = "500";
         	var nHeight = "300";
             // URL을 생성하여 새로운 창에서 수정 페이지를 열도록 함
-            let url = `mse?prodnum=`+ prodnum;
+            let url = `Materialprint?num=`+ num;
             var curX = window.screenLeft;
             var curY = window.screenTop;
             var curWidth = document.body.clientWidth;
@@ -404,34 +202,35 @@ th {
 	    	    var formData = new FormData(form);//모달창 정보들이 여기에 있음
 
 	    	    // 각 필드의 값을 추출
-	    	    var prodnum = formData.get("prodnum");
-	    	    var lotnum = formData.get("lotnum");
-	    	    var prodname = formData.get("prodname");
-	    	    var spec = formData.get("spec");
-	    	    var loc = formData.get("loc");
-				
-	    	    console.log(prodnum);
-	    	    console.log(lotnum);
-	    	    console.log(prodname);
-	    	    console.log(spec);
-	    	    console.log(loc);
+	    	    var prodnum = formData.get("prodNum");
+	    	    var lotnum = formData.get("LOTNum");
+	    	    var prodname = formData.get("prodName");
+	    	    var inout = formData.get("inout");
+	    	    var count = formData.get("count");
+	    	    var date = formData.get("date");
+	    	    var checker = formData.get("checker");
+
 	    	    
 	    	    // 빈 값이 있는지 확인
-	    	    if (!prodnum || !lotnum || !prodname || !spec || !loc ) {
+	    	    if (!prodnum || !lotnum || !prodname || !inout || !count || !date || !checker) {
 	    	        alert("모든 필드를 입력해 주세요.");
 	    	        return false; // 입력 되지 않은 정보가 있다면 폼 제출 중단
 	    	    }
 
 	    	    var table = document.getElementById("dataTable").getElementsByTagName("tbody")[0];
 	    	    var xhr = new XMLHttpRequest();
+	    	    let inum = table.rows.length + 1;
 
-	    	    xhr.open("POST", "msa", true);
+	    	    xhr.open("POST", "materialadd", true);
 	    	    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	    	    xhr.send("prodnum=" + prodnum +
+	    	    xhr.send("inum=" + inum +
+	    	             "&productnum=" + prodnum +
 	    	             "&lotnum=" + lotnum +
-	    	             "&prodname=" + prodname +
-	    	             "&spec=" + spec +
-	    	             "&loc=" + loc
+	    	             "&productname=" + prodname +
+	    	             "&inout=" + inout +
+	    	             "&count=" + count +
+	    	             "&date=" + date +
+	    	             "&inspector=" + checker
 	    	    );
 
 	    	    xhr.onreadystatechange = function() {
@@ -442,8 +241,3 @@ th {
 	    	}
 	        
 	        setupPagination();
-    </script>
-</body>
-<script src="/mes/JavaScript/sort.js"></script>
-<script src="/mes/JavaScript/button.js"></script>
-</html>

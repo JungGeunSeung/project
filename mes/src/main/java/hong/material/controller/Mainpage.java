@@ -15,7 +15,7 @@ public class Mainpage extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		request.getRequestDispatcher("/WEB-INF/main.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/mainLogin/main.jsp").forward(request, response);
 	}
 
 
