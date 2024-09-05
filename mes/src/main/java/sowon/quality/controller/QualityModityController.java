@@ -28,7 +28,7 @@ public class QualityModityController extends HttpServlet {
 		String result = request.getParameter("result");
 		String defect_count = request.getParameter("defect_count");
 		String defect_cause = request.getParameter("defect_cause");
-		String resultid = request.getParameter("resultID");
+		String resultid = request.getParameter("resultid");
 		String taskid = request.getParameter("taskid");
 		System.out.println(ins_id + ", "+ production_id+ ", "+ planid+ ", "+ ins_date+ ", "+ result);
 		System.out.println(defect_count + ", "+ defect_cause+ ", "+ resultid+ ", "+ taskid);
@@ -48,7 +48,7 @@ public class QualityModityController extends HttpServlet {
 		dto.setTaskid( taskid );
 		
 		request.setAttribute("dto", dto);
-		request.getRequestDispatcher("/WEB-INF/생산관리현황_Quality_modify.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/quality/production/생산검사현황_Quality_modify.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

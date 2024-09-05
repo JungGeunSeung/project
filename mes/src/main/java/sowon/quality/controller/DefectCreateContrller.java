@@ -22,7 +22,7 @@ public class DefectCreateContrller extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8;");
 		
-		request.getRequestDispatcher("/WEB-INF/불량기록_Defect_register.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/quality/defect/불량기록_Defect_register.jsp").forward(request, response);
 	}
 
     public void setDefect_count(int count) {

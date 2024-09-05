@@ -22,7 +22,7 @@ public class QualityCreateContrller extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8;");
 		
-		request.getRequestDispatcher("/WEB-INF/생산검사현황_Quality_register.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/quality/production/생산검사현황_Quality_register.jsp").forward(request, response);
 	}
 
     public void setDefect_count(int count) {

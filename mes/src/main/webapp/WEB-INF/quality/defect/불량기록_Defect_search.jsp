@@ -61,7 +61,7 @@
                     	<th>
                     		<input type="checkbox" id="allchk">
                     	</th>
-                    		<th>품질 코드</th>
+                    <th>품질 코드</th>
 					<th>품질기준 불량기록</th>
                     <th>불량기록 ID</th>
                     <th>품질검사 ID</th>
@@ -81,16 +81,15 @@
                     			<c:param name="report_id" value="${ dto.report_id }" />
 						        <c:param name="ins_id" value="${ dto.ins_id }" />
 						        <c:param name="production_id" value="${ dto.production_id }" />
+						        <c:param name="production_id" value="${ dto.planid }" />
                     		</c:url>
                     		
-                    		<td>${ defect.ins_id }</td>
-						<td><a href="${ read }" id="underline">${ defect.production_id }</a>
-						</td>
+                    	<td>${ defect.report_id}</td>
+						<td>${ defect.ins_id }</td>
+						<td>${ defect.production_id }</td>
 						<td>${ defect.planid }</td>
-						<td>${ defect.ins_date }</td>
-						<td>${ defect.result }</td>
 						<td>${ defect.defect_count }</td>
-						<td>${ defect.resultID }</td>
+					
 						<c:url var="modify" value="/defect/modify">
 							<c:param name="report_id" value="${ dto.report_id }" />
 					        <c:param name="ins_id" value="${ dto.ins_id }" />

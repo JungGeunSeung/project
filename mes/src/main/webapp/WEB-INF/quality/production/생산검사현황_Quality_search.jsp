@@ -85,8 +85,6 @@
                     		</c:url>
                     		
                     		<td>${ quality.ins_id }</td>
-						<td><a href="${ read }" id="underline">${ quality.production_id }</a>
-						</td>
 						<td>${ quality.planid }</td>
 						<td>${ quality.ins_date }</td>
 						<td>${ quality.result }</td>

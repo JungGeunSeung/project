@@ -26,6 +26,6 @@ public class DefectSearchController extends HttpServlet {
 
         request.setAttribute("defect", list);
         
-        request.getRequestDispatcher("/WEB-INF/불량기록_Defect_search.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/quality/defect/불량기록_Defect_search.jsp").forward(request, response);
     } 
 }

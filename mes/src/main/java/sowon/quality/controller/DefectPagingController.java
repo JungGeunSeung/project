@@ -36,7 +36,7 @@ public class DefectPagingController extends HttpServlet {
         request.setAttribute("page", page);
 
        
-        request.getRequestDispatcher("/WEB-INF/불량기록_Defect.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/quality/defect/불량기록_Defect.jsp").forward(request, response);
 	}
 	
 }

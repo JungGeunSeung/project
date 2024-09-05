@@ -64,9 +64,12 @@
 	인증날짜 : <input type="date" name="revision" value="${dto.revision}"><br>
 	
 	<input type="submit" value="수정하기" class="btn">
-	<input type="submit" value="삭제" class="btn"><br>
 	</form>
-	<input type="submit" value="목록으로 돌아가기" class="btn"> 
+	<form method="post" action="delete">
+		<input type="hidden" name="quality_id" value="${dto.quality_id}"><br>
+		<input type="submit" value="삭제" class="btn"><br>
+	</form>
 
+	<a href="/mes/standard/list"><input type="submit" value="목록으로 돌아가기" class="btn"></a>
 </body>
 </html>

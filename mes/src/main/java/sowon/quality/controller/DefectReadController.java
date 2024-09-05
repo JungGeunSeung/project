@@ -29,7 +29,7 @@ public class DefectReadController extends HttpServlet {
             request.setAttribute("dto", dto);
 
             
-            request.getRequestDispatcher("/WEB-INF/불량기록_Defect_read.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/quality/defect/불량기록_Defect_read.jsp").forward(request, response);
         } else {
             System.out.println("null");
         }

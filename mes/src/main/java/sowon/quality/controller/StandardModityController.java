@@ -41,7 +41,7 @@ public class StandardModityController extends HttpServlet {
 	
 		
 		request.setAttribute("dto", dto);
-		request.getRequestDispatcher("/WEB-INF/시험항목_Standard_modify.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/quality/standard/품질기준_Standard_modify.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

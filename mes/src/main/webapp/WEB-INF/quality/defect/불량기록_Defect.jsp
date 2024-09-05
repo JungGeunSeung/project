@@ -72,7 +72,7 @@
 	<div class="searchID">
 
 		<!-- 해당 페이지의 제목 -->
-		<h1>품질 관리</h1>
+		<h1>불량 기록</h1>
 		<!-- 해당 페이지의 설명 -->
 		<div class="subhead">
 			<span>품질관리 불량기록을 조회하는 페이지 입니다.</span> <br>
@@ -119,7 +119,6 @@
 			<thead>
 				<tr>
 					<th><input type="checkbox" id="allchk"></th>
-					<th>품질기준 불량기록</th>
                     <th>불량기록 ID</th>
                     <th>품질검사 ID</th>
                     <th>제품 ID</th>
@@ -129,23 +128,21 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="defect" items="${ map.list }">
+				<c:forEach var="dto" items="${ map.list }">
 					<tr>
 						<td><input type="checkbox" id="selectchk"></td>
 
 						<c:url var="read" value="read">
-							<c:param name="ins_id" value="${ defect.ins_id }" />
-							<c:param name="production_id" value="${ defect.production_id }" />
+							<c:param name="ins_id" value="${ dto.ins_id }" />
+							<c:param name="production_id" value="${ dto.production_id }" />
 						</c:url>
 
-						<td>${ defect.ins_id }</td>
-						<td>${ defect.planid }</td>
-						<td>${ defect.ins_date }</td>
-						<td>${ defect.result }</td>
-						<td>${ defect.defect_count }</td>
-						<td>${ defect.defect_cause }</td>
-						<td>${ defect.resultID }</td>
-						<td>${ defect.taskid }</td>
+						<td>${ dto.report_id }</td>
+						<td>${ dto.ins_id }</td>
+						<td>${ dto.production_id }</td>
+						<td>${ dto.planid }</td>
+						<td>${ dto.defect_count }</td>
+
 						<c:url var="modify" value="/defect/modify">
 							  <c:param name="report_id" value="${ dto.report_id }" />
 						      <c:param name="ins_id" value="${ dto.ins_id }" />
@@ -154,7 +151,7 @@
 						      <c:param name="defect_count" value="${ dto.defect_count }" />
 						</c:url>
 						<c:url var="delete" value="/defect/delete">
-							<c:param name="ins_id" value="${ defect.ins_id }" />
+							<c:param name="ins_id" value="${ dto.ins_id }" />
 						</c:url>
 						<td class="modifyTD"><a href="${ modify }" id="modiA">수정</a>
 						</td>
@@ -206,38 +203,38 @@
 		</div>
 </body>
 <script>
-	var modal = document.getElementById("addRowModal");
+var modal = document.getElementById("addRowModal");
 
-	// Get the button that opens the modal
-	//var addButton = document.querySelector("button[onclick='addRow()']");
-	var addButton = document.querySelector("button[onclick='add()']");
+// Get the button that opens the modal
+//var addButton = document.querySelector("button[onclick='addRow()']");
+var addButton = document.querySelector("button[onclick='add()']");
 
-	// Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
 
-	// When the user clicks on the button, open the modal
-	addButton.onclick = function() {
-		modal.style.display = "block";
-	}
+// When the user clicks on the button, open the modal
+addButton.onclick = function() {
+	modal.style.display = "block";
+}
 
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+	var form = document.getElementById("addRowForm");
+	modal.style.display = "none";
+	form.reset();
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+	if (event.target == modal) {
 		var form = document.getElementById("addRowForm");
 		modal.style.display = "none";
 		form.reset();
 	}
-
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-		if (event.target == modal) {
-			var form = document.getElementById("addRowForm");
-			modal.style.display = "none";
-			form.reset();
-		}
-	}
-	function add() {
-		modal.style.display = "block";
-	}
+}
+function add() {
+	modal.style.display = "block";
+}
 </script>
 <script src="/mes/JavaScript/sort.js"></script>
 <script src="/mes/JavaScript/date.js"></script>

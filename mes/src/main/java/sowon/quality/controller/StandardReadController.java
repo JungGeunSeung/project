@@ -28,7 +28,7 @@ public class StandardReadController extends HttpServlet {
             request.setAttribute("dto", dto);
 
             
-            request.getRequestDispatcher("/WEB-INF/시험항목_Standard_modify.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/quality/standard/품질기준_Standard_modify.jsp").forward(request, response);
         } else {
             System.out.println("null");
         }

@@ -35,7 +35,7 @@ public class StandardPagingController extends HttpServlet {
         request.setAttribute("page", page);
 
        
-        request.getRequestDispatcher("/WEB-INF/시험항목_Standard.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/quality/standard/품질기준_Standard.jsp").forward(request, response);
 	}
 	
 }

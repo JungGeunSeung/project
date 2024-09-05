@@ -150,7 +150,7 @@
 						</c:url>
 
 						<td>${ quality.ins_id }</td>
-						<td><a href="${ read }" id="underline">${ quality.production_id }</a>
+						<td>${ quality.production_id }
 						</td>
 						<td>${ quality.planid }</td>
 						<td>${ quality.ins_date }</td>
@@ -226,35 +226,49 @@
 var modal = document.getElementById("addRowModal");
 
 // Get the button that opens the modal
-var addButton = document.querySelector("button[onclick='addRow()']");
+//var addButton = document.querySelector("button[onclick='addRow()']");
+var addButton = document.querySelector("button[onclick='add()']");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal
 addButton.onclick = function() {
-    modal.style.display = "block";
+	modal.style.display = "block";
 }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-   var form = document.getElementById("addRowForm");
-    modal.style.display = "none";
-    form.reset();
+	var form = document.getElementById("addRowForm");
+	modal.style.display = "none";
+	form.reset();
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modal) {
-       var form = document.getElementById("addRowForm");
-        modal.style.display = "none";
-        form.reset();
-    }
+	if (event.target == modal) {
+		var form = document.getElementById("addRowForm");
+		modal.style.display = "none";
+		form.reset();
+	}
 }
-function add(){
-	modal.style.display="block";
+function add() {
+	modal.style.display = "block";
 }
 
+//When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+ if (event.target == modal) {
+     var form = document.getElementById("addRowForm");
+     modal.style.display = "none";
+     form.reset();
+ }
+}
+
+//Function to show the modal
+function add() {
+ modal.style.display = "block";
+}
 
 </script>
 <script src="/mes/JavaScript/sort.js"></script>

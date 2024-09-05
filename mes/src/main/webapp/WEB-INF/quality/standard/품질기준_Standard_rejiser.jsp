@@ -17,10 +17,10 @@
         <!-- 메인메뉴 아레 정보가 표시될 영역 -->
         <div class="searchID">
             <!-- 해당 페이지의 제목 -->
-            <h1>생산검사현황</h1>
+            <h1>품질기준</h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
-                <span>품질관리 시험현황을 조회하는 페이지 입니다.</span> <br>
+                <span>품질관리 품질기준을 조회하는 페이지 입니다.</span> <br>
             </div>
             <!-- 게시물의 개수를 표시할 select -->
              <div class="cntdiv">
@@ -39,7 +39,7 @@
                     <button class="btn">검색</button>
                 </div> 
 	<from method="post" action="modify">
-	시험항목 ID : <input type="hidden" name="ins_id" value="${dto.quality_id}"><br>
+	시험항목 ID : <input type="hidden" name="quality_id" value="${dto.quality_id}"><br>
 	품질기준 : <input type="hidden" name="production_id" value="${dto.title}"><br>
 	관리자 : <input type="hidden" name="planid" value="${dto.mgr}"><br>
 	인증기관 : <input type="date" name="ins_date" value="${dto.insti}"><br>

@@ -75,7 +75,7 @@
 		<h1>품질 관리</h1>
 		<!-- 해당 페이지의 설명 -->
 		<div class="subhead">
-			<span>품질관리 시험항목을 조회하는 페이지 입니다.</span> <br>
+			<span>품질관리 시험기준을 조회하는 페이지 입니다.</span> <br>
 		</div>
 		<!-- 게시물의 개수를 표시할 select -->
 
@@ -137,18 +137,14 @@
 						</c:url>
 
 					    
-<%-- 						<td><a href="${ read }" id="underline">${ standard.quality_id}</a></td> --%>
+
 						<td>${ standard.quality_id }</td>
 						<td>${ standard.title }</td>
 						<td>${ standard.mgr }</td>
 						<td>${ standard.insti }</td>
 						<td>${ standard.revision }</td>
 						<c:url var="modify" value="/standard/modify">
-							<c:param name="ins_id" value="${ standard.quality_id }" />
-							<c:param name="production_id" value="${ standard.title }" />
-							<c:param name="planid" value="${ standard.mgr }" />
-							<c:param name="ins_date" value="${ standard.insti }" />
-							<c:param name="result" value="${ standard.revision }" />
+							<c:param name="quality_id" value="${ standard.quality_id }" />
 						</c:url>
 						<c:url var="delete" value="/standard/delete">
 							<c:param name="ins_id" value="${ standard.quality_id }" />
@@ -203,38 +199,38 @@
 		
 </body>
 <script>
-	var modal = document.getElementById("addRowModal");
+var modal = document.getElementById("addRowModal");
 
-	// Get the button that opens the modal
-	//var addButton = document.querySelector("button[onclick='addRow()']");
-	var addButton = document.querySelector("button[onclick='add()']");
+// Get the button that opens the modal
+//var addButton = document.querySelector("button[onclick='addRow()']");
+var addButton = document.querySelector("button[onclick='add()']");
 
-	// Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
 
-	// When the user clicks on the button, open the modal
-	addButton.onclick = function() {
-		modal.style.display = "block";
-	}
+// When the user clicks on the button, open the modal
+addButton.onclick = function() {
+	modal.style.display = "block";
+}
 
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+	var form = document.getElementById("addRowForm");
+	modal.style.display = "none";
+	form.reset();
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+	if (event.target == modal) {
 		var form = document.getElementById("addRowForm");
 		modal.style.display = "none";
 		form.reset();
 	}
-
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-		if (event.target == modal) {
-			var form = document.getElementById("addRowForm");
-			modal.style.display = "none";
-			form.reset();
-		}
-	}
-	function add() {
-		modal.style.display = "block";
-	}
+}
+function add() {
+	modal.style.display = "block";
+}
 </script>
 <script src="/mes/JavaScript/sort.js"></script>
 <script src="/mes/JavaScript/date.js"></script>

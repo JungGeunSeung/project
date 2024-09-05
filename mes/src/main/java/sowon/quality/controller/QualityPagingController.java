@@ -35,7 +35,7 @@ public class QualityPagingController extends HttpServlet {
         request.setAttribute("page", page);
 
        
-        request.getRequestDispatcher("/WEB-INF/생산품질기준_생산관리현황_Quality.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/quality/production/생산검사현황_Quality.jsp").forward(request, response);
 	}
 	
 }

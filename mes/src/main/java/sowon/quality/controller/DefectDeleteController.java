@@ -1,6 +1,8 @@
 package sowon.quality.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import geun.BOM.service.BOM_Service;
 import sowon.quality.service.DefectService;
 
 
@@ -28,3 +31,4 @@ public class DefectDeleteController extends HttpServlet {
        
     }
 }
+

@@ -34,7 +34,7 @@ public class DefectModityController extends HttpServlet {
 		dto.setDefect_count(Integer.parseInt(defect_count));
 		
 		request.setAttribute("dto", dto);
-		request.getRequestDispatcher("/WEB-INF/불량기록_Defect_modify.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/quality/defect/불량기록_Defect_modify.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

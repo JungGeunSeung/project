@@ -11,6 +11,9 @@ public class DefectDTO {
 		public void setReport_id(String report_id) {
 			this.report_id = report_id;
 		}
+		public String getReport_id() {
+			return report_id;
+		}
 		public String getIns_id() {
 			return ins_id;
 		}

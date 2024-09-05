@@ -40,7 +40,7 @@ public class StandardDAO {
 
 	        try {
 	            Connection con = getConnection();
-	            String query = "select * from Standards";
+	            String query = "select * from qualitystandards";
 	            PreparedStatement ps = con.prepareStatement(query);
 	            ResultSet rs = ps.executeQuery();
 
@@ -80,7 +80,7 @@ public class StandardDAO {
 	        try {
 	            System.out.println("StandardDAO의 selectOne 메소드 실행 및 SQL 준비");
 
-	            String sql = "select * from Standards where quality_id = ?";
+	            String sql = "select * from qualitystandards where quality_id = ?";
 
 	            PreparedStatement ps = con.prepareStatement(sql);
 	            System.out.println("DAO : " + quality_id);
@@ -112,7 +112,7 @@ public class StandardDAO {
 	            DataSource dataFactory = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
 	            Connection con = dataFactory.getConnection();
 
-	            String query = "UPDATE qualityinspection SET title=?, mgr=?, insti=?, revision=? WHERE quality_id=?";
+	            String query = "UPDATE qualitystandards SET title=?, mgr=?, insti=?, revision=? WHERE quality_id=?";
 	            PreparedStatement ps = con.prepareStatement(query);
 
 	            LocalDate localDate = dto.getRevision();
@@ -144,7 +144,7 @@ public class StandardDAO {
 	            DataSource dataFactory = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
 	            Connection con = dataFactory.getConnection();
 
-	            String query = "delete from Standards where quality_id=?";
+	            String query = "delete from qualitystandards where quality_id=?";
 
 	            PreparedStatement ps = con.prepareStatement(query);
 
@@ -182,7 +182,7 @@ public class StandardDAO {
 	            query += "    select rownum rnum, quality_id, title, mgr, insti, revision";
 	            query += "    from ( ";
 	            query += "        select quality_id, title, mgr, insti,revision ";
-	            query += "        from Standards ";
+	            query += "        from qualitystandards ";
 	            query += "        order by quality_id ";
 	            query += "    ) ";
 	            query += " ) ";
@@ -277,7 +277,7 @@ public class StandardDAO {
 
 	            con = dataSource.getConnection();
 	            
-	            String query = "SELECT * FROM Standards ";
+	            String query = "SELECT * FROM qualitystandards ";
 	            
 	            if(title != null && !(title.equals(""))) {
 	                query += " where title= '" + title + "'";
@@ -331,7 +331,7 @@ public class StandardDAO {
 
 	            con = dataSource.getConnection();
 	            
-	            String query = "SELECT * FROM Standards WHERE title = ?";
+	            String query = "SELECT * FROM qualitystandards WHERE title = ?";
 	            
 	            ps = con.prepareStatement(query);
 	            
