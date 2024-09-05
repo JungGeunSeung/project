@@ -45,7 +45,7 @@ public class Doc_DAO {
         try {
         	Connection con = getConnection();
         	
-        	String query = "select * from documents";
+        	String query = "select * from documents order by document_id";
         	PreparedStatement ps = con.prepareStatement(query);
         	
         	ResultSet rs = ps.executeQuery();
@@ -91,7 +91,7 @@ public class Doc_DAO {
 		if(con == null) return null;
 		
 		try {
-			String sql = "select * from documents where document_id = ?";
+			String sql = "select * from documents where document_id = ? order by document_id";
 		
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, document_id);
@@ -134,11 +134,10 @@ public class Doc_DAO {
 	            Connection con = dataFactory.getConnection();
 	            
 	            String query = "INSERT INTO documents (document_id, userid, title, content, created_date, updated_date, version) "
-	            		+ "VALUES bom_seq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
+	            		+ "VALUES (bom_seq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
 	            	
 	            PreparedStatement ps = con.prepareStatement(query);
 	            
-	            result = ps.executeUpdate();
 	            
 	            ps.setString(1, dto.getUserid());
 	            ps.setString(2, dto.getTitle());
@@ -146,6 +145,8 @@ public class Doc_DAO {
 	            ps.setDate(4, dto.getCreated_date());
 	            ps.setDate(5, dto.getUpdated_date());
 	            ps.setInt(6,dto.getVersion());
+	            
+	            result = ps.executeUpdate();
 	            
 	            ps.close();
 	            con.close();
@@ -215,6 +216,50 @@ public class Doc_DAO {
 			return result;
 		}
 	
+	public int deleteSelect(List ids) {
+		System.out.println("Doc_DAO의 deleteSelect 실행");
+		
+		int result = 0;
+	    if (ids == null || ids.isEmpty()) {
+	        // 리스트가 비어있으면 그대로 리턴
+	        return result;
+	    }
+		
+		try {
+			Context ctx = new InitialContext();
+			DataSource dataFactory = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
+			Connection con = dataFactory.getConnection();
+			
+			// IN 절에 사용할 ?의 개수를 동적으로 만듦
+	        StringBuilder query = new StringBuilder("DELETE FROM documents WHERE document_id IN (");
+	        for (int i = 0; i < ids.size(); i++) {
+	            query.append("?");
+	            if (i < ids.size() - 1) {
+	                query.append(", "); // 각 ? 사이에 쉼표 추가
+	            }
+	        }
+	        query.append(")");
+
+	        // PreparedStatement 생성
+	        PreparedStatement ps = con.prepareStatement(query.toString());
+
+	        // PreparedStatement에 ids 값을 바인딩
+	        for (int i = 0; i < ids.size(); i++) {
+	            ps.setInt(i + 1, (int) ids.get(i));  // IN 절에 ? 위치에 각 ID를 바인딩
+	        }
+			
+			result = ps.executeUpdate();
+			
+			ps.close();
+			con.close();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 	public List selectDocPage(int start, int end) {
 		System.out.println("Doc_DAO의 selectDocPage 실행");
 		List list = new ArrayList();
@@ -235,7 +280,7 @@ public class Doc_DAO {
 		            query += "    ) ";
 		            query += " ) ";
 		            
-		            query += " where rnum >= ? and rnum <= ?";
+		            query += " where rnum >= ? and rnum <= ? order by document_id";
             
 		    PreparedStatement ps = con.prepareStatement(query);
 		    

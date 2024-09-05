@@ -10,6 +10,7 @@
 .tableID table {
     border-collapse: collapse;
     border: 1px solid black;
+    margin-top: 20px;
 }
 
 .tableID th {
@@ -39,7 +40,7 @@
     height: 20px;
 }
 
-#selectchk {
+.selectchk {
     width: 30px;
     height: 20px;
 }
@@ -70,4 +71,8 @@
 
 .underline:hover {
 	text-decoration: underline;
+}
+
+.pagenum {
+	text-align: center;
 }

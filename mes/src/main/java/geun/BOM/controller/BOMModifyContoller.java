@@ -52,7 +52,7 @@ public class BOMModifyContoller extends HttpServlet {
 		String production_id = request.getParameter("production_id");
 		String mid = request.getParameter("mid");
 		String bom_quantity = request.getParameter("bom_quantity");
-		
+		System.out.println(bom_id+", " + production_id+", " + mid+", " + bom_quantity);
 		BOM_DTO dto = new BOM_DTO();
 		dto.setBom_id(bom_id);
 		dto.setProduction_id(production_id);

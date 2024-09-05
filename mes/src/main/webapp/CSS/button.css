@@ -36,8 +36,12 @@
 .btn:hover {
     background-color: rgb(135, 206, 250);
     border: solid 1px rgb(20, 81, 134);
-    padding: 4px 9px;
 }
+.newbtn:hover {
+    background-color: rgb(135, 206, 250);
+    border: solid 1px rgb(20, 81, 134);
+}
+
 /* 버튼을 클릭했을때 */
 .btn:active {
     background-color: rgb(70, 130, 180);

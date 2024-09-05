@@ -90,25 +90,20 @@
                 alt="">
         </div>
         <div class="loginbox">
-            <form action="main" method="get">
+            <form action="login" method="post">
                 <label for="id">ID:</label>
                 <input type="text" id="id" name="id" placeholder="아이디 또는 사원번호"><br>
                 <label for="pw">PW:</label>
-                <input type="password" id="pw" name="PW" placeholder="비밀번호"><br><br>
-                <span id="falseID">아이디 또는 비밀번호가 다릅니다.</span> <br><br>
+                <input type="password" id="pw" name="pw" placeholder="비밀번호"><br><br>
                 <input type="submit" value="로그인" id="submit" class="btn">
-                <input type="button" value="회원가입" id="open_join" class="btn">
-                <script>
-                    document.getElementById('open_join').addEventListener('click', function () {
-                        window.open('회원가입_popup.html', '회원가입', 'width=400,height=500');
-                    });
-                </script>
+                <input type="button" value="회원가입" id="open_join" class="btn" onclick="location.href='signup'">
                 <!-- <input type="submit2" value="로컬 초기화" id="submit2" class="btn"> -->
             </form>
         </div>
     </div>
+    
+    <script>
+    </script>
 </body>
-
-<script src="/mes/JavaScript/login.js"></script>
 
 </html>

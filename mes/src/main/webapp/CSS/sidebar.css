@@ -11,6 +11,7 @@
 .profile {
     text-align: center;
     margin-bottom: 20px;
+    height: 370px;
 }
 
 .profile img {
@@ -26,6 +27,10 @@
     font-size: 1.5rem;
 }
 
+#h3 {
+	font-size: 16px;
+}
+
 .profile p {
     margin: 0;
     font-size: 1rem;
@@ -35,12 +40,15 @@
     margin-top: 10px;
 }
 
+.probtn {
+	margin: 5px 0px;
+}
+
 img.Logo {
-    width: 168px;
-    height: 80px;
+    width: 150px;
+    height: 75px;
     display: block;
     float: left;
-    margin-left: 16px;
 }
 
 .history > li  a {

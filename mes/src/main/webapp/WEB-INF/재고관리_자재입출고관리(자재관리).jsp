@@ -1,280 +1,592 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Iterator"%>
+<%@ page import="java.sql.Date"%>
+<%@ page import="hong.material.dto.MaterialDTO"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/mes/CSS/button.css">
-    <link rel="stylesheet" href="/mes/CSS/calender.css">
-    <link rel="stylesheet" href="/mes/CSS/common.css">
-    <link rel="stylesheet" href="/mes/CSS/display.css">
-    <link rel="stylesheet" href="/mes/CSS/mobile.css">
-    <link rel="stylesheet" href="/mes/CSS/sidebar.css">
-    <link rel="stylesheet" href="/mes/CSS/table.css">
-    <link rel="stylesheet" href="/mes/CSS/topbar.css">
-    <link rel="stylesheet" href="/mes/CSS/게시판.css">
-    <link rel="stylesheet" href="/mes/CSS/mobile.css">
-    <script src="/mes/JavaScript/load_info.js"></script>
-    <title>소원을 들어주는 MES</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/mes/CSS/button.css">
+<link rel="stylesheet" href="/mes/CSS/calender.css">
+<link rel="stylesheet" href="/mes/CSS/common.css">
+<link rel="stylesheet" href="/mes/CSS/display.css">
+<link rel="stylesheet" href="/mes/CSS/mobile.css">
+<link rel="stylesheet" href="/mes/CSS/sidebar.css">
+<link rel="stylesheet" href="/mes/CSS/table.css">
+<link rel="stylesheet" href="/mes/CSS/topbar.css">
+<link rel="stylesheet" href="/mes/CSS/게시판.css">
+<link rel="stylesheet" href="/mes/CSS/mobile.css">
+<style>
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th, td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+}
+
+th {
+	background-color: #f2f2f2;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	margin: 20px 0;
+}
+
+.pagination a {
+	margin: 0 5px;
+	padding: 8px 16px;
+	text-decoration: none;
+	border: 1px solid #ddd;
+	color: #333;
+}
+
+.pagination a.active {
+	background-color: #4CAF50;
+	color: white;
+	border: 1px solid #4CAF50;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+<script src="/mes/JavaScript/load_info.js"></script>
+<title>소원을 들어주는 MES</title>
 </head>
 
 <body>
-   <!-- 사이드바 -->
-    <jsp:include page="assetsform/sidebar.jsp"/>
-    <!-- 	상단바 -->
-    <jsp:include page="assetsform/topbar.jsp"/>
-        <!-- 메인메뉴 아레 정보가 표시될 영역 -->
-        <div class="searchID">
+	<!-- 104번부터 127번줄 까지는 추가 버튼 눌렀을 때 나오는 모달 창 -->
+	<div id="addRowModal" class="modal">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<h2>추가할 자재 정보 입력</h2>
+			<form id="addRowForm">
+				<label for="prodNum">제품번호:</label> <input type="text" id="prodNum"
+					name="prodNum" required><br> <label for="LOTNum">LOT
+					번호:</label> <input type="text" id="LOTNum" name="LOTNum" required><br>
 
-            <!-- 해당 페이지의 제목 -->
-            <h1>자재입출고관리</h1>
-            <!-- 해당 페이지의 설명 -->
-            <div class="subhead">
-                <span>자재를 입/출고 날짜 별로 조회하여 관리하는 페이지입니다.</span> <br>
-            </div>
-            <!-- 게시물의 개수를 표시할 select -->
-            <div class="cntdiv">
-                <span>게시물</span>
-                 <select name="cnt" id="cnt" onchange="changePageSize()">
-                    <option value="10">10개씩</option>
-                    <option value="20">20개씩</option>
-                    <option value="30">30개씩</option>
-                    <option value="40">40개씩</option>
-                    <option value="50" selected>50개씩</option>
-                </select>
-                <br>
-                <div class="divbtn">
-                    <button class="btn" onclick="showAllRows()">전체</button>
-                    <button class="btn" onclick="filterByStatus('검사전')">검사전</button>
-                    <button class="btn" onclick="filterByStatus('검사중')">검사중</button>
-                    <button class="btn" onclick="filterByStatus('검사완료')">검사완료</button>
-                </div>
-                <div>
-                    <button onclick="delchk()" class="btn Lbtn">선택된 열 삭제</button>
-                    <span>날짜별 조회</span>
-                    <input type="date" id="startdate"> ~ <input type="date" id="enddate">
-                    <button class="btn">검색</button>
-                </div>
+				<label for="prodName">제품명:</label> <input type="text" id="prodName"
+					name="prodName" required><br> <label for="inout">입/출고:</label>
+				<select id="inout" name="inout" required>
+					<option value="IN">IN</option>
+					<option value="OUT">OUT</option>
+				</select><br> <label for="count">갯수:</label> <input type="number"
+					id="count" name="count" required><br> <label
+					for="date">날짜:</label> <input type="date" id="date" name="date"
+					required><br> <label for="checker">검수자:</label> <input
+					type="text" id="checker" name="checker" required><br>
 
-            </div>
-        </div>
+				<button type="button" onclick="submitAddRowForm()">추가</button>
+			</form>
+		</div>
+	</div>
+	<!-- 사이드바 -->
+	<div class="sidebar">
+		<a href="main"> <img class="Logo" src="/mes/Image/로고.png" alt=""></a>
 
-        <!-- 해당 목록 -->
-        <div class="tableID">
-            <table>
-                <thead>
-                    <tr>
-                        <th><input type="checkbox" id="allchk"></th>
-                        <th>번호</th>
-                        <th>제품번호</th>
-                        <th>LOT 번호</th>
-                        <th>제품명</th>
-                        <th>규격</th>
-                        <th>단위(kg)</th>
-                        <th>검사상태</th>
-                        <th>입고날짜</th>
-                        <th>출고날짜</th>
-                        <th>검수자</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>1</td>
-                        <td>00021</td>
-                        <td>GC19002</td>
-                        <td>폴리에텔렌</td>
-                        <td>PE100</td>
-                        <td>801</td>
-                        <td>검사완료</td>
-                        <td>24.07.19</td>
-                        <td>24.07.21</td>
-                        <td>정다올</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>2</td>
-                        <td>00022</td>
-                        <td>SC19003</td>
-                        <td>폴리에텔렌</td>
-                        <td>PE80</td>
-                        <td>902</td>
-                        <td>검사중</td>
-                        <td>24.07.20</td>
-                        <td>24.07.31</td>
-                        <td>정근승</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>3</td>
-                        <td>00023</td>
-                        <td>SC19004</td>
-                        <td>폴리에텔렌</td>
-                        <td>PE100</td>
-                        <td>328</td>
-                        <td>검사전</td>
-                        <td>24.07.19</td>
-                        <td>24.07.25</td>
-                        <td>권대호</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>4</td>
-                        <td>00021</td>
-                        <td>GC19002</td>
-                        <td>폴리에텔렌</td>
-                        <td>PE80</td>
-                        <td>801</td>
-                        <td>검사완료</td>
-                        <td>24.07.19</td>
-                        <td>24.07.21</td>
-                        <td>정근승</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>5</td>
-                        <td>00022</td>
-                        <td>SC19003</td>
-                        <td>폴리에텔렌</td>
-                        <td>PE100</td>
-                        <td>902</td>
-                        <td>검사중</td>
-                        <td>24.07.20</td>
-                        <td>24.07.31</td>
-                        <td>박경민</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>6</td>
-                        <td>00023</td>
-                        <td>SC19004</td>
-                        <td>폴리에텔렌</td>
-                        <td>PE80</td>
-                        <td>328</td>
-                        <td>검사전</td>
-                        <td>24.07.19</td>
-                        <td>24.07.25</td>
-                        <td>최영준</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>7</td>
-                        <td>00024</td>
-                        <td>SC19005</td>
-                        <td>폴리에텔렌</td>
-                        <td>PE100</td>
-                        <td>500</td>
-                        <td>검사완료</td>
-                        <td>24.07.21</td>
-                        <td>24.07.22</td>
-                        <td>서수찬</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>8</td>
-                        <td>00025</td>
-                        <td>SC19006</td>
-                        <td>폴리에텔렌</td>
-                        <td>PE80</td>
-                        <td>700</td>
-                        <td>검사중</td>
-                        <td>24.07.22</td>
-                        <td>24.07.29</td>
-                        <td>김승환</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>9</td>
-                        <td>00026</td>
-                        <td>GC19007</td>
-                        <td>폴리에텔렌</td>
-                        <td>PE100</td>
-                        <td>1200</td>
-                        <td>검사전</td>
-                        <td>24.07.23</td>
-                        <td>24.07.27</td>
-                        <td>조민정</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>10</td>
-                        <td>00027</td>
-                        <td>SC19008</td>
-                        <td>폴리에텔렌</td>
-                        <td>PE80</td>
-                        <td>300</td>
-                        <td>검사완료</td>
-                        <td>24.07.24</td>
-                        <td>24.07.28</td>
-                        <td>김성령</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>11</td>
-                        <td>00028</td>
-                        <td>SC19009</td>
-                        <td>폴리에텔렌</td>
-                        <td>PE100</td>
-                        <td>1500</td>
-                        <td>검사중</td>
-                        <td>24.07.25</td>
-                        <td>24.07.30</td>
-                        <td>박규태</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>12</td>
-                        <td>00029</td>
-                        <td>SC19010</td>
-                        <td>폴리에텔렌</td>
-                        <td>PE80</td>
-                        <td>4500</td>
-                        <td>검사전</td>
-                        <td>24.07.26</td>
-                        <td>24.07.31</td>
-                        <td>이제섭</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>13</td>
-                        <td>00030</td>
-                        <td>SC19011</td>
-                        <td>폴리에텔렌</td>
-                        <td>PE100</td>
-                        <td>2600</td>
-                        <td>검사완료</td>
-                        <td>24.07.27</td>
-                        <td>24.08.01</td>
-                        <td>박규태</td>
-                    </tr>
-                </tbody>
-            </table>
+		<div class="profile" id="bos">
+			<img src="/mes/Image/정근승.png" alt="프로필 사진">
+			<h2>정근승</h2>
+			<p>대표이사</p>
+			<input type="button" value="로그아웃" class="btn"
+				onclick="location.href='login'">
+
+			<div class="profile_btn">
+				<input type="button" value="마이페이지" class="btn"> <input
+					type="button" value="관리자페이지" class="btn"
+					onclick="location.href='관리자'">
+			</div>
+		</div>
+
+		<div class="profile" id="kwon">
+			<img src="/mes/Image/권대호.png" alt="프로필 사진">
+			<h2>권대호</h2>
+			<p>상무</p>
+			<input type="button" value="로그아웃" class="btn"
+				onclick="location.href='login'">
+
+			<div class="profile_btn">
+				<input type="button" value="마이페이지" class="btn"> <input
+					type="button" value="관리자페이지" class="btn"
+					onclick="location.href='관리자'">
+			</div>
+		</div>
+
+		<div class="profile" id="daall">
+			<img src="/mes/Image/정다올.png" alt="프로필 사진">
+			<h2>정다올</h2>
+			<p>생산관리팀 부장</p>
+
+			<div class="profile_btn">
+				<input type="button" value="마이페이지" class="btn"> <input
+					type="button" value="로그아웃" class="btn"
+					onclick="location.href='login'">
+			</div>
+		</div>
+
+		<div class="profile" id="sowon">
+			<img src="/mes/Image/김소원.png" alt="프로필 사진">
+			<h2>김소원</h2>
+			<p>생산팀 부장</p>
+
+			<div class="profile_btn">
+				<input type="button" value="마이페이지" class="btn"> <input
+					type="button" value="로그아웃" class="btn"
+					onclick="location.href='login'">
+			</div>
+		</div>
+
+
+
+
+		<div class="cal_kwon">
+			<div id="calendar"></div>
+			<script src="/mes/JavaScript/calendar_nomall.js"></script>
+		</div>
+
+		<h3>열어본 페이지 목록</h3>
+		<ul>
+			<li><a href="#가장최근에 열어본 페이지">재고관리</a></li>
+			<li><a href="#열어본 페이지">생산관리</a></li>
+		</ul>
+
+	</div>
+
+	<!--/////////////////////////////////////////////////////////////-->
+	<!-- 메인 영역의 큰 div ->이유는 body에 flex를 적용하여 -->
+	<div class="content">
+		<!--메뉴바-->
+		<div class="menu">
+			<ul>
+				<!--상위 메뉴-->
+				<li class="menu-item"><a href="#">정보/BOM</a>
+					<div class="submenu">
+						<ul>
+							<!--하위메뉴-->
+							<li><a href="BOM">BOM</a></li>
+							<li class="manager"><a href="설비코드">설비코드</a></li>
+							<li><a href="조직도">조직도</a></li>
+							<li><a href="문서관리">BOM문서관리(양식서)</a></li>
+						</ul>
+					</div></li>
+				<li class="menu-item"><a href="#">재고관리</a>
+					<div class="submenu">
+						<ul>
+							<li><a href="자재관리">자재입출고(자재관리)</a></li>
+							<li class="manager"><a href="재고관리">재고관리</a></li>
+							<li><a href="저장위치">저장위치(MAP)</a></li>
+						</ul>
+					</div></li>
+
+				<li class="menu-item manager"><a href="#">품질관리</a>
+					<div class="submenu">
+						<ul>
+							<li><a href="시험항목_품질기준">제품별 시험항목/품질기준</a></li>
+							<li><a href="생산검사현황">생산검사현황</a></li>
+							<li><a href="검사현황">검사현황</a></li>
+						</ul>
+					</div></li>
+
+				<li class="menu-item"><a href="#">생산관리</a>
+					<div class="submenu">
+						<ul>
+							<li><a href="생산계획목록">생산계획목록</a></li>
+							<li><a href="작업지시서목록">작업지시목록</a></li>
+							<li><a href="생산실적">생산실적</a></li>
+							<li><a href="생산실적보고서">생산실적보고서</a></li>
+						</ul>
+					</div></li>
+
+				<li class="menu-item manager"><a href="#">설비관리</a>
+					<div class="submenu">
+						<ul>
+							<li><a href="공정별설비관리">공정별설비관리/수리보고서</a></li>
+							<li><a href="설비고장_수리이력">설비고장/수리이력</a></li>
+							<li><a href="비가동이력">비가동이력</a></li>
+						</ul>
+					</div></li>
+			</ul>
+
+		</div>
+		<hr>
+		<!-- 메인메뉴 아레 정보가 표시될 영역 -->
+		<div class="searchID">
+
+			<!-- 해당 페이지의 제목 -->
+			<h1>자재입출고관리</h1>
+			<!-- 해당 페이지의 설명 -->
+			<div class="subhead">
+				<span>자재를 입/출고 날짜 별로 조회하여 관리하는 페이지입니다.</span> <br>
+			</div>
+			<!-- 게시물의 개수를 표시할 select -->
+		</div>
+
+		<!-- 해당 목록 -->
+		<div class="tableID">
+			<label for="rowsPerPage">정렬 갯수 : </label> <select id="rowsPerPage"><!-- 테이블에 표시될 행의 갯수 기본값은 10개 -->
+				<option value="5">5</option>
+				<option value="10" selected>10</option>
+				<option value="15">15</option>
+				<option value="20">20</option>
+			</select>
+
+			<button onclick="addRow()">추가</button>
+			<button id="deleteSelected">체크 된 줄 삭제</button>
+
+			<br> <br> <label for="startDate">Start Date:</label> <input
+				type="date" id="startDate"> <label for="endDate">End
+				Date:</label> <input type="date" id="endDate"> <br>
+			<button id="filterByDateAndStatus">검색</button>
+			<button id="resetFilters">필터 해제</button>
+
+			<table id="dataTable">
+				<thead>
+					<tr>
+						<th><input type="checkbox" id="selectAll"></th>
+						<th>번호</th>
+						<th>자재번호</th>
+						<th>LOT 번호</th>
+						<th>제품명</th>
+						<th>입/출고</th>
+						<th>갯수</th>
+						<th>날짜</th>
+						<th>검수자</th>
+						<th>수정</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%
+					//자재관리.java 컨트롤러에서 보내준 리스트를 getattribute로 받아서 저장
+					List<MaterialDTO> list = (List<MaterialDTO>) request.getAttribute("list");
+					
+					
+					// 테이블에 넣어줄 데이터 삽입
+					for (int j = 0; j < list.size(); j++) {//DB에 있는 행의 갯수만큼 반복문 실행
+						int num = list.get(j).getnum();
+						String MID = list.get(j).getprodNum();
+						String MLOT = list.get(j).getLOTNum();
+						String pname = list.get(j).getprodName();
+						String inout = list.get(j).getInout();
+						int count = list.get(j).getCnt();
+						Date date = list.get(j).getDate();
+						String inspector = list.get(j).getChecker();
+					%>
+					<tr>
+						<td><input type="checkbox" class="rowCheckbox"></td>
+						<td><%=num%></td>
+						<td><%=MID%></td>
+						<td><%=MLOT%></td>
+						<td><%=pname%></td>
+						<td><%=inout%></td>
+						<td><%=count%></td>
+						<td><%=date%></td>
+						<td><%=inspector%></td>
+						<td><button onclick='editRow(<%=num%>)'>수정</button></td>
+					</tr>
+					<%
+					}
+					%>
+				</tbody>
+			</table>
+
+			<div class="pagination" id="pagination">
+				<!-- 페이지네이션 링크가 여기에 동적으로 추가됩니다 -->
+			</div>
+
+
+
+		</div>
+		<script>
+        let rowsPerPage = parseInt(document.getElementById("rowsPerPage").value);
+        let table = document.getElementById("dataTable").getElementsByTagName("tbody")[0];
+        let rows = table.getElementsByTagName("tr");
+        let pagination = document.getElementById("pagination");
+        let selectAllCheckbox = document.getElementById("selectAll");
+        let deleteSelectedButton = document.getElementById("deleteSelected");
+        let filterByDateAndStatusButton = document.getElementById("filterByDateAndStatus");
+        let resetFiltersButton = document.getElementById("resetFilters");
+        let filteredRows = Array.from(rows);
+
+        function displayRows(startIndex, endIndex) {//페이지네이션
+            for (let i = 0; i < filteredRows.length; i++) {
+                filteredRows[i].style.display = (i >= startIndex && i < endIndex) ? '' : 'none';
+            }
+        }
+
+        function setupPagination() {
+            let pageCount = Math.ceil(filteredRows.length / rowsPerPage);
+            pagination.innerHTML = '';
+
+            for (let i = 1; i <= pageCount; i++) {
+                let pageLink = document.createElement("a");
+                pageLink.innerHTML = i;
+                pageLink.href = "#";
+                pageLink.onclick = (function(i) {
+                    return function() {
+                        let start = (i - 1) * rowsPerPage;
+                        let end = start + rowsPerPage;
+                        displayRows(start, end);
+
+                        let current = document.querySelector(".pagination a.active");
+                        if (current) current.classList.remove("active");
+                        this.classList.add("active");
+                    }
+                })(i);
+
+                pagination.appendChild(pageLink);
+            }
+
+            // 기본 첫 페이지 표시
+            if (pagination.getElementsByTagName("a").length > 0) {
+                pagination.getElementsByTagName("a")[0].classList.add("active");
+            }
+            displayRows(0, rowsPerPage);
+        }
+
+        document.getElementById("rowsPerPage").addEventListener("change", function() {
+            rowsPerPage = parseInt(this.value);
+            setupPagination();
+        });
+
+        selectAllCheckbox.addEventListener("change", function() {//모두 체크 버튼 눌렸을 때
+            let rowCheckboxes = document.querySelectorAll(".rowCheckbox");
+            let visibleRows = Array.from(filteredRows).filter(row => row.style.display !== 'none');
+            for (let checkbox of rowCheckboxes) {
+                if (visibleRows.includes(checkbox.closest('tr'))) {
+                    checkbox.checked = this.checked;
+                }
+            }
+        });
+
+        document.addEventListener("change", function(event) {
+            if (event.target.classList.contains("rowCheckbox")) {
+                if (!event.target.checked) {
+                    selectAllCheckbox.checked = false;
+                } else {
+                    let visibleCheckboxes = Array.from(filteredRows).filter(row => row.style.display !== 'none')
+                        .map(row => row.querySelector('.rowCheckbox'));
+                    let allChecked = visibleCheckboxes.every(checkbox => checkbox.checked);
+                    selectAllCheckbox.checked = allChecked;
+                }
+            }
+        });
+
+        deleteSelectedButton.addEventListener("click", function() {//삭제 버튼 눌렀을 때
+        	//데이터베이스 안에 있는 정보들 수정하기 위한 코드
+            let rowCheckboxes = document.querySelectorAll(".rowCheckbox:checked");
+            let url="";
+            rowCheckboxes.forEach(checkbox => {
+                let row = checkbox.closest("tr");
+                let inum = row.children[1].innerText;
+                let prodnum = row.children[2].innerText;
+                let inout = row.children[5].innerText;
+                let count = row.children[6].innerText;
+                url += "inum="+inum+"&inout="+inout+"&prodnum="+prodnum+"&count="+count+"&";
+                
+                row.parentNode.removeChild(row);
+            });
+            url = url.slice(0,-1);
+          	console.log(url);
+            var xhr = new XMLHttpRequest();
             
-        </div>
+            xhr.open("POST", "materialdelete", true);
+    	    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");   	    
+    	    xhr.send(url);
+    	    
+    	    xhr.onreadystatechange = function() {
+    	        if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+    	        	console.log(3)
+    	        	filteredRows = Array.from(rows);
+					setupPagination();
+    	        }
+    	    }
+            
+        });
 
+        
+        filterByDateAndStatusButton.addEventListener("click", function() {
+            let startDateInput = document.getElementById("startDate").value;
+            let endDateInput = document.getElementById("endDate").value;
 
-        <hr>
-        <div class="pagenum">
-            <a id="a1" href="">1</a>
-            <a href="">2</a>
-            <a href="">3</a>
-            <a href="">4</a>
-            <a href="">5</a>
-            <a href="">6</a>
-            <a href="">7</a>
-        </div>
+            
+            // 모든 행을 숨긴 후 필터링된 행만 보이도록 설정
+            for (let i = 0; i < rows.length; i++) {
+                rows[i].style.display = 'none';
+            }
+            
+            filteredRows = Array.from(rows).filter(row => {
+                let dateCell = row.getElementsByTagName("td")[7].innerText;
+                let rowDate = new Date(dateCell);
 
+                // 필터링 조건: 날짜 범위 내에 있어야 함
+                let dateMatches = (!startDateInput || !endDateInput) || (rowDate >= new Date(startDateInput) && rowDate <= new Date(endDateInput));
+ 
+                return dateMatches;
+            });
 
-    </div>
+            setupPagination();
+        });
 
+        resetFiltersButton.addEventListener("click", function() {
+            document.getElementById("startDate").value = '';
+            document.getElementById("endDate").value = '';
+
+            filteredRows = Array.from(rows);
+            for (let i = 0; i < rows.length; i++) {
+                rows[i].style.display = '';
+            }
+
+            setupPagination();
+        });
+
+        function editRow(num) {
+        	var nWidth = "500";
+        	var nHeight = "300";
+            // URL을 생성하여 새로운 창에서 수정 페이지를 열도록 함
+            let url = `Materialprint?num=`+ num;
+            var curX = window.screenLeft;
+            var curY = window.screenTop;
+            var curWidth = document.body.clientWidth;
+            var curHeight = document.body.clientHeight;
+              
+            var nLeft = curX + (curWidth / 2) - (nWidth / 2);
+            var nTop = curY + (curHeight / 2) - (nHeight / 2);
+
+            var strOption = "";
+            strOption += "left=" + nLeft + "px,";
+            strOption += "top=" + nTop + "px,";
+            strOption += "width=" + 500 + "px,";
+            strOption += "height=" + 500 + "px,";
+            strOption += "toolbar=no,menubar=no,location=no,";
+            strOption += "resizable=yes,status=yes";
+            window.open(url, '_blank', strOption);
+        }
+        
+       
+        
+	     var modal = document.getElementById("addRowModal");//모달 폼 ID로 받아와서 저장
+	
+	     //추가 버튼을 변수로 저장
+	     var addButton = document.querySelector("button[onclick='addRow()']");
+	
+	     //모달 창 안에 있는 X키 변수로 저장
+	     var span = document.getElementsByClassName("close")[0];
+	
+	     //추가 버튼 눌렸을 때 모달 창이 display가 블록으로 변경 되면서 화면에 표시됌
+	     addButton.onclick = function() {
+	         modal.style.display = "block";
+	     }
+	
+	     // 모달 창 안에 있는 x키 눌렸을 때 모달 창을 숨겨주고 모달 창 안에 입력해놨던 정보 리셋
+	     span.onclick = function() {
+	    	 var form = document.getElementById("addRowForm");
+	         modal.style.display = "none";
+	         form.reset();
+	     }
+	
+	     // 모달 창 밖에 즉 모달 창 열렸을 때 하얀 부분 바깥 부분을 누르면 모달 창 닫게 되는 함수
+	     window.onclick = function(event) {
+	         if (event.target == modal) {
+	        	 var form = document.getElementById("addRowForm");
+	             modal.style.display = "none";
+	             form.reset();
+	         }
+	     }
+	
+	     // Function to handle form submission
+	     function submitAddRowForm() {//모달 창 안에 있는 추가 버튼을 눌렀을 때
+	    	 //모달 창 안에 있는 정보들을 데이터베이스에 추가 해주기 위한 함수
+	    	 
+	    		var form = document.getElementById("addRowForm");
+	    	    var formData = new FormData(form);//모달창 정보들이 여기에 있음
+
+	    	    // 각 필드의 값을 추출
+	    	    var prodnum = formData.get("prodNum");
+	    	    var lotnum = formData.get("LOTNum");
+	    	    var prodname = formData.get("prodName");
+	    	    var inout = formData.get("inout");
+	    	    var count = formData.get("count");
+	    	    var date = formData.get("date");
+	    	    var checker = formData.get("checker");
+
+	    	    
+	    	    // 빈 값이 있는지 확인
+	    	    if (!prodnum || !lotnum || !prodname || !inout || !count || !date || !checker) {
+	    	        alert("모든 필드를 입력해 주세요.");
+	    	        return false; // 입력 되지 않은 정보가 있다면 폼 제출 중단
+	    	    }
+
+	    	    var table = document.getElementById("dataTable").getElementsByTagName("tbody")[0];
+	    	    var xhr = new XMLHttpRequest();
+	    	    let inum = table.rows.length + 1;
+
+	    	    xhr.open("POST", "materialadd", true);
+	    	    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	    	    xhr.send("inum=" + inum +
+	    	             "&productnum=" + prodnum +
+	    	             "&lotnum=" + lotnum +
+	    	             "&productname=" + prodname +
+	    	             "&inout=" + inout +
+	    	             "&count=" + count +
+	    	             "&date=" + date +
+	    	             "&inspector=" + checker
+	    	    );
+
+	    	    xhr.onreadystatechange = function() {
+	    	        if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+	    	            location.reload(true);
+	    	        }
+	    	    }
+	    	}
+	        
+	        setupPagination();
+    </script>
 </body>
 <script src="/mes/JavaScript/sort.js"></script>
-<script src="/mes/JavaScript/date.js"></script>
 <script src="/mes/JavaScript/button.js"></script>
 </html>

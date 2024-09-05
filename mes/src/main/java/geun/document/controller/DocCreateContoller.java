@@ -29,7 +29,6 @@ public class DocCreateContoller extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8;");
 		System.out.println("Doc Create Contoller doPost 실행");
 		
-		String docID = request.getParameter("document_id");
 		String userid = request.getParameter("userid");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
@@ -38,7 +37,6 @@ public class DocCreateContoller extends HttpServlet {
 		String version = request.getParameter("version");
 		
 		DocumentDTO dto = new DocumentDTO();
-		dto.setDocument_id(Integer.parseInt(docID));
 		dto.setUserid(userid);
 		dto.setTitle(title);
 		dto.setContent(content);

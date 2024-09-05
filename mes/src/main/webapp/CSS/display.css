@@ -2,7 +2,10 @@
 
 .searchID {
     text-align: right;
-    background-color: rgba(100, 149, 237, 0.1);
+}
+
+.contentDiv {
+	background-color: rgba(100, 149, 237, 0.1);
 }
 
 .searchID > h1 {

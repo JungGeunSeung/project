@@ -23,6 +23,44 @@
 	<title>소원을 들어주는 MES</title>
 	<link rel="stylesheet" href="button.css">
 	<script>
+	function delchk() {
+	    let selectchk = document.querySelectorAll('.selectchk');
+	    let docIDs = [];
+
+	    // 체크된 체크박스에 대한 docID 수집
+	    for (let checkbox of selectchk) {
+	        if (checkbox.checked) {
+	            let row = checkbox.closest('tr');  // 체크박스가 포함된 <tr> 찾기
+	            let docID = row.querySelector('#docID');  // 해당 <tr> 내의 #docID 요소 찾기
+	            if (docID) {
+	                docIDs.push(docID.textContent);  // docID 값을 배열에 추가
+	            }
+	        }
+	    }
+
+	    // docID 값들을 쉼표로 구분된 문자열로 서블릿에 전송
+	    if (docIDs.length > 0) {
+	        let xhr = new XMLHttpRequest();
+	        xhr.open("POST", "delete/select", true);  // 서블릿 URL로 POST 요청
+	        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+	        // 데이터를 쉼표로 구분된 문자열 형식으로 전송
+	        xhr.send("docIDs=" + encodeURIComponent(docIDs.join(',')));
+
+	        xhr.onreadystatechange = function() {
+	            if (xhr.readyState === 4 && xhr.status === 200) {
+	                // 서버 응답을 처리하는 부분 (성공시)
+	                console.log("서버로부터 응답:", xhr.responseText);
+	            }
+	        };
+	    } else {
+	        alert("선택된 항목이 없습니다.");
+	    }
+	    
+	    window.location.href = "/mes/doc/list";
+	}
+	
+	
 		document.addEventListener('DOMContentLoaded', function () {
 			const modal = document.querySelector('.bom_modal');
 			const btns = document.querySelectorAll('.bom_modal_btn');
@@ -79,10 +117,40 @@
 				}
 			});
 			
+			// 수정하기 클릭시 form submit 하기
 			document.querySelector('.modifyModal').addEventListener('click',function(){
 				document.querySelector('#modalForm').submit();
 			})
+			
+			///////////////////// create modal js ///////////////////////////////////
+			
+			const createBtn = document.querySelector('.createBtn');
+			const createModal = document.querySelector('.bom_modal_create');
+			const createCloseModal = document.querySelector('.createCloseModal');
+			
+			createBtn.addEventListener('click', function(){
+				createModal.style.display = "flex";
+			})
+			
+			createCloseModal.addEventListener("click", function () {
+				createModal.style.display = "none";
+			});
+
+			// 모달창 외부 클릭 시 모달창 닫기
+			window.addEventListener("click", function (event) {
+				if (event.target === createModal) {
+					createModal.style.display = "none";
+				}
+			});
+			
+			// 수정하기 클릭시 form submit 하기
+			document.querySelector('.createModal').addEventListener('click',function(){
+				document.querySelector('#createmodalForm').submit();
+			})
+			
+
 		});
+			
 
 
 	</script>
@@ -125,7 +193,7 @@
 		</div>
 		<div class="flex-container">
 			<button onclick="delchk()" class="btn Lbtn">선택된 열 삭제</button>
-			<span><a href="create" class="newbtn">새로 작성</a></span>
+			<span><button class="newbtn createBtn">새로 작성</button></span>
 		</div>
 	</div>
 
@@ -150,13 +218,13 @@
 			<tbody>
 				<c:forEach var="doc" items="${map.list}">
 				    <tr>
-				        <td><input type="checkbox" id="selectchk"></td>
+				        <td><input type="checkbox" class="selectchk"></td>
 				
 				        <c:url var="read" value="read">
 				            <c:param name="document_id" value="${doc.document_id}" />
 				        </c:url>
 				
-				        <td>${doc.document_id}</td>
+				        <td id="docID">${doc.document_id}</td>
 				        <td>${doc.userid}</td>
 				        <td><a href="${read}" id="underline">${doc.title}</a></td>
 				        <td>
@@ -180,7 +248,7 @@
 		</table>
 	</div>
 	<hr>
-<!-- 	모달창 -->
+	<!-- 	페이징 -->
 	<div class="pagenum">
 		<% Map map=(Map)request.getAttribute("map"); int totalCount=(int)map.get("totalCount");
 			String str_countPerPage=(String)request.getAttribute("countPerPage"); int
@@ -208,6 +276,7 @@
 			</c:forEach>
 			<a href="list?page=${ page + 1 }&countPerPage=${countPerPage}">다음</a>
 	</div>
+	<!-- 	모달창 -->
 	<div class="bom_modal">
 		<div class="bom_modal_body">
 			<form id="modalForm" method="post" action="modify">
@@ -248,8 +317,48 @@
 			<div class="closeModal">닫기</div>
 		</div>
 	</div>
+<!-- 	두번째 모달창 -->
+	<div class="bom_modal_create">
+		<div class="bom_modal_body_create">
+			<form id="createmodalForm" method="post" action="create">
+				<table id="createModalTable">
+					<tr>
+						<td style="width: 60px">NO</td>
+						<td>문서번호는 자동으로 생성 됩니다.</td>
+					</tr>
+					<tr>
+						<td>작성자</td>
+						<td><input type="text" name="userid" id="create_userid"></td>
+					</tr>
+					<tr>
+						<td>제목</td>
+						<td><input type="text" name="title" id="title"></td>
+					</tr>
+					<tr>
+						<td>내용</td>
+						<td><textarea name="content" id="content" rows="4" cols="50"></textarea>
+					</tr>
+					<tr>
+						<td>작성일</td>
+						<td><input type="date" name="created_date" id="created_date"></td>
+					</tr>
+					<tr>
+						<td>수정일</td>
+						<td><input type="date" name="updated_date" id="updated_date"></td>
+					</tr>
+					<tr>
+						<td>Ver</td>
+						<td><input type="number" name="version" id="version"></td>
+					</tr>
+				</table>
+			</form>
+			<div class="createModal" onclick="createSubmit()">생성하기</div>
+			<div class="createCloseModal">닫기</div>
+		</div>
+	</div>
 </body>
 
+<script src="/mes/JavaScript/table.js"></script>
 <script src="/mes/JavaScript/sort.js"></script>
 <script src="/mes/JavaScript/date.js"></script>
 <script src="/mes/JavaScript/button.js"></script>

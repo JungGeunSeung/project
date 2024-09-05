@@ -20,15 +20,15 @@ public class Doc_Service {
 		return list;
 	}
 	
-	public DocumentDTO get(String bomid) {
+	public DocumentDTO get(String docid) {
 		System.out.println("Doc_Service의 get 실행");
-		DocumentDTO dto1 = new DocumentDTO();
+		DocumentDTO dto = new DocumentDTO();
 		
 		Doc_DAO dao = new Doc_DAO();
 		
-		dto1 = dao.selectOne(bomid);
+		dto = dao.selectOne(docid);
 		
-		return dto1;
+		return dto;
 	}
 	
 	public int register(DocumentDTO dto) {
@@ -51,6 +51,12 @@ public class Doc_Service {
 		System.out.println("Doc_Service의 delete 실행");
 		Doc_DAO dao = new Doc_DAO();
 		return dao.delete(id);
+	}
+	
+	public int deleteSelect(List ids) {
+		System.out.println("Doc_Service의 deleteSelect 실행");
+		Doc_DAO dao = new Doc_DAO();
+		return dao.deleteSelect(ids);
 	}
 	
 	public Map getDocPage(String countPerPage, String page) {

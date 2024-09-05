@@ -52,6 +52,12 @@ public class BOM_Service {
 		return dao.delete(id);
 	}
 	
+	public int deleteSelect(List ids) {
+		System.out.println("BOM_Service의 deleteSelect 실행");
+		BOM_DAO dao = new BOM_DAO();
+		return dao.deleteSelect(ids);
+	}
+	
 	public Map getBOMPage(String countPerPage, String page) {
 		System.out.println("BOM_Service의 getBOMPage 실행");
 		int count = Integer.parseInt(countPerPage);
