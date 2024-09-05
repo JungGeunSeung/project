@@ -152,7 +152,6 @@
 <body>
 	<!-- 사이드바 -->
 	<jsp:include page="/WEB-INF/assetsform/sidebar.jsp" />
-
 	<!-- 	상단바 -->
 	<jsp:include page="/WEB-INF/assetsform/topbar.jsp" />
 

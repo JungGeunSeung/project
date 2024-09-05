@@ -28,7 +28,7 @@ public class Materialprint extends HttpServlet {
 		request.setAttribute("dto", dto);
 		//이곳에 inventorystatus안의 prodnum을 list로 받아오는 코드 생성
 		//이곳에 inventorystatus안의 prodnum을 setattribute하는 코드 생성
-		request.getRequestDispatcher("/WEB-INF/edit.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/material/edit.jsp").forward(request, response);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class Materialprint extends HttpServlet {
 		dto.setChecker(request.getParameter("inspector"));
 		materialService.update(dto);
 		request.setAttribute("dto", dto);
-		request.getRequestDispatcher("/WEB-INF/update.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/material/update.jsp").forward(request, response);
 	}
 
 	

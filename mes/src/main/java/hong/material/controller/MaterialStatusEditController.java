@@ -14,28 +14,20 @@ import hong.material.service.MaterialStatusService;
 
 
 
-/**
- * Servlet implementation class MaterialStatusEditController
- */
 @WebServlet("/mse")
 public class MaterialStatusEditController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		MaterialStatusService service = new MaterialStatusService();
 		String str = request.getParameter("prodnum");
 		System.out.println(str);
 		MaterialStatusDTO dto = service.print(str);
 		request.setAttribute("dto", dto);
-		request.getRequestDispatcher("/WEB-INF/editstatus.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/material/editstatus.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		java.util.Date utildate = new java.util.Date();
 		MaterialStatusService service = new MaterialStatusService();
 		MaterialStatusDTO dto = new MaterialStatusDTO();
@@ -54,7 +46,7 @@ public class MaterialStatusEditController extends HttpServlet {
 		dto.setEditdate(date);
 		service.update(dto);
 		request.setAttribute("dto", dto);
-		request.getRequestDispatcher("/WEB-INF/update.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/material/update.jsp").forward(request, response);
 	}
 
 }

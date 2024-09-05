@@ -34,9 +34,9 @@
                     <a href="#">품질관리</a>
                     <div class="submenu">
                         <ul>
-                            <li><a href="시험항목_품질기준">제품별 시험항목/품질기준</a></li>
-                            <li><a href="생산검사현황">생산검사현황</a></li>
-                            <li><a href="검사현황">검사현황</a></li>
+                            <li><a href="/mes/standard/list">제품별 시험항목/품질기준</a></li>
+                            <li><a href="/mes/quality/list">생산검사현황</a></li>
+                            <li><a href="/mes/defect/list">불량현황</a></li>
                         </ul>
                     </div>
                 </li>
