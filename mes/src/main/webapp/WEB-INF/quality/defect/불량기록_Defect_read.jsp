@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>품질관리/불량기록> Read코드</title>
 </head>
 
 <body>

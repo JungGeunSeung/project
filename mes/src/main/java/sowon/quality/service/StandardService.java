@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import geun.BOM.dao.BOM_DAO;
 import sowon.quality.dao.StandardDAO;
 import sowon.quality.dto.StandardDTO;
 
@@ -86,7 +87,11 @@ public class StandardService {
 
         return list;
     }
-  
+    public int deleteSelect(List ids) {
+		System.out.println("StandarService의 deleteSelect 실행");
+		StandardDAO dao = new StandardDAO();
+		return dao.deleteSelect(ids);
+	}
     
     
 }

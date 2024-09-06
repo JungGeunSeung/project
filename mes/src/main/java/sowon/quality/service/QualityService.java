@@ -89,7 +89,11 @@ public class QualityService {
         return list;
     }
   
-    
+    public int deleteSelect(List ids) {
+		System.out.println("QualityService의 deleteSelect 실행");
+		QualityDAO dao = new QualityDAO();
+		return dao.deleteSelect(ids);
+	}
     
 }
 

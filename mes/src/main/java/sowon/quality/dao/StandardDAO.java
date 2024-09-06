@@ -369,4 +369,47 @@ public class StandardDAO {
 	        }
 	        return list;
 	    }
+	    public int deleteSelect(List ids) {
+			System.out.println("Doc_DAO의 deleteSelect 실행");
+			
+			int result = 0;
+		    if (ids == null || ids.isEmpty()) {
+		        // 리스트가 비어있으면 그대로 리턴
+		        return result;
+		    }
+			
+			try {
+				Context ctx = new InitialContext();
+				DataSource dataFactory = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
+				Connection con = dataFactory.getConnection();
+				
+				// IN 절에 사용할 ?의 개수를 동적으로 만듦
+		        StringBuilder query = new StringBuilder("DELETE FROM qualitystandards WHERE quality_id IN (");
+		        for (int i = 0; i < ids.size(); i++) {
+		            query.append("?");
+		            if (i < ids.size() - 1) {
+		                query.append(", "); // 각 ? 사이에 쉼표 추가
+		            }
+		        }
+		        query.append(")");
+
+		        // PreparedStatement 생성
+		        PreparedStatement ps = con.prepareStatement(query.toString());
+
+		        // PreparedStatement에 ids 값을 바인딩
+		        for (int i = 0; i < ids.size(); i++) {
+		            ps.setString(i + 1, (String) ids.get(i));  // IN 절에 ? 위치에 각 ID를 바인딩
+		        }
+				
+				result = ps.executeUpdate();
+				
+				ps.close();
+				con.close();
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return result;
+		}
 }

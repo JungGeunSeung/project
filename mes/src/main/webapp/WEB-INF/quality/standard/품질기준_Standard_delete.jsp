@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>품질관리/줌질기준 > Delete코드</title>
 </head>
 <body>
 <form action="/standards/delete" method="post">

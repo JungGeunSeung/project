@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>품질관리/생산검사현황> Delete코드</title>
 </head>
 <body>
 <form action="/quality/delete" method="post">

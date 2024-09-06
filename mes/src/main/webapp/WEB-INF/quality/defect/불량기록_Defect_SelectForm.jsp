@@ -7,7 +7,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>품질관리/불량기록> SelectForm코드</title>
 	<link rel="stylesheet" href="/mes/CSS/button.css">
 </head>
 

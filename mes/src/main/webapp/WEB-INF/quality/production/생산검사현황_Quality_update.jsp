@@ -7,7 +7,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+   <title>품질관리/생산검사현황> UpDate코드</title>
 
     <head>
         <meta charset="UTF-8">

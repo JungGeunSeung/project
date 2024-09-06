@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import sowon.quality.dao.DefectDAO;
 import sowon.quality.dto.DefectDTO;
 
@@ -89,7 +90,11 @@ public class DefectService {
 
         return list;
     }
-  
+    public int deleteSelect(List ids) {
+		System.out.println("Doc_Service의 deleteSelect 실행");
+		DefectDAO dao = new DefectDAO();
+		return dao.deleteSelect(ids);
+	}
    
     
 }
