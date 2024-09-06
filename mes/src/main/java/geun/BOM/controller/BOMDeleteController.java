@@ -17,10 +17,11 @@ public class BOMDeleteController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("BOM Delete Controller doPost 실행");
 		String bom_id = request.getParameter("bom_id");
+		String production_id = request.getParameter("production_id");
 		
 		BOM_Service service = new BOM_Service();
 		
-		int dto = service.delete(bom_id);
+		int dto = service.delete(production_id);
 		
 		response.sendRedirect("list");
 	

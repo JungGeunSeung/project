@@ -131,6 +131,7 @@
 			<div id="dleForm">
 		        <form method="post" action="delete">
 		            <input type="hidden" name="bom_id" value="${bom.bom_id}">
+		            <input type="hidden" name="production_id" value="${bom.production_id}">
 		            <input type="submit" value="삭제하기" class="btn">
 		        </form>
 	        </div>

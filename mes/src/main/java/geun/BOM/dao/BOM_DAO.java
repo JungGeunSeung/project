@@ -181,7 +181,7 @@ public class BOM_DAO {
 				DataSource dataFactory = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
 				Connection con = dataFactory.getConnection();
 				
-				String query = "delete from bom where bom_id=?";
+				String query = "delete from bom where production_id=?";
 				
 				PreparedStatement ps = con.prepareStatement(query);
 				
