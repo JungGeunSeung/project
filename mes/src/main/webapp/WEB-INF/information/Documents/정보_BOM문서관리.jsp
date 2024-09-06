@@ -21,9 +21,8 @@
 	<link rel="stylesheet" href="/mes/CSS/BOMmodal.css">
 	<link rel="stylesheet" href="/mes/CSS/topbar.css">
 	<link rel="stylesheet" href="/mes/CSS/sidebar.css">
-	<script src="/mes/JavaScript/load_info.js"></script>
-	<title>소원을 들어주는 MES</title>
 	<link rel="stylesheet" href="button.css">
+	<title>정보/BOM > 문서관리</title>
 	<script>
 		function delchk() {
 			let selectchk = document.querySelectorAll('.selectchk');
@@ -61,99 +60,6 @@
 
 			window.location.href = "/mes/doc/list";
 		}
-
-
-		document.addEventListener('DOMContentLoaded', function () {
-			const modal = document.querySelector('.bom_modal');
-			const btns = document.querySelectorAll('.bom_modal_btn');
-			const closeModal = document.querySelector('.closeModal');
-
-			// 모든 수정 버튼에 클릭 이벤트 리스너 추가
-			btns.forEach(function (btn) {
-				btn.addEventListener("click", function () {
-					const tr = btn.closest('tr');
-					const tds = tr.querySelectorAll('td');
-					const content = tr.querySelectorAll('.content');
-					console.log(content)
-					document.getElementById('document_id').textContent = tds[1].textContent.trim();
-					document.getElementById('userid').textContent = tds[2].textContent.trim();
-					document.getElementById('input_document_id').value = tds[1].textContent.trim();
-					document.getElementById('input_userid').value = tds[2].textContent.trim();
-					document.getElementById('title').value = tds[3].textContent.trim();
-					const input = tds[4].querySelector('input');
-					document.getElementById('content').value = input.value.trim();
-
-					let created_date = tds[5].textContent.trim();
-					const cDate = new Date(created_date);
-					let updated_date = tds[6].textContent.trim();
-					const uDate = new Date(updated_date);
-
-					let cyyyy = cDate.getFullYear();
-					let cmm = String(cDate.getMonth() + 1).padStart(2, '0');
-					let cdd = String(cDate.getDate()).padStart(2, '0');
-					const create = `\${cyyyy}-\${cmm}-\${cdd}`;
-
-					let pyyyy = uDate.getFullYear();
-					let pmm = String(uDate.getMonth() + 1).padStart(2, '0');
-					let pdd = String(uDate.getDate()).padStart(2, '0');
-					const update = `\${pyyyy}-\${pmm}-\${pdd}`; // 여기를 수정했습니다
-
-					document.getElementById('created_date').value = create;
-					document.getElementById('updated_date').value = update;
-
-					document.getElementById('version').value = tds[7].textContent.trim();
-
-					modal.style.display = "flex";
-				});
-			});
-
-			// 닫기 버튼 클릭 시 모달창 닫기
-			closeModal.addEventListener("click", function () {
-				modal.style.display = "none";
-			});
-
-			// 모달창 외부 클릭 시 모달창 닫기
-			window.addEventListener("click", function (event) {
-				if (event.target === modal) {
-					modal.style.display = "none";
-				}
-			});
-
-			// 수정하기 클릭시 form submit 하기
-			document.querySelector('.modifyModal').addEventListener('click', function () {
-				document.querySelector('#modalForm').submit();
-			})
-
-			///////////////////// create modal js ///////////////////////////////////
-
-			const createBtn = document.querySelector('.createBtn');
-			const createModal = document.querySelector('.bom_modal_create');
-			const createCloseModal = document.querySelector('.createCloseModal');
-
-			createBtn.addEventListener('click', function () {
-				createModal.style.display = "flex";
-			})
-
-			createCloseModal.addEventListener("click", function () {
-				createModal.style.display = "none";
-			});
-
-			// 모달창 외부 클릭 시 모달창 닫기
-			window.addEventListener("click", function (event) {
-				if (event.target === createModal) {
-					createModal.style.display = "none";
-				}
-			});
-
-			// 수정하기 클릭시 form submit 하기
-			document.querySelector('.createModal').addEventListener('click', function () {
-				document.querySelector('#createmodalForm').submit();
-			})
-
-
-		});
-
-
 
 	</script>
 </head>
@@ -284,15 +190,8 @@
 			<form id="modalForm" method="post" action="modify">
 				<table id="modalTable">
 					<tr>
-						<td style="width: 60px">NO</td>
-						<td><span id="document_id"></span><input type="hidden" name="document_id"
-								id="input_document_id"></td>
-					</tr>
-					<tr>
-						<td>작성자</td>
-						<td><span id="userid"></span><input type="hidden" name="userid"
-								id="input_userid">
-						</td>
+						<td>NO</td>
+						<td><span id="document_id"></span></td>
 					</tr>
 					<tr>
 						<td>제목</td>
@@ -303,18 +202,14 @@
 						<td><textarea name="content" id="content" rows="4" cols="50"></textarea>
 					</tr>
 					<tr>
-						<td>작성일</td>
-						<td><input type="date" name="created_date" id="created_date"></td>
-					</tr>
-					<tr>
-						<td>수정일</td>
-						<td><input type="date" name="updated_date" id="updated_date"></td>
-					</tr>
-					<tr>
 						<td>Ver</td>
 						<td><input type="number" name="version" id="version"></td>
 					</tr>
 				</table>
+				<input type="hidden" name="document_id" id="input_document_id">
+				<input type="hidden" name="userid" id="input_userid">
+				<input type="hidden" name="created_date" id="input_created_date">
+				<input type="hidden" name="updated_date" id="input_updated_date">
 			</form>
 			<div class="modifyModal" onclick="modifySubmit()">수정하기</div>
 			<div class="closeModal">닫기</div>
@@ -347,7 +242,7 @@
 					</tr>
 					<tr>
 						<td>수정일</td>
-						<td><input type="date" name="updated_date" id="updated_date"></td>
+						<td id="updated_date"><input type="hidden" name="updated_date" id="input_updated_date"></td>
 					</tr>
 					<tr>
 						<td>Ver</td>
@@ -361,6 +256,7 @@
 	</div>
 </body>
 
+<script src="/mes/JavaScript/정보_BOM문서관리_modal.js"></script>
 <script src="/mes/JavaScript/table.js"></script>
 <script src="/mes/JavaScript/sort.js"></script>
 <script src="/mes/JavaScript/date.js"></script>

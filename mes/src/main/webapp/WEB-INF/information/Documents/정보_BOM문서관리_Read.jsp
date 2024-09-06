@@ -22,8 +22,7 @@
 	<link rel="stylesheet" href="/mes/CSS/read.css">
 	<link rel="stylesheet" href="/mes/CSS/BOMmodal.css">
 	<script src="/mes/JavaScript/load_info.js"></script>
-	<title>소원을 들어주는 MES</title>
-
+	<title>정보/BOM > 문서관리 > 검색</title>
 	<style>
 		#readtable {
 			border-collapse: collapse;
@@ -191,14 +190,11 @@
 				<table id="modalTable">
 					<tr>
 						<td style="width: 60px">NO</td>
-						<td><span id="document_id"></span><input type="hidden" name="document_id"
-								id="input_document_id"></td>
+						<td><span id="document_id"></span></td>
 					</tr>
 					<tr>
 						<td>작성자</td>
-						<td><span id="userid"></span><input type="hidden" name="userid"
-								id="input_userid">
-						</td>
+						<td><span id="userid"></span></td>
 					</tr>
 					<tr>
 						<td>제목</td>
@@ -209,18 +205,15 @@
 						<td><textarea name="content" id="content" rows="4" cols="50"></textarea>
 					</tr>
 					<tr>
-						<td>작성일</td>
-						<td><input type="date" name="created_date" id="created_date"></td>
-					</tr>
-					<tr>
-						<td>수정일</td>
-						<td><input type="date" name="updated_date" id="updated_date"></td>
-					</tr>
-					<tr>
 						<td>Ver</td>
 						<td><input type="number" name="version" id="version"></td>
 					</tr>
 				</table>
+				
+				<input type="hidden" name="document_id" id="input_document_id">
+				<input type="hidden" name="userid" id="input_userid">
+				<input type="hidden" name="updated_date" id="updated_date">
+				<input type="hidden" name="created_date" id="created_date">
 			</form>
 			<div class="modifyModal" onclick="modifySubmit()">수정하기</div>
 			<div class="closeModal">닫기</div>

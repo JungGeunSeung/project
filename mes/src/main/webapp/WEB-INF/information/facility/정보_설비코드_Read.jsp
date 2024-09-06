@@ -52,26 +52,12 @@
 </style>
 <script>
 		document.addEventListener('DOMContentLoaded', function () {
+			// 모달 자바스크립트
 			const modal = document.querySelector('.bom_modal');
 			const btn = document.querySelector('.bom_modal_btn');
 			const closeModal = document.querySelector('.closeModal');
 
 				btn.addEventListener("click", function () {
-					let prodTD = document.querySelector('#prodTD');
-					let td_bom_id = document.querySelectorAll('#td_bom_id');
-					let td_mid = document.querySelectorAll('.td_mid');
-					let td_bom_quantity = document.querySelectorAll('.td_bom_quantity');
-					
-					let bom_id = document.querySelector('#bom_id');
-					let production_id = document.querySelector('#production_id');
-					let inputProduction_id = document.querySelector('#inputProduction_id');
-					let mid = document.querySelector('#mid');
-					let bom_quantity = document.querySelector('#bom_quantity');
-					
-					production_id.textContent = prodTD.textContent.trim();
-					
-					
-					
 					
 					modal.style.display = "flex";
 				});
@@ -88,8 +74,13 @@
 				}
 			});
 			
+			// 수정하기 버튼 클릭시 submit
 			document.querySelector('.modifyModal').addEventListener('click',function(){
+				if(!confirm("수정하시겠습니까?")){
+					event.preventDefault();
+				} else {
 				document.querySelector('#modalForm').submit();
+				}
 			})
 			
 			document.querySelector('#dleForm').onsubmit = function(event){
@@ -113,10 +104,10 @@
     <div class="searchID">
 
         <!-- 해당 페이지의 제목 -->
-        <h1><a href="/mes/BOM/list">BOM</a></h1>
+        <h1><a href="/mes/Euip/list">설비코드</a></h1>
         <!-- 해당 페이지의 설명 -->
         <div class="subhead">
-            <span>제품의 BOM을 조회하는 페이지입니다.</span> <br>
+            <span>제품생산에 필요한 설비의 코드를 조회하는 페이지입니다.</span> <br>
         </div>
         <!-- 게시물의 개수를 표시할 select -->
     </div>
@@ -124,14 +115,14 @@
     <!-- 해당 목록 -->
     <div>
 		<div>
-	        <c:url var="list1" value="/BOM/list" />
+	        <c:url var="list1" value="/Equip/list" />
 	        <a href="${ list1 }" class="btn">돌아가기</a>
 	
 	        <button class="btn bom_modal_btn">수정하기</button>
 			<div id="dleForm">
 		        <form method="post" action="delete">
-		            <input type="hidden" name="bom_id" value="${bom.bom_id}">
-		            <input type="hidden" name="production_id" value="${bom.production_id}">
+		            <input type="hidden" name="equiID" value="${Equip.equiID}">
+		            <input type="hidden" name="equiname" value="${Equip.equiname}">
 		            <input type="submit" value="삭제하기" class="btn">
 		        </form>
 	        </div>
@@ -139,24 +130,27 @@
         <div>
             <table id="readtable">
                 <tr>
-                    <th>제품코드</th>
-                    <th>BOM 코드</th>
-                    <th>자재 코드</th>
-                    <th>사용 개수</th>
+                    <th>설비코드</th>
+                    <th>설비 명</th>
+                    <th>설비사진</th>
+                    <th>설비유형</th>
+                    <th>설비설명</th>
+                    <th>구매일자</th>
+                    <th>위치</th>
+                    <th>상태</th>
+                    <th>관리자</th>
                 </tr>
-                <tr>
-                    <td rowspan="${ promat.size() }" id="prodTD">${ bom.production_id }</td>
-                    <td class="td_bom_id">${ bom.bom_id }</td>
-                    <td class="td_mid">${ bom.mid }</td>
-                    <td class="td_bom_quantity">${ bom.bom_quantity }</td>
-                </tr>
-                <c:forEach var="bom" items="${ promat }" begin="1">
-                    <tr>
-                        <td class="td_bom_id">${ bom.bom_id }</td>
-                        <td class="td_mid">${ bom.mid }</td>
-                        <td class="td_bom_quantity">${ bom.bom_quantity }</td>
-                    </tr>
-                </c:forEach>
+				<tr>
+					<td>${ Equip.equiID }</td>
+                    <td>${ Equip.equiname }</td>
+                    <td>${ Equip.equiImg }</td>
+                    <td>${ Equip.equiType }</td>
+                    <td>${ Equip.equiDesc }</td>
+                    <td>${ Equip.sellDate }</td>
+                    <td>${ Equip.equiLoc }</td>
+                    <td>${ Equip.status }</td>
+                    <td>${ Equip.userid }</td>
+				</tr>
             </table>
         </div>
     </div>
@@ -164,26 +158,44 @@
 <!--     모달창 -->
     <div class="bom_modal">
 		<div class="bom_modal_body">
-			<form id="modalForm" method="post" action="modify">
+			<form id="modalForm" method="post" action="/mes/Equip/modify">
 				<table id="modalTable" border="1">
 						<tr>
-							<td>상품 코드</td>
-							<td id="production_id"></td>
-						</tr>
-				</table>
-				<table id="modalTable2">
-					<tr>
-						<td>BOM 코드</td>
-						<td>자재 코드</td>
-						<td>재품별 자재 사용개수</td>
-					</tr>
-					<c:forEach var="modal" begin="1" end="${ promat.size() }" items="${ promat }">
-					<tr>
-						<td><span id="bom_id">${ modal.bom_id }</span><input type="hidden" name="bom_id" id="input_bom_id" value="${ modal.bom_id }"></td>
-						<td><input type="text" name="mid" id="mid" value="${ modal.mid }"></td>
-						<td><input type="number" name="bom_quantity" id="bom_quantity" value="${ modal.bom_quantity }"></td>
-					</tr>
-					</c:forEach>
+				            <td>설비코드</td>
+				            <td><input type="text" name="equiID" value="${ Equip.equiID }" /></td>
+				        </tr>
+				        <tr>
+				            <td>설비 명</td>
+				            <td><input type="text" name="equiname" value="${ Equip.equiname }" /></td>
+				        </tr>
+				        <tr>
+				            <td>설비사진</td>
+				            <td><input type="text" name="equiImg" value="${ Equip.equiImg }" /></td>
+				        </tr>
+				        <tr>
+				            <td>설비유형</td>
+				            <td><input type="text" name="equiType" value="${ Equip.equiType }" /></td>
+				        </tr>
+				        <tr>
+				            <td>설비설명</td>
+				            <td><input type="text" name="equiDesc" value="${ Equip.equiDesc }" /></td>
+				        </tr>
+				        <tr>
+				            <td>구매일자</td>
+				            <td><input type="date" name="sellDate" value="${ Equip.sellDate }" /></td>
+				        </tr>
+				        <tr>
+				            <td>위치</td>
+				            <td><input type="text" name="equiLoc" value="${ Equip.equiLoc }" /></td>
+				        </tr>
+				        <tr>
+				            <td>상태</td>
+				            <td><input type="text" name="status" value="${ Equip.status }" /></td>
+				        </tr>
+				        <tr>
+				            <td>관리자</td>
+				            <td><input type="text" name="userid" value="${ Equip.userid }" /></td>
+				        </tr>
 				</table>
 			</form>
 			<div class="modifyModal" onclick="modifySubmit()">수정하기</div>

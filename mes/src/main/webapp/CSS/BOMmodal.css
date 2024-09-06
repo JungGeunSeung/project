@@ -13,9 +13,9 @@
     position: absolute;
     top: 50%;
     left: 50%; /* 수평 중앙 정렬 */
-    min-width: 450px;
+    min-width: 500px;
     min-height: 600px;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
     background-color: rgb(231, 231, 231);
     border-radius: 10px; /* 테두리 */
@@ -48,9 +48,6 @@
     width: 95%;
 }
 
-#document_id, #userid, #title, #content, #created_date, #updated_date, #version {
-    width: 100%
-}
 
 #content {
 	height: 300px
@@ -107,9 +104,9 @@
     position: absolute;
     top: 50%;
     left: 50%; /* 수평 중앙 정렬 */
-    width: 400px;
-    height: 600px;
-    padding: 20px;
+    min-width: 500px;
+    min-height: 600px;
+    padding: 10px;
     text-align: center;
     background-color: rgb(231, 231, 231);
     border-radius: 10px; /* 테두리 */
@@ -142,9 +139,6 @@
     width: 95%;
 }
 
-#document_id, #userid, #title, #content, #created_date, #updated_date, #version {
-    width: 100%
-}
 
 #content {
 	height: 300px

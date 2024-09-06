@@ -48,7 +48,7 @@
 							<%
                             	if(dto.getGrade().equals("관리자")) {
                             %>
-							<li><a href="설비코드">설비코드</a></li>
+							<li><a href="/mes/Equip/list">설비코드</a></li>
 							<%
                             	}
                             %>

@@ -363,7 +363,7 @@ public class Doc_DAO {
 	}
 	
 	// 주소창에 BOM_ID의 값을 넣어 특정 BOM코드를 찾는 메소드
-	public List selectDoc(String document_id) {
+	public List selectDoc(String title) {
 		System.out.println("Doc_DAO의 selectDoc 실행");
 		List list = new ArrayList();
 		
@@ -375,10 +375,10 @@ public class Doc_DAO {
             
             String query = "SELECT * FROM documents ";
             
-            if(document_id != null && !(document_id.equals(""))) {
-            	query += "where document_id= '" + document_id+"'";
+            if(title != null && !(title.equals(""))) {
+            	query += "where title= '" + title+"'";
             }
-            
+            System.out.println("query : " + query);
             PreparedStatement ps = con.prepareStatement(query);
             
             
@@ -388,7 +388,7 @@ public class Doc_DAO {
             while( rs.next() ) {
             	int docID = rs.getInt("document_id");
         		String userid = rs.getString("userid").trim();
-        		String title = rs.getString("title").trim();
+        		String title2 = rs.getString("title").trim();
         		String content = rs.getString("content").trim();
         		Date created_date = rs.getDate("created_date");
         		Date updated_date = rs.getDate("updated_date");
@@ -397,7 +397,7 @@ public class Doc_DAO {
         		DocumentDTO dto = new DocumentDTO();
         		dto.setDocument_id(docID);
         		dto.setUserid(userid);
-        		dto.setTitle(title);
+        		dto.setTitle(title2);
         		dto.setContent(content);
         		dto.setCreated_date(created_date);
         		dto.setUpdated_date(updated_date);
