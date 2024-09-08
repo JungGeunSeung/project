@@ -21,7 +21,7 @@
 	<link rel="stylesheet" href="/mes/CSS/mobile.css">
 	<link rel="stylesheet" href="/mes/CSS/read.css">
 	<link rel="stylesheet" href="/mes/CSS/BOMmodal.css">
-	<script src="/mes/JavaScript/load_info.js"></script>
+	
 	<title>정보/BOM > 문서관리 > 검색</title>
 	<style>
 		#readtable {

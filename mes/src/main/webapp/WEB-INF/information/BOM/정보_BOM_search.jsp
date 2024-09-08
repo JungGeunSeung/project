@@ -20,7 +20,7 @@
 	<link rel="stylesheet" href="/mes/CSS/게시판.css">
 	<link rel="stylesheet" href="/mes/CSS/mobile.css">
 	<link rel="stylesheet" href="/mes/CSS/BOMmodal.css">
-	<script src="/mes/JavaScript/load_info.js"></script>
+	
 	<title>정보/BOM > BOM코드 > 검색</title>
 </head>
 

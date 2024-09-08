@@ -40,7 +40,7 @@
 		<div class="menu">
 			<ul>
 				<!--상위 메뉴-->
-				<li class="menu-item"><a href="#">정보/BOM</a>
+				<li class="menu-item"><a href="/mes/BOM/list">정보/BOM</a>
 					<div class="submenu">
 						<ul>
 							<!--하위메뉴-->
@@ -52,11 +52,11 @@
 							<%
                             	}
                             %>
-							<li><a href="조직도">조직도</a></li>
+							<li><a href="/mes/Organization">조직도</a></li>
 							<li><a href="/mes/doc/list">BOM문서관리(양식서)</a></li>
 						</ul>
 					</div></li>
-				<li class="menu-item"><a href="#">재고관리</a>
+				<li class="menu-item"><a href="/mes/material/list">재고관리</a>
 					<div class="submenu">
 						<ul>
 							<li><a href="/mes/material/list">입출고관리</a></li>
@@ -74,7 +74,7 @@
 				<%
                     if(dto.getGrade().equals("관리자")) {
                 %>
-				<li class="menu-item"><a href="#">품질관리</a>
+				<li class="menu-item"><a href="/mes/standard/list">품질관리</a>
 					<div class="submenu">
 						<ul>
 							<li><a href="/mes/standard/list">제품별 시험항목/품질기준</a></li>

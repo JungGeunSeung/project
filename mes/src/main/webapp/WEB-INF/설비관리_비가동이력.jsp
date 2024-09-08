@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="/mes/CSS/topbar.css">
     <link rel="stylesheet" href="/mes/CSS/게시판.css">
     <link rel="stylesheet" href="/mes/CSS/mobile.css">
-    <script src="/mes/JavaScript/load_info.js"></script>
+    
     <title>소원을 들어주는 MES</title>
     <link rel="stylesheet" href="button.css">
 </head>

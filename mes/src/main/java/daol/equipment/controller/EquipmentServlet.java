@@ -113,6 +113,6 @@ public class EquipmentServlet extends HttpServlet {
 		request.setAttribute("totalPages", (int) Math.ceil((double) totalEquipmentCount / pageSize));
 		request.setAttribute("sortField", sortField);
 		request.setAttribute("sortOrder", sortOrder);
-		request.getRequestDispatcher("/WEB-INF/설비관리_설비고장_수리이력.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/equip/설비관리_설비고장_수리이력.jsp").forward(request, response);
 	}
 }

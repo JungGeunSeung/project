@@ -21,7 +21,7 @@
 	<link rel="stylesheet" href="/mes/CSS/BOMmodal.css">
 	<link rel="stylesheet" href="/mes/CSS/topbar.css">
 	<link rel="stylesheet" href="/mes/CSS/sidebar.css">
-	<script src="/mes/JavaScript/load_info.js"></script>
+	
 	<title>정보/BOM > BOM코드</title>
 
 	<style>

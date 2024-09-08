@@ -96,7 +96,7 @@
 			cursor: pointer;
 		}
 	</style>
-	<script src="/mes/JavaScript/load_info.js"></script>
+	
 	<title>소원을 들어주는 MES</title>
 </head>
 

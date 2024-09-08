@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="/mes/CSS/topbar.css">
 <link rel="stylesheet" href="/mes/CSS/게시판.css">
 <link rel="stylesheet" href="/mes/CSS/mobile.css">
-<script src="/mes/JavaScript/load_info.js"></script>
+
 <title>품질관리/생산검사현황> Quality코드</title>
 <link rel="stylesheet" href="button.css">
 <style>
@@ -64,10 +64,8 @@
 
 <body>
 
-	<!-- 사이드바 -->
-	<jsp:include page="/WEB-INF/assetsform/sidebar.jsp" />
-	<!-- 	상단바 -->
-	<jsp:include page="/WEB-INF/assetsform/topbar.jsp" />
+	<!-- 카테고리바와 사이드바 동시 jsp -->
+	<jsp:include page="/WEB-INF/topSide/topSide.jsp" />
 
 	<!-- 메인메뉴 아래 정보가 표시될 영역 -->
 	<div class="searchID">
@@ -311,5 +309,5 @@ function delchk() {
 <script src="/mes/JavaScript/sort.js"></script>
 <script src="/mes/JavaScript/date.js"></script>
 <script src="/mes/JavaScript/button.js"></script>
-<script src="/mes/JavaScript/load_info.js"></script>
+
 </html>

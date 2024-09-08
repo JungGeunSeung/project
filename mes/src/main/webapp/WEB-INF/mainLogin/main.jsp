@@ -23,7 +23,7 @@
 	<link rel="stylesheet" href="/mes/CSS/topbar.css">
 	<link rel="stylesheet" href="/mes/CSS/게시판.css">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<script src="/mes/JavaScript/load_info.js"></script>
+	
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 	<title>소원을 들어주는 MES</title>

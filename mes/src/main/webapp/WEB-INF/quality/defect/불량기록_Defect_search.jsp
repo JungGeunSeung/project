@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="/mes/CSS/topbar.css">
     <link rel="stylesheet" href="/mes/CSS/게시판.css">
     <link rel="stylesheet" href="/mes/CSS/mobile.css">
-    <script src="/mes/JavaScript/load_info.js"></script>
+    
     <title>품질관리/불량기록> Search코드</title>
 </head>
 
