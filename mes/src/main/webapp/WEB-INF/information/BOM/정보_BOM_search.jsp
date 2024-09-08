@@ -59,21 +59,16 @@
 		<table>
 			<thead>
 				<tr>
-					<th>
-						<input type="checkbox" id="allchk">
-					</th>
 					<th>BOM 코드</th>
 					<th>상품 코드</th>
 					<th>자재 코드</th>
 					<th style="width:200px">제품별 자재 사용개수</th>
-					<th style="width:100px"></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:if test="${ bom != null }">
 					<c:forEach var="bom" items="${ bom }">
 						<tr>
-							<td><input type="checkbox" class="selectchk"></td>
 	
 							<c:url var="read" value="/BOM/read">
 								<c:param name="bom_id" value="${ bom.bom_id }" />
@@ -84,8 +79,6 @@
 							<td><a href="${ read }" id="underline">${ bom.production_id }</a> </td>
 							<td>${ bom.mid } </td>
 							<td>${ bom.bom_quantity } </td>
-							<td class="modifyTD"><button class="bom_modal_btn">수정</button>
-							</td>
 						</tr>
 					</c:forEach>
 				</c:if>

@@ -35,7 +35,7 @@ public class LoginController extends HttpServlet {
 			response.sendRedirect("main");
 		}
 		else {
-			 response.sendRedirect("/WEB-INF/mainLogin/login.jsp?error=true"); // 인증 실패 시 로그인 페이지로 리디렉션
+			 response.sendRedirect("/mes/login?error=true"); // 인증 실패 시 로그인 페이지로 리디렉션
 		}
 	}
 }

@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="/mes/CSS/read.css">
 <link rel="stylesheet" href="/mes/CSS/BOMmodal.css">
 <script src="/mes/JavaScript/load_info.js"></script>
-<title>정보/BOM > BOM코드 > 검색</title>
+<title>정보/BOM > 설비코드 > 검색</title>
 
 <style>
     #readtable {

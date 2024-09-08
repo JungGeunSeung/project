@@ -29,18 +29,17 @@ public class EquipCreateContoller extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8;");
 		System.out.println("Equip Create Contoller doPost 실행");
 		
-		String equiID = request.getParameter("equiID");
-		String equiName = request.getParameter("equiName");
+		String equiName = request.getParameter("equiname");
 		String equiImg = request.getParameter("equiImg");
 		String equiType = request.getParameter("equiType");
 		String equiDesc = request.getParameter("equiDesc");
 		String sellDate = request.getParameter("sellDate");
 		String equiLoc = request.getParameter("equiLoc");
 		String status = request.getParameter("status");
+		String userid = request.getParameter("userid");
 		
 		EquipmentDTO dto = new EquipmentDTO();
 		
-		dto.setEquiID(equiID);
 		dto.setEquiname(equiName);
 		dto.setEquiImg(equiImg);
 		dto.setEquiType(equiType);
@@ -48,6 +47,7 @@ public class EquipCreateContoller extends HttpServlet {
 		dto.setSellDate(java.sql.Date.valueOf(sellDate));  // sellDate는 String에서 Date로 변환하여 설정
 		dto.setEquiLoc(equiLoc);
 		dto.setStatus(status);
+		dto.setUserid(userid);
 		
 		// DB 의 insert까지 실행하여 가져와 담는다.
 		EquipService service = new EquipService();

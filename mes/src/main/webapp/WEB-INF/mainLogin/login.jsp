@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page isELIgnored="false" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -79,6 +80,10 @@ justify-content: center; */
         .bodylogin {
             background-color: rgba(0, 208, 255, 0.1);
         }
+        
+        #false {
+        	color: red;
+        }
     </style>
 </head>
 
@@ -98,9 +103,12 @@ justify-content: center; */
                     onclick="location.href='signup'">
                 <!-- <input type="submit2" value="로컬 초기화" id="submit2" class="btn"> -->
             </form>
+	        <c:if test="${ error }">
+	        	<span id="false">아이디 또는 비밀번호가 잘못 되었습니다.</span>
+	        </c:if>
         </div>
     </div>
-
+	${ error }
     <script>
     </script>
 </body>

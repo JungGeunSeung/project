@@ -353,7 +353,7 @@ public class BOM_DAO {
             String query = "SELECT * FROM bom ";
             
             if(production_id != null && !(production_id.equals(""))) {
-            	query += "where production_id= '" + production_id+"'";
+            	query += "where lower(production_id) like lower('%" + production_id+"%')";
             }
             
             PreparedStatement ps = con.prepareStatement(query);

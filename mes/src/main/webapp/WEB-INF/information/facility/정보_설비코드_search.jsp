@@ -21,7 +21,7 @@
 	<link rel="stylesheet" href="/mes/CSS/mobile.css">
 	<link rel="stylesheet" href="/mes/CSS/BOMmodal.css">
 	<script src="/mes/JavaScript/load_info.js"></script>
-	<title>정보/BOM > BOM코드 > 검색</title>
+	<title>정보/BOM > 설비코드 > 검색</title>
 </head>
 
 <body>
@@ -32,10 +32,10 @@
 	<div class="searchID">
 
 		<!-- 해당 페이지의 제목 -->
-		<h1><a href="/mes/equip/list">BOM</a></h1>
+		<h1><a href="/mes/equip/list">설비코드</a></h1>
 		<!-- 해당 페이지의 설명 -->
 		<div class="subhead">
-			<span>제품의 BOM을 조회하는 페이지입니다.</span> <br>
+			<span>제품을 생산하는 설비의 코드를 관리, 조회하는 페이지 입니다.</span> <br>
 		</div>
 		<!-- 게시물의 개수를 표시할 select -->
 		<jsp:include page="/WEB-INF/information/BOM/정보_BOM_SelectForm.jsp">

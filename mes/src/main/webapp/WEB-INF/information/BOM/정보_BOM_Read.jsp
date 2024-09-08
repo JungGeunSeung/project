@@ -127,7 +127,7 @@
 	        <c:url var="list1" value="/BOM/list" />
 	        <a href="${ list1 }" class="btn">돌아가기</a>
 	
-	        <button class="btn bom_modal_btn">수정하기</button>
+<!-- 	        <button class="btn bom_modal_btn">수정하기</button> -->
 			<div id="dleForm">
 		        <form method="post" action="delete">
 		            <input type="hidden" name="bom_id" value="${bom.bom_id}">
@@ -183,6 +183,7 @@
 						<td><input type="text" name="mid" id="mid" value="${ modal.mid }"></td>
 						<td><input type="number" name="bom_quantity" id="bom_quantity" value="${ modal.bom_quantity }"></td>
 					</tr>
+						<input type="hidden" name="production_id" value="${ production_id }">
 					</c:forEach>
 				</table>
 			</form>

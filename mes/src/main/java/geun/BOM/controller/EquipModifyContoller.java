@@ -24,7 +24,7 @@ public class EquipModifyContoller extends HttpServlet {
         System.out.println("Equip Modify Contoller doGet 실행");
 		
         String equiID = request.getParameter("equiID");
-		String equiName = request.getParameter("equiName");
+		String equiName = request.getParameter("equiname");
 		String equiImg = request.getParameter("equiImg");
 		String equiType = request.getParameter("equiType");
 		String equiDesc = request.getParameter("equiDesc");
@@ -56,7 +56,7 @@ public class EquipModifyContoller extends HttpServlet {
 		System.out.println("Equip Modify Contoller doPost 실행");
 		
 		String equiID = request.getParameter("equiID");
-		String equiName = request.getParameter("equiName");
+		String equiName = request.getParameter("equiname");
 		String equiImg = request.getParameter("equiImg");
 		String equiType = request.getParameter("equiType");
 		String equiDesc = request.getParameter("equiDesc");

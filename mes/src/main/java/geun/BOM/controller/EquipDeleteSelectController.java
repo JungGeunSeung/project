@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import geun.BOM.service.EquipService;
 
-@WebServlet("/Equip/delete/select")
+@WebServlet("/Equip/deleteselect")
 public class EquipDeleteSelectController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -21,17 +21,17 @@ public class EquipDeleteSelectController extends HttpServlet {
 		System.out.println("Equip Delete Select Controller doPost 실행");
 
 	    // 쉼표로 구분된 EquipIDs 파라미터 수신
-	    String EquipIDsParam = request.getParameter("EquipIDs");
+	    String EquipIDsParam = request.getParameter("equipIDs");
 
 	    if (EquipIDsParam != null && !EquipIDsParam.isEmpty()) {
 	        // 쉼표로 구분된 문자열을 배열로 변환
 	        String[] EquipIDArray = EquipIDsParam.split(",");
 
 	        // 문자열 배열을 Integer 리스트로 변환
-	        List<Integer> EquipIDList = new ArrayList<>();
+	        List EquipIDList = new ArrayList();
 	        for (String id : EquipIDArray) {
 	            try {
-	                EquipIDList.add(Integer.parseInt(id.trim()));  // 문자열을 정수로 변환 후 리스트에 추가
+	                EquipIDList.add(id.trim());  // 문자열을 정수로 변환 후 리스트에 추가
 	            } catch (NumberFormatException e) {
 	                e.printStackTrace();  // 변환이 안 될 경우 예외 처리
 	            }

@@ -376,7 +376,7 @@ public class Doc_DAO {
             String query = "SELECT * FROM documents ";
             
             if(title != null && !(title.equals(""))) {
-            	query += "where title= '" + title+"'";
+            	query += "where lower(title) like lower('%" + title+"%')";
             }
             System.out.println("query : " + query);
             PreparedStatement ps = con.prepareStatement(query);

@@ -45,27 +45,30 @@
 	</style>
 	<script>
 		function delchk() {
+			if (!confirm("정말로 삭제하시겠습니까?")) {
+				event.preventDefault();
+			} else {
 			let selectchk = document.querySelectorAll('.selectchk');
-			let bomIDs = [];
+			let equipIDs = [];
 
 			// 체크된 체크박스에 대한 docID 수집
 			for (let checkbox of selectchk) {
 				if (checkbox.checked) {
 					let row = checkbox.closest('tr');  // 체크박스가 포함된 <tr> 찾기
-					let bomID = row.querySelector('#bomID');  // 해당 <tr> 내의 #docID 요소 찾기
-					if (bomID) {
-						bomIDs.push(bomID.textContent);  // docID 값을 배열에 추가
+					let equipID = row.querySelector('#equipID');  // 해당 <tr> 내의 #docID 요소 찾기
+					if (equipID) {
+						equipIDs.push(equipID.textContent);  // docID 값을 배열에 추가
 					}
 				}
 			}
 			// docID 값들을 쉼표로 구분된 문자열로 서블릿에 전송
-			if (bomIDs.length > 0) {
+			if (equipIDs.length > 0) {
 				let xhr = new XMLHttpRequest();
-				xhr.open("POST", "/mes/BOM/deleteSelect", true);  // 서블릿 URL로 POST 요청
+				xhr.open("POST", "/mes/Equip/deleteselect", true);  // 서블릿 URL로 POST 요청
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
 				// 데이터를 쉼표로 구분된 문자열 형식으로 전송
-				xhr.send("bomIDs=" + encodeURIComponent(bomIDs.join(',')));
+				xhr.send("equipIDs=" + encodeURIComponent(equipIDs.join(',')));
 
 				xhr.onreadystatechange = function () {
 					if (xhr.readyState === 4 && xhr.status === 200) {
@@ -77,7 +80,9 @@
 				alert("선택된 항목이 없습니다.");
 			}
 
-			window.location.href = "/mes/BOM/list";
+			alert("삭제 되었습니다.");
+			window.location.href = "/mes/Equip/list";
+			}
 		}
 
 
@@ -223,7 +228,7 @@
 								<c:param name="equiID" value="${ Equip.equiID }" />
 								<c:param name="equiname" value="${ Equip.equiname }" />
 							</c:url>
-							<td>${ Equip.equiID }</td>
+							<td id="equipID">${ Equip.equiID }</td>
                         	<td><a href="${ read }">${ Equip.equiname }</a></td>
 	                        <td>${ Equip.equiImg }</td>
 	                        <td>${ Equip.equiType }</td>
@@ -324,7 +329,7 @@
 				<table id="modalTable">
 					<tr>
 					    <td>설비코드</td>
-					    <td><input type="text" id="equiID" name="equiID" value="${ Equip.equiID }" /></td>
+					    <td>설비코드는 자동 생성됩니다.</td>
 					</tr>
 					<tr>
 					    <td>설비 명</td>

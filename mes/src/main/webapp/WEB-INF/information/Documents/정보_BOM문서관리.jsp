@@ -17,49 +17,55 @@
 	<link rel="stylesheet" href="/mes/CSS/mobile.css">
 	<link rel="stylesheet" href="/mes/CSS/table.css">
 	<link rel="stylesheet" href="/mes/CSS/게시판.css">
-	<link rel="stylesheet" href="/mes/CSS/mobile.css">
 	<link rel="stylesheet" href="/mes/CSS/BOMmodal.css">
 	<link rel="stylesheet" href="/mes/CSS/topbar.css">
 	<link rel="stylesheet" href="/mes/CSS/sidebar.css">
-	<link rel="stylesheet" href="button.css">
 	<title>정보/BOM > 문서관리</title>
 	<script>
 		function delchk() {
-			let selectchk = document.querySelectorAll('.selectchk');
-			let docIDs = [];
-
-			// 체크된 체크박스에 대한 docID 수집
-			for (let checkbox of selectchk) {
-				if (checkbox.checked) {
-					let row = checkbox.closest('tr');  // 체크박스가 포함된 <tr> 찾기
-					let docID = row.querySelector('#docID');  // 해당 <tr> 내의 #docID 요소 찾기
-					if (docID) {
-						docIDs.push(docID.textContent);  // docID 값을 배열에 추가
+			if (!confirm("정말로 삭제하시겠습니까?")) {
+				event.preventDefault();
+			} else {
+				
+				let selectchk = document.querySelectorAll('.selectchk');
+				let docIDs = [];
+	
+				// 체크된 체크박스에 대한 docID 수집
+				for (let checkbox of selectchk) {
+					if (checkbox.checked) {
+						let row = checkbox.closest('tr');  // 체크박스가 포함된 <tr> 찾기
+						let docID = row.querySelector('#docID');  // 해당 <tr> 내의 #docID 요소 찾기
+						if (docID) {
+							docIDs.push(docID.textContent);  // docID 값을 배열에 추가
+						}
 					}
 				}
+	
+				// docID 값들을 쉼표로 구분된 문자열로 서블릿에 전송
+				if (docIDs.length > 0) {
+					let xhr = new XMLHttpRequest();
+					xhr.open("POST", "delete/select", true);  // 서블릿 URL로 POST 요청
+					xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	
+					// 데이터를 쉼표로 구분된 문자열 형식으로 전송
+					xhr.send("docIDs=" + encodeURIComponent(docIDs.join(',')));
+	
+					xhr.onreadystatechange = function () {
+						if (xhr.readyState === 4 && xhr.status === 200) {
+							// 서버 응답을 처리하는 부분 (성공시)
+							console.log("서버로부터 응답:", xhr.responseText);
+						}
+					};
+				} else {
+					alert("선택된 항목이 없습니다.");
+				}
+	
+				window.location.href = "/mes/doc/list";
+			alert("삭제 되었습니다.");
 			}
-
-			// docID 값들을 쉼표로 구분된 문자열로 서블릿에 전송
-			if (docIDs.length > 0) {
-				let xhr = new XMLHttpRequest();
-				xhr.open("POST", "delete/select", true);  // 서블릿 URL로 POST 요청
-				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-				// 데이터를 쉼표로 구분된 문자열 형식으로 전송
-				xhr.send("docIDs=" + encodeURIComponent(docIDs.join(',')));
-
-				xhr.onreadystatechange = function () {
-					if (xhr.readyState === 4 && xhr.status === 200) {
-						// 서버 응답을 처리하는 부분 (성공시)
-						console.log("서버로부터 응답:", xhr.responseText);
-					}
-				};
-			} else {
-				alert("선택된 항목이 없습니다.");
-			}
-
-			window.location.href = "/mes/doc/list";
 		}
+					
+	
 
 	</script>
 </head>

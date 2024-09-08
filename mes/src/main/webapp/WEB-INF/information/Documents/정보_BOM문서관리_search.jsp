@@ -56,9 +56,6 @@
 		<table>
 			<thead>
 				<tr>
-					<th>
-						<input type="checkbox" id="allchk">
-					</th>
 					<th>NO</th>
 					<th>작성자</th>
 					<th>제목</th>
@@ -66,19 +63,15 @@
 					<th>작성일</th>
 					<th>수정일</th>
 					<th>Ver</th>
-					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:if test="${ doc != null }">
 					<c:forEach var="bom" items="${ doc }">
 						<tr>
-							<td><input type="checkbox" class="selectchk"></td>
-	
 							<c:url var="read" value="/doc/read">
 								<c:param name="document_id" value="${ bom.document_id }" />
 							</c:url>
-	
 							<td>${ bom.userid } </td>
 							<td><a href="${ read }" id="underline">${ bom.document_id }</a> </td>
 							<td>${ bom.title } </td>
@@ -86,8 +79,6 @@
 							<td>${ bom.created_date } </td>
 							<td>${ bom.updated_date } </td>
 							<td>${ bom.version } </td>
-							<td class="modifyTD"><button class="bom_modal_btn">수정</button>
-							</td>
 						</tr>
 					</c:forEach>
 				</c:if>

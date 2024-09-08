@@ -160,7 +160,7 @@ public class EquipmentDAO {
 	            ps.setDate(5, dto.getSellDate());
 	            ps.setString(6, dto.getEquiLoc());
 	            ps.setString(7, dto.getStatus());
-	            ps.setDate(8, dto.getMainDate());
+	            ps.setString(8, dto.getUserid());
 	            
 	            result = ps.executeUpdate();
 	            
@@ -182,7 +182,7 @@ public class EquipmentDAO {
 	            DataSource dataFactory = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
 	            Connection con = dataFactory.getConnection();
 	            
-	            String query = "UPDATE equipment SET equiName = ?, equiImg = ?, equiType = ?, equiDesc = ?, sellDate = ?, equiLoc = ?, status = ?, mainDate = ? WHERE equiID = ?";
+	            String query = "UPDATE equipment SET equiName = ?, equiImg = ?, equiType = ?, equiDesc = ?, sellDate = ?, equiLoc = ?, status = ? WHERE equiID = ?";
 	            
 	            PreparedStatement ps = con.prepareStatement(query);
 	            
@@ -193,8 +193,7 @@ public class EquipmentDAO {
 	            ps.setDate(5, dto.getSellDate());
 	            ps.setString(6, dto.getEquiLoc());
 	            ps.setString(7, dto.getStatus());
-	            ps.setDate(8, dto.getMainDate());
-	            ps.setString(9, dto.getEquiID());
+	            ps.setString(8, dto.getEquiID());
 	            
 	            result = ps.executeUpdate();
 	            
@@ -256,11 +255,10 @@ public class EquipmentDAO {
 	            }
 	        }
 	        query.append(")");
-
 	        PreparedStatement ps = con.prepareStatement(query.toString());
 
 	        for (int i = 0; i < ids.size(); i++) {
-	            ps.setInt(i + 1, (int) ids.get(i));
+	            ps.setString(i + 1, (String) ids.get(i));
 	        }
 			
 			result = ps.executeUpdate();
@@ -399,7 +397,7 @@ public class EquipmentDAO {
             String query = "SELECT * FROM equipment ";
             
             if(title != null && !(title.equals(""))) {
-            	query += "where equiname= '" + title+"'";
+            	query += "where lower(equiname) like lower('%" + title+"%')";
             }
             System.out.println("query : " + query);
             PreparedStatement ps = con.prepareStatement(query);
