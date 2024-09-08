@@ -40,10 +40,10 @@ public class MaterialDAO {
 				materialDTO.setLOTNum(rs.getString("lotnum"));
 				materialDTO.setprodName(rs.getString("productname"));
 				materialDTO.setInout(rs.getString("inout"));
+				materialDTO.setChecker(rs.getString("inspector"));
 				materialDTO.setCnt(rs.getInt("quantity"));
 				Date datestr = rs.getDate("inspectdate");
 				materialDTO.setDate(datestr);
-				materialDTO.setChecker(rs.getString("inspector"));
 
 				list.add(materialDTO);
 			}
@@ -129,8 +129,7 @@ public class MaterialDAO {
 
 			ps.close();
 			con.close();
-			
-
+		
 			if ("IN".equals(inout1)) {
 				// inventorystatus의beforedto의 productnum을 사용해 갯수 빼기
 				System.out.println("바뀌기전 : in");

@@ -50,10 +50,11 @@ public class DefectDAO {
 
 			while (rs.next()) {
 				String report_id = rs.getString("report_id");
+				int defect_count = rs.getInt("defect_count");
+				
 				String ins_id = rs.getString("ins_id");
 				String production_id = rs.getString("production_id");
 				String planid = rs.getString("planid");
-				int defect_count = rs.getInt("defect_count");
 
 				DefectDTO dto = new DefectDTO();
 				dto.setReport_id(report_id);

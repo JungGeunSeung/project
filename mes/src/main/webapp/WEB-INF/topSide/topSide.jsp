@@ -100,9 +100,8 @@
 				<li class="menu-item"><a href="#">설비관리</a>
 					<div class="submenu">
 						<ul>
-							<li><a href="공정별설비관리">공정별설비관리/수리보고서</a></li>
 							<li><a href="/mes/Equip">설비고장/수리이력</a></li>
-							<li><a href="비가동이력">비가동이력</a></li>
+							<li><a href="/mes/non">비가동이력</a></li>
 						</ul>
 					</div>
 				</li>
