@@ -12,17 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import hong.material.dto.SignupDTO;
 import hong.material.service.SignupService;
 
-
-
+/**
+ * Servlet implementation class SignupController
+ */
 @WebServlet("/signup")
 public class SignupController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		request.getRequestDispatcher("/WEB-INF/mainLogin/signup.jsp").forward(request, response);
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		SignupService service = new SignupService();
 		SignupDTO dto = new SignupDTO();
 		String name = request.getParameter("name");

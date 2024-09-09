@@ -42,6 +42,7 @@
 			border-radius: 4px;
 			border: 1px solid rgb(173, 216, 225);
 		}
+		
 	</style>
 	<script>
 		function delchk() {

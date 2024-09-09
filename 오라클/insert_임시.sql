@@ -239,19 +239,19 @@ INSERT INTO DefectType (report_id, ins_id, production_id, planid, defect_count)
 VALUES ('rep005', 'ins002', 'prod002', 'plan002', 0);
 
 -- equipmentUsage 테이블에 데이터 삽입
-INSERT INTO equipmentUsage (resultid, equiID, startdate, enddate)
+INSERT INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY)
 VALUES ('res001', 'equi001', TO_DATE('2023-09-01', 'YYYY-MM-DD'), TO_DATE('2023-09-30', 'YYYY-MM-DD'));
 
-INSERT INTO equipmentUsage (resultid, equiID, startdate, enddate)
+INSERT INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY)
 VALUES ('res002', 'equi002', TO_DATE('2023-10-01', 'YYYY-MM-DD'), TO_DATE('2023-10-31', 'YYYY-MM-DD'));
 
-INSERT INTO equipmentUsage (resultid, equiID, startdate, enddate)
+INSERT INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY)
 VALUES ('res003', 'equi003', TO_DATE('2023-11-01', 'YYYY-MM-DD'), TO_DATE('2023-11-30', 'YYYY-MM-DD'));
 
-INSERT INTO equipmentUsage (resultid, equiID, startdate, enddate)
+INSERT INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY)
 VALUES ('res004', 'equi004', TO_DATE('2023-12-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'));
 
-INSERT INTO equipmentUsage (resultid, equiID, startdate, enddate)
+INSERT INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY)
 VALUES ('res005', 'equi005', TO_DATE('2024-01-01', 'YYYY-MM-DD'), TO_DATE('2024-01-31', 'YYYY-MM-DD'));
 
 -- equipment 테이블에 데이터 삽입

@@ -21,7 +21,7 @@
 			<div class="profile_btn">
 				<input type="button" value="마이페이지" class="btn"> <input
 					type="button" value="관리자페이지" class="btn"
-					onclick="location.href='/mes/관리자'">
+					onclick="location.href='/mes/manager'">
 			</div>
 		</div>
 

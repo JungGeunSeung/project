@@ -46,6 +46,9 @@
 	</style>
 	<script>
 		function delchk() {
+			if (!confirm("정말로 삭제하시겠습니까?")) {
+				event.preventDefault();
+			} else {
 			let selectchk = document.querySelectorAll('.selectchk');
 			let bomIDs = [];
 
@@ -79,6 +82,7 @@
 			}
 
 			window.location.href = "/mes/BOM/list";
+		}
 		}
 
 

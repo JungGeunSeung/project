@@ -14,6 +14,7 @@ public class UserDTO {
 	private int empno;
 	private int deptno;
 	private String pw;
+	
 	public String getUserid() {
 		return userid;
 	}

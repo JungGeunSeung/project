@@ -22,6 +22,12 @@
 	<link rel="stylesheet" href="/mes/CSS/BOMmodal.css">
 	
 	<title>정보/BOM > BOM코드 > 검색</title>
+	
+	<style>
+	#tableID {
+		
+	}
+	</style>
 </head>
 
 <body>

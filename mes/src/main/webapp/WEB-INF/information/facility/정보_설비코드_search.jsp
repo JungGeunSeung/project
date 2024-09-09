@@ -22,6 +22,11 @@
 	<link rel="stylesheet" href="/mes/CSS/BOMmodal.css">
 	
 	<title>정보/BOM > 설비코드 > 검색</title>
+	<style>
+	.tableID table {
+		width: 100%;
+	}
+	</style>
 </head>
 
 <body>
@@ -38,10 +43,6 @@
 			<span>제품을 생산하는 설비의 코드를 관리, 조회하는 페이지 입니다.</span> <br>
 		</div>
 		<!-- 게시물의 개수를 표시할 select -->
-		<jsp:include page="/WEB-INF/information/BOM/정보_BOM_SelectForm.jsp">
-			<jsp:param name="select" value="select" />
-		</jsp:include>
-
 		<div>
 			<form method="get" action="/mes/Equip/list/search">
 				<span>상품코드로 검색</span>
@@ -49,8 +50,6 @@
 				<input type="submit" value="검색" class="btn">
 			</form>
 			<a href="/mes/Equip/list" class="newbtn">목록으로 가기</a>
-			<button class="newbtn createbtn">새로 작성</button>
-			<button onclick="delchk()" class="btn Lbtn">선택된 열 삭제</button>
 		</div>
 	</div>
 
@@ -59,9 +58,6 @@
 		<table>
 			<thead>
 				<tr>
-					<th>
-						<input type="checkbox" id="allchk">
-					</th>
                     <th>설비코드</th>
                     <th>설비 명</th>
                     <th>설비사진</th>
@@ -71,15 +67,12 @@
                     <th>위치</th>
                     <th>상태</th>
                     <th>관리자</th>
-                    <th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:if test="${ Equip != null }">
 					<c:forEach var="Equip" items="${ Equip }">
 						<tr>
-							<td><input type="checkbox" class="selectchk"></td>
-	
 							<c:url var="read" value="/Equip/read">
 								<c:param name="equiID" value="${ Equip.equiID }" />
 								<c:param name="equiname" value="${ Equip.equiname }" />
@@ -93,7 +86,6 @@
 	                        <td>${ Equip.equiLoc }</td>
 	                        <td>${ Equip.status }</td>
 	                        <td>${ Equip.userid }</td>
-							<td class="modifyTD"><button class="bom_modal_btn">수정</button></td>
 						</tr>
 					</c:forEach>
 				</c:if>

@@ -24,7 +24,7 @@ public class MaterialStatusEditController extends HttpServlet {
 		System.out.println(str);
 		MaterialStatusDTO dto = service.print(str);
 		request.setAttribute("dto", dto);
-		request.getRequestDispatcher("/WEB-INF/material/editstatus.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/material/material/editstatus.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

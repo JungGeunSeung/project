@@ -101,10 +101,6 @@
 			</c:forEach>
 		</div>
 	</div>
-
-
-
-	
 </body>
 <script src="/mes/JavaScript/sort.js"></script>
 <script src="/mes/JavaScript/date.js"></script>

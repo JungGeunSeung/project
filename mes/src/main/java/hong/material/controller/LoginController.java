@@ -23,20 +23,20 @@ public class LoginController extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-		System.out.println(id +", " + pw);
 		LoginService service = new LoginService();
+		
+		
 		UserDTO dto = service.login(id, pw);
-		System.out.println("dto : " + dto);
+		
 		if(dto != null) {
 			HttpSession session = request.getSession();//유저 정보를 세션으로 넘기기
 			session.setAttribute("user", dto);
 			response.sendRedirect("main");
 		}
 		else {
-			 response.sendRedirect("/mes/login?error=true"); // 인증 실패 시 로그인 페이지로 리디렉션
+			 response.sendRedirect("login.jsp?error=true"); // 인증 실패 시 로그인 페이지로 리디렉션
 		}
 	}
 }
