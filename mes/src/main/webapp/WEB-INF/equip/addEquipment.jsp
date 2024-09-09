@@ -36,7 +36,7 @@
 						<td><label for="equiname">설비명:</label></td>
 						<td><input type="text" id="equiname" name="equiname"></td>
 					<tr>
-						<td><label for="equitype">설비유형:</label></td>>
+						<td><label for="equitype">설비유형:</label></td>
 						<td><select name="equitype" <option selected>유형</option>
 							<option value="검사">검사</option> <option value="포장">포장</option>
 							<option value="조립">조립</option> <option value="제조">제조</option>
@@ -79,9 +79,10 @@
 						<td><label for="maindate">고장/수리일자:</label></td>
 						<td><input type="date" id="maindate" name="maindate"></td>
 						</tr>
-						</tbody><button type="submit">추가</button>
 						</table>
-						</form>
+			</tbody>
+			<button type="submit">추가</button>
+		</form>
 						</div>
 </body>
 <script>

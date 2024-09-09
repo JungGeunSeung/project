@@ -37,18 +37,25 @@ public class EquipmentServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 
-		if ("searchByDate".equals(action)) {
+		if ("changePageSize".equals(action)) {
+			handlePagination(request, response); // 페이지 크기 변경 처리
+		} else if ("searchByDate".equals(action)) {
 			Date startDate = Date.valueOf(request.getParameter("startDate"));
 			Date endDate = Date.valueOf(request.getParameter("endDate"));
 			List<EquipmentDTO> equipmentList = equipmentService.getEquipmentByDateRange(startDate, endDate);
 			request.setAttribute("equipmentList", equipmentList);
-			request.getRequestDispatcher("/equip.jsp").forward(request, response);
-		} else if ("addEquipment".equals(action)) {
-			// 기존 추가 기능 처리
+			request.getRequestDispatcher("/WEB-INF/equip/설비관리_설비고장_수리이력.jsp").forward(request, response);
+		} else if ("deleteSelected".equals(action)) {
+			// 선택된 항목 삭제 처리
+			String[] selectedEquiIDs = request.getParameterValues("selectedEquiIDs");
+			if (selectedEquiIDs != null) {
+				for (String equiID : selectedEquiIDs) {
+					equipmentService.deleteEquipment(equiID);
+				}
+			}
+			response.sendRedirect("Equip");
 		}
 	}
-
-
 
 	private void handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -106,8 +113,9 @@ public class EquipmentServlet extends HttpServlet {
 			sortOrder = "ASC"; // 기본 정렬 순서 설정
 		}
 
-		 List<EquipmentDTO> equipmentList = equipmentService.getEquipmentByPage(pageSize, pageNumber, sortField, sortOrder);
-	        int totalEquipmentCount = equipmentService.getTotalEquipmentCount();
+		List<EquipmentDTO> equipmentList = equipmentService.getEquipmentByPage(pageSize, pageNumber, sortField,
+				sortOrder);
+		int totalEquipmentCount = equipmentService.getTotalEquipmentCount();
 
 		request.setAttribute("equipmentList", equipmentList);
 		request.setAttribute("totalPages", (int) Math.ceil((double) totalEquipmentCount / pageSize));

@@ -21,8 +21,8 @@
 <link rel="stylesheet" href="/mes/CSS/게시판.css">
 <link rel="stylesheet" href="/mes/CSS/mobile.css">
 <script src="/mes/JavaScript/load_info.js"></script>
-<title>설비관리 > 비가동이력</title>
 <link rel="stylesheet" href="button.css">
+<title>설비관리 > 비가동이력</title>
 </head>
 
 <body>

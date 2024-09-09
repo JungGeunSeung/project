@@ -33,8 +33,8 @@
 					<td><label for="equiID">설비번호:</label></td>
 					<td>
 						<div>
-							<span>equi</span> <input type="text" id="equiID" name="equiID"
-								value="${equipment.equiID.substring(4)}" maxlength="3" readonly>
+							<input type="text" id="equiID" name="equiID"
+								value="${equipment.equiID}" readonly>
 						</div>
 					</td>
 				</tr>

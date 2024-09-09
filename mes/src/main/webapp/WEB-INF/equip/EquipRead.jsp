@@ -62,6 +62,6 @@
 	function openEditWindow(equiID) {
 		window.open('/mes/EditEquipmentServlet?equiID=' + equiID, 'editWindow',
 				'width=600,height=400,scrollbars=yes');
-	}}
+	}
 </script>
 </html>

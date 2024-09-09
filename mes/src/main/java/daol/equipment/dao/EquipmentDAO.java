@@ -41,7 +41,8 @@ public class EquipmentDAO {
 				+ "SELECT e.equiID, e.equiname, e.equitype, e.selldate, e.equiloc, e.status, m.manager, m.maindate, m.maincontent, "
 				+ "ROWNUM AS rnum " + "FROM equipment e " + "JOIN maintenance m ON e.equiID = m.equiID "
 				+ "WHERE ROWNUM <= ? " + "ORDER BY " + sortField + " " + sortOrder + ") WHERE rnum > ?";
-
+		
+		System.out.println("Executing SQL: " + sql);
 		try (Connection cnt = getConnection(); PreparedStatement ps = cnt.prepareStatement(sql)) {
 
 			int endRow = pageNumber * pageSize;
@@ -49,7 +50,9 @@ public class EquipmentDAO {
 
 			ps.setInt(1, endRow);
 			ps.setInt(2, startRow);
+			System.out.println("Start Row: " + startRow + ", End Row: " + endRow); //디버깅용 로그확인
 			ResultSet rs = ps.executeQuery();
+			
 
 			while (rs.next()) {
 				EquipmentDTO equipment = new EquipmentDTO();
