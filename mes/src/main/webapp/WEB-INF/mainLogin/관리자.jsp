@@ -26,7 +26,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/mes/JavaScript/load_info.js"></script>
 
-<title>소원을 들어주는 MES</title>
+<title>관리자 페이지</title>
 
 <style>
 .management_kw {
