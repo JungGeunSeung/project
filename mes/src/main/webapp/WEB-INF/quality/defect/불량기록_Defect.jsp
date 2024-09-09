@@ -102,21 +102,21 @@
 		<div class="modal-content">
 			<span class="close">&times;</span>
 			<h2>추가할 품질 정보 입력</h2>
-			<form id="addRowForm">
+			<form id="addRowForm"  method="POST" action="/mes/defect/create">
 				<label for="prodNum">불량기록 ID :</label> <input type="text"
-					id="prodNum" name="prodNum" required><br>
+					id="prodNum" name="report_id" required><br>
 					 <label
 					for="LOTNum">품질검사 ID : </label> <input type="text" id="LOTNum"
-					name="LOTNum" required><br> 
+					name="ins_id" required><br> 
 					<label for="prodName">제품
-					ID :</label> <input type="text" id="prodName" name="prodName" required><br>
+					ID :</label> <input type="text" id="prodName" name="production_id" required><br>
 				<label for="prodName">계획 ID : </label> <input type="text"
-					id="prodName" name="prodName" required><br> 
+					id="prodName" name="planid" required><br> 
 				<label for="count">불량수량 :</label> <input type="number" id="count"
-					name="count" required><br>
+					name="defect_count" required><br>
 
 
-				<button type="button" onclick="submitAddRowForm()">추가</button>
+				<button type="submit">추가</button>
 			</form>
 		</div>
 	</div>
@@ -184,6 +184,7 @@
 						<td>${ dto.defect_count }</td>
 						<td><button class="quality_modal_btn">수정</button></td>
 					</tr>
+
 				</c:forEach>
 			</tbody>
 
@@ -231,6 +232,7 @@
 		</div>
 </body>
 <script>
+
 var modal = document.getElementById("addRowModal");
 
 var addButton = document.querySelector("button[onclick='add()']");
@@ -288,6 +290,9 @@ function delchk() {
 
 	window.location.href = "/mes/defect/list";
 }
+
+
+
 const modal1 = document.querySelector('.quality_modal');
 const btns = document.querySelectorAll('.quality_modal_btn');
 const closeModal = document.querySelector('.closeModal');

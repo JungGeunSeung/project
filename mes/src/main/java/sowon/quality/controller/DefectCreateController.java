@@ -14,7 +14,7 @@ import sowon.quality.service.DefectService;
 
 
 @WebServlet("/defect/create")
-public class DefectCreateContrller extends HttpServlet {
+public class DefectCreateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
@@ -39,6 +39,8 @@ public class DefectCreateContrller extends HttpServlet {
 		String production_id = request.getParameter("production_id");
 		String planid2 = request.getParameter("planid");
 		String defect_count = request.getParameter("defect_count");
+		
+		System.out.println("defect create dopost :" + report_id +", "+ ins_id + ", "+ production_id + ", " +planid2 + ", "+defect_count);
 		
 		DefectDTO dto = new DefectDTO();
 		dto.setReport_id( report_id );
