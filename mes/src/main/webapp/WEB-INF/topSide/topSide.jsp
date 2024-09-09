@@ -15,12 +15,12 @@
 			<img src="/mes/Image/정근승.png" alt="프로필 사진">
 			<h2><%=dto.getName() %></h2>
 			<p><%=dto.getGrade() %></p>
-			<input type="button" value="로그아웃" class="btn"
+			<input type="button" value="로그아웃" class="inbtn"
 				onclick="location.href='/mes/logout'">
 
 			<div class="profile_btn">
-				<input type="button" value="마이페이지" class="btn"> <input
-					type="button" value="관리자페이지" class="btn"
+				<input type="button" value="마이페이지" class="inbtn"> <input
+					type="button" value="관리자페이지" class="inbtn"
 					onclick="location.href='/mes/manager'">
 			</div>
 		</div>
@@ -91,7 +91,7 @@
 							<li><a href="/mes/production">생산계획목록</a></li>
 							<li><a href="/mes/task">작업지시목록</a></li>
 							<li><a href="/mes/productionresult">생산실적</a></li>
-							<li><a href="">생산실적보고서</a></li>
+							<li><a href="/mes/report">생산실적보고서</a></li>
 						</ul>
 					</div></li>
 				<%

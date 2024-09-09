@@ -33,7 +33,7 @@ public class ProductionTaskController extends HttpServlet {
 	        if (action == null) {
 	            List<ProductionTaskDTO> tasks = taskService.getAllTasks();
 	            request.setAttribute("tasks", tasks);
-	            request.getRequestDispatcher("/생산관리_생산실적보고서.jsp").forward(request, response);
+	            request.getRequestDispatcher("/WEB-INF/생산관리_작업지시서목록.jsp").forward(request, response);
 	        } else if (action.equals("getTask")) {
 	            // AJAX 요청으로 task 데이터를 가져와 JSON으로 응답
 	            String taskID = request.getParameter("taskID");

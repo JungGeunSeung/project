@@ -82,8 +82,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-          <button type="button" class="btn btn-primary" id="savePlanBtn">저장</button>
+          <button type="button" class="inbtn" data-dismiss="modal">닫기</button>
+          <button type="button" class="inbtn" id="savePlanBtn">저장</button>
         </div>
       </div>
     </div>
@@ -99,31 +99,12 @@
             <h1>생산계획 목록</h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
-<!--             </div> -->
-<!--             게시물의 개수를 표시할 select -->
-<!--              <div class="cntdiv"> -->
-<!--                 <span>게시물</span>x -->
-<!--                  <select name="cnt" id="cnt" onchange="changePageSize()"> -->
-<!--                     <option value="10">10개씩</option> -->
-<!--                     <option value="20">20개씩</option> -->
-<!--                     <option value="30">30개씩</option> -->
-<!--                     <option value="40">40개씩</option> -->
-<!--                     <option value="50" selected>50개씩</option> -->
-<!--                 </select> -->
-<!--                 <div> -->
-<!--                     <button onclick="delchk()" class="btn Lbtn">선택된 열 삭제</button> -->
-<!--                     <span>날짜별 조회</span> -->
-<!--                     <input type="date" id="startdate"> ~ <input type="date" id="enddate"> -->
-<!--                     <button class="btn">검색</button> -->
-<!--                 </div>  -->
 
-<!--             </div> -->
-<!--         </div> -->
 
         <!-- 해당 목록 -->
         <div class="tableID">
                 <span>생산계획서를 한번에 조회하는 페이지입니다.</span> <br>
-    <button type="button" class="btn btn-primary" id="addPlanBtn">새 계획 추가</button>
+    <button type="button" class="inbtn" id="addPlanBtn">새 계획 추가</button>
     <table>
         <tr>
         <th><input type="checkbox" id="allchk"></th>

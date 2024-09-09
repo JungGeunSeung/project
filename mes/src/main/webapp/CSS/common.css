@@ -32,9 +32,9 @@ body {
 
 .main_page_kw {
     display: flex;
-    padding: 10px;
-    margin: 10px;
-    border: solid rgb(70, 130, 180);
+    padding: 5px;
+    margin: 5px;
+/*     border: solid rgb(70, 130, 180); */
 }
 
 .main_page_kw>div {
@@ -42,8 +42,8 @@ body {
     margin: 10px;
     width: 70%;
     height: 500px;
-    border: solid rgb(100, 149, 237);
-    overflow: scroll;
+    border: solid rgb(149 180 250 / 42%);
+/*     overflow: scroll; */
 }
 
 .canvasdiv {

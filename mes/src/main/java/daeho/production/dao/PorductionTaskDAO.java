@@ -13,7 +13,14 @@ import javax.sql.DataSource;
 import daeho.production.dto.ProductionTaskDTO;
 
 public class PorductionTaskDAO {
-
+	
+	// DB 연결 메서드
+    private Connection getConnection() throws Exception {
+        // JNDI를 통해 데이터 소스 검색
+        Context ctx = new InitialContext();
+        DataSource dataSource = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
+        return dataSource.getConnection(); // 연결 반환
+    }
 
     // Create
     public void createTask(ProductionTaskDTO task) {
@@ -38,22 +45,16 @@ public class PorductionTaskDAO {
         List<ProductionTaskDTO> tasks = new ArrayList<>();
         String query = "SELECT * FROM task";
         
-        try {
-        		Context ctx = new InitialContext(); // JNDI를 통해 컨텍스트를 초기화
-                DataSource datasource = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle"); // 리소스 이름으로 데이터소스 찾기
-        		
-                Connection conn = getConnection(); 
-        		PreparedStatement pstmt = conn.prepareStatement(query); 
-        		ResultSet rs = pstmt.executeQuery();
+        try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
-            	ProductionTaskDTO task = new ProductionTaskDTO(
-                        rs.getString("taskid"),
-                        rs.getString("planid"),
-                        rs.getString("production_id"),
-                        rs.getInt("required"),
-                        rs.getInt("used"),
-                        rs.getString("taskstatus"),
-                        rs.getString("taskcontent")
+                ProductionTaskDTO task = new ProductionTaskDTO(
+                    rs.getString("taskid"),
+                    rs.getString("planid"),
+                    rs.getString("production_id"),
+                    rs.getInt("required"),
+                    rs.getInt("used"),
+                    rs.getString("taskstatus"),
+                    rs.getString("taskcontent")
                 );
                 tasks.add(task);
             }
@@ -63,12 +64,7 @@ public class PorductionTaskDAO {
         return tasks;
     }
 
-    private Connection getConnection() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	// Read (Get task by ID)
+    // Read (Get task by ID)
     public ProductionTaskDTO getTaskByID(String taskID) {
     	ProductionTaskDTO task = null;
         String query = "SELECT * FROM task WHERE taskid = ?";
@@ -77,13 +73,13 @@ public class PorductionTaskDAO {
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     task = new ProductionTaskDTO(
-                            rs.getString("taskid"),
-                            rs.getString("planid"),
-                            rs.getString("production_id"),
-                            rs.getInt("required"),
-                            rs.getInt("used"),
-                            rs.getString("taskstatus"),
-                            rs.getString("taskcontent")
+                        rs.getString("taskid"),
+                        rs.getString("planid"),
+                        rs.getString("production_id"),
+                        rs.getInt("required"),
+                        rs.getInt("used"),
+                        rs.getString("taskstatus"),
+                        rs.getString("taskcontent")
                     );
                 }
             }
@@ -120,4 +116,6 @@ public class PorductionTaskDAO {
             e.printStackTrace();
         }
     }
+
+    
 }

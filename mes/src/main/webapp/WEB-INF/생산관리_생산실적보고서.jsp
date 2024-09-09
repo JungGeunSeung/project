@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="/mes/CSS/mobile.css">
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>소원을 들어주는 MES</title>
+    <title>생산관리 > 생산실적보고서</title>
     <link rel="stylesheet" href="button.css">
 </head>
 
