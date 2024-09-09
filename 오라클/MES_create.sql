@@ -128,10 +128,11 @@ CREATE TABLE DefectType (
 
 CREATE TABLE equipmentUsage (
 	resultid	VARCHAR(50)	NOT NULL,
-	startdate	date	NOT NULL,
-	enddate	date	NOT NULL,
-	userid	VARCHAR2(50)	NOT NULL,
-	equiID	VARCHAR(50)	NOT NULL
+    equiID	VARCHAR(50)	NOT NULL,
+	OPRATING_HISTORY	date	NOT NULL,
+	DOWNTIME_HISTORY	date	NOT NULL,
+    oper_reason varchar2(255) null,
+    down_reason varchar2(255) null
 );
 
 CREATE TABLE equipment (

@@ -239,20 +239,49 @@ INSERT INTO DefectType (report_id, ins_id, production_id, planid, defect_count)
 VALUES ('rep005', 'ins002', 'prod002', 'plan002', 0);
 
 -- equipmentUsage 테이블에 데이터 삽입
-INSERT INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY)
-VALUES ('res001', 'equi001', TO_DATE('2023-09-01', 'YYYY-MM-DD'), TO_DATE('2023-09-30', 'YYYY-MM-DD'));
+INSERT ALL
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R001', 'EQ001', TO_DATE('2023-09-01', 'YYYY-MM-DD'), TO_DATE('2023-09-02', 'YYYY-MM-DD'), 'Routine operation', 'Maintenance required')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R002', 'EQ002', TO_DATE('2023-08-10', 'YYYY-MM-DD'), TO_DATE('2023-08-11', 'YYYY-MM-DD'), 'Production run', 'Power outage')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R003', 'EQ003', TO_DATE('2023-07-15', 'YYYY-MM-DD'), TO_DATE('2023-07-16', 'YYYY-MM-DD'), 'System upgrade', 'Cooling failure')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R004', 'EQ004', TO_DATE('2023-06-20', 'YYYY-MM-DD'), TO_DATE('2023-06-21', 'YYYY-MM-DD'), 'Routine operation', 'Scheduled downtime')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R005', 'EQ005', TO_DATE('2023-05-05', 'YYYY-MM-DD'), TO_DATE('2023-05-06', 'YYYY-MM-DD'), 'Test operation', 'Unexpected failure')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R006', 'EQ006', TO_DATE('2023-04-01', 'YYYY-MM-DD'), TO_DATE('2023-04-02', 'YYYY-MM-DD'), 'Calibration run', 'Operator error')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R007', 'EQ007', TO_DATE('2023-03-10', 'YYYY-MM-DD'), TO_DATE('2023-03-11', 'YYYY-MM-DD'), 'Maintenance run', 'Overheating')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R008', 'EQ008', TO_DATE('2023-02-20', 'YYYY-MM-DD'), TO_DATE('2023-02-21', 'YYYY-MM-DD'), 'Routine operation', 'System check')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R009', 'EQ009', TO_DATE('2023-01-25', 'YYYY-MM-DD'), TO_DATE('2023-01-26', 'YYYY-MM-DD'), 'Quality testing', 'Component failure')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R010', 'EQ010', TO_DATE('2023-01-15', 'YYYY-MM-DD'), TO_DATE('2023-01-16', 'YYYY-MM-DD'), 'System upgrade', 'Software issue')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R011', 'EQ011', TO_DATE('2022-12-01', 'YYYY-MM-DD'), TO_DATE('2022-12-02', 'YYYY-MM-DD'), 'Initial setup', 'Network issue')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R012', 'EQ012', TO_DATE('2022-11-15', 'YYYY-MM-DD'), TO_DATE('2022-11-16', 'YYYY-MM-DD'), 'Maintenance run', 'Unexpected shutdown')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R013', 'EQ013', TO_DATE('2022-10-20', 'YYYY-MM-DD'), TO_DATE('2022-10-21', 'YYYY-MM-DD'), 'Test operation', 'Sensor malfunction')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R014', 'EQ014', TO_DATE('2022-09-10', 'YYYY-MM-DD'), TO_DATE('2022-09-11', 'YYYY-MM-DD'), 'Routine operation', 'System calibration')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R015', 'EQ015', TO_DATE('2022-08-05', 'YYYY-MM-DD'), TO_DATE('2022-08-06', 'YYYY-MM-DD'), 'Emergency stop', 'Safety issue')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R016', 'EQ016', TO_DATE('2022-07-25', 'YYYY-MM-DD'), TO_DATE('2022-07-26', 'YYYY-MM-DD'), 'Test run', 'Equipment overload')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R017', 'EQ017', TO_DATE('2022-06-15', 'YYYY-MM-DD'), TO_DATE('2022-06-16', 'YYYY-MM-DD'), 'Production operation', 'Cooling system failure')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R018', 'EQ018', TO_DATE('2022-05-10', 'YYYY-MM-DD'), TO_DATE('2022-05-11', 'YYYY-MM-DD'), 'Routine maintenance', 'Scheduled update')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R019', 'EQ019', TO_DATE('2022-04-01', 'YYYY-MM-DD'), TO_DATE('2022-04-02', 'YYYY-MM-DD'), 'Test operation', 'Component failure')
+    INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY, oper_reason, down_reason)
+    VALUES ('R020', 'EQ020', TO_DATE('2022-03-25', 'YYYY-MM-DD'), TO_DATE('2022-03-26', 'YYYY-MM-DD'), 'Production operation', 'Software malfunction')
+SELECT * FROM dual;
 
-INSERT INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY)
-VALUES ('res002', 'equi002', TO_DATE('2023-10-01', 'YYYY-MM-DD'), TO_DATE('2023-10-31', 'YYYY-MM-DD'));
-
-INSERT INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY)
-VALUES ('res003', 'equi003', TO_DATE('2023-11-01', 'YYYY-MM-DD'), TO_DATE('2023-11-30', 'YYYY-MM-DD'));
-
-INSERT INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY)
-VALUES ('res004', 'equi004', TO_DATE('2023-12-01', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'));
-
-INSERT INTO equipmentUsage (resultid, equiID, OPRATING_HISTORY, DOWNTIME_HISTORY)
-VALUES ('res005', 'equi005', TO_DATE('2024-01-01', 'YYYY-MM-DD'), TO_DATE('2024-01-31', 'YYYY-MM-DD'));
 
 -- equipment 테이블에 데이터 삽입
 INSERT INTO equipment (equiID, equiname, equitype, selldate, equiloc, status)
