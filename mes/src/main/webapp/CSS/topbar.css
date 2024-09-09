@@ -1,6 +1,7 @@
 .menu {
     background-color: rgb(135, 206, 250 , 0.5); /* 하늘색 반투명 */
     padding: 10px;
+    position: relative;
 }
 
 .menu ul {
@@ -86,4 +87,20 @@ ul.item {
     margin: 10px;
     border: solid rgb(59 130 246 / 0.5);
     color: #fff;
+}
+
+#boardDIV {
+    position: absolute; /* 절대 위치 설정 */
+    top: 11px; /* 상단으로부터 10px */
+    right: 20px; /* 오른쪽으로부터 10px */
+    padding: 5px;
+    z-index: 1001; /* 다른 요소 위에 표시되도록 우선순위 설정 */
+    font-size: 20px;
+    background-color: rgb(135, 206, 250 , 0.5);
+    color: white;
+    
+}
+
+#boardDIV a {
+	color: white;
 }

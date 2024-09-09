@@ -339,7 +339,9 @@
 				let rowDate = new Date(dateCell);
 
 				// 필터링 조건: 날짜 범위 내에 있어야 함
-				let dateMatches = (!startDateInput || !endDateInput) || (rowDate >= new Date(startDateInput) && rowDate <= new Date(endDateInput));
+				let dateMatches = (!startDateInput || !endDateInput) ||
+									(rowDate >= new Date(startDateInput) &&
+									rowDate <= new Date(endDateInput));
 
 				return dateMatches;
 			});

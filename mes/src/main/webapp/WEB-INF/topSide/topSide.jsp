@@ -109,6 +109,8 @@
                     }
                 %>
 			</ul>
-
+			<div id="boardDIV">
+				<a href="/mes/board">게시판</a>
+			</div>
 		</div>
 		<hr>

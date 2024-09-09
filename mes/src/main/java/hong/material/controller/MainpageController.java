@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet("/main")
-public class Mainpage extends HttpServlet {
+public class MainpageController extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

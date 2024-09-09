@@ -112,92 +112,10 @@ a {
 </head>
 
 <body>
-	<!-- 사이드바 -->
-	<div class="sidebar">
-		<a href="main"> <img class="Logo" src="/mes/Image/로고.png" alt=""></a>
-
-
-		<div class="profile" id="bos">
-			<img src="/mes/Image/정근승.png" alt="프로필 사진">
-			<h2>정근승</h2>
-			<p>대표이사</p>
-			<input type="button" value="로그아웃" class="btn"
-				onclick="location.href='login'">
-
-			<div class="profile_btn">
-				<input type="button" value="마이페이지" class="btn"> <input
-					type="button" value="관리자페이지" class="btn"
-					onclick="location.href='관리자'">
-			</div>
-		</div>
-
-		<div class="cal_kwon">
-			<div id="calendar"></div>
-			<script src="/mes/JavaScript/calendar_nomall.js"></script>
-		</div>
-
-		<h3>열어본 페이지 목록</h3>
-		<ul>
-			<li><a href="#가장최근에 열어본 페이지">재고관리</a></li>
-			<li><a href="#열어본 페이지">생산관리</a></li>
-		</ul>
-
-	</div>
-
+	<jsp:include page="/WEB-INF/topSide/topSide.jsp" />
 	<!--/////////////////////////////////////////////////////////////-->
 	<!-- 메인 영역의 큰 div ->이유는 body에 flex를 적용하여 -->
 	<div class="content">
-		<div class="menu">
-			<ul>
-				<!--상위 메뉴-->
-				<li class="menu-item"><a href="#">정보/BOM</a>
-					<div class="submenu">
-						<ul>
-							<!--하위메뉴-->
-							<li><a href="BOM">BOM</a></li>
-							<li class="manager"><a href="설비코드">설비코드</a></li>
-							<li><a href="조직도">조직도</a></li>
-							<li><a href="문서관리">BOM문서관리(양식서)</a></li>
-						</ul>
-					</div></li>
-				<li class="menu-item"><a href="#">재고관리</a>
-					<div class="submenu">
-						<ul>
-							<li><a href="자재관리">자재입출고(자재관리)</a></li>
-							<li class="manager"><a href="재고관리">재고관리</a></li>
-							<li><a href="저장위치">저장위치(MAP)</a></li>
-						</ul>
-					</div></li>
-
-				<li class="menu-item manager"><a href="#">품질관리</a>
-					<div class="submenu">
-						<ul>
-							<li><a href="시험항목_품질기준">제품별 시험항목/품질기준</a></li>
-							<li><a href="생산검사현황">생산검사현황</a></li>
-							<li><a href="검사현황">검사현황</a></li>
-						</ul>
-					</div></li>
-
-				<li class="menu-item"><a href="#">생산관리</a>
-					<div class="submenu">
-						<ul>
-							<li><a href="생산계획목록">생산계획목록</a></li>
-							<li><a href="작업지시서목록">작업지시목록</a></li>
-							<li><a href="생산실적">생산실적</a></li>
-						</ul>
-					</div></li>
-
-				<li class="menu-item manager"><a href="#">설비관리</a>
-					<div class="submenu">
-						<ul>
-							<li><a href="공정별설비관리">공정별설비관리/수리보고서</a></li>
-							<li><a href="설비고장_수리이력">설비고장/수리이력</a></li>
-							<li><a href="비가동이력">비가동이력</a></li>
-						</ul>
-					</div></li>
-			</ul>
-
-		</div>
 		<hr>
 		<!-- 메인메뉴 아레 정보가 표시될 영역 -->
 

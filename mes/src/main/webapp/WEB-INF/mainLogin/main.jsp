@@ -130,7 +130,7 @@
 			<div>
 				<!-- 게시판 -->
 				<h2>
-					<a href="게시판">공지사항(게시판)</a>
+					<a href="/mes/board">공지사항(게시판)</a>
 				</h2>
 				<button id="button1" class="btn">글쓰기</button>
 				<script>

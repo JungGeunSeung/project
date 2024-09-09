@@ -7,7 +7,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.Iterator"%>
 <%@ page import="java.sql.Date"%>
-<%@ page import="dto.UserDTO"%>
+<%@ page import="hong.material.dto.UserDTO"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
