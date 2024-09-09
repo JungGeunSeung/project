@@ -1,26 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/mes/CSS/table.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/mes/CSS/button.css">
 <link rel="stylesheet" href="/mes/CSS/calender.css">
 <link rel="stylesheet" href="/mes/CSS/common.css">
 <link rel="stylesheet" href="/mes/CSS/display.css">
-<link rel="stylesheet" href="/mes/CSS/mobile.css">
 <link rel="stylesheet" href="/mes/CSS/table.css">
 <link rel="stylesheet" href="/mes/CSS/게시판.css">
-<link rel="stylesheet" href="/mes/CSS/mobile.css">
-<link rel="stylesheet" href="/mes/CSS/equip.css"> <!-- 추가된 CSS 파일 링크 -->
-<title>설비관리 > 설비고장/수리이력 >  수정</title>
+<title>설비 수정</title>
 </head>
-
 <body>
-	<h1>설비 수정</h1>
-	<form method="post" action="Equip/update" onsubmit="return validateForm()">
-
+	<form method="post" action="updateEquipment"
+		onsubmit="return validateForm()">
 		<table class="tableID">
 			<thead>
 				<tr>
@@ -30,9 +30,13 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td><label for="equiID" >설비번호:</label></td>
-					<td><input type="text" id="equiID" name="equiID"
-						value="${equipment.equiID}" readonly ></td>
+					<td><label for="equiID">설비번호:</label></td>
+					<td>
+						<div>
+							<span>equi</span> <input type="text" id="equiID" name="equiID"
+								value="${equipment.equiID.substring(4)}" maxlength="3" readonly>
+						</div>
+					</td>
 				</tr>
 				<tr>
 					<td><label for="equiname">설비명:</label></td>
@@ -123,6 +127,13 @@
 			alert("데이터를 모두 입력해주세요.");
 			return false;
 		}
+
+		// equiID에 접두사 추가
+		if (!equiID.startsWith("equi")) {
+			equiID = "equi" + equiID.padStart(3, '0');
+			document.getElementById("equiID").value = equiID;
+		}
+
 		return true;
 	}
 </script>

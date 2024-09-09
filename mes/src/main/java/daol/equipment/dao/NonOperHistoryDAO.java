@@ -36,21 +36,21 @@ public class NonOperHistoryDAO {
 
     public List<NonOperHistoryDTO> getNonOperHistoryByPage(int pageSize, int pageNumber, String sortField, String sortOrder) {
         List<NonOperHistoryDTO> nonOperHistoryList = new ArrayList<>();
-        
-        // 수정된 SQL 쿼리
+
+        // 올바르게 수정된 SQL 쿼리
         String sql = "SELECT * FROM ( "
-                + "SELECT a.*, ROWNUM AS rnum FROM ( "
-                + "SELECT e.RESULTID, e.EQUIID, e.DOWNTIME_HISTORY, e.DOWN_REASON "
-                + "FROM equipmentusage e "
-                + "ORDER BY " + sortField + " " + sortOrder + ") a "
-                + "WHERE ROWNUM <= ? ) WHERE rnum >= ?";
+                   + "SELECT e.RESULTID, e.EQUIID, eq.EQUINAME, e.DOWNTIME_HISTORY, e.DOWN_REASON, ROWNUM rnum "
+                   + "FROM equipmentusage e "
+                   + "JOIN equipment eq ON e.EQUIID = eq.EQUIID "
+                   + "ORDER BY " + sortField + " " + sortOrder + " ) "
+                   + "WHERE rnum BETWEEN ? AND ?";
 
         try (Connection cnt = getConnection(); PreparedStatement ps = cnt.prepareStatement(sql)) {
             int endRow = pageNumber * pageSize;
             int startRow = endRow - pageSize + 1;
-
-            ps.setInt(1, endRow);  // 끝나는 행
-            ps.setInt(2, startRow);  // 시작 행
+            
+            ps.setInt(1, startRow);
+            ps.setInt(2, endRow);
 
             ResultSet rs = ps.executeQuery();
 
@@ -58,6 +58,7 @@ public class NonOperHistoryDAO {
                 NonOperHistoryDTO nonOperHistory = new NonOperHistoryDTO();
                 nonOperHistory.setResultID(rs.getString("RESULTID"));
                 nonOperHistory.setEquiID(rs.getString("EQUIID"));
+                nonOperHistory.setEquiName(rs.getString("EQUINAME"));  // 설비명 가져오기
                 nonOperHistory.setDowntimeHistory(rs.getString("DOWNTIME_HISTORY"));
                 nonOperHistory.setDownReason(rs.getString("DOWN_REASON"));
                 nonOperHistoryList.add(nonOperHistory);
@@ -68,11 +69,16 @@ public class NonOperHistoryDAO {
         return nonOperHistoryList;
     }
 
+
+
+    
+
+
     
 
     public String getDefaultResultID() {
         String resultID = null;
-        String sql = "SELECT MAX(RESULTID) AS RESULTID FROM equipmentusage";
+        String sql = "SELECT RESULTID FROM equipmentusage";
 
         try (Connection cnt = getConnection();
              PreparedStatement ps = cnt.prepareStatement(sql);
@@ -88,15 +94,15 @@ public class NonOperHistoryDAO {
     }
 
     public void addNonOperHistory(NonOperHistoryDTO nonOperHistory) {
-        String sql = "INSERT INTO equipmentusage (RESULTID, EQUIID, DOWNTIME_HISTORY, DOWN_REASON) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO equipmentusage (RESULTID, EQUIID, DOWNTIME_HISTORY, DOWN_REASON) "
+                   + "VALUES (equipmentusage_seq.NEXTVAL, ?, ?, ?)"; // 시퀀스로 resultID 자동 생성
 
         try (Connection cnt = getConnection();
              PreparedStatement ps = cnt.prepareStatement(sql)) {
 
-            ps.setString(1, nonOperHistory.getResultID());
-            ps.setString(2, nonOperHistory.getEquiID());
-            ps.setString(3, nonOperHistory.getDowntimeHistory());
-            ps.setString(4, nonOperHistory.getDownReason());
+            ps.setString(1, nonOperHistory.getEquiID());
+            ps.setString(2, nonOperHistory.getDowntimeHistory());
+            ps.setString(3, nonOperHistory.getDownReason());
             ps.executeUpdate();
 
         } catch (SQLException e) {

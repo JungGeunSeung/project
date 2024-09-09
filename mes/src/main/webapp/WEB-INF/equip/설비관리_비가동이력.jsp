@@ -59,7 +59,7 @@
 			</form>
 
 			<form method="post" action="/mes/equip/del">
-				<button type="button" class="btn" onclick="openAddWindow()">추가</button>
+				<button type="button" class="btn" onclick="openWindow()">추가</button>
 				<button onclick="delchk()" class="btn Lbtn">선택된 열 삭제</button>
 		</div>
 	</div>
@@ -101,9 +101,29 @@
 			</c:forEach>
 		</div>
 	</div>
-</body>
+	<script>
+	
+	function delchk() {
+		var checkboxes = document
+			.querySelectorAll('input[type="checkbox"]:checked');
+		if (checkboxes.length > 0) {
+			var equiID = checkboxes[0].value; // 첫 번째 체크된 항목의 ID를 가져옴
+			document.getElementById('deleteResultID').value = equiID;
+			document.forms[0].submit();
+		} else {
+			alert('삭제할 항목을 선택하세요.');
+		}
+	}
+
+	function openWindow() {
+		window.open('/mes/addNonOper', 'newwindow',
+			'width=600,height=400');
+	}
+</script>
+
 <script src="/mes/JavaScript/sort.js"></script>
 <script src="/mes/JavaScript/date.js"></script>
 <script src="/mes/JavaScript/button.js"></script>
+</body>
 
 </html>

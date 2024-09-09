@@ -5,6 +5,7 @@ public class NonOperHistoryDTO {
     private String downtimeHistory; // 비가동이력
     private String equiID; // 설비번호
     private String resultID; // 기준 컬럼
+    private String equiName; // 설비명
 
     // Getters and Setters
     public String getDownReason() {
@@ -38,4 +39,13 @@ public class NonOperHistoryDTO {
     public void setResultID(String resultID) {
         this.resultID = resultID;
     }
+
+    public String getEquiName() {
+        return equiName;
+    }
+
+    public void setEquiName(String equiName) {
+        this.equiName = equiName;
+    }
 }
+

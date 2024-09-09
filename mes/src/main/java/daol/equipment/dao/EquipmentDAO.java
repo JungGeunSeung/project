@@ -88,57 +88,84 @@ public class EquipmentDAO {
 	}
 
 	public void addEquipment(EquipmentDTO equipment) {
-		String sql = "INSERT INTO equipment (equiID, equiname, equitype, selldate, equiloc, status) VALUES (?, ?, ?, ?, ?, ?)";
-		String sqlMaintenance = "INSERT INTO maintenance (mainID, equiID, maindate, maincontent, manager) VALUES (?, ?, ?, ?, ?, ?)";
+	    String sql = "INSERT INTO equipment (equiID, equiname, equitype, selldate, equiloc, status) VALUES (?, ?, ?, ?, ?, ?)";
+	    String sqlMaintenance = "INSERT INTO maintenance (mainID, equiID, maindate, maincontent, manager) VALUES (?, ?, ?, ?, ?)";
 
-		try (Connection cnt = getConnection();
-				PreparedStatement ps = cnt.prepareStatement(sql);
-				PreparedStatement psMaintenance = cnt.prepareStatement(sqlMaintenance)) {
+	    try (Connection cnt = getConnection();
+	         PreparedStatement ps = cnt.prepareStatement(sql);
+	         PreparedStatement psMaintenance = cnt.prepareStatement(sqlMaintenance)) {
 
-			ps.setString(1, equipment.getEquiID());
-			ps.setString(2, equipment.getEquiname());
-			ps.setString(3, equipment.getEquitype());
-			ps.setDate(4, new java.sql.Date(equipment.getSelldate().getTime()));
-			ps.setString(5, equipment.getEquiloc());
-			ps.setString(6, equipment.getStatus());
-			ps.executeUpdate();
+	        // equipment 테이블에 삽입
+	        ps.setString(1, equipment.getEquiID());
+	        ps.setString(2, equipment.getEquiname());
+	        ps.setString(3, equipment.getEquitype());
+	        ps.setDate(4, new java.sql.Date(equipment.getSelldate().getTime()));
+	        ps.setString(5, equipment.getEquiloc());
+	        ps.setString(6, equipment.getStatus());
+	        ps.executeUpdate();
 
-			psMaintenance.setString(1, "main" + UUID.randomUUID().toString());
-			psMaintenance.setString(2, equipment.getEquiID());
-			psMaintenance.setDate(3, new java.sql.Date(equipment.getMaindate().getTime()));
-			psMaintenance.setString(4, equipment.getMaincontent());
-			psMaintenance.setString(5, equipment.getManager());
-			psMaintenance.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	        // maintenance 테이블에 삽입
+	        psMaintenance.setString(1, "main" + UUID.randomUUID().toString());
+	        psMaintenance.setString(2, equipment.getEquiID());
+	        psMaintenance.setDate(3, new java.sql.Date(equipment.getMaindate().getTime()));
+	        psMaintenance.setString(4, equipment.getMaincontent());
+	        psMaintenance.setString(5, equipment.getManager());
+	        psMaintenance.executeUpdate();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
+
 
 	public void updateEquipment(EquipmentDTO equipment) {
-		String sql = "UPDATE equipment SET equiname = ?, equitype = ?,selldate = ?,  equiloc = ?, status = ? WHERE equiID = ?";
-		String sqlMaintenance = "UPDATE maintenance SET maindate = ?, maincontent = ?, manager = ? WHERE equiID = ?";
+	    String sql = "UPDATE equipment SET equiname = ?, equitype = ?, selldate = ?, equiloc = ?, status = ? WHERE equiID = ?";
+	    String sqlMaintenance = "UPDATE maintenance SET maindate = ?, maincontent = ?, manager = ? WHERE equiID = ?";
 
-		try (Connection cnt = getConnection();
-				PreparedStatement ps = cnt.prepareStatement(sql);
-				PreparedStatement psMaintenance = cnt.prepareStatement(sqlMaintenance)) {
+	    Connection cnt = null;
 
-			ps.setString(1, equipment.getEquiname());
-			ps.setString(2, equipment.getEquitype());
-			ps.setDate(3, (Date) equipment.getSelldate());
-			ps.setString(4, equipment.getEquiloc());
-			ps.setString(5, equipment.getStatus());
-			ps.setString(6, equipment.getEquiID());
-			ps.executeUpdate();
+	    try {
+	        cnt = getConnection();
+	        cnt.setAutoCommit(false); // 트랜잭션 시작
 
-			psMaintenance.setDate(1, new java.sql.Date(equipment.getMaindate().getTime()));
-			psMaintenance.setString(2, equipment.getMaincontent());
-			psMaintenance.setString(3, equipment.getManager());
-			psMaintenance.setString(4, equipment.getEquiID());
-			psMaintenance.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	        try (PreparedStatement ps = cnt.prepareStatement(sql);
+	             PreparedStatement psMaintenance = cnt.prepareStatement(sqlMaintenance)) {
+
+	            // equipment 테이블 업데이트
+	            ps.setString(1, equipment.getEquiname());
+	            ps.setString(2, equipment.getEquitype());
+	            ps.setDate(3, new java.sql.Date(equipment.getSelldate().getTime()));
+	            ps.setString(4, equipment.getEquiloc());
+	            ps.setString(5, equipment.getStatus());
+	            ps.setString(6, equipment.getEquiID());
+	            ps.executeUpdate();
+
+	            // maintenance 테이블 업데이트
+	            psMaintenance.setDate(1, new java.sql.Date(equipment.getMaindate().getTime()));
+	            psMaintenance.setString(2, equipment.getMaincontent());
+	            psMaintenance.setString(3, equipment.getManager());
+	            psMaintenance.setString(4, equipment.getEquiID());
+	            psMaintenance.executeUpdate();
+
+	            cnt.commit(); // 트랜잭션 커밋
+	        } catch (SQLException e) {
+	            cnt.rollback(); // 오류 발생 시 롤백
+	            throw e;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        if (cnt != null) {
+	            try {
+	                cnt.setAutoCommit(true); // 자동 커밋 모드로 복원
+	                cnt.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
 	}
+
 
 	public void deleteEquipment(String equiID) {
 		String sql = "DELETE FROM equipment WHERE equiID = ?";
@@ -159,46 +186,45 @@ public class EquipmentDAO {
 	}
 
 	public List<EquipmentDTO> getEquipmentByDateRange(Date startDate, Date endDate) {
-		List<EquipmentDTO> equipmentList = new ArrayList<>();
-		String sql = "SELECT * FROM equipment e JOIN maintenance m ON e.equiID = m.equiID WHERE m.maindate BETWEEN ? AND ?";
+	    List<EquipmentDTO> equipmentList = new ArrayList<>();
+	    String sql = "SELECT e.equiID, e.equiname, e.equitype, e.selldate, e.equiloc, e.status, "
+	               + "m.maincontent, m.manager, m.maindate "
+	               + "FROM equipment e "
+	               + "LEFT JOIN maintenance m ON e.equiID = m.equiID "
+	               + "WHERE m.maindate BETWEEN ? AND ?";
 
-		try (Connection cnt = getConnection(); PreparedStatement ps = cnt.prepareStatement(sql)) {
+	    try (Connection cnt = getConnection(); PreparedStatement ps = cnt.prepareStatement(sql)) {
 
-			ps.setDate(1, startDate);
-			ps.setDate(2, endDate);
-			ResultSet rs = ps.executeQuery();
+	        ps.setDate(1, startDate);
+	        ps.setDate(2, endDate);
+	        ResultSet rs = ps.executeQuery();
 
-			while (rs.next()) {
-				EquipmentDTO equipment = new EquipmentDTO();
-				equipment.setEquiID(rs.getString("equiID"));
-				equipment.setEquiname(rs.getString("equiname"));
-				equipment.setEquitype(rs.getString("equitype"));
-				
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		        try {
-		            Date selldate = (Date) formatter.parse(rs.getString("selldate"));
-		            EquipmentDTO equipmentDTO = new EquipmentDTO();
-		            equipmentDTO.setSelldate(selldate);
-		        } catch (ParseException e) {
-		            e.printStackTrace();
-		        } 
-				
-				equipment.setEquiloc(rs.getString("equiloc"));
-				equipment.setStatus(rs.getString("Status"));
-				equipment.setMaincontent(rs.getString("maincontent"));
-				equipment.setManager(rs.getString("manager"));
-				equipment.setMaindate(rs.getDate("maindate"));
-				equipmentList.add(equipment);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return equipmentList;
+	        while (rs.next()) {
+	            EquipmentDTO equipment = new EquipmentDTO();
+	            equipment.setEquiID(rs.getString("equiID"));
+	            equipment.setEquiname(rs.getString("equiname"));
+	            equipment.setEquitype(rs.getString("equitype"));
+	            equipment.setSelldate(rs.getDate("selldate")); // 날짜를 직접 Date로 받음
+	            equipment.setEquiloc(rs.getString("equiloc"));
+	            equipment.setStatus(rs.getString("status"));
+	            equipment.setMaincontent(rs.getString("maincontent"));
+	            equipment.setManager(rs.getString("manager"));
+	            equipment.setMaindate(rs.getDate("maindate"));
+	            equipmentList.add(equipment);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return equipmentList;
 	}
+
 
 	public EquipmentDTO getEquipmentById(String equiID) {
 		EquipmentDTO equipment = null;
-		String sql = "SELECT * FROM equipment WHERE equiID = ?";
+		String sql = "SELECT e.equiID, e.equiname, e.equitype, e.selldate, e.equiloc, e.status, "
+				+ "m.maincontent, m.manager, m.maindate " // maintenance 테이블의 필요한 컬럼 추가
+				+ "FROM equipment e " + "JOIN maintenance m ON e.equiID = m.equiID " // equiID를 기준으로 조인
+				+ "WHERE e.equiID = ?";
 
 		try (Connection cnt = getConnection(); PreparedStatement pstmt = cnt.prepareStatement(sql)) {
 

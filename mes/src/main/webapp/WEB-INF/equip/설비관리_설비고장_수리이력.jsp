@@ -55,14 +55,12 @@
 				<input type="hidden" name="action" value="searchByDate">
 			</form>
 
-			<div class="flex-container">
 				<form method="post" action="Equip">
-					<button type="button" class="btn" onclick="openAddWindow()">추가</button>
+					<button type="button" class="btn" onclick="openWindow()">추가</button>
 					<button onclick="delchk()" class="btn Lbtn">선택된 열 삭제</button>
 				</form>
 			</div>
 		</div>
-	</div>
 	<div class="tableID">
 		<table>
 			<thead>
@@ -132,7 +130,7 @@
 			}
 		}
 
-		function openAddWindow() {
+		function openWindow() {
 			window.open('/mes/addEquipment', 'newwindow',
 				'width=600,height=400');
 		}
