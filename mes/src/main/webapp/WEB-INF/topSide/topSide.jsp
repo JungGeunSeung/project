@@ -88,9 +88,9 @@
 				<li class="menu-item"><a href="#">생산관리</a>
 					<div class="submenu">
 						<ul>
-							<li><a href="">생산계획목록</a></li>
-							<li><a href="">작업지시목록</a></li>
-							<li><a href="">생산실적</a></li>
+							<li><a href="/mes/production">생산계획목록</a></li>
+							<li><a href="/mes/task">작업지시목록</a></li>
+							<li><a href="/mes/productionresult">생산실적</a></li>
 							<li><a href="">생산실적보고서</a></li>
 						</ul>
 					</div></li>

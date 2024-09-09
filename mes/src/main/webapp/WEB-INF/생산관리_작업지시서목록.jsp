@@ -20,8 +20,11 @@
     <link rel="stylesheet" href="/mes/CSS/topbar.css">
     <link rel="stylesheet" href="/mes/CSS/게시판.css">
     <link rel="stylesheet" href="/mes/CSS/mobile.css">
-    
-    <title>소원을 들어주는 MES</title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>생산관리 > 작업지시서목록</title>
 </head>
 
 <body>
@@ -37,167 +40,151 @@
             </div>
             <!-- 게시물의 개수를 표시할 select -->
             <div class="cntdiv">
-                <span>게시물</span>
-                <select name="cnt" id="cnt" onchange="changePageSize()">
-                    <option value="10">10개씩</option>
-                    <option value="20">20개씩</option>
-                    <option value="30">30개씩</option>
-                    <option value="40">40개씩</option>
-                    <option value="50" selected>50개씩</option>
-                </select>
-                <div>
-                    <button onclick="delchk()" class="btn Lbtn">선택된 열 삭제</button>
-                    <span>날짜별 조회</span>
-                    <input type="date" id="startdate"> ~ <input type="date" id="enddate">
-                    <button class="btn">검색</button>
-                </div>
+<!--                 <span>게시물</span> -->
+<!--                 <select name="cnt" id="cnt" onchange="changePageSize()"> -->
+<!--                     <option value="10">10개씩</option> -->
+<!--                     <option value="20">20개씩</option> -->
+<!--                     <option value="30">30개씩</option> -->
+<!--                     <option value="40">40개씩</option> -->
+<!--                     <option value="50" selected>50개씩</option> -->
+<!--                 </select> -->
+<!--                 <div> -->
+<!--                     <button onclick="delchk()" class="btn Lbtn">선택된 열 삭제</button> -->
+<!--                     <span>날짜별 조회</span> -->
+<!--                     <input type="date" id="startdate"> ~ <input type="date" id="enddate"> -->
+<!--                     <button class="btn">검색</button> -->
+<!--                 </div> -->
 
             </div>
         </div>
 
         <!-- 해당 목록 -->
         <div class="tableID">
-            <table>
-                <thead>
-                    <tr>
-                        <th><input type="checkbox" id="allchk"></th>
-                        <th>번호</th>
-                        <th>작업명</th>
-                        <th>시작일</th>
-                        <th>완료일</th>
-                        <th>상태</th>
-                        <th>담당자</th>
-                        <th>승인자</th>
-                        <th>비고</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>1</td>
-                        <td>PVC 파이프 제작</td>
-                        <td>2024-07-01</td>
-                        <td>2024-07-05</td>
-                        <td>완료</td>
-                        <td>박경민</td>
-                        <td>정근승</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>2</td>
-                        <td>T형 조인트 제작</td>
-                        <td>2024-07-06</td>
-                        <td>2024-07-10</td>
-                        <td>진행중</td>
-                        <td>김승환</td>
-                        <td>권대호</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>3</td>
-                        <td>90도 엘보 제작</td>
-                        <td>2024-07-11</td>
-                        <td>2024-07-15</td>
-                        <td>대기</td>
-                        <td>최영준</td>
-                        <td>김소원</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>4</td>
-                        <td>소켓 제작</td>
-                        <td>2024-07-16</td>
-                        <td>2024-07-20</td>
-                        <td>진행중</td>
-                        <td>서수찬</td>
-                        <td>정다올</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>5</td>
-                        <td>레듀샤 제작</td>
-                        <td>2024-07-21</td>
-                        <td>2024-07-25</td>
-                        <td>완료</td>
-                        <td>조민정</td>
-                        <td>정근승</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>6</td>
-                        <td>이경T 제작</td>
-                        <td>2024-07-26</td>
-                        <td>2024-07-30</td>
-                        <td>대기</td>
-                        <td>김수현</td>
-                        <td>권대호</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>7</td>
-                        <td>파이프 엔드 제작</td>
-                        <td>2024-08-01</td>
-                        <td>2024-08-05</td>
-                        <td>진행중</td>
-                        <td>강희연</td>
-                        <td>김소원</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>8</td>
-                        <td>발수소켓(암) 제작</td>
-                        <td>2024-08-06</td>
-                        <td>2024-08-10</td>
-                        <td>완료</td>
-                        <td>김진홍</td>
-                        <td>정다올</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>9</td>
-                        <td>발수소켓(수) 제작</td>
-                        <td>2024-08-11</td>
-                        <td>2024-08-15</td>
-                        <td>대기</td>
-                        <td>김소원</td>
-                        <td>정근승</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="tablechk"></td>
-                        <td>10</td>
-                        <td>테핑티 제작</td>
-                        <td>2024-08-16</td>
-                        <td>2024-08-20</td>
-                        <td>진행중</td>
-                        <td>권대호</td>
-                        <td>권대호</td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+            
+            <h1>Task List</h1>
+    <table border="1" class="table">
+        <tr>
+            <th>Task ID</th>
+            <th>Plan ID</th>
+            <th>Production ID</th>
+            <th>Required</th>
+            <th>Used</th>
+            <th>Status</th>
+            <th>Content</th>
+            <th>Actions</th>
+        </tr>
+        <c:forEach var="task" items="${tasks}">
+            <tr>
+                <td>${task.taskID}</td>
+                <td>${task.planID}</td>
+                <td>${task.productionID}</td>
+                <td>${task.required}</td>
+                <td>${task.used}</td>
+                <td>${task.taskStatus}</td>
+                <td>${task.taskContent}</td>
+                <td>
+                    <!-- Edit 버튼을 클릭하면 모달 창을 엽니다 -->
+                    <button type="button" class="btn btn-primary" onclick="editTask('${task.taskID}')">
+                        Edit
+                    </button>
+                    |
+                    <a href="task?action=delete&taskID=${task.taskID}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
 
-        </div>
-        <hr>
-        <div class="pagenum">
-            <a id="a1" href="">1</a>
-            <a href="">2</a>
-            <a href="">3</a>
-            <a href="">4</a>
-            <a href="">5</a>
-            <a href="">6</a>
-            <a href="">7</a>
-        </div>
+    <!-- New Task 버튼 -->
+    <button type="button" class="btn btn-success" onclick="openModal()">Create New Task</button>
 
+    <!-- 모달 창 -->
+    <div class="modal" id="taskModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- 모달 헤더 -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Task Form</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- 모달 본문 -->
+                <div class="modal-body">
+                    <form id="taskForm">
+                        <input type="hidden" name="taskID" id="taskID">
+                        <input type="hidden" name="action" id="action" value="create">
+                        Plan ID: <input type="text" name="planID" id="planID" class="form-control"><br>
+                        Production ID: <input type="text" name="productionID" id="productionID" class="form-control"><br>
+                        Required: <input type="number" name="required" id="required" class="form-control"><br>
+                        Used: <input type="number" name="used" id="used" class="form-control"><br>
+                        Status: <input type="text" name="taskStatus" id="taskStatus" class="form-control"><br>
+                        Content: <input type="text" name="taskContent" id="taskContent" class="form-control"><br>
+                    </form>
+                </div>
+
+                <!-- 모달 푸터 -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="saveTask()">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
     </div>
+
+    <!-- 스크립트 -->
+    <script>
+        // Task 정보를 서버에서 가져와서 모달 창에 표시
+        function editTask(taskID) {
+            $.ajax({
+                url: "task?action=getTask",
+                type: "GET",
+                data: { taskID: taskID },
+                success: function(data) {
+                    // 서버로부터 데이터를 받아서 모달에 채워 넣음
+                    $('#taskID').val(data.taskID);
+                    $('#planID').val(data.planID);
+                    $('#productionID').val(data.productionID);
+                    $('#required').val(data.required);
+                    $('#used').val(data.used);
+                    $('#taskStatus').val(data.taskStatus);
+                    $('#taskContent').val(data.taskContent);
+                    $('#action').val('update');
+
+                    // 모달을 염
+                    $('#taskModal').modal('show');
+                }
+            });
+        }
+
+        // Create New Task 모달 열기
+        function openModal() {
+            // 모달 폼을 초기화
+            $('#taskForm')[0].reset();
+            $('#action').val('create');
+            $('#taskModal').modal('show');
+        }
+
+        // Task 저장 (Create/Update)
+        function saveTask() {
+            $.ajax({
+                url: "task",
+                type: "POST",
+                data: $('#taskForm').serialize(),
+                success: function(response) {
+                    // 저장 후 페이지 새로고침
+                    window.location.reload();
+                }
+            });
+        }
+    </script>
+            
+
+    
+    
+    
+    
+    
 
 </body>
 <script src="/mes/JavaScript/sort.js"></script>

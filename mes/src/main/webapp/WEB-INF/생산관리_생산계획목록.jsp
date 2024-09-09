@@ -4,6 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.Map"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,245 +23,251 @@
     <link rel="stylesheet" href="/mes/CSS/topbar.css">
     <link rel="stylesheet" href="/mes/CSS/게시판.css">
     <link rel="stylesheet" href="/mes/CSS/mobile.css">
-    
-    <title>소원을 들어주는 MES</title>
+    <script src="/mes/JavaScript/load_info.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>생산관리 > 생산계획목록</title>
 </head>
 
 <body>
-   <!-- 카테고리바와 사이드바 동시 jsp -->
-	<jsp:include page="/WEB-INF/topSide/topSide.jsp" />
-        <!-- 메인메뉴 아래 정보가 표시될 영역 -->
+  <jsp:include page="/WEB-INF/topSide/topSide.jsp" />
+  
+  
+   <!-- 모달 시작 -->
+  <!-- 추가 및 수정 모달 -->
+  <div class="modal fade" id="planModal" tabindex="-1" role="dialog" aria-labelledby="planModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="planModalLabel">생산 계획</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="planForm" action="/production" method="post">
+            <input type="hidden" id="actionType" name="action" value="add"> action에 따라 add/update
+            <input type="hidden" id="planid" name="planid"> planid는 수정 시 필요
+
+            <div class="form-group">
+              <label for="production_id">제품 ID:</label>
+              <input type="text" class="form-control" id="production_id" name="production_id" required>
+            </div>
+
+            <div class="form-group">
+              <label for="plannedQuan">계획 수량:</label>
+              <input type="number" class="form-control" id="plannedQuan" name="plannedQuan" required>
+            </div>
+
+            <div class="form-group">
+              <label for="startDate">계획 시작일:</label>
+              <input type="date" class="form-control" id="startDate" name="startDate" required>
+            </div>
+
+            <div class="form-group">
+              <label for="endDate">계획 종료일:</label>
+              <input type="date" class="form-control" id="endDate" name="endDate" required>
+            </div>
+
+            <div class="form-group">
+              <label for="status">상태:</label>
+              <input type="text" class="form-control" id="status" name="status" required>
+            </div>
+
+            <div class="form-group">
+              <label for="userid">사원 ID:</label>
+              <input type="text" class="form-control" id="userid" name="userid" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+          <button type="button" class="btn btn-primary" id="savePlanBtn">저장</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 모달 끝 -->
+  
+  
+  
+  
+        <!-- 메인메뉴 아레 정보가 표시될 영역 -->
         <div class="searchID">
             <!-- 해당 페이지의 제목 -->
             <h1>생산계획 목록</h1>
             <!-- 해당 페이지의 설명 -->
             <div class="subhead">
-                <span>생산계획서를 한번에 조회하는 페이지입니다.</span> <br>
-            </div>
-            <!-- 게시물의 개수를 표시할 select -->
-             <div class="cntdiv">
-                <span>게시물</span>
-                 <select name="cnt" id="cnt" onchange="changePageSize()">
-                    <option value="10">10개씩</option>
-                    <option value="20">20개씩</option>
-                    <option value="30">30개씩</option>
-                    <option value="40">40개씩</option>
-                    <option value="50" selected>50개씩</option>
-                </select>
-                <div>
-                    <button onclick="delchk()" class="btn Lbtn">선택된 열 삭제</button>
-                    <span>날짜별 조회</span>
-                    <input type="date" id="startdate"> ~ <input type="date" id="enddate">
-                    <button class="btn">검색</button>
-                </div> 
+<!--             </div> -->
+<!--             게시물의 개수를 표시할 select -->
+<!--              <div class="cntdiv"> -->
+<!--                 <span>게시물</span>x -->
+<!--                  <select name="cnt" id="cnt" onchange="changePageSize()"> -->
+<!--                     <option value="10">10개씩</option> -->
+<!--                     <option value="20">20개씩</option> -->
+<!--                     <option value="30">30개씩</option> -->
+<!--                     <option value="40">40개씩</option> -->
+<!--                     <option value="50" selected>50개씩</option> -->
+<!--                 </select> -->
+<!--                 <div> -->
+<!--                     <button onclick="delchk()" class="btn Lbtn">선택된 열 삭제</button> -->
+<!--                     <span>날짜별 조회</span> -->
+<!--                     <input type="date" id="startdate"> ~ <input type="date" id="enddate"> -->
+<!--                     <button class="btn">검색</button> -->
+<!--                 </div>  -->
 
-            </div>
-        </div>
+<!--             </div> -->
+<!--         </div> -->
 
         <!-- 해당 목록 -->
         <div class="tableID">
-            <table>
-                <thead>
-                <tr>
-                    <th><input type="checkbox" id="allchk"></th>
-                    <th>순위</th>
-                    <th>계획날짜</th>
-                    <th>제품명</th>
-                    <th>원료</th>
-                    <th>현 재고</th>
-                    <th>계획 수량</th>
-                    <th>단가</th>
-                    <th>발주처</th>
-                    <th>작업위치</th>
-                    <th>작성자</th>
-                    <th>승인자</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>1</td>
-                    <td>24.07.31</td>
-                    <td>EF 63mm Soket</td>
-                    <td>E839123</td>
-                    <td>1,603</td>
-                    <td>5,000</td>
-                    <td>32,000</td>
-                    <td>(주)휴먼</td>
-                    <td>12호기,13호기,14호기</td>
-                    <td>정다올</td>
-                    <td><a href="">정근승</a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>1</td>
-                    <td>24.07.31</td>
-                    <td>EF 63mm Soket</td>
-                    <td>E839123</td>
-                    <td>1,603</td>
-                    <td>5,000</td>
-                    <td>32,000</td>
-                    <td>(주)휴먼</td>
-                    <td>12호기,13호기,14호기</td>
-                    <td>정다올</td>
-                    <td><a href="">정근승</a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>1</td>
-                    <td>24.07.31</td>
-                    <td>EF 63mm Socket</td>
-                    <td>E839123</td>
-                    <td>1,603</td>
-                    <td>5,000</td>
-                    <td>32,000</td>
-                    <td>(주)휴먼</td>
-                    <td>12호기, 13호기</td>
-                    <td>정다올</td>
-                    <td><a href="">정근승</a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>3</td>
-                    <td>24.07.31</td>
-                    <td>EF 63mm Socket</td>
-                    <td>E839123</td>
-                    <td>1,603</td>
-                    <td>5,000</td>
-                    <td>32,000</td>
-                    <td>(주)휴먼</td>
-                    <td>11호기, 12호기</td>
-                    <td>정다올</td>
-                    <td><a href="">정근승</a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>3</td>
-                    <td>24.07.31</td>
-                    <td>EF 63mm Socket</td>
-                    <td>E839123</td>
-                    <td>1,603</td>
-                    <td>5,000</td>
-                    <td>32,000</td>
-                    <td>(주)휴먼</td>
-                    <td>10호기, 13호기</td>
-                    <td>정다올</td>
-                    <td><a href="">정근승</a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>1</td>
-                    <td>24.07.31</td>
-                    <td>EF 63mm Socket</td>
-                    <td>E839123</td>
-                    <td>1,603</td>
-                    <td>5,000</td>
-                    <td>32,000</td>
-                    <td>(주)휴먼</td>
-                    <td>12호기, 14호기</td>
-                    <td>정다올</td>
-                    <td><a href="">정근승</a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>1</td>
-                    <td>24.07.31</td>
-                    <td>EF 32mm Socket</td>
-                    <td>E839124</td>
-                    <td>1,200</td>
-                    <td>4,000</td>
-                    <td>30,000</td>
-                    <td>(주)휴먼</td>
-                    <td>1호기, 2호기</td>
-                    <td>박경민</td>
-                    <td><a href="">정다올</a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>2</td>
-                    <td>24.08.01</td>
-                    <td>EF 45° Elbow 50mm</td>
-                    <td>E839125</td>
-                    <td>900</td>
-                    <td>3,000</td>
-                    <td>28,000</td>
-                    <td>(주)하나</td>
-                    <td>3호기, 4호기</td>
-                    <td>최영준</td>
-                    <td><a href="">김소원</a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>2</td>
-                    <td>24.08.02</td>
-                    <td>EF 90° Elbow 75mm</td>
-                    <td>E839126</td>
-                    <td>600</td>
-                    <td>2,500</td>
-                    <td>35,000</td>
-                    <td>(주)국제</td>
-                    <td>5호기, 6호기</td>
-                    <td>서수찬</td>
-                    <td><a href="">권대호</a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>3</td>
-                    <td>24.08.03</td>
-                    <td>EF 110mm Pipe</td>
-                    <td>E839127</td>
-                    <td>1,500</td>
-                    <td>6,000</td>
-                    <td>40,000</td>
-                    <td>(주)대한</td>
-                    <td>7호기, 8호기</td>
-                    <td>김승환</td>
-                    <td><a href="">정근승</a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>2</td>
-                    <td>24.08.04</td>
-                    <td>EF 140mm End Cap</td>
-                    <td>E839128</td>
-                    <td>700</td>
-                    <td>2,000</td>
-                    <td>50,000</td>
-                    <td>(주)휴먼</td>
-                    <td>9호기, 10호기</td>
-                    <td>조민정</td>
-                    <td><a href="">김소원</a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" id="tablechk"></td>
-                    <td>4</td>
-                    <td>24.08.05</td>
-                    <td>EF 160mm Pipe</td>
-                    <td>E839129</td>
-                    <td>800</td>
-                    <td>3,500</td>
-                    <td>55,000</td>
-                    <td>(주)하나</td>
-                    <td>11호기, 12호기</td>
-                    <td>김성령</td>
-                    <td><a href="">정다올</a></td>
-                </tr>
-            </tbody>
-            </table>
-        </div>
-        <hr>
-        <div class="pagenum">
-            <a id="a1" href="">1</a>
-            <a href="">2</a>
-            <a href="">3</a>
-            <a href="">4</a>
-            <a href="">5</a>
-            <a href="">6</a>
-            <a href="">7</a>
-        </div>
+                <span>생산계획서를 한번에 조회하는 페이지입니다.</span> <br>
+    <button type="button" class="btn btn-primary" id="addPlanBtn">새 계획 추가</button>
+    <table>
+        <tr>
+        <th><input type="checkbox" id="allchk"></th>
+            <th>번호</th>
+            <th>계획id</th>
+            <th>제품id</th>
+            <th>계획 수량</th>
+            <th>계획 시작일</th>
+            <th>계획 종료일</th>
+            <th>상태</th>
+            <th>사원id</th>
+             <th>작업</th>
+        </tr>
 
-    </div>
+        <c:if test="${not empty map.list}">
+            <c:forEach var="plan" items="${map.list}">
+                <tr>
+                <td><input type="checkbox" id="tablechk"></td>
+                    <td>${plan.rnum}</td>
+                    <td>${plan.planid}</td>
+                    <td>${plan.production_id}</td>
+                    <td>${plan.plannedQuan}</td>
+                    <td>${plan.startDate}</td>
+                    <td>${plan.endDate}</td>
+                    <td>${plan.status}</td>
+                    <td>${plan.userid}</td>
+                     <td>
+                            <!-- 수정 버튼 클릭 시 모달이 열리고 해당 plan의 정보가 자동으로 입력 -->
+                    <button type="button" class="btn btn-warning editPlanBtn" data-planid="${plan.planid}">수정</button>
+                            <!-- 삭제 버튼 클릭 시 해당 plan을 삭제하는 링크로 이동 -->
+							<a href="?action=delete&planid=${plan.planid}" class="btn btn-danger">삭제</a>
+                        </td>
+                </tr>
+            </c:forEach>
+            
+            </div>
+            <!-- 만약 map.list가 비어있다면 "자료가 없습니다."라는 메시지를 표시 -->
+            <c:if test="${empty map.list}">
+                <tr>
+                    <td colspan="9">자료가 없습니다.</td>
+                </tr>
+            </c:if>
+            
+        </c:if>
 
+            <c:if test="${empty map.list }">
+			    <c:forEach var="plan" items="${map.list}">
+				    <tr colspen="5">
+					<td>자료가 없습니다.</td>
+				    </tr>
+			    </c:forEach>
+            </c:if>
+    </table>
+
+    <%
+	Map map = (Map) request.getAttribute("map");
+	int totalCount = (int) map.get("totalCount");
+
+	String str_countPerPage = (String) request.getAttribute("countPerPage");
+	int countPerPage = Integer.parseInt(str_countPerPage);
+
+	String str_pageNo = (String) request.getAttribute("page");
+	int pageNo = Integer.parseInt(str_pageNo);
+
+	int lastPage = (int) Math.ceil((double) totalCount / countPerPage);
+
+	int countPerSection = 3; //한번에 보여줄 페이지 개수
+	//페이지 섹션 위치(몇번째 덩어리 인가)
+	int position = (int) Math.ceil((double) pageNo / countPerSection);
+	int sec_first = ((position - 1) * countPerSection) + 1;
+	int sec_last = (position) * countPerSection;
+
+	if (sec_last > lastPage) {
+		sec_last = lastPage;
+	}
+	%>
+
+
+	<c:set var="lastPage2" value="<%=lastPage%>" scope="page" />
+
+	<c:if test="<%=sec_first == 1%>">이전</c:if>
+	<c:if test="<%=sec_first != 1%>">
+		<a href="?page=<%=sec_first - 1%>">이전</a>
+	</c:if>
+
+	<%-- <c:forEach var="i" begin="1" end="${lastPage2 }"> --%>
+	<c:forEach var="i" begin="<%=sec_first%>" end="<%=sec_last%>">
+		<c:choose>
+			<c:when test="${page !=i }">
+	[<a href="?page=${i }">${i }</a>]
+	</c:when>
+			<c:otherwise>
+	[<a href="?page=${i }"><strong>${i }</strong></a>]
+	</c:otherwise>
+		</c:choose>
+	</c:forEach>
+
+
+	<c:if test="<%=sec_last == lastPage%>">다음</c:if>
+	<c:if test="<%=sec_last != lastPage%>">
+		<a href="?page=<%=sec_last + 1%>">다음</a>
+	</c:if>
+	
+ 	<script> 
+     // "새 계획 추가" 버튼 클릭 시 모달 열기
+     document.getElementById('addPlanBtn').addEventListener('click', function() {
+       document.getElementById('planForm').reset();  // 폼 초기화
+       document.getElementById('actionType').value = 'add';  // action을 추가로 설정
+       $('#planModal').modal('show');  // 모달 열기
+     });
+
+     // "수정" 버튼 클릭 시 모달 열기
+     document.querySelectorAll('.editPlanBtn').forEach(button => {
+       button.addEventListener('click', function() {
+         const planId = this.dataset.planid;
+        // Ajax를 사용해 서버로부터 해당 plan 데이터를 받아옴
+         $.ajax({
+           url: '/production?action=getPlanById', // 수정할 생산 계획 정보를 가져오는 API
+           method: 'GET',
+           data: { planid: planId },
+           success: function(plan) {
+             // 받아온 데이터를 폼에 채워넣음
+             document.getElementById('planid').value = plan.planid;
+             document.getElementById('production_id').value = plan.production_id;
+             document.getElementById('plannedQuan').value = plan.plannedQuan;
+             document.getElementById('startDate').value = plan.startDate;
+             document.getElementById('endDate').value = plan.endDate;
+             document.getElementById('status').value = plan.status;
+             document.getElementById('userid').value = plan.userid;
+
+             document.getElementById('actionType').value = 'edit';  // action을 수정으로 설정
+             $('#planModal').modal('show');  // 모달 열기
+           }
+         });
+      });
+     });
+
+     // "저장" 버튼 클릭 시 폼 제출
+     document.getElementById('savePlanBtn').addEventListener('click', function() {
+       document.getElementById('planForm').submit();  // 폼을 제출하여 추가 또는 수정 동작 수행
+     });
+     </script>
+
+ 
 </body>
     <script src="/mes/JavaScript/sort.js"></script>
     <script src="/mes/JavaScript/date.js"></script>
