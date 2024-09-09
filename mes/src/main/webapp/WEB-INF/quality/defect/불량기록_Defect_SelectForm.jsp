@@ -2,16 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html>
-<html>
 
-<head>
-	<meta charset="UTF-8">
-	<title>품질관리/불량기록> SelectForm코드</title>
-	<link rel="stylesheet" href="/mes/CSS/button.css">
-</head>
 
-<body>
 	<!-- 게시물의 개수를 표시하는 if문을 만들어 JSP로 따로 빼서 jsp:include 함 -->
 	<div class="cntdiv">
 		<span>게시물</span>
@@ -67,6 +59,3 @@
 			</select>
 		</form>
 	</div>
-</body>
-
-</html>

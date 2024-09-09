@@ -19,7 +19,7 @@
 	<link rel="stylesheet" href="/mes/CSS/게시판.css">
 	<link rel="stylesheet" href="/mes/CSS/mobile.css">
 	
-	<title>품질관리/줌질기준 > Search코드</title>
+	<title>품질관리 > 품질기준 > 검색</title>
 </head>
 
 <body>

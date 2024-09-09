@@ -64,7 +64,7 @@ public class QualityModityController extends HttpServlet {
 		String result = request.getParameter("result");
 		String defect_count = request.getParameter("defect_count");
 		String defect_cause = request.getParameter("defect_cause");
-		String resultid = request.getParameter("resultid");
+		String resultid = request.getParameter("resultID");
 		String taskid = request.getParameter("taskid");
 		LocalDate parsedInsDate = null;
 		

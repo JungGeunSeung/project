@@ -7,7 +7,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>품질관리/생산검사현황> SelectForm코드</title>
 <link rel="stylesheet" href="/mes/CSS/button.css">
 </head>
 <body>

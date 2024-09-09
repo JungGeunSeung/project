@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>품질관리/불량기록> Read코드</title>
+    <title>품질관리/불량기록> 검색</title>
 </head>
 
 <body>

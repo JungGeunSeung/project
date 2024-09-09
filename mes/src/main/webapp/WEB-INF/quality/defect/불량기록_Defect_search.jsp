@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/mes/CSS/게시판.css">
     <link rel="stylesheet" href="/mes/CSS/mobile.css">
     
-    <title>품질관리/불량기록> Search코드</title>
+    <title>품질관리/불량기록> 검색</title>
 </head>
 
 <body>

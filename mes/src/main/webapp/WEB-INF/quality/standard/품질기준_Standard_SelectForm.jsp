@@ -7,7 +7,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>품질관리/줌질기준 > SelectForm코드</title>
+	<title>품질관리 > 품질기준 >페이지</title>
 	<link rel="stylesheet" href="/mes/CSS/button.css">
 </head>
 

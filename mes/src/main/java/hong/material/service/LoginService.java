@@ -8,7 +8,7 @@ public class LoginService {
 	public UserDTO login(String id,String pw) {
 		UserDAO dao = new UserDAO();
 		UserDTO dto = dao.findUserById(id);
-		
+		System.out.println(dto);
 		if(dto != null && dto.getPw().equals(pw)) {
 			return dto;
 		}

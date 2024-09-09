@@ -7,7 +7,7 @@
 
 <head>
     <meta charset="UTF-8">
-	<title>품질관리/생산검사현황> Read코드</title>
+	<title>품질관리 > 생산검사현황> 검색</title>
 </head>
 
 <body>

@@ -23,9 +23,10 @@ public class LoginController extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-		
+		System.out.println(id +", " + pw);
 		LoginService service = new LoginService();
 		UserDTO dto = service.login(id, pw);
 		System.out.println("dto : " + dto);

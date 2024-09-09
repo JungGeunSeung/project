@@ -7,7 +7,7 @@
 
 <head>
     <meta charset="UTF-8">
-	<title>품질관리/줌질기준 > Read코드</title>
+	<title>품질관리 > 품질기준 > 검색 </title>
 </head>
 
 <body>

@@ -21,8 +21,10 @@
 <link rel="stylesheet" href="/mes/CSS/topbar.css">
 <link rel="stylesheet" href="/mes/CSS/게시판.css">
 <link rel="stylesheet" href="/mes/CSS/mobile.css">
+<link rel="stylesheet" href="/mes/CSS/Qualitymodal.css">
 
-<title>품질관리/생산검사현황> Quality코드</title>
+
+<title>품질관리 생산검사현황</title>
 <link rel="stylesheet" href="button.css">
 <style>
 .modal {
@@ -59,6 +61,13 @@
 	text-decoration: none;
 	cursor: pointer;
 }
+#modiA {
+	color: rgb(0, 51, 102);
+	background-color: rgb(173, 216, 230);
+	padding: 1px 5px;
+	border-radius: 4px;
+	border: 1px solid rgb(173, 216, 225);
+}
 </style>
 </head>
 
@@ -83,7 +92,7 @@
 		<div>
 			<form method="get" action="list">
 				<span>상품코드로 검색</span> <input type="text" name="production_id"
-					placeholder="상품코드를 입력하세요."> <input type="submit" value="검색"
+					placeholder=" "> <input type="submit" value="검색"
 					class="btn">
 			</form>
 			<button class="newbtn" onclick="add()">새로 작성</button>
@@ -120,7 +129,56 @@
          </form>
       </div>
    </div>
-
+	<!-- 		모달창 -->
+	<div class="quality_modal">
+		<div class="quality_modal_body">
+			<form id="modalForm" method="post" action="/mes/quality/modify">
+				<table id="modalTable">
+					<tr>
+						<td>품질검사 ID</td>
+						<td><span id="ins_id"></span><input type="hidden" name="ins_id"
+								id="input_ins_id"></td>
+					</tr>
+					<tr>
+						<td>제품 ID </td>
+						<td><input type="text" name="production_id" id="production_id">
+						</td>
+					</tr>
+					<tr>
+						<td>계획 ID</td>
+						<td><input type="text" name="planid" id="planid"></td>
+					</tr>
+					<tr>
+						<td>검사 날짜</td>
+						<td><input type="date" name="ins_date" id="ins_date"></td>
+					</tr>
+					<tr>
+						<td>결과</td>
+						<td><input type="text" name="result" id="result"></td>
+					</tr>
+					<tr>
+						<td>불량 원인</td>
+						<td><input type="text" name="defect_cause" id="defect_cause"></td>
+					</tr>
+					<tr>
+						<td>불량 개수</td>
+						<td><input type="number" name="defect_count" id="defect_count"></td>
+					</tr>
+					<tr>
+						<td>결과 ID</td>
+						<td><input type="text" name="resultID" id="resultID"></td>
+					</tr>
+					<tr>
+						<td>작업 ID</td>
+						<td><input type="text" name="taskid" id="taskid"></td>
+					</tr>
+				</table>
+			</form>
+			<div class="modifyModal" onclick="modifySubmit()">수정하기</div>
+			<div class="closeModal">닫기</div>
+		</div>
+	</div>
+	
 	<!-- 해당 목록 -->
 	<div class="tableID">
 		<table>
@@ -159,22 +217,9 @@
 						<td>${ quality.defect_cause }</td>
 						<td>${ quality.resultID }</td>
 						<td>${ quality.taskid }</td>
-						<c:url var="modify" value="/quality/modify">
-							<c:param name="ins_id" value="${ quality.ins_id }" />
-							<c:param name="production_id" value="${ quality.production_id }" />
-							<c:param name="planid" value="${ quality.planid }" />
-							<c:param name="ins_date" value="${ quality.ins_date }" />
-							<c:param name="result" value="${ quality.result }" />
-							<c:param name="defect_count" value="${ quality.defect_count }" />
-							<c:param name="defect_cause" value="${ quality.defect_cause }" />
-							<c:param name="resultid" value="${ quality.resultID }" />
-							<c:param name="taskid" value="${ quality.taskid }" />
-						</c:url>
-						<c:url var="delete" value="/quality/delete">
-							<c:param name="ins_id" value="${ quality.ins_id }" />
-						</c:url>
-						<td class="modifyTD"><a href="${ modify }" id="modiA">수정</a>
-						</td>
+					
+						<td><button class="quality_modal_btn">수정</button></td>
+						
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -225,26 +270,20 @@
 <script>
 var modal = document.getElementById("addRowModal");
 
-// Get the button that opens the modal
-//var addButton = document.querySelector("button[onclick='addRow()']");
 var addButton = document.querySelector("button[onclick='add()']");
 
-// Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks on the button, open the modal
 addButton.onclick = function() {
 	modal.style.display = "block";
 }
 
-// When the user clicks on <span> (x), close the modal
 span.onclick = function() {
 	var form = document.getElementById("addRowForm");
 	modal.style.display = "none";
 	form.reset();
 }
 
-// When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
 	if (event.target == modal) {
 		var form = document.getElementById("addRowForm");
@@ -256,7 +295,6 @@ function add() {
 	modal.style.display = "block";
 }
 
-//When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
  if (event.target == modal) {
      var form = document.getElementById("addRowForm");
@@ -265,7 +303,6 @@ window.onclick = function(event) {
  }
 }
 
-//Function to show the modal
 function add() {
  modal.style.display = "block";
 }
@@ -273,28 +310,24 @@ function delchk() {
 	let selectchk = document.querySelectorAll('.selectchk');
 	let quIDs = [];
 
-	// 체크된 체크박스에 대한 docID 수집
 	for (let checkbox of selectchk) {
 		if (checkbox.checked) {
-			let row = checkbox.closest('tr');  // 체크박스가 포함된 <tr> 찾기
-			let quID = row.querySelector('#quID');  // 해당 <tr> 내의 #docID 요소 찾기
+			let row = checkbox.closest('tr');  
+			let quID = row.querySelector('#quID'); 
 			if (quID) {
-				quIDs.push(quID.textContent);  // docID 값을 배열에 추가
+				quIDs.push(quID.textContent);  
 			}
 		}
 	}
-	// docID 값들을 쉼표로 구분된 문자열로 서블릿에 전송
 	if (quIDs.length > 0) {
 		let xhr = new XMLHttpRequest();
-		xhr.open("POST", "/mes/quality/deleteSelect", true);  // 서블릿 URL로 POST 요청
+		xhr.open("POST", "/mes/quality/deleteSelect", true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-		// 데이터를 쉼표로 구분된 문자열 형식으로 전송
 		xhr.send("quIDs=" + encodeURIComponent(quIDs.join(',')));
 
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState === 4 && xhr.status === 200) {
-				// 서버 응답을 처리하는 부분 (성공시)
 				console.log("서버로부터 응답:", xhr.responseText);
 			}
 		};
@@ -304,10 +337,50 @@ function delchk() {
 
 	window.location.href = "/mes/quality/list";
 }
+
+	const modal1 = document.querySelector('.quality_modal');
+	const btns = document.querySelectorAll('.quality_modal_btn');
+	const closeModal = document.querySelector('.closeModal');
+
+	// 모든 수정 버튼에 클릭 이벤트 리스너 추가
+	btns.forEach(function (btn) {
+		btn.addEventListener("click", function () {
+			const tr = btn.closest('tr');
+			const tds = tr.querySelectorAll('td');
+			console.log(tds);
+			document.getElementById('input_ins_id').value = tds[1].textContent.trim();
+			document.getElementById('ins_id').textContent = tds[1].textContent.trim();
+			document.getElementById('production_id').value = tds[2].textContent.trim();
+			document.getElementById('planid').value = tds[3].textContent.trim();
+			document.getElementById('ins_date').value = tds[4].textContent.trim();
+			document.getElementById('result').value = tds[5].textContent.trim();
+			document.getElementById('defect_count').value = tds[6].textContent.trim();
+			document.getElementById('defect_cause').value = tds[7].textContent.trim();
+			document.getElementById('resultID').value = tds[8].textContent.trim();
+			document.getElementById('taskid').value = tds[9].textContent.trim();
+
+			modal1.style.display = "flex";
+		});
+	});
+
+	// 닫기 버튼 클릭 시 모달창 닫기
+	closeModal.addEventListener("click", function () {
+		modal1.style.display = "none";
+	});
+
+	// 모달창 외부 클릭 시 모달창 닫기
+	window.addEventListener("click", function (event) {
+		if (event.target === modal1) {
+			modal1.style.display = "none";
+		}
+	});
+
+	document.querySelector('.modifyModal').addEventListener('click', function () {
+		document.querySelector('#modalForm').submit();
+	});
+
+
 </script>
 <script src="/mes/JavaScript/table.js"></script>
-<script src="/mes/JavaScript/sort.js"></script>
-<script src="/mes/JavaScript/date.js"></script>
-<script src="/mes/JavaScript/button.js"></script>
 
 </html>
