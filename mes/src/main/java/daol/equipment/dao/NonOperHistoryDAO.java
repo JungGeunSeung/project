@@ -51,7 +51,7 @@ public class NonOperHistoryDAO {
             
             ps.setInt(1, startRow);
             ps.setInt(2, endRow);
-
+            System.out.println("dao : "+ ps);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

@@ -118,6 +118,7 @@ public class EquipmentServlet extends HttpServlet {
 		int totalEquipmentCount = equipmentService.getTotalEquipmentCount();
 
 		request.setAttribute("equipmentList", equipmentList);
+		System.out.println("equipmentList : " + equipmentList);
 		request.setAttribute("totalPages", (int) Math.ceil((double) totalEquipmentCount / pageSize));
 		request.setAttribute("sortField", sortField);
 		request.setAttribute("sortOrder", sortOrder);

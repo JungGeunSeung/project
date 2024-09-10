@@ -95,9 +95,9 @@ justify-content: center; */
         <div class="loginbox">
             <form action="login" method="post">
                 <label for="id">ID:</label>
-                <input type="text" id="id" name="id" placeholder="아이디 또는 사원번호" value="user001"><br>
+                <input type="text" id="id" name="id" placeholder="아이디 또는 사원번호" value=""><br>
                 <label for="pw">PW:</label>
-                <input type="password" id="pw" name="pw" placeholder="비밀번호" value="1234"><br><br>
+                <input type="password" id="pw" name="pw" placeholder="비밀번호" value=""><br><br>
                 <input type="submit" value="로그인" id="submit" class="btn">
                 <input type="button" value="회원가입" id="open_join" class="btn"
                     onclick="location.href='signup'">

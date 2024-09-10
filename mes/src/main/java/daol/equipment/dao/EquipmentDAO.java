@@ -70,6 +70,7 @@ public class EquipmentDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("dao : "+equipmentList);
 		return equipmentList;
 	}
 
