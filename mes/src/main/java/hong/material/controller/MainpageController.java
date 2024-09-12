@@ -24,7 +24,7 @@ public class MainpageController extends HttpServlet {
 		String page = request.getParameter("page");
 		
 		//혹시 받은게 없다면 기본값 세팅
-		if(countPerPage == null)countPerPage = "5";
+		if(countPerPage == null)countPerPage = "10";
 		if(page == null)page = "1";
 		
 
