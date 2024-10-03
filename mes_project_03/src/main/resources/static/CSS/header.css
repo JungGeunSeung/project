@@ -1,0 +1,86 @@
+@charset "EUC-KR";
+
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+}
+
+/*--------------------------헤더 CSS------------------------*/
+.header {
+	background-color: #1e71b4;
+	padding: 5px;
+	color: white;
+	text-align: center;
+}
+
+.headerBox {
+	width: 1500px;
+	display: flex;  /* 플렉스 레이아웃 적용 */
+	justify-content: space-between;  /* 왼쪽과 오른쪽에 공간을 배치 */
+	align-items: center;  /* 수직 중앙 정렬 */
+	margin: 0 auto;  /* 가운데 정렬 */
+}
+
+.logo {
+	width: 100px;
+}
+
+.logo img {
+	width: 100%;
+}
+
+.lanBox {
+	margin-left: auto;  /* 언어 선택 상자를 오른쪽으로 밀기 */
+	display: flex;
+	align-items: center;
+}
+
+.lanBox select {
+    background-color: transparent;  /* select 박스 배경 투명 */
+    border: none;
+    color: white;  /* 글씨 색상 */
+    font-size: 14px;  /* 폰트 크기 */
+    width: 100px;  /* select 박스 너비 */
+    height: 40px;  /* select 박스 높이 */
+    text-align: center;
+}
+
+.lanBox select option {
+    background-color: #1e71b4;  /* 옵션 배경색 */
+    color: white;  /* 옵션 글씨색 */
+    padding: 10px 0px;  /* 옵션 내부 여백 */
+    font-size: 14px;  /* 옵션 폰트 크기 */
+    height: 40px;  /* 옵션 높이 */
+}
+
+
+
+.header p {
+	margin: 0;  /* 텍스트 간격을 줄임 */
+	padding-right: 20px;  /* 텍스트와 언어 선택 박스 사이에 여백 추가 */
+}
+
+#lanImg {
+	width: 20px;
+}
+
+#profileTag {
+	text-decoration: none;
+	color: white;
+}
+
+#profileTag:hover {
+	text-decoration: underline;
+}
+
+#adminBtn {
+	background-color: transparent;
+	margin: 0px 5px;
+	border: 0px;
+	color: white;
+	font-size: 14px;
+}
+
+#adminBtn:hover {
+	text-decoration: underline;
+}

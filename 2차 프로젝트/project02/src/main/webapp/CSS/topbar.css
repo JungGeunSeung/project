@@ -1,0 +1,106 @@
+.menu {
+    background-color: rgb(135, 206, 250 , 0.5); /* 하늘색 반투명 */
+    padding: 10px;
+    position: relative;
+}
+
+.menu ul {
+    /* 리스트 점 제거 */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    /* 리스트 가로방향 배치 */
+    flex-direction: row;
+}
+
+.manager{
+    display: none;
+}
+
+.menu-item {
+    position: sticky;
+    color: white;
+}
+
+/* 상위 메뉴의 a태그 */
+.menu-item>a {
+    /* 상위 메뉴의 가로배치 */
+    display: block;
+    padding: 10px 20px;
+    background-color: rgb(135, 206, 250 , 0.5); /* 하늘색 배경 */
+    color: #ffffff;
+    /* a태그 밑줄 제거 */
+    text-decoration: none;
+}
+
+/* 하위메뉴 */
+.submenu {
+    /* 기본적으로 안보이게 설정 */
+    display: none;
+    /* 상위 메뉴를 기준 절대위치?  */
+    position: absolute;
+    top: 100%;
+    /* 부모요소 왼쪽에 정렬 -> 위치를 다시 지정할 필요가 있음 */
+    left: 0;
+    background-color: rgba(100, 149, 237 , 0.5);
+    color: white;
+    padding: 10px;
+    border: 1px solid white;
+    /* 다른요소 위에 나타나도록 설정 */
+    z-index: 1000;
+    /* 줄바꿈 방지 */
+    white-space: nowrap;
+}
+
+.submenu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.submenu li a {
+    display: block;
+    padding: 8px;
+    /* background-color: rgb(59 130 246 / 0.5); */
+    color: white;
+    text-decoration: none;
+}
+
+.submenu li a:hover {
+    background-color: rgb(0, 123, 255 / 0.5);
+}
+
+.menu-item:hover .submenu {
+    display: block;
+}
+
+
+ul.item {
+    list-style-type: none;
+    display: flex;
+    float: left;
+    margin: 10px;
+}
+
+#category {
+    margin: 10px;
+    border: solid rgb(59 130 246 / 0.5);
+    color: #fff;
+}
+
+#boardDIV {
+    position: absolute; /* 절대 위치 설정 */
+    top: 11px; /* 상단으로부터 10px */
+    right: 20px; /* 오른쪽으로부터 10px */
+    padding: 5px;
+    z-index: 1001; /* 다른 요소 위에 표시되도록 우선순위 설정 */
+    font-size: 20px;
+    background-color: rgb(135, 206, 250 , 0.5);
+    color: white;
+    
+}
+
+#boardDIV a {
+	color: white;
+}

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand All Win</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /*--------------------------헤더 CSS------------------------*/
+        .header {
+            background-color: #1e71b4;
+            padding: 5px;
+            color: white;
+            text-align: center;
+        }
+
+        /*----------------------상위 카테고리 CSS--------------------*/
+        .menu-bar {
+            position: relative;
+        }
+
+        .high-category {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 50px;
+            background-color: #8e9eaa;
+            padding: 10px;
+        }
+
+        .high-category div {
+            display: inline-block;
+            width: 100px;
+        }
+
+        .high-category a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .high-category a:hover {
+            color: rgb(182, 182, 182);
+            transition: 0.4s;
+        }
+
+        /*----------------------하위 카테고리 CSS--------------------*/
+
+        .low-category {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 50px;
+            background-color: #75828b;
+            font-size: 0.8em;
+            text-align: left;
+            padding: 10px 0;
+            position: absolute;
+            top: 100%;
+            z-index: 1;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: max-height 1s ease-out, opacity 1s ease-out;
+            width: 100%;
+            visibility: hidden;
+        }
+
+        .low-category div {
+            width: 100px;
+        }
+
+        .low-category ul {
+            display: inline-block;
+            list-style-type: none;
+            padding: 0px;
+        }
+
+        .low-category li {
+            padding: 3px 0px;
+        }
+
+        .low-category a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .low-category a:hover {
+            color: rgb(182, 182, 182);
+            transition: 0.4s;
+        }
+
+        .low-category {
+            max-height: 0;
+            overflow: hidden;
+            background-color: #75828b;
+            transition: max-height 0.5s ease-out;
+            opacity: 0;
+        }
+
+        /* 상위 메뉴에 마우스를 올렸을 때 하위 메뉴가 나타남 */
+        .high-category:hover+.low-category,
+        .low-category:hover {
+            max-height: 500px;
+            /* 하위 메뉴가 충분히 보이도록 높이 설정 */
+            opacity: 1;
+            transition: max-height 1s ease-in, opacity 1s ease-in;
+            visibility: visible;
+        }
+
+        /*------------------------------ 메인 영역 ----------------------------------*/
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            /* 2열로 나눔 */
+            gap: 20px;
+            /* 각 div 사이의 간격 */
+            justify-content: center;
+            /* 가운데 정렬 */
+            padding: 20px;
+        }
+
+        .main-content div {
+            border: 1px solid #ddd;
+            /* 구분선을 추가 */
+            padding: 20px;
+            background-color: #f4f4f4;
+            /* 배경색 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* 약간의 그림자 추가 */
+            max-width: 500px;
+            /* 각 div의 최대 너비를 제한 */
+            min-height: 500px;
+        }
+
+        /* 브라우저 너비에 따라 article 너비를 조정 */
+        .main-content {
+            max-width: 1100px;
+            /* 전체 article의 최대 너비 제한 */
+            margin: 0 auto;
+            /* 브라우저 가운데 정렬 */
+        }
+
+        /*---------------------------- 하단 ------------------------------*/
+        footer {
+            background-color: #0b5394;
+            color: white;
+            padding: 40px 0;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        footer {
+            background-color: #0b5394;
+            color: white;
+            padding: 40px 0;
+            position: relative;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            flex: 1 1 200px;
+            /* 각 섹션이 최소 200px 너비를 가짐 */
+            margin: 20px;
+        }
+
+        .footer-section ul {
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .footer-section ul li {
+            margin: 10px 0;
+        }
+
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        .footer-section ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* 하단 정보 */
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.85em;
+            line-height: 1.5;
+            color: #c1d1e8;
+        }
+
+        .footer-bottom p {
+            margin: 5px 0;
+        }
+
+        /* 위로 가기 버튼 */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: #ffffff40;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 1.5em;
+            transition: background-color 0.3s;
+        }
+
+        .back-to-top:hover {
+            background-color: #ffffff60;
+        }
+
+        .footer-section ul li:first-child {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <!----------------- 헤더 ----------------->
+        <div class="header">
+            Grand All Win
+        </div>
+    </header>
+
+    <!----------------- 메뉴바 ----------------->
+    <nav>
+        <div class="menu-bar">
+
+            <!----------------- 상위 카테고리 ----------------->
+            <div class="high-category">
+                <div>
+                    <a href="#">생산/제조</a>
+                </div>
+                <div>
+                    <a href="#">제품관리</a>
+                </div>
+                <div>
+                    <a href="#">영업/판매</a>
+                </div>
+                <div>
+                    <a href="#">품질관리</a>
+                </div>
+                <div>
+                    <a href="#">설비관리</a>
+                </div>
+                <div>
+                    <a href="#">정보 / BOM</a>
+                </div>
+            </div>
+
+            <!----------------- 하위 카테고리 ----------------->
+            <div class="low-category">
+                <div>
+                    <ul>
+                        <li><a href="#">생산계획</a></li>
+                        <li><a href="#">생산실적</a></li>
+                        <li><a href="#">작업지시서</a></li>
+                        <li><a href="#">원가관리</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><a href="#">재고관리</a></li>
+                        <li><a href="#">자재관리</a></li>
+                        <li><a href="#">구매/발주</a></li>
+                        <li><a href="#">원가관리</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><a href="#">판매(출고)</a></li>
+                        <li><a href="#">거래처관리</a></li>
+                        <li><a href="#">명세서관리</a></li>
+                        <li><a href="#">미수금관리</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><a href="#">생산검사현황</a></li>
+                        <li><a href="#">인수검사</a></li>
+                        <li><a href="#">불량기록</a></li>
+                        <li><a href="#">품질기준 및 표준</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><a href="#">유지보수</a></li>
+                        <li><a href="#">모니터링</a></li>
+                        <li><a href="#">비가동이력</a></li>
+                        <li><a href="#">안전관리</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><a href="#">BOM</a></li>
+                        <li><a href="#">문서관리</a></li>
+                        <li><a href="#">저장위치(map)</a></li>
+                        <li><a href="#">조직도</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <article>
+        <div class="main-content">
+            <div>
+                <h2>실시간 생산현황</h2>
+                <span>현재 가동중인 라인</span><br>
+                <span>작업지시 현황</span><br>
+                <span>생산량 데이터</span><br>
+            </div>
+            <div>
+                <h2>공정 모니터링</h2>
+                <span>품질 관리 데이터</span><br>
+                <span>설비 상태</span><br>
+                <span>설비 성능 지표(OEE)</span><br>
+            </div>
+            <div>
+                <h2>생산계획 및 일정</h2>
+                <span>생산 일정</span><br>
+                <span>작업지시관리</span><br>
+            </div>
+            <div>
+                <h2>공지사항</h2>
+                <span>공지사항 테이블</span>
+            </div>
+        </div>
+    </article>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <ul>
+                    <li><a href="#">생산관리</a></li>
+                    <li><a href="#">생산계획</a></li>
+                    <li><a href="#">생산실적</a></li>
+                    <li><a href="#">작업지시서</a></li>
+                    <li><a href="#">원가관리</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <ul>
+                    <li><a href="#">재품관리</a></li>
+                    <li><a href="#">재고관리</a></li>
+                    <li><a href="#">자재관리</a></li>
+                    <li><a href="#">구매/발주</a></li>
+                    <li><a href="#">원가관리</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <ul>
+                    <li><a href="#">영업/판매</a></li>
+                    <li><a href="#">판매(출고)</a></li>
+                    <li><a href="#">거래처관리</a></li>
+                    <li><a href="#">명세서관리</a></li>
+                    <li><a href="#">미수금관리</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <ul>
+                    <li><a href="#">품질관리</a></li>
+                    <li><a href="#">생산검사현황</a></li>
+                    <li><a href="#">인수검사</a></li>
+                    <li><a href="#">불량기록</a></li>
+                    <li><a href="#">품질기준 및 표준</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <ul>
+                    <li><a href="#">설비관리</a></li>
+                    <li><a href="#">유지보수</a></li>
+                    <li><a href="#">모니터링</a></li>
+                    <li><a href="#">비가동이력</a></li>
+                    <li><a href="#">안전관리</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <ul>
+                    <li><a href="#">정보 / BOM</a></li>
+                    <li><a href="#">BOM</a></li>
+                    <li><a href="#">문서관리</a></li>
+                    <li><a href="#">저장위치(map)</a></li>
+                    <li><a href="#">조직도</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-bottom">
+                <p>본사&공장: 충청남도 천안시 동남구 대흥로 215, 7층</p>
+                <p>TEL: 041-561-1122 | FAX: 041-561-1122</p>
+                <p>Email: humanec@naver.com</p>
+            </div>
+
+            <!-- 위로 가기 버튼 -->
+            <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+                ↑
+            </div>
+    </footer>
+</body>
+
+</html>

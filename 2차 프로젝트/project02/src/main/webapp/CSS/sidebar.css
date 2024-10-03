@@ -1,0 +1,71 @@
+.sidebar {
+    width: 150px;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    background-color: rgb(135, 206, 250); /* 하늘색 배경 */
+    color: rgb(0, 51, 102); /* 짙은 파랑 폰트 */
+}
+
+.profile {
+    text-align: center;
+    margin-bottom: 20px;
+    height: 370px;
+}
+
+.profile img {
+    width: 96px;
+    height: 120px;
+    border-radius: 10%;
+    margin: 8px 0;
+    /* padding-top: 20px; */
+}
+
+.profile h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+#h3 {
+	font-size: 16px;
+}
+
+.profile p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.profile_btn{
+    margin-top: 10px;
+}
+
+.probtn {
+	margin: 5px 0px;
+}
+
+img.Logo {
+    width: 150px;
+    height: 75px;
+    display: block;
+    float: left;
+}
+
+.history > li  a {
+    color: white;
+    text-decoration: none;
+}
+
+#bos{
+    display: none;
+}
+#kwon{
+    display: none;
+}
+#daall{
+    display: none;
+}
+#sowon {
+    display: none;
+}
+

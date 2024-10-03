@@ -1,0 +1,25 @@
+정근승 팀장 (총괄, 퍼블리셔)
+메인, 로그인, 회원가입, 관리자, 게시판, 게시글
+
+권대호 ( 각 페이지별 연관성 구축 )
+생산/제조, 영업/판매
+
+정다올 ( 데이터 조회 기능 개발 )
+품질관리, 설비관리
+
+김소원 ( crud ...할 수 있지? )
+제품관리, 정보BOM
+
+카테고리별 필요 라이브러리
+메인 - Chart.js, mybatis, Ajax, json, jquery
+로그인 - mybatis, spring security
+회원가입 - mybatis, spring security
+관리자 - mybatis, spring security
+게시판 - mybatis, Ajax, json, jquery, tiles
+게시글 - mybatis, Ajax, json, jquery, tiles
+생산/제조 - mybatis, Ajax, json, jquery, tiles
+영업/판매 - mybatis, Ajax, json, jquery, tiles
+품질관리 - mybatis, Ajax, json, jquery, tiles
+설비관리 - mybatis, Ajax, json, jquery, tiles
+제품관리 - mybatis, Ajax, json, jquery, tiles
+정보BOM - mybatis, Ajax, json, jquery, tiles
