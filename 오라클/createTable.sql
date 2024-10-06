@@ -111,7 +111,7 @@ CREATE TABLE returninventory (
 CREATE TABLE material (
 	material_id	VARCHAR2(50)	NULL,
 	material_name	VARCHAR2(255)	NULL,
-	code	VARCHAR2(50)	NULL,
+	standard	VARCHAR2(50)	NULL,
 	description	VARCHAR2(255)	NULL,
 	quantity	NUMBER(15)	NULL,
 	unit	VARCHAR2(50)	NULL
