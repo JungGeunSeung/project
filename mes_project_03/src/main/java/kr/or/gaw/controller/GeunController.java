@@ -1,13 +1,10 @@
 package kr.or.gaw.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.or.gaw.dto.EmpDTO;
 import kr.or.gaw.service.EmpService;
 
 
@@ -18,10 +15,29 @@ public class GeunController {
 	EmpService empService;
 	
 	@RequestMapping("/main")
-	public String main(Model model) {
-		List<EmpDTO> list = empService.listEmp();
-		model.addAttribute("list",list);
+	public String main() {
 		return "main/mainpage";
+	}
+	
+	@RequestMapping("/login")
+	public String login() {
+		return "main/login";
+	}
+	
+	@RequestMapping("/agreement")
+	public String agree() {
+		return "main/agreement";
+	}
+
+	@RequestMapping("/sign")
+	public String sign() {
+		return "main/sign";
+	}
+	
+	@RequestMapping("/sign.do")
+	public String signRun() {
+		
+		return "main/sign";
 	}
 	
 }

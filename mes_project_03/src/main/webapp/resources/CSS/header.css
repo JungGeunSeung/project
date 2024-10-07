@@ -7,14 +7,14 @@ body {
 
 /*--------------------------헤더 CSS------------------------*/
 .header {
-	background-color: #1e71b4;
+	background-color: #4b744e; /* 초록색 */
 	padding: 5px;
 	color: white;
 	text-align: center;
 }
 
 .headerBox {
-	width: 1500px;
+	width: 100%;
 	display: flex;  /* 플렉스 레이아웃 적용 */
 	justify-content: space-between;  /* 왼쪽과 오른쪽에 공간을 배치 */
 	align-items: center;  /* 수직 중앙 정렬 */
@@ -46,14 +46,12 @@ body {
 }
 
 .lanBox select option {
-    background-color: #1e71b4;  /* 옵션 배경색 */
+    background-color: #99db88;  /* 옵션 배경색 */
     color: white;  /* 옵션 글씨색 */
     padding: 10px 0px;  /* 옵션 내부 여백 */
     font-size: 14px;  /* 옵션 폰트 크기 */
     height: 40px;  /* 옵션 높이 */
 }
-
-
 
 .header p {
 	margin: 0;  /* 텍스트 간격을 줄임 */
