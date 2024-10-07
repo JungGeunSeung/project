@@ -19,4 +19,20 @@ public class EmpServiceImpl implements EmpService {
 		List<EmpDTO> list = empDAO.listEmp();
 		return list;
 	}
+
+	@Override
+	public EmpDTO listEmpOne(String user_id) {
+		EmpDTO result = null;
+		result = empDAO.listEmpOne(user_id);
+		return result;
+	}
+
+	@Override
+	public int insertEmp(EmpDTO dto) {
+		int result = -2;
+		result = empDAO.insertEmp(dto);
+		return 0;
+	}
+	
+	
 }

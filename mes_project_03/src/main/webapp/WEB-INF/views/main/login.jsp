@@ -108,7 +108,7 @@ form {
 	margin-bottom: 20px;
 }
 
-input[type="email"] {
+input[name="user_id"] {
 	width: 100%;
 	padding: 12px;
 	margin-bottom: 20px;
@@ -120,7 +120,7 @@ input[type="email"] {
 	font-size: 16px;
 }
 
-input[type="email"]::placeholder {
+input[name="user_id"]::placeholder {
 	color: #8f8f8f;
 }
 
@@ -224,7 +224,7 @@ input[type="password"]::placeholder {
 	<div class="header">
 		<div class="headerBox">
 			<div class="logo">
-				<a href="#"><img src="resources/img/Logo(white).png"></a>
+				<a href="#"><img src="resources/img/팀 로고 2.png"></a>
 			</div>
 			<div style="display: flex; align-items: center;">
 				<img id="lanImg" src="resources/img/지구 이모지 흰색.png">
@@ -241,7 +241,7 @@ input[type="password"]::placeholder {
 
 	<div class="login-container">
 		<div class="logo">
-			<img src="resources/img/Logo(white).png">
+			<img src="resources/img/팀 로고 2.png">
 			<h1>Grand All Win</h1>
 		</div>
 		<h2>로그인</h2>
@@ -253,14 +253,14 @@ input[type="password"]::placeholder {
 		<c:if test="${param.logout != null}">
 			<div style="color: green;">성공적으로 로그아웃되었습니다.</div>
 		</c:if>
-		<form action="<c:url value='/login' />" method="post">
-			<input type="email" name="user_id" placeholder="이메일 주소" required>
-			<input type="password" name="password" placeholder="비밀번호" required>
+		<form action="/gaw/login" method="post">
+			<input type="text" name="user_id" placeholder="아이디">
+			<input type="password" name="password" placeholder="비밀번호">
 			<button type="submit" class="submit-btn">로그인</button>
 		</form>
 		<div class="signup">
 			<p>
-				아직 회원이 아니신가요? <a href="#">회원가입</a>
+				아직 회원이 아니신가요? <a href="agreement">회원가입</a>
 			</p>
 		</div>
 		<div class="footer">

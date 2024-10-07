@@ -19,8 +19,24 @@ public class EmpDAOImpl implements EmpDAO {
 	
 	@Override
 	public List<EmpDTO> listEmp() {
-		System.out.println("EmpDAOImpl 실행 listEmp()");
-		List<EmpDTO> result = sqlSession.selectList("geun.EmpDAO.listEmp");
+		List<EmpDTO> result = sqlSession.selectList("kr.or.gaw.dao.EmpDAO.listEmp");
+		return result;
+	}
+	
+	@Override
+	public EmpDTO listEmpOne(String user_id) {
+		EmpDTO result = null;
+		result = sqlSession.selectOne("kr.or.gaw.dao.EmpDAO.listEmpOne", user_id);
+		
+		return result;
+	}
+	
+	@Override
+	public int insertEmp(EmpDTO dto) {
+		
+		int result = -1;
+		result = sqlSession.insert("kr.or.gaw.dao.EmpDAO.listEmpOne", dto);
+		
 		return result;
 	}
 

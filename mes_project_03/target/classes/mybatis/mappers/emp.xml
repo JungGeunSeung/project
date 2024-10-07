@@ -7,7 +7,24 @@
 <mapper namespace="kr.or.gaw.dao.EmpDAO">
 
 	<select id="listEmp" resultType="kr.or.gaw.dto.EmpDTO">
-		select * from emp0
+		select * from emp
 	</select>
+	
+	<select id="listEmpOne" resultType="kr.or.gaw.dto.EmpDTO" parameterType="String">
+		select * from emp where user_id = #{user_id}
+	</select>
+	
+	<insert id="insertEmp" parameterType="kr.or.gaw.dto.EmpDTO">
+		INSERT INTO emp (user_id, name, email, phone, hire_date, password, enabled, birth_date, gender, nationality)
+		VALUES (#{user_id}, #{name}, #{email}, #{phone}, #{hire_date}, #{password}, 1, #{birth_date}, #{gender}, #{nationality})
+	</insert>
+	
+	<update id="updateEmp" parameterType="empDTO">
+		update emp0 set ename= #{ename}, job= #{job} where empno= #{empno}
+	</update>
+	
+	<delete id="deleteEmp" parameterType="empDTO">
+		delete from emp0 where empno=#{empno}
+	</delete>
 	
 </mapper>
