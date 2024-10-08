@@ -14,6 +14,10 @@
 		select * from emp where user_id = #{user_id}
 	</select>
 	
+	<select id="isUserIdDuplicate" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM emp WHERE user_id = #{user_id}
+	</select>
+	
 	<insert id="insertEmp" parameterType="kr.or.gaw.dto.EmpDTO">
 		INSERT INTO emp (user_id, name, email, phone, hire_date, password, enabled, birth_date, gender, nationality)
 		VALUES (#{user_id}, #{name}, #{email}, #{phone}, #{hire_date}, #{password}, 1, #{birth_date}, #{gender}, #{nationality})

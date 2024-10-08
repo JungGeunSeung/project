@@ -22,6 +22,12 @@ public class EmpDAOImpl implements EmpDAO {
 		List<EmpDTO> result = sqlSession.selectList("kr.or.gaw.dao.EmpDAO.listEmp");
 		return result;
 	}
+
+	@Override
+	public int isUserIdDuplicate(String user_id) {
+		int result = sqlSession.selectOne("kr.or.gaw.dao.EmpDAO.isUserIdDuplicate", user_id);
+		return result;
+	}
 	
 	@Override
 	public EmpDTO listEmpOne(String user_id) {

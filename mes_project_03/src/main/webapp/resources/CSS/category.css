@@ -10,7 +10,7 @@
 	justify-content: center;
 	align-items: flex-start;
 	gap: 50px;
-	background-color: #99db88; /* 연한 초록색 */
+	background-color: #1b2f1e; /* 더 어두운 초록색 */
 	padding: 10px;
 }
 
@@ -21,11 +21,11 @@
 
 .high-category a {
 	text-decoration: none;
-	color: white;
+	color: #e0e0e0; /* 밝은 회색 텍스트 */
 }
 
 .high-category a:hover {
-	color: rgb(182, 182, 182);
+	color: #98a898; /* 연한 회색 초록 */
 	transition: 0.4s;
 }
 
@@ -35,7 +35,7 @@
 	justify-content: center;
 	align-items: flex-start;
 	gap: 50px;
-	background-color: #88c878; /* 중간 초록색 */
+	background-color: rgba(15, 35, 20, 0.9); /* 더 어두운 반투명 초록 */
 	font-size: 0.8em;
 	text-align: left;
 	padding: 10px 0;
@@ -65,18 +65,18 @@
 
 .low-category a {
 	text-decoration: none;
-	color: white;
+	color: #e0e0e0; /* 밝은 회색 */
 }
 
 .low-category a:hover {
-	color: rgb(182, 182, 182);
+	color: #98a898; /* 연한 회색 초록 */
 	transition: 0.4s;
 }
 
 .low-category {
 	max-height: 0;
 	overflow: hidden;
-	background-color: #88c878; /* 중간 초록색 */
+	background-color: rgba(15, 35, 20, 0.9); /* 더 어두운 반투명 초록 */
 	transition: max-height 0.5s ease-out;
 	opacity: 0;
 }

@@ -21,6 +21,13 @@ public class EmpServiceImpl implements EmpService {
 	}
 
 	@Override
+	public boolean isUserIdDuplicate(String user_id) {
+		
+		boolean result = empDAO.isUserIdDuplicate(user_id) > 0;
+		return result;
+	}
+
+	@Override
 	public EmpDTO listEmpOne(String user_id) {
 		EmpDTO result = null;
 		result = empDAO.listEmpOne(user_id);

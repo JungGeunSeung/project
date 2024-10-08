@@ -12,4 +12,5 @@ public interface EmpDAO {
 	List listEmp();
 	EmpDTO listEmpOne(String user_id);
 	int insertEmp(EmpDTO dto);
+	int isUserIdDuplicate(String user_id);
 }

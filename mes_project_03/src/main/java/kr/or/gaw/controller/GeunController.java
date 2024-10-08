@@ -15,10 +15,12 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.gaw.dto.EmpDTO;
 import kr.or.gaw.service.EmpService;
@@ -87,9 +89,6 @@ public class GeunController {
 
 	    // 직원 정보 삽입
 	    empService.insertEmp(dto);
-		System.out.println("-----------------------------------------------------");
-		System.out.println("empService.insertEmp(dto) : " + dto.toString());
-		System.out.println("-----------------------------------------------------");
 		return "redirect:/login";
 	}
 	
@@ -126,4 +125,21 @@ public class GeunController {
         }
     }
 	
+	@PostMapping("/check-duplicate")
+    @ResponseBody
+    public Map<String, Object> checkDuplicate(@RequestBody Map<String, String> requestData) {
+        String user_id = requestData.get("userId");
+        boolean isDuplicate = empService.isUserIdDuplicate(user_id);
+        
+        Map<String, Object> response = new HashMap();
+        response.put("success", true);
+        
+        if (isDuplicate) {
+            response.put("status", "duplicate");
+        } else {
+            response.put("status", "available");
+        }
+        
+        return response;
+    }
 }

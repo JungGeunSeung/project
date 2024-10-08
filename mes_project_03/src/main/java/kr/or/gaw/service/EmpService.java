@@ -9,4 +9,5 @@ public interface EmpService {
 	List<EmpDTO> listEmp();
 	EmpDTO listEmpOne(String user_id);
 	int insertEmp(EmpDTO dto);
+	boolean isUserIdDuplicate(String user_id);
 }
