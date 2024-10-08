@@ -6,7 +6,7 @@ public class PerformanceDTO {
 
 	private String per_id;
 	private String order_id;
-	private int actusal;
+	private int actual;
 	private int defect_quantity;
 	private Date production_date;
 	
@@ -22,11 +22,11 @@ public class PerformanceDTO {
 	public void setOrder_id(String order_id) {
 		this.order_id = order_id;
 	}
-	public int getActusal() {
-		return actusal;
+	public int getActual() {
+		return actual;
 	}
-	public void setActusal(int actusal) {
-		this.actusal = actusal;
+	public void setActual(int actual) {
+		this.actual = actual;
 	}
 	public int getDefect_quantity() {
 		return defect_quantity;
@@ -43,7 +43,7 @@ public class PerformanceDTO {
 	
 	@Override
 	public String toString() {
-		return "PerformanceDTO [per_id=" + per_id + ", order_id=" + order_id + ", actusal=" + actusal
+		return "PerformanceDTO [per_id=" + per_id + ", order_id=" + order_id + ", actual=" + actual
 				+ ", defect_quantity=" + defect_quantity + ", production_date=" + production_date + "]";
 	}
 	

@@ -9,7 +9,7 @@ public class PostsDTO {
 	private String title;
 	private String content;
 	private String author_id;
-	private Date createf_at;
+	private Date created_at;
 	private Date updated_at;
 	private String pinned;
 	private int view_cnt;
@@ -44,11 +44,11 @@ public class PostsDTO {
 	public void setAuthor_id(String author_id) {
 		this.author_id = author_id;
 	}
-	public Date getCreatef_at() {
-		return createf_at;
+	public Date getCreated_at() {
+		return created_at;
 	}
-	public void setCreatef_at(Date createf_at) {
-		this.createf_at = createf_at;
+	public void setCreatef_at(Date created_at) {
+		this.created_at = created_at;
 	}
 	public Date getUpdated_at() {
 		return updated_at;
@@ -72,7 +72,7 @@ public class PostsDTO {
 	@Override
 	public String toString() {
 		return "PostsDTO [post_id=" + post_id + ", board_id=" + board_id + ", title=" + title + ", content=" + content
-				+ ", author_id=" + author_id + ", createf_at=" + createf_at + ", updated_at=" + updated_at + ", pinned="
+				+ ", author_id=" + author_id + ", created_at=" + created_at + ", updated_at=" + updated_at + ", pinned="
 				+ pinned + ", view_cnt=" + view_cnt + "]";
 	}
 	
