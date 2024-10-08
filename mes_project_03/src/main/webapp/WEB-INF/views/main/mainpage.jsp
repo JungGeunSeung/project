@@ -48,12 +48,12 @@
 <body>
     <header>
         <!----------------- 헤더 ----------------->
-        <jsp:include page="/WEB-INF/views/main/header.jsp" />
+        <jsp:include page="/WEB-INF/views/main/tiles/header.jsp" />
     </header>
 
     <!----------------- 메뉴바 ----------------->
     <nav>
-        <jsp:include page="/WEB-INF/views/main/category.jsp" />
+        <jsp:include page="/WEB-INF/views/main/tiles/category.jsp" />
     </nav>
 
     <article>
@@ -82,7 +82,7 @@
     </article>
 
     <footer>
-        <jsp:include page="/WEB-INF/views/main/footer.jsp" />
+        <jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />
     </footer>
 </body>
 

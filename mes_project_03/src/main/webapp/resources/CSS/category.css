@@ -10,7 +10,7 @@
 	justify-content: center;
 	align-items: flex-start;
 	gap: 50px;
-	background-color: #1b2f1e; /* 더 어두운 초록색 */
+	background-color: #444444; /* 어두운 색 */
 	padding: 10px;
 }
 
@@ -21,11 +21,11 @@
 
 .high-category a {
 	text-decoration: none;
-	color: #e0e0e0; /* 밝은 회색 텍스트 */
+	color: white; /* 글씨 흰색 */
 }
 
 .high-category a:hover {
-	color: #98a898; /* 연한 회색 초록 */
+	color: #bbbbbb; /* 연한 회색 */
 	transition: 0.4s;
 }
 
@@ -35,7 +35,7 @@
 	justify-content: center;
 	align-items: flex-start;
 	gap: 50px;
-	background-color: rgba(15, 35, 20, 0.9); /* 더 어두운 반투명 초록 */
+	background-color: rgba(75, 75, 75, 0.2); /* 어두운 반투명 배경 */
 	font-size: 0.8em;
 	text-align: left;
 	padding: 10px 0;
@@ -65,18 +65,18 @@
 
 .low-category a {
 	text-decoration: none;
-	color: #e0e0e0; /* 밝은 회색 */
+	color: white; /* 글씨 흰색 */
 }
 
 .low-category a:hover {
-	color: #98a898; /* 연한 회색 초록 */
+	color: #bbbbbb; /* 연한 회색 */
 	transition: 0.4s;
 }
 
 .low-category {
 	max-height: 0;
 	overflow: hidden;
-	background-color: rgba(15, 35, 20, 0.9); /* 더 어두운 반투명 초록 */
+	background-color: rgba(50, 50, 50, 0.9); /* 어두운 반투명 배경 */
 	transition: max-height 0.5s ease-out;
 	opacity: 0;
 }
@@ -84,7 +84,6 @@
 /* 상위 메뉴에 마우스를 올렸을 때 하위 메뉴가 나타남 */
 .high-category:hover+.low-category, .low-category:hover {
 	max-height: 500px;
-	/* 하위 메뉴가 충분히 보이도록 높이 설정 */
 	opacity: 1;
 	transition: max-height 1s ease-in, opacity 1s ease-in;
 	visibility: visible;

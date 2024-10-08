@@ -257,8 +257,7 @@ body {
 				<label><input type="checkbox" class="chk-agree" name="agree">
 					[필수]개인정보 이용</label> <label><input type="checkbox" class="chk-agree"
 					name="agree"> [필수]통신사 이용약관</label> <label><input
-					type="checkbox" class="chk-agree" name="agree"> [필수]네이버
-					개인정보 수집</label>
+					type="checkbox" class="chk-agree" name="agree"> [필수]개인정보 수집</label>
 			</div>
 
 			<!-- 인증번호 입력 필드 -->

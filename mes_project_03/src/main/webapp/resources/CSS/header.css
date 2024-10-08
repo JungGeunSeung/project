@@ -7,7 +7,7 @@ body {
 
 /*--------------------------헤더 CSS------------------------*/
 .header {
-	background-color: #2e4d32; /* 더 어두운 초록색 */
+	background-color: #333333; /* 어두운 색 */
 	padding: 5px;
 	color: white;
 	text-align: center;
@@ -46,7 +46,7 @@ body {
 }
 
 .lanBox select option {
-    background-color: #1a351e;  /* 더 어두운 옵션 배경색 */
+    background-color: #444444;  /* 어두운 옵션 배경색 */
     color: white;  /* 옵션 글씨색 */
     padding: 10px 0px;  /* 옵션 내부 여백 */
     font-size: 14px;  /* 옵션 폰트 크기 */

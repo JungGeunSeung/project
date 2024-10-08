@@ -15,12 +15,14 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.gaw.dto.EmpDTO;
 import kr.or.gaw.service.EmpService;
@@ -44,7 +46,7 @@ public class GeunController {
     }
 	
 	@RequestMapping("/mainpage")
-	public String main() {
+	public String main(@ModelAttribute("dto") EmpDTO dto) {
 		return "main/mainpage";
 	}
 	
@@ -57,11 +59,12 @@ public class GeunController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam("user_id") String user_id,
 	                    @RequestParam("password") String password,
-	                    Model model) {
+	                    Model model,
+	                    RedirectAttributes redirectAttributes) {
 		EmpDTO dto = empService.listEmpOne(user_id);
 		if (dto != null && passwordEncoder.matches(password, dto.getPassword())) { // 비밀번호 확인
-	        model.addAttribute("dto", dto);
-	        return "main/mainpage"; // 로그인 성공
+			redirectAttributes.addFlashAttribute("dto", dto);
+	        return "redirect:/mainpage"; // 로그인 성공
 	    }
 		return "main/login"; // 로그인 실패
 	}
