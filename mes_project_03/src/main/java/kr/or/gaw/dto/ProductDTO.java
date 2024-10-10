@@ -4,9 +4,8 @@ public class ProductDTO {
 
 	private String prosduct_id;
 	private String name;
-	private String code;
-	private String description;
-	
+	private String standard;
+	private String color;
 	public String getProsduct_id() {
 		return prosduct_id;
 	}
@@ -19,22 +18,22 @@ public class ProductDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getCode() {
-		return code;
+	public String getStandard() {
+		return standard;
 	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setStandard(String standard) {
+		this.standard = standard;
 	}
-	public String getDescription() {
-		return description;
+	public String getColor() {
+		return color;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setColor(String color) {
+		this.color = color;
 	}
 	@Override
 	public String toString() {
-		return "ProductDTO [prosduct_id=" + prosduct_id + ", name=" + name + ", code=" + code + ", description="
-				+ description + "]";
+		return "ProductDTO [prosduct_id=" + prosduct_id + ", name=" + name + ", standard=" + standard + ", color="
+				+ color + "]";
 	}
-	
+
 }
