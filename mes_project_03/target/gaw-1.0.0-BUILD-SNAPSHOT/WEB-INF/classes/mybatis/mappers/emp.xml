@@ -6,12 +6,29 @@
 <!--     무조건 DAO가 위치한 패키지로 namespace 해야하는가? -->
 <mapper namespace="kr.or.gaw.dao.EmpDAO">
 
-	<select id="listEmp" resultType="empDTO">
+	<select id="listEmp" resultType="kr.or.gaw.dto.EmpDTO">
 		select * from emp
 	</select>
 	
-	<select id="empOne" resultType="">
-	
+	<select id="listEmpOne" resultType="kr.or.gaw.dto.EmpDTO" parameterType="String">
+		select * from emp where user_id = #{user_id}
 	</select>
+	
+	<select id="isUserIdDuplicate" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM emp WHERE user_id = #{user_id}
+	</select>
+	
+	<insert id="insertEmp" parameterType="kr.or.gaw.dto.EmpDTO">
+		INSERT INTO emp (user_id, name, email, phone, hire_date, password, enabled, birth_date, gender, nationality)
+		VALUES (#{user_id}, #{name}, #{email}, #{phone}, #{hire_date}, #{password}, 1, #{birth_date}, #{gender}, #{nationality})
+	</insert>
+	
+	<update id="updateEmp" parameterType="empDTO">
+		update emp0 set ename= #{ename}, job= #{job} where empno= #{empno}
+	</update>
+	
+	<delete id="deleteEmp" parameterType="empDTO">
+		delete from emp0 where empno=#{empno}
+	</delete>
 	
 </mapper>

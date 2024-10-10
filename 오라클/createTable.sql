@@ -74,13 +74,21 @@ CREATE TABLE bom (
 	version	varchar2(50)	NULL,
 	create_at	date	NULL
 );
-
+--¼Ò¿ø--
 CREATE TABLE product (
-	product_id	VARCHAR2(50)	NULL,
-	name	VARCHAR2(255)	NULL,
-	code	VARCHAR2(50)	NULL,
-	description	VARCHAR2(255)	NULL
+    product_id   VARCHAR2(50) NOT NULL,
+    name          VARCHAR2(255) NOT NULL,
+    standard      VARCHAR2(50) NULL,
+    color         VARCHAR2(255) NULL,
+    CONSTRAINT product_pk PRIMARY KEY (product_id)
 );
+--±Ù½Â--
+--CREATE TABLE product (
+--	product_id	VARCHAR2(50)	NULL,
+--	name	VARCHAR2(255)	NULL,
+--	code	VARCHAR2(50)	NULL,
+--	description	VARCHAR2(255)	NULL
+--);
 
 CREATE TABLE inventory (
 	inventory_id	VARCHAR2(50)	NULL,

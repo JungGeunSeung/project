@@ -22,6 +22,7 @@
         gap: 20px;                 /* 각 div 사이의 간격 */
         justify-content: center;   /* 가운데 정렬 */
         padding: 20px;
+        
     }
 
     .main-content div {
@@ -32,6 +33,7 @@
         max-width: 800px;           /* 최대 너비 */
         width: 100%;                /* 가로폭 100% */
         min-height: 300px;          /* 최소 높이 */
+        min-width: 800px;
     }
 
     /* 브라우저 너비에 따라 article 너비를 조정 */
