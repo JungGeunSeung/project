@@ -12,9 +12,7 @@
 			<p>
 			어서오세요.
 			<a id="profileTag" href="#">
-<%-- 			<c:if test="${dto.name != null}"> --%>
 			${dto.name }
-<%-- 			</c:if> --%>
 			</a>
 			님
 			</p>
@@ -22,12 +20,13 @@
 			<a href="adminpage" id="adminBtn">관리자 페이지</a>
 			<img id="lanImg" src="resources/img/지구 이모지 흰색.png"> 
 			<form class="lanBox">
-				<select>
-					<option selected>한국어</option>
-					<option>영어</option>
-					<option>일본어</option>
+				<select id="languageSelect">
+					<option value="ko" selected>한국어</option>
+					<option value="en">영어</option>
+					<option value="ja">일본어</option>
 				</select>
 			</form>
 		</div>
 	</div>
 </div>
+<script src="resources/javascript/translate.js"></script>

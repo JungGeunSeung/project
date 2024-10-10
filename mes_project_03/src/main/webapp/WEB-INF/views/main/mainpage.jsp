@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="resources/CSS/category.css">
     <link rel="stylesheet" href="resources/CSS/header.css">
     <link rel="stylesheet" href="resources/CSS/footer.css">
+    <link rel="stylesheet" href="resources/CSS/loading.css">
     <title>Grand All Win</title>
     <style>
 
@@ -79,6 +80,12 @@
                 <span>작업지시관리</span><br>
             </div>
         </div>
+        <div class="loading-overlay hidden">
+			<div class="loading-container">
+				<div class="loading"></div>
+			<div id="loading-text">loading</div>
+		</div>
+	</div>
     </article>
 
     <footer>

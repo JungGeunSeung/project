@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<!--     무조건 DAO가 위치한 패키지로 namespace 해야하는가? -->
+<mapper namespace="kr.or.gaw.dao.BoardDAO">
+
+	<select id="listBoard" resultType="kr.or.gaw.dto.BoardDTO">
+		select * from board
+	</select>
+	
+	<select id="BoardOne" resultType="kr.or.gaw.dto.BoardDTO" parameterType="String">
+		select * from board where user_id = #{user_id}
+	</select>
+	
+	
+	<insert id="insertBoard" parameterType="kr.or.gaw.dto.BoardDTO">
+		INSERT INTO board (board_id, description, board_name, created_by, created_at)
+		VALUES (#{board_id}, #{description}, #{board_name}, #{create_by}, #{created_at})
+	</insert>
+	
+	<update id="updateBoard" parameterType="kr.or.gaw.dto.BoardDTO">
+		update board set board_name= #{board_name}, description = #{description} where board_id= #{board_id}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="BoardDTO">
+		delete from board where board_id=#{board_id}
+	</delete>
+	
+</mapper>

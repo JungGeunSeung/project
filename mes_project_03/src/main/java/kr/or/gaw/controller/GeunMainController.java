@@ -29,7 +29,7 @@ import kr.or.gaw.service.EmpService;
 
 
 @Controller
-public class GeunController {
+public class GeunMainController {
 	
 	@Autowired
 	EmpService empService;
