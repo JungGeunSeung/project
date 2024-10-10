@@ -45,5 +45,15 @@ public class EmpDAOImpl implements EmpDAO {
 		
 		return result;
 	}
+	
+	@Override
+	public int updateEmpPassword(EmpDTO dto) {
+		
+		int result = -1;
+		result = sqlSession.update("kr.or.gaw.dao.EmpDAO.updateEmpPassword", dto);
+		
+		return result;
+	}
+	
 
 }

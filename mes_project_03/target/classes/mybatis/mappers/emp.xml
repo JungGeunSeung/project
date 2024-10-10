@@ -23,8 +23,8 @@
 		VALUES (#{user_id}, #{name}, #{email}, #{phone}, #{hire_date}, #{password}, 1, #{birth_date}, #{gender}, #{nationality})
 	</insert>
 	
-	<update id="updateEmp" parameterType="empDTO">
-		update emp0 set ename= #{ename}, job= #{job} where empno= #{empno}
+	<update id="updateEmpPassword" parameterType="kr.or.gaw.dto.EmpDTO">
+		update emp set password= #{password} where user_id= #{user_id}
 	</update>
 	
 	<delete id="deleteEmp" parameterType="empDTO">

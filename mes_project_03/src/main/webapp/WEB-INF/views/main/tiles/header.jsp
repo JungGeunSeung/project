@@ -18,7 +18,8 @@
 			</a>
 			님
 			</p>
-			<button id="adminBtn">관리자 페이지</button>
+			<a href="logout" id="logoutBtn">로그아웃</a>
+			<a href="adminpage" id="adminBtn">관리자 페이지</a>
 			<img id="lanImg" src="resources/img/지구 이모지 흰색.png"> 
 			<form class="lanBox">
 				<select>

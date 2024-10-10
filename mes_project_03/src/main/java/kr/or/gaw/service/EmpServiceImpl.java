@@ -40,6 +40,13 @@ public class EmpServiceImpl implements EmpService {
 		result = empDAO.insertEmp(dto);
 		return 0;
 	}
+
+	@Override
+	public int updateEmpPassword(EmpDTO dto) {
+			int result = -1;
+			result = empDAO.updateEmpPassword(dto);
+		return result;
+	}
 	
 	
 }
