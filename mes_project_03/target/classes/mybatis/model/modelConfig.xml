@@ -10,6 +10,7 @@
 	<typeAliases>
 		<typeAlias type="kr.or.gaw.dto.EmpDTO" alias="empDTO" />
 		<typeAlias type="kr.or.gaw.dto.BoardDTO" alias="boardDTO" />
+		<typeAlias type="kr.or.gaw.dto.BomDTO" alias="BomDTO" />
 	</typeAliases>
 	
 </configuration>

@@ -2,18 +2,17 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
-<!--     무조건 DAO가 위치한 패키지로 namespace 해야하는가? -->
-<mapper namespace="kr.or.gaw.dao.BomDAO">
 
-		<select id="selectBomByPage" resultType="kr.or.gaw.dto.BomDTO" parameterType="map">
-		    SELECT * FROM (
-		        SELECT A.*, ROW_NUMBER() OVER (ORDER BY bom_id) AS rnum
-		        FROM bom A
-		    )
-		    WHERE rnum BETWEEN #{offset} + 1 AND #{offset} + #{pageSize}
-		</select>
-		<select id="getBomCount" resultType="int">
-		SELECT COUNT(*) FROM bom;
-	    </select>
+<mapper namespace="kr.or.gaw.dao.BOMDAO">
+    <select id="selectBomByPage" parameterType="kr.or.gaw.dto.BomDTO" resultType="kr.or.gaw.dto.BomDTO">
+        SELECT * FROM (
+            SELECT rownum rnum, bom_id, product_id, material_id, quantity, version, create_at
+            FROM bom
+        )
+        WHERE rnum &gt;= #{page} AND rnum &lt;= #{countperpage}
+    </select>
+    
+    <select id="getTotalDataCount" parameterType="kr.or.gaw.dto.BomDTO" resultType="int">
+    	select count(bom_id) from bom
+    </select>
 </mapper>

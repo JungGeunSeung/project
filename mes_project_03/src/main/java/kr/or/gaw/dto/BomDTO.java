@@ -12,6 +12,8 @@ public class BomDTO {
 	private int quantity;
 	private String version;
 	private Date create_at;
+	private int countperpage;
+	private int page;
 	
 	public String getBom_id() {
 		return bom_id;
@@ -49,11 +51,19 @@ public class BomDTO {
 	public void setCreate_at(Date create_at) {
 		this.create_at = create_at;
 	}
-	
-	@Override
-	public String toString() {
-		return "BomDTO [bom_id=" + bom_id + ", product_id=" + product_id + ", material_id=" + material_id
-				+ ", quantity=" + quantity + ", version=" + version + ", create_at=" + create_at + "]";
+	public int getCountperpage() {
+		return countperpage;
 	}
+	public void setCountperpage(int countperpage) {
+		this.countperpage = countperpage;
+	}
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	
+	
 	
 }
