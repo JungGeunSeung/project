@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -139,6 +142,7 @@ article {
     
     <!------------------ 메인 콘텐츠 ------------------>
     <article>
+    	
         <!-- 왼쪽 리스트 -->
         <div class="container">
         <article>
@@ -146,31 +150,37 @@ article {
             <div class="sidebar">
                 <h3>게시판 목록</h3>
                 <ul>
-                    <li onclick="loadDetail('게시판 1')">게시판 1</li>
-                    <li onclick="loadDetail('게시판 2')">게시판 2</li>
-                    <li onclick="loadDetail('게시판 3')">게시판 3</li>
+                	<c:forEach var="list" items="${list }">
+	                    <li onclick="loadDetail('${list.board_name}','${ list.description }','${ list.board_id }')">${ list.board_name }
+	                    	<input type="hidden" name="board_id" value="${ list.board_id }">
+	                    </li>
+                    </c:forEach>
                 </ul>
             </div>
         
             <!-- 오른쪽 상세 입력창 -->
             <div class="content">
-                <h2>상세 정보</h2>
-        
+                <div>
+		    		<h2>게시판</h2>
+		    		<span>게시글을 등록할 게시판을 관리하는 곳입니다.</span>
+		    		<span>왼쪽 게시판 리스트를 클릭하여 수정하거나, 새롭게 게시판을 만들수 있습니다.</span>
+	    		</div>
+	    		<hr>
+                <h3>상세 정보</h3>
+        		<form method="post" action="board.do">
+        		<input type="hidden" id="board_id" name="board_id">
                 <div class="input-group">
                     <label for="menu-name">게시판 제목</label>
-                    <input type="text" name="board" id="board" placeholder="메뉴명을 입력하세요">
+                    <input type="text" name="board_name" id="board" placeholder="메뉴명을 입력하세요">
                 </div>
         
                 <div class="input-group">
                     <label for="menu-desc">게시판 설명</label>
                     <textarea name="description" id="description" placeholder="메뉴 설명을 입력하세요"></textarea>
                 </div>
-        		
-                <div class="input-group">
-                    <span>좋아요 기능</span><input type="checkbox" id="like-function">
-                </div>
-        
-                <button class="btn-save" onclick="saveDetails()">저장하기</button>
+        	
+                <input class="btn-save" type="submit" value="저장하기">
+                </form>
             </div>
         </article>
     </div>
@@ -182,30 +192,13 @@ article {
     </footer>
     
     <script>
- // 리스트에서 선택한 항목에 맞는 데이터를 로드하는 함수
-    function loadDetail(boardName) {
-        document.getElementById('menu-name').value = boardName;
-        document.getElementById('menu-desc').value = boardName + "에 대한 설명을 입력하세요.";
-        document.getElementById('menu-permission').value = '카페멤버'; // 기본값 설정
-        document.getElementById('like-function').checked = true; // 기본적으로 좋아요 기능 사용
-    }
+		function loadDetail(detail, description, id) {
+			console.log(detail, description);
+			document.querySelector("#board").value = detail;
+			document.querySelector("#description").value = description;
+			document.querySelector("#board_id").value = id;
 
-    // 저장 버튼 클릭 시 호출되는 함수
-    function saveDetails() {
-        const menuName = document.getElementById('menu-name').value;
-        const menuDesc = document.getElementById('menu-desc').value;
-        const menuPermission = document.getElementById('menu-permission').value;
-        const likeFunction = document.getElementById('like-function').checked;
-
-        console.log("저장된 데이터:", {
-            menuName,
-            menuDesc,
-            menuPermission,
-            likeFunction
-        });
-
-        alert("저장되었습니다!");
-    }
+		}
     </script>
 </body>
 </html>

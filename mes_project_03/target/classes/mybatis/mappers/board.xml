@@ -11,9 +11,12 @@
 	</select>
 	
 	<select id="BoardOne" resultType="kr.or.gaw.dto.BoardDTO" parameterType="String">
-		select * from board where user_id = #{user_id}
+		select * from board where board_id = #{board_id}
 	</select>
 	
+	<select id="boardDuplicate" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM board WHERE board_id = #{board_id}
+	</select>
 	
 	<insert id="insertBoard" parameterType="kr.or.gaw.dto.BoardDTO">
 		INSERT INTO board (board_id, description, board_name, created_by, created_at)

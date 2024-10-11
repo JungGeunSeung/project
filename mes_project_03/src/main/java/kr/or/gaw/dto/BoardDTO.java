@@ -2,12 +2,17 @@ package kr.or.gaw.dto;
 
 import java.sql.Date;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class BoardDTO {
 
 	private String board_id;
 	private String board_name;
+	private String description;
 	private String created_by;
 	private Date created_at;
+	private int likes;
 	
 	public String getBoard_id() {
 		return board_id;
@@ -34,9 +39,17 @@ public class BoardDTO {
 		this.created_at = created_at;
 	}
 	
-	@Override
-	public String toString() {
-		return "BoardDTO [board_id=" + board_id + ", board_name=" + board_name + ", created_by=" + created_by
-				+ ", created_at=" + created_at + "]";
+	public int getLikes() {
+		return likes;
 	}
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 }

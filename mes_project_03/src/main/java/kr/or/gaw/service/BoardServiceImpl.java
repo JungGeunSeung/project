@@ -25,7 +25,13 @@ public class BoardServiceImpl implements BoardService {
 		
 		return list;
 	}
-
+	
+	public int boardDuplicate(String board_id) {
+		int result = -1;
+		result = boardDAO.boardDuplicate(board_id);
+		return result;
+	}
+	
 	@Override
 	public BoardDTO boardOne(String user_id) {
 		// TODO Auto-generated method stub
@@ -34,20 +40,23 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int insertBoard(BoardDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = -1;
+		result = boardDAO.insertBoard(dto);
+		return result;
 	}
 
 	@Override
 	public int updateBoard(BoardDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = -1;
+		result = boardDAO.updateBoard(dto);
+		return result;
 	}
 
 	@Override
-	public int deleteBoard(BoardDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteBoard(String board_id) {
+		int result = -1;
+		result = boardDAO.deleteBoard(board_id);
+		return result;
 	}
 
 

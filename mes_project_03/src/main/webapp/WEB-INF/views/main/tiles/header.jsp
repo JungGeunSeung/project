@@ -12,7 +12,7 @@
 			<p>
 			어서오세요.
 			<a id="profileTag" href="#">
-			${dto.name }
+			${dto.name}
 			</a>
 			님
 			</p>
