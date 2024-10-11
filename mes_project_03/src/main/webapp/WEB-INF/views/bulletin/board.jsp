@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="resources/CSS/header.css">
 <link rel="stylesheet" href="resources/CSS/footer.css">
 <link rel="stylesheet" href="resources/CSS/loading.css">
+<link rel="stylesheet" href="resources/CSS/btn.css">
 <title>Grand All Win</title>
 <style>
 /* 전체 페이지를 플렉스박스로 중앙 정렬 */
@@ -53,6 +54,7 @@ article {
     padding: 10px;
     box-sizing: border-box;
     flex-shrink: 0;
+    text-align: center;
 }
 
 .sidebar ul {
@@ -103,19 +105,6 @@ article {
     border-radius: 4px;
 }
 
-.btn-save {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.btn-save:hover {
-    background-color: #45a049;
-}
-
 #description {
 	min-height: 200px;
 }
@@ -125,8 +114,18 @@ article {
 	width:25px;
 }
 
-.input-group span {
+.sidebar .btnLi {
+	background-color: inherit;
+  	text-align: center;
+  	border: none;
+	
 }
+
+.sidebar .btnLi:hover {
+	background: none;
+}
+
+
 </style>
 </head>
 <body>
@@ -149,13 +148,12 @@ article {
             <!-- 왼쪽 리스트 -->
             <div class="sidebar">
                 <h3>게시판 목록</h3>
-                <ul>
+                <ul id="boardList">
                 	<c:forEach var="list" items="${list }">
-	                    <li onclick="loadDetail('${list.board_name}','${ list.description }','${ list.board_id }')">${ list.board_name }
-	                    	<input type="hidden" name="board_id" value="${ list.board_id }">
-	                    </li>
+	                    <li onclick="loadDetail('${list.board_name}','${ list.description }','${ list.board_id }')">${ list.board_name }</li>
                     </c:forEach>
                 </ul>
+                <button class="btn addBtn"><span>추가하기</span></button>
             </div>
         
             <!-- 오른쪽 상세 입력창 -->
@@ -167,7 +165,7 @@ article {
 	    		</div>
 	    		<hr>
                 <h3>상세 정보</h3>
-        		<form method="post" action="board.do">
+        		<form id="board_form" method="post" action="board.do">
         		<input type="hidden" id="board_id" name="board_id">
                 <div class="input-group">
                     <label for="menu-name">게시판 제목</label>
@@ -179,11 +177,17 @@ article {
                     <textarea name="description" id="description" placeholder="메뉴 설명을 입력하세요"></textarea>
                 </div>
         	
-                <input class="btn-save" type="submit" value="저장하기">
+                <button class="btn"><span>저장하기</span></button>
+                <button class="btn deleteBtn"><span>삭제하기</span></button>
                 </form>
             </div>
+            <form style="display:none;" action="board.delete" method="post" id="delete_form">
+            	<input type="hidden" id="delete_id" name="board_id">
+            </form>
         </article>
     </div>
+    <!-- 로딩 CSS에 해당하는 HTML -->
+	<jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
     </article>
     
     <!------------------- 하단 내용 ------------------->
@@ -193,12 +197,49 @@ article {
     
     <script>
 		function loadDetail(detail, description, id) {
-			console.log(detail, description);
 			document.querySelector("#board").value = detail;
 			document.querySelector("#description").value = description;
 			document.querySelector("#board_id").value = id;
 
 		}
+		
+		document.querySelector("#board_form").addEventListener('submit', function() {
+			event.preventDefault();
+			if(document.querySelector("#board").value == "" || document.querySelector("#board").value == null) {
+				alert("게시판 제목은 필수 입니다.");
+				return;
+			}
+			
+			alert("게시판이 추가(변경) 되었습니다. \n 제목 : " + document.querySelector("#board").value);
+			document.querySelector("#board_form").submit();
+		})
+		
+	// 추가하기 버튼
+	document.querySelector(".addBtn").addEventListener("click", function() {
+		document.querySelector("#board").value = "";
+		document.querySelector("#description").value = "";
+		document.querySelector("#board_id").value = "";
+		const boardList = document.querySelector("#boardList");
+		boardList.innerHTML += `
+            <li onclick="loadDetail('새로운게시판', '게시판 설명', '')">새로운게시판</li>`;
+		
+		
+    });
+		
+	//삭제하기 버튼
+	document.querySelector(".deleteBtn").addEventListener("click", function() {
+		event.preventDefault();
+		document.querySelector("#delete_id").value = document.querySelector("#board_id").value
+		if(confirm("정말로 삭제하시겠습니까? \n 삭제할 게시판 : " + document.querySelector("#board").value)) {
+			alert("삭제 되었습니다.");
+			document.querySelector("#delete_form").submit();
+		} else {
+			alert("삭제가 취소되었습니다.");
+			return;
+		}
+		
+	});
+
     </script>
 </body>
 </html>

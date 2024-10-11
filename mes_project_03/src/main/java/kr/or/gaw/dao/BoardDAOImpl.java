@@ -32,6 +32,13 @@ public class BoardDAOImpl implements BoardDAO {
 		result = sqlSession.selectOne("kr.or.gaw.dao.EmpDAO.boardDuplicate", board_id);
 		return result;
 	}
+	
+	@Override
+	public int maxBoardID() {
+		int result = -1;
+		result = sqlSession.selectOne("kr.or.gaw.dao.EmpDAO.maxBoardID");
+		return result;
+	}
 
 	// 하나만 고르기
 	@Override

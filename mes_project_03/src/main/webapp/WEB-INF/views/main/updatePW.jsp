@@ -133,12 +133,8 @@
 		</form>
 	</div>
 
-	<div class="loading-overlay hidden">
-		<div class="loading-container">
-			<div class="loading"></div>
-			<div id="loading-text">loading</div>
-		</div>
-	</div>
+	<!-- 로딩 CSS에 해당하는 HTML -->
+	<jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
 	<script>
 	// 정규식: 숫자, 문자, 특수문자 포함 여부 및 길이 확인
 	const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;

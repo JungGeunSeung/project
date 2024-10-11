@@ -32,6 +32,12 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	}
 	
+	public int maxBoardID() {
+		int result = -1;
+		result = boardDAO.maxBoardID();
+		return result;
+	}
+	
 	@Override
 	public BoardDTO boardOne(String user_id) {
 		// TODO Auto-generated method stub

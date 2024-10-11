@@ -18,9 +18,14 @@
 		SELECT COUNT(*) FROM board WHERE board_id = #{board_id}
 	</select>
 	
+	<select id="maxBoardID" parameterType="String" resultType="int">
+		SELECT MAX(TO_NUMBER(SUBSTR(board_id, 2)))
+		FROM board
+	</select>
+	
 	<insert id="insertBoard" parameterType="kr.or.gaw.dto.BoardDTO">
 		INSERT INTO board (board_id, description, board_name, created_by, created_at)
-		VALUES (#{board_id}, #{description}, #{board_name}, #{create_by}, #{created_at})
+		VALUES (#{board_id}, #{description}, #{board_name}, #{created_by}, #{created_at})
 	</insert>
 	
 	<update id="updateBoard" parameterType="kr.or.gaw.dto.BoardDTO">

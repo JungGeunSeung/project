@@ -57,12 +57,8 @@
 
 		</form>
 	</div>
-	<div class="loading-overlay hidden">
-		<div class="loading-container">
-			<div class="loading"></div>
-			<div id="loading-text">loading</div>
-		</div>
-	</div>
+	<!-- 로딩 CSS에 해당하는 HTML -->
+	<jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
 
 	<script>
 		const agreementToggle = document.getElementById('toggle-agreement');

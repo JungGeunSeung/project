@@ -56,8 +56,7 @@ function translatePage() {
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 item.node.nodeValue = xhr.responseText;  // 번역된 텍스트로 교체
-
-                // 모든 요청이 완료되면 로딩 애니메이션 숨기기
+				loading.classList.add('hidden');
                 remainingRequests--;
                 if (remainingRequests === 0) {
                     loading.classList.add('hidden');

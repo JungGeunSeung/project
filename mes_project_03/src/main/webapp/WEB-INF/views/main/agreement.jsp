@@ -168,7 +168,7 @@ body {
 
 		<button id="submit-btn" class="button">다음</button>
 	</div>
-
+	
 	<script>
         const agreeAllCheckbox = document.getElementById('agree-all');
         const individualCheckboxes = document.querySelectorAll('.agree');

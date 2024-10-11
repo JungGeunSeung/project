@@ -15,4 +15,5 @@ public interface BoardDAO {
 	int updateBoard(BoardDTO dto);
 	int deleteBoard(String board_id);
 	int boardDuplicate(String board_id);
+	int maxBoardID();
 }
