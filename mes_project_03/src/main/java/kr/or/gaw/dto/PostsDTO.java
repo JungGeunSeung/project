@@ -16,11 +16,59 @@ public class PostsDTO {
 	private Date updated_at;
 	private String pinned;
 	private int view_cnt;
-	private Integer page;
-	private Integer countPerPage;
-	private int rnum;
+	private Integer page; // 현재 페이지
+	private Integer countPerPage; // 페이지당 게시글 수
+    private Integer startRow;     // 시작 행 번호
+    private Integer endRow;       // 끝 행 번호
+    private int rnum;
+    private String searchType;
+    private String searchKeyword;
 	
-	
+    public void calculateRows() {
+        if (page != null && countPerPage != null) {
+            this.startRow = (page - 1) * countPerPage + 1;
+            this.endRow = page * countPerPage;
+        }
+    }
+    
+    
+    
+    public int getRnum() {
+		return rnum;
+	}
+
+
+
+	public String getSearchType() {
+		return searchType;
+	}
+
+
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+
+
+
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+
+
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+
+
+
 	public String getPost_id() {
 		return post_id;
 	}
@@ -32,6 +80,12 @@ public class PostsDTO {
 	}
 	public void setBoard_id(String board_id) {
 		this.board_id = board_id;
+	}
+	public String getBoard_name() {
+		return board_name;
+	}
+	public void setBoard_name(String board_name) {
+		this.board_name = board_name;
 	}
 	public String getTitle() {
 		return title;
@@ -51,10 +105,22 @@ public class PostsDTO {
 	public void setAuthor_id(String author_id) {
 		this.author_id = author_id;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getAuthor_name() {
+		return author_name;
+	}
+	public void setAuthor_name(String author_name) {
+		this.author_name = author_name;
+	}
 	public Date getCreated_at() {
 		return created_at;
 	}
-	public void setCreatef_at(Date created_at) {
+	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
 	}
 	public Date getUpdated_at() {
@@ -75,9 +141,6 @@ public class PostsDTO {
 	public void setView_cnt(int view_cnt) {
 		this.view_cnt = view_cnt;
 	}
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
-	}
 	public Integer getPage() {
 		return page;
 	}
@@ -90,31 +153,18 @@ public class PostsDTO {
 	public void setCountPerPage(Integer countPerPage) {
 		this.countPerPage = countPerPage;
 	}
-	public String getBoard_name() {
-		return board_name;
+	public Integer getStartRow() {
+		return startRow;
 	}
-	public void setBoard_name(String board_name) {
-		this.board_name = board_name;
+	public void setStartRow(Integer startRow) {
+		this.startRow = startRow;
 	}
-	public String getName() {
-		return name;
+	public Integer getEndRow() {
+		return endRow;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getAuthor_name() {
-		return author_name;
-	}
-	public void setAuthor_name(String author_name) {
-		this.author_name = author_name;
-	}
-	public int getRnum() {
-		return rnum;
-	}
-	public void setRnum(int rnum) {
-		this.rnum = rnum;
+	public void setEndRow(Integer endRow) {
+		this.endRow = endRow;
 	}
 	
-
 	
-}
+	}

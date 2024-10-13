@@ -12,6 +12,7 @@
 		<typeAlias type="kr.or.gaw.dto.BoardDTO" alias="boardDTO" />
 		<typeAlias type="kr.or.gaw.dto.BomDTO" alias="BomDTO" />
 		<typeAlias type="kr.or.gaw.dto.PostsDTO" alias="PostsDTO" />
+		<typeAlias type="kr.or.gaw.dto.CommentsDTO" alias="CommentsDTO" />
 	</typeAliases>
 	
 </configuration>

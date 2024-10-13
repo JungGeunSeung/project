@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.gaw.dto.BoardDTO;
+import kr.or.gaw.dto.CommentsDTO;
 import kr.or.gaw.dto.PostsDTO;
 
 @Repository
@@ -68,7 +69,7 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int deleteBoard(String board_id) {
 		int result = -1;
-		result = sqlSession.delete("kr.or.gaw.dao.EmpDAO.deleteBoard", board_id);
+		result = sqlSession.delete("kr.or.gaw.dao.BoardDAO.deleteBoard", board_id);
 		return result;
 	}
 	
@@ -77,10 +78,50 @@ public class BoardDAOImpl implements BoardDAO {
 	public List listPosts(PostsDTO dto) {
 		return sqlSession.selectList("kr.or.gaw.dao.BoardDAO.listPosts", dto);
 	}
-
+	// 게시글 읽기
 	@Override
     public PostsDTO selectPostById(String postId) {
         return sqlSession.selectOne("kr.or.gaw.dao.BoardDAO.postOne", postId);
     }
+	
+	// 게시글에 있는 댓글 가져오기
+	@Override
+	public List listComments(String post_id) {
+		return sqlSession.selectList("kr.or.gaw.dao.BoardDAO.listComments", post_id);
+	}
+
+	// 댓글 등록하기
+	@Override
+	public int insertComment(CommentsDTO dto) {
+		return sqlSession.insert("kr.or.gaw.dao.BoardDAO.insertComment", dto);
+	}
+	@Override
+	public int maxCommentsId() {
+		int result = -1;
+		result = sqlSession.selectOne("kr.or.gaw.dao.BoardDAO.maxCommentsId");
+		return result;
+	}
+	@Override
+	public int updateComment(CommentsDTO dto) {
+		int result = -1;
+		result = sqlSession.update("kr.or.gaw.dao.BoardDAO.updateComment", dto);
+		return result;
+	}
+	@Override
+	public int deleteComment(String comment_id) {
+		int result = -1;
+		result = sqlSession.delete("kr.or.gaw.dao.BoardDAO.deleteComment", comment_id);
+		return result;
+	}
+	@Override
+	public int totalPosts() {
+		
+		return sqlSession.selectOne("kr.or.gaw.dao.BoardDAO.totalPosts");
+	}
+	@Override
+	public int totalPostsWithSearch(PostsDTO dto) {
+		
+		return sqlSession.selectOne("kr.or.gaw.dao.BoardDAO.totalPostsWithSearch", dto);
+	}
 
 }

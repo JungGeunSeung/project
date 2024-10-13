@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.gaw.dao.BoardDAO;
 import kr.or.gaw.dto.BoardDTO;
+import kr.or.gaw.dto.CommentsDTO;
 import kr.or.gaw.dto.PostsDTO;
 
 @Service
@@ -74,6 +75,45 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public PostsDTO selectPostById(String postId) {
 		return boardDAO.selectPostById(postId);
+	}
+
+	@Override
+	public List listComments(String post_id) {
+		return boardDAO.listComments(post_id);
+	}
+
+	@Override
+	public int insertComment(CommentsDTO dto) {
+
+		return boardDAO.insertComment(dto);
+	}
+
+	@Override
+	public int maxCommentsId() {
+		return boardDAO.maxCommentsId();
+	}
+
+	@Override
+	public int updateComment(CommentsDTO dto) {
+		return boardDAO.updateComment(dto);
+	}
+
+	@Override
+	public int deleteComment(String comment_id) {
+		int result = -1;
+		result = boardDAO.deleteComment(comment_id);
+		return result;
+	}
+
+	@Override
+	public int totalPosts() {
+		
+		return boardDAO.totalPosts();
+	}
+
+	@Override
+	public int totalPostsWithSearch(PostsDTO dto) {
+		return boardDAO.totalPostsWithSearch(dto);
 	}
 
 

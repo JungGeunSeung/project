@@ -60,7 +60,7 @@
     <article>
         <div class="main-content">
             <div>
-                <h2><a href="board">공지사항</a></h2>
+                <h2><a href="allposts">공지사항</a></h2>
             </div>
             <div>
                 <h2>실시간 생산현황</h2>

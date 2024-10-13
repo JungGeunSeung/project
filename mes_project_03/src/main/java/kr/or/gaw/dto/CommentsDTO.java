@@ -1,6 +1,7 @@
 package kr.or.gaw.dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class CommentsDTO {
 
@@ -8,7 +9,8 @@ public class CommentsDTO {
 	private String post_id;
 	private String employee_id;
 	private String content;
-	private Date ceated_at;
+	private Timestamp created_at;
+	private String employee_name;
 	
 	public String getComment_id() {
 		return comment_id;
@@ -34,16 +36,18 @@ public class CommentsDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getCeated_at() {
-		return ceated_at;
-	}
-	public void setCeated_at(Date ceated_at) {
-		this.ceated_at = ceated_at;
-	}
 	
-	@Override
-	public String toString() {
-		return "CommentsDTO [comment_id=" + comment_id + ", post_id=" + post_id + ", employee_id=" + employee_id
-				+ ", content=" + content + ", ceated_at=" + ceated_at + "]";
+	public Timestamp getCreated_at() {
+		return created_at;
 	}
+	public void setCreated_at(Timestamp created_at) {
+		this.created_at = created_at;
+	}
+	public String getEmployee_name() {
+		return employee_name;
+	}
+	public void setEmployee_name(String employee_name) {
+		this.employee_name = employee_name;
+	}
+
 }

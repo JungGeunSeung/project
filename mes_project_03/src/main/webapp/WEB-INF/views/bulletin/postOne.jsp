@@ -8,24 +8,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="resources/CSS/category.css">
 <link rel="stylesheet" href="resources/CSS/header.css">
+<link rel="stylesheet" href="resources/CSS/category.css">
 <link rel="stylesheet" href="resources/CSS/footer.css">
 <link rel="stylesheet" href="resources/CSS/loading.css">
 <link rel="stylesheet" href="resources/CSS/btn.css">
 <link rel="stylesheet" href="resources/CSS/table.css">
 <link rel="icon" sizes="32x32" href="resources/img/favicon3.png"
 	type="image/png">
-<title>게시글</title>
+<title>${post.title }</title>
+
 <style>
 body {
 	font-family: Arial, sans-serif;
 }
 
 .container {
-	width: 800px;
+	width: 60%;
 	margin: 0 auto;
-	padding-top: 20px;
+	padding: 20px 0px;
+	border-bottom: 1px solid #ddd;
 }
 
 .title {
@@ -41,6 +43,10 @@ body {
 .content {
 	margin-top: 20px;
 	font-size: 16px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	min-height: 200px;
+	padding: 10px;
 }
 
 .highlight {
@@ -68,14 +74,14 @@ body {
 }
 
 .comment-section {
-	margin-top: 20px;
+	width: 60%; /* 화면 너비의 60% */
+	margin: 20px auto; /* 상단에서 20px의 여백을 주고, 좌우를 자동으로 설정하여 가운데 정렬 */
 	padding: 10px;
-	border: 1px solid #ddd;
-	border-radius: 5px;
 	background-color: #fff;
 }
 
-.comment-box {
+.comment-box form {
+	width: 90%;
 	display: flex;
 	flex-direction: column;
 }
@@ -86,7 +92,7 @@ body {
 }
 
 .comment-input {
-	width: 100%;
+	width: 90%;
 	height: 80px;
 	padding: 10px;
 	border: 1px solid #ddd;
@@ -113,16 +119,99 @@ body {
 	height: 24px;
 }
 
-.comment-submit {
-	background-color: #fff;
-	border: none;
-	color: #666;
-	cursor: pointer;
-	font-size: 14px;
-}
-
 .comment-submit:hover {
 	color: #000;
+}
+
+.content-btns {
+	margin: 20px 0px;
+}
+
+.comment-container {
+	width: 60%;
+	margin: 20px auto;
+	border-bottom: 1px solid #ddd;
+	padding: 10px 0;
+	display: flex;
+	align-items: flex-start;
+	gap: 15px;
+}
+
+.comment-container:last-child {
+	border-bottom: none;
+}
+
+.profile-picture {
+	width: 50px;  /* 정사각형 크기 */
+	height: 50px; /* 정사각형 크기 */
+	border-radius: 50%; /* 원형으로 만듦 */
+	object-fit: cover; /* 이미지가 잘리지 않도록 설정 */
+	background-color: #eee; /* 이미지가 없을 때 배경색 */
+}
+
+.comment-content {
+	width: 100%;
+}
+
+.user-name {
+	font-weight: bold;
+	font-size: 14px;
+	color: #333;
+}
+
+.user-badge {
+	font-size: 12px;
+	color: #0073e6;
+	margin-left: 5px;
+}
+
+.comment-text {
+	margin: 5px 0;
+	font-size: 14px;
+	color: #333;
+}
+
+.comment-footer {
+	font-size: 12px;
+	color: #999;
+}
+
+.comment-actions {
+	display: inline-block;
+	margin-left: 15px;
+	font-size: 12px;
+	cursor: pointer;
+	color: #999;
+}
+
+.notification-toggle {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin-bottom: 10px;
+	font-size: 12px;
+}
+
+.notification-toggle input[type="checkbox"] {
+	margin-left: 5px;
+}
+
+.comment-header {
+	width: 60%;
+	margin: 0 auto;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 5px;
+	
+}
+
+.comment-header span {
+	margin: 5px;
+}
+
+.post-navination a {
+	text-decoration: none;
+	color: black;
+	cursor: pointer;
 }
 </style>
 </head>
@@ -141,33 +230,68 @@ body {
 	<article>
 		<!-- 게시글 내용 -->
 		<div class="container">
-			<div class="title">${post.title }</div>
-			<div class="meta">${post.author_name }|${post.created_at } |
-				${post.view_cnt }</div>
+			<div class="post-navination">
+				<a href="allposts">전체글</a> > <a href="allposts?board_name=${post.board_name }">${post.board_name }</a> > <a
+					href="#">${post.title }</a>
+			</div>
+			<div class="title"><h2>${post.title }</h2></div>
+			<div><img src="profile2.png" alt="Profile Picture" class="profile-picture">${post.author_name }</div>
+			<div class="meta">
+				|
+				<fmt:formatDate value="${post.created_at}"
+					pattern="yyyy-MM-dd HH:mm:ss" />
+				| ${post.view_cnt }
+			</div>
 
 			<div class="content">${post.content }</div>
-			<div>
-				<button>수정</button>
-				<button>삭제</button>
+			<div class="content-btns">
+				<button class="btn">수정</button>
+				<button class="btn">삭제</button>
 			</div>
 		</div>
-		<!-- 댓글 내용 -->
+		<div class="comment-header">
+			<h3>댓글</h3>
+			<span>등록순</span>
+			<span>최신순</span>
+		</div>
+		<!-- 등록된 댓글들 -->
+		<c:forEach var="comment" items="${comments}">
+		    <div class="comment-container">
+		        <!-- 사용자 프로필 사진 -->
+<%-- 		        <img src="${pageContext.request.contextPath}/resources/img/${comment.profile_image}" alt="Profile Picture" class="profile-picture"> --%>
+		        <input type="hidden" class="commentsId" id="${comment.comment_id }" name="comment_id" value="${comment.comment_id }">
+		        <div class="comment-content">
+		            <!-- 사용자 이름 및 뱃지 -->
+		            <div class="user-name">
+		            <img src="profile2.png" alt="Profile Picture" class="profile-picture">
+		                <span>${comment.employee_name}</span> 
+		            </div>
+		            
+		            <!-- 댓글 내용 -->
+		            <div class="comment-text">${comment.content}</div>
+		            
+		            <!-- 댓글 작성 시간 및 액션 -->
+		            <div class="comment-footer">
+		                <fmt:formatDate value="${comment.created_at}" pattern="yyyy.MM.dd HH:mm" /> 
+		                <span class="comment-actions">답글쓰기</span>
+		                <span class="comment-actions">수정</span>
+		                <span class="comment-actions">삭제</span>
+		                <span class="comment-actions">❤️</span>
+		            </div>
+		        </div>
+		    </div>
+		</c:forEach>
+		<!-- 댓글 작성 -->
 		<div class="comment-section">
 			<div class="comment-box">
-				<div class="comment-header">
-					<strong>${user.nickname}</strong>
-					<!-- Display current user's nickname -->
-				</div>
-				<textarea class="comment-input" placeholder="댓글을 남겨보세요"></textarea>
+			<form action="comment.insert" method="post">
+				<input type="hidden" name="post_id" value="${ post.post_id }">
+				<!-- 댓글 작성자의 이름이 표시되어야 함. -->
+				<textarea class="comment-input" name="content" placeholder="댓글을 남겨보세요"></textarea>
 				<div class="comment-actions">
-					<button class="comment-icon">
-						<img src="resources/img/camera-icon.png" alt="Upload Image" />
-					</button>
-					<button class="comment-icon">
-						<img src="resources/img/emoji-icon.png" alt="Emoji" />
-					</button>
-					<button class="comment-submit">등록</button>
+					<button class="comment-submit btn">등록</button>
 				</div>
+			</form>
 			</div>
 		</div>
 		<!-- 로딩 CSS에 해당하는 HTML -->
@@ -178,5 +302,7 @@ body {
 	<footer>
 		<jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />
 	</footer>
+	<script src="resources/javascript/postOne.js"></script>
+	
 </body>
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -14,204 +15,10 @@
 <link rel="stylesheet" href="resources/CSS/loading.css">
 <link rel="stylesheet" href="resources/CSS/btn.css">
 <link rel="stylesheet" href="resources/CSS/table.css">
-<link rel="icon" sizes="32x32" href="resources/img/favicon3.png" type="image/png">
+<link rel="stylesheet" href="resources/CSS/allposts.css">
+<link rel="icon" sizes="32x32" href="resources/img/favicon3.png"
+	type="image/png">
 <title>게시판</title>
-<style>
-.container {
-	width: 70%;
-	margin: 20px auto;
-	background-color: #fff;
-	padding: 20px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.search-bar {
-	align-items: center;
-	margin-bottom: 20px;
-}
-
-.board-container {
-    position: relative;
-    width: 600px;
-    margin: 20px auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-/* prev, next 버튼을 슬라이드 바깥의 양옆에 배치 */
-.prev, .next {
-    cursor: pointer;
-    background-color: inherit;
-    border: none;
-    color: black;
-    font-size: 18px;
-    padding: 10px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    display: block;
-}
-
-.prev {
-    left: -50px; /* 슬라이드 왼쪽 바깥에 위치 */
-}
-
-.next {
-    right: -50px; /* 슬라이드 오른쪽 바깥에 위치 */
-}
-
-.board-list {
-    width: 600px;
-    overflow: hidden;
-    background-color: #e5ffd8;
-    border-radius: 10px;
-    padding: 0px 20px;
-}
-
-#boardList {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    white-space: nowrap;
-    list-style: none;
-    padding: 0;
-}
-
-.board-item {
-    min-width: auto;
-    text-align: center;
-    margin-right: 10px;
-}
-
-.boardBtn {
-    padding: 10px;
-    background-color: inherit;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.3s ease; /* 색상 변경 시 애니메이션 추가 */
-}
-
-.boardBtn:hover {
-    background-color: #3bdf25da; /* 호버 시 색상 변경 */
-    border-radius: 5px;
-}
-
-/* 클릭한 버튼에 호버 색상을 유지하기 위한 클래스 */
-.boardBtn.active-btn {
-    background-color: #3bdf25da; /* 선택된 버튼에 동일한 색상 유지 */
-    border-radius: 5px;
-}
-
-
-.search-type {
-	text-align: right;
-	margin: 30px 0;
-}
-
-.search-type select, .search-type input[type="text"] {
-	padding: 5px;
-	margin-left: 10px;
-}
-
-.search-type input[type="text"] {
-	width: 200px;
-	margin-right: 10px;
-	border: 1px solid rgb(138, 206, 138);
-}
-
-.search-type input[type="text"]:focus {
-	border: 1px solid green;
-}
-
-.search-type input[type="text"]::placeholder {
-	color: rgb(0, 77, 0);
-}
-
-.search-type select {
-	width: 100px;
-	border: 1px solid green;
-	color: green;
-	border-radius: 5px;
-	appearance: none;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	text-align: center;
-}
-
-.search-type select option:hover {
-	background-color: green;
-	color: white;
-}
-
-/* Pagination 스타일 추가 */
-.pagination {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.pagination .page-numbers {
-    display: inline-block;
-    padding: 10px 15px;
-    margin: 0 5px;
-    background-color: #e5ffd8;
-    border: 1px solid #3bdf25da;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    text-decoration: none;
-}
-
-.pagination .page-numbers:hover {
-    background-color: #3bdf25da;
-    color: white;
-}
-
-.pagination .page-numbers.active {
-    background-color: #3bdf25da;
-    color: white;
-}
-
-.pagination .prev2, .pagination .next2 {
-    cursor: pointer;
-    background-color: inherit;
-    border: none;
-    font-size: 18px;
-    color: black;
-    margin: 0 10px;
-    text-decoration: none;
-}
-
-table {
-	text-align: center;
-}
-
-table thead {
-	text-align: center;
-}
-
-table thead tr #number {
-	width: 40px;
-}
-table thead tr #board {
-	width: 120px;
-}
-table thead tr #title {
-	width: 300px;
-}
-table thead tr #author {
-	width: 50px;
-}
-table thead tr #date {
-	width: 70px;
-}
-table thead tr #view {
-	width: 40px;
-}
-
-
-</style>
-
 </head>
 <body>
 	<!-- 헤더 -->
@@ -226,31 +33,88 @@ table thead tr #view {
 
 	<!-- 메인 콘텐츠 -->
 	<article>
+		<%
+		Map<String, Object> pagination = (Map<String, Object>) request.getAttribute("pagination"); // pagination 객체 가져오기
+		// Java 코드를 통해 pagination 값을 가져와서 사용할 준비를 합니다.
+		int currentPage = (Integer) pagination.get("currentPage");
+		int startPage = (Integer) pagination.get("startPage");
+		int endPage = (Integer) pagination.get("endPage");
+		int totalPages = (Integer) pagination.get("totalPages");
+		int countPerPage = (Integer) pagination.get("countPerPage");
+		boolean hasPrev = (Boolean) pagination.get("hasPrev");
+		boolean hasNext = (Boolean) pagination.get("hasNext");
+		int prevPage = (Integer) pagination.get("prevPage");
+		int nextPage = (Integer) pagination.get("nextPage");
+		%>
 		<div class="container">
 			<h1>전체글</h1>
+			<span>전체 글을 조회합니다.</span>
 			<div class="search-bar">
 				<div class="board-container">
 					<button class="prev" id="prevBtn">«</button>
 					<div class="board-list">
 						<ul id="boardList">
-								<li class="board-item"><button class="boardBtn">전체</button></li>
-							<c:forEach var="list" items="${board}">
-								<li class="board-item">
-									<button class="boardBtn">${list.board_name}</button>
-								</li>
-							</c:forEach>
+						    <li class="board-item">
+						        <button class="boardBtn" data-board-id="all" data-board-name="전체글" data-board-desc="전체 글을 조회합니다.">전체</button>
+						    </li>
+						    <c:forEach var="list" items="${board}">
+						        <li class="board-item">
+						            <button class="boardBtn" 
+						                    data-board-id="${list.board_id}" 
+						                    data-board-name="${list.board_name}" 
+						                    data-board-desc="${list.description}">
+						                ${list.board_name}
+						            </button>
+						        </li>
+						    </c:forEach>
 						</ul>
 					</div>
 					<button class="next" id="nextBtn">»</button>
 				</div>
 				<div class="search-type">
-					<select name="searchType">
-						<option value="all">전체</option>
-						<option value="title">제목</option>
-						<option value="content">내용</option>
-					</select> 
-					<input type="text" placeholder="검색어를 입력하세요." />
-					<button type="submit" class="btn"><span>조회</span></button>
+					<form id="searchForm" action="allposts" method="get">
+						<select name="searchType" id="searchType">
+							<option value="title"
+								${param.searchType == 'title' ? 'selected' : ''}>제목</option>
+							<option value="author_id"
+								${param.searchType == 'author_id' ? 'selected' : ''}>작성자</option>
+						</select> <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요."
+							value="${param.searchKeyword}" />
+						<button type="submit" class="btn">
+							<span>조회</span>
+						</button>
+
+						<!-- 페이지 이동 시에도 검색 정보가 유지되도록 hidden 필드 추가 -->
+						<input type="hidden" name="countPerPage"
+							value="${pagination.countPerPage}" /> <input type="hidden"
+							name="page" value="${pagination.currentPage}" />
+					</form>
+
+					<form id="countPerPageForm"
+						action="allposts?page=<%=prevPage%>&countPerPage=<%=countPerPage%>&searchKeyword=${searchKeyword}&searchType=${searchType}"
+						method="get">
+						<select name="countPerPage" id="countPerPage"
+							onchange="this.form.submit()">
+							<option value="5"
+								${pagination.countPerPage == 5 ? 'selected' : ''}>5개씩</option>
+							<option value="10"
+								${pagination.countPerPage == 10 ? 'selected' : ''}>10개씩</option>
+							<option value="15"
+								${pagination.countPerPage == 15 ? 'selected' : ''}>15개씩</option>
+							<option value="20"
+								${pagination.countPerPage == 20 ? 'selected' : ''}>20개씩</option>
+							<option value="30"
+								${pagination.countPerPage == 30 ? 'selected' : ''}>30개씩</option>
+							<option value="40"
+								${pagination.countPerPage == 40 ? 'selected' : ''}>40개씩</option>
+							<option value="50"
+								${pagination.countPerPage == 50 ? 'selected' : ''}>50개씩</option>
+						</select> <input type="hidden" name="page"
+							value="${pagination.currentPage}" /> <input type="hidden"
+							name="searchKeyword" value="${searchKeyword}" /> <input
+							type="hidden" name="searchType" value="${searchType}" />
+					</form>
+
 				</div>
 			</div>
 
@@ -267,30 +131,55 @@ table thead tr #view {
 				</thead>
 				<tbody>
 					<c:forEach var="post" items="${post}">
-				        <tr>
-				            <td>${post.rnum}<input type="hidden" name="post_id" value="${ post.post_id }"></td>
-				            <td>${post.board_name}</td>
-				            <td><a href="post/read?post_id=${post.post_id }">${post.title}</a></td>
-				            <td>${post.author_name}</td>
-				            <td><fmt:formatDate value="${post.created_at}" pattern="yyyy.MM.dd" /><input type="hidden" name="updated_at" value="${ post.updated_at }"></td>
-				            <td>${post.view_cnt}</td>
-				        </tr>
-				    </c:forEach>
+						<tr>
+							<td>${post.rnum}<input type="hidden" name="post_id"
+								value="${ post.post_id }"></td>
+							<td>${post.board_name}</td>
+							<td><a href="post.read?post_id=${post.post_id }">${post.title}</a></td>
+							<td>${post.author_name}</td>
+							<td><fmt:formatDate value="${post.created_at}"
+									pattern="yyyy.MM.dd" /><input type="hidden" name="updated_at"
+								value="${ post.updated_at }"></td>
+							<td>${post.view_cnt}</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
-
+			<%-- Pagination --%>
 			<div class="pagination">
-			    <div>
-			        <c:if test="${pagination.hasPrev}">
-			            <a href="?page=${pagination.prevPage}" class="prev2 page-numbers">«</a>
-			        </c:if>
-			        <c:forEach var="page" begin="${pagination.startPage}" end="${pagination.endPage}">
-			            <a href="?page=${page}" class="page-numbers ${page == pagination.currentPage ? 'active' : ''}">${page}</a>
-			        </c:forEach>
-			        <c:if test="${pagination.hasNext}">
-			            <a href="?page=${pagination.nextPage}" class="next2 page-numbers">»</a>
-			        </c:if>
-			    </div>
+
+
+				<%-- 이전 페이지 링크 --%>
+				<%
+				if (hasPrev) {
+				%>
+				<a
+					href="?page=<%=prevPage%>&countPerPage=<%=countPerPage%>&searchKeyword=${searchKeyword}&searchType=${searchType}"
+					class="prev2 page-numbers">«</a>
+				<%
+				}
+				%>
+
+				<%-- 페이지 번호 링크들 --%>
+				<%
+				for (int i = startPage; i <= endPage; i++) {
+				%>
+				<a href="?page=<%=i%>&countPerPage=<%=countPerPage%>"
+					class="page-numbers <%=(i == currentPage) ? "active" : ""%>"> <%=i%>
+				</a>
+				<%
+				}
+				%>
+
+				<%-- 다음 페이지 링크 --%>
+				<%
+				if (hasNext) {
+				%>
+				<a href="?page=<%=nextPage%>&countPerPage=<%=countPerPage%>"
+					class="next2 page-numbers">»</a>
+				<%
+				}
+				%>
 			</div>
 		</div>
 		<!-- 로딩 CSS에 해당하는 HTML -->

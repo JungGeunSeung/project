@@ -1,6 +1,7 @@
 package kr.or.gaw.dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ public class BoardDTO {
 	private String board_name;
 	private String description;
 	private String created_by;
-	private Date created_at;
+	private Timestamp created_at;
 	private int likes;
 	
 	public String getBoard_id() {
@@ -32,13 +33,12 @@ public class BoardDTO {
 	public void setCreated_by(String created_by) {
 		this.created_by = created_by;
 	}
-	public Date getCreated_at() {
+	public Timestamp getCreated_at() {
 		return created_at;
 	}
-	public void setCreated_at(Date created_at) {
+	public void setCreated_at(Timestamp created_at) {
 		this.created_at = created_at;
 	}
-	
 	public int getLikes() {
 		return likes;
 	}

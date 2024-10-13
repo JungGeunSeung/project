@@ -6,55 +6,84 @@
 <!--     무조건 DAO가 위치한 패키지로 namespace 해야하는가? -->
 <mapper namespace="kr.or.gaw.dao.BoardDAO">
 
+	<!-- 	게시판 뽑아오기 -->
 	<select id="listBoard" resultType="kr.or.gaw.dto.BoardDTO">
 		select * from board
 	</select>
-	
+	<!-- 게시판 한개 읽기 -->
 	<select id="BoardOne" resultType="kr.or.gaw.dto.BoardDTO" parameterType="String">
 		select * from board where board_id = #{board_id}
 	</select>
-	
+	<!-- 게시판 아이디 중복검사 -->
 	<select id="boardDuplicate" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM board WHERE board_id = #{board_id}
 	</select>
-	
+	<!-- 게시판 아이디 최대 값 구하기 -->
 	<select id="maxBoardID" parameterType="String" resultType="int">
 		SELECT MAX(TO_NUMBER(SUBSTR(board_id, 2)))
 		FROM board
 	</select>
-	
+	<!-- 게시판 추가 -->
 	<insert id="insertBoard" parameterType="kr.or.gaw.dto.BoardDTO">
 		INSERT INTO board (board_id, description, board_name, created_by, created_at)
 		VALUES (#{board_id}, #{description}, #{board_name}, #{created_by}, #{created_at})
 	</insert>
-	
+	<!-- 게시판 수정 -->
 	<update id="updateBoard" parameterType="kr.or.gaw.dto.BoardDTO">
 		update board set board_name= #{board_name}, description = #{description} where board_id= #{board_id}
 	</update>
-	
-	<delete id="deleteBoard" parameterType="BoardDTO">
+	<!--  게시판 삭제 -->
+	<delete id="deleteBoard" parameterType="kr.or.gaw.dto.BoardDTO">
 		delete from board where board_id=#{board_id}
 	</delete>
 	
 	<!-- ///////////////////////////게시글////////////////////////////// -->
 	
-	<select id="listPosts" resultType="kr.or.gaw.dto.PostsDTO" parameterType="PostsDTO">
-    SELECT *
-	FROM (
-	    SELECT rownum rnum, p.post_id, p.board_id, b.board_name, p.title, p.content, p.author_id, e.name AS author_name, 
-	           p.created_at, p.updated_at, p.pinned, p.view_cnt
-	    FROM (
-	        SELECT post_id, board_id, title, content, author_id, created_at, updated_at, pinned, view_cnt
-	        FROM posts
-	        ORDER BY created_at DESC
-	    ) p
-	    LEFT JOIN board b ON p.board_id = b.board_id  
-	    LEFT JOIN emp e ON p.author_id = e.user_id  
-	)
-	WHERE rnum &gt;= #{page} AND rnum &lt;= #{countPerPage}
-
+	<!-- 게시글 개수별로 가져오기 -->
+	<select id="listPosts" resultType="kr.or.gaw.dto.PostsDTO" parameterType="kr.or.gaw.dto.PostsDTO">
+	    SELECT * FROM (
+	        SELECT p.*, rownum AS rnum
+	        FROM (
+	            SELECT p.post_id, p.board_id, b.board_name, p.title, p.content, p.author_id, e.name AS author_name, 
+	                   p.created_at, p.updated_at, p.pinned, p.view_cnt
+	            FROM posts p
+	            LEFT JOIN board b ON p.board_id = b.board_id  
+	            LEFT JOIN emp e ON p.author_id = e.user_id  
+	            WHERE 1=1
+	            <!-- 검색 조건에 따른 WHERE 절 -->
+	            <if test="searchType == 'title'">
+	                AND p.title LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+	            <if test="searchType == 'author_id'">
+	                AND e.name LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+	            <!-- 전체 검색일 경우 추가 조건 없음 -->
+	            ORDER BY p.post_id
+	        ) p
+	        WHERE rownum &lt;= #{endRow}
+	    )
+	    WHERE rnum &gt;= #{startRow}
 	</select>
 	
+	<!-- 검색 조건을 포함한 게시물 구하기 -->
+	<select id="totalPostsWithSearch" resultType="int" parameterType="kr.or.gaw.dto.PostsDTO">
+	    SELECT COUNT(*) FROM posts p
+	    LEFT JOIN emp e ON p.author_id = e.user_id
+	    WHERE 1=1
+	    <if test="searchType == 'title'">
+	        AND p.title LIKE '%' || #{searchKeyword} || '%'
+	    </if>
+	    <if test="searchType == 'author'">
+	        AND e.name LIKE '%' || #{searchKeyword} || '%'
+	    </if>
+	</select>
+	
+	<!-- 총 게시글의 개수 구하기 -->
+	<select id="totalPosts" resultType="int">
+		select count(*) from posts
+	</select>
+	
+	<!-- 게시글 한개 뽑아오기 -->
 	<select id="selectPostById" resultType="PostsDTO" parameterType="PostsDTO">
 		SELECT 
         p.post_id,
@@ -74,14 +103,46 @@
     WHERE p.post_id = #{postId}
 	</select>
 
+
+	<!-- 게시글에 해당하는 댓글 뽑기 -->
+	<select id="listComments" resultType="kr.or.gaw.dto.CommentsDTO" parameterType="String">
+	    SELECT c.comment_id, c.post_id, p.title AS post_title, e.name AS employee_name, c.content, c.created_at
+		FROM comments c
+		JOIN emp e ON c.employee_id = e.user_id
+		JOIN posts p ON c.post_id = p.post_id
+		WHERE c.post_id = #{post_id}
+		ORDER BY c.comment_id ASC
+	</select>
 	
+	<select id="getPostsByBoardId" parameterType="String" resultType="PostsDTO">
+	select * from posts where board_id = #{board_id}
+	</select>
+
+	<!-- 댓글 관련 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
+	<!-- 댓글추가 -->
+	<insert id="insertComment" parameterType="kr.or.gaw.dto.CommentsDTO">
+		INSERT INTO comments (comment_id, post_id, employee_id, content, created_at)
+		VALUES (#{comment_id}, #{post_id}, #{employee_id}, #{content}, #{created_at})
+	</insert>
 	
+	<!-- 댓글 아이디 최대값 구하기 -->
+	<select id="maxCommentsId" parameterType="String" resultType="int">
+		SELECT MAX(TO_NUMBER(SUBSTR(comment_id, 2)))
+		FROM comments
+	</select>
 	
+	<!-- 댓글수정 -->
+	<update id="updateComment" parameterType="kr.or.gaw.dto.CommentsDTO">
+		update comments set content = #{content}, created_at = #{created_at} where comment_id= #{comment_id}
+	</update>
 	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="kr.or.gaw.dto.CommentsDTO">
+		delete from comments where comment_id=#{comment_id}
+	</delete>
 	
-	
-	
+
 	
 	
 	
