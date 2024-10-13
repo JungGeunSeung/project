@@ -12,4 +12,8 @@ public interface BOMDAO {
 
 	List<BomDTO> selectBomList(BomDTO dto);
 	int getTotalDataCount(BomDTO dto);
+	BomDTO selectOne(String bom_id);
+	int updateBom(BomDTO bomDTO);
+	int insertBom(BomDTO bomDTO);
+	int deleteBom(String bom_id);
 }

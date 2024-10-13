@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 public class BomDTO {
 
 	private String bom_id;
+	
 	private String product_id;
 	private String material_id;
 	private int quantity;
@@ -64,6 +65,12 @@ public class BomDTO {
 		this.page = page;
 	}
 	
+	@Override
+	public String toString() {
+		return "BomDTO [bom_id=" + bom_id + ", product_id=" + product_id + ", material_id=" + material_id
+				+ ", quantity=" + quantity + ", version=" + version + ", create_at=" + create_at + ", countperpage="
+				+ countperpage + ", page=" + page + "]";
+	}
 	
 	
 }

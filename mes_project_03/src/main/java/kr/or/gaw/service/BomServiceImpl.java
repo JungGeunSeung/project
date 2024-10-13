@@ -27,5 +27,31 @@ public class BomServiceImpl implements BomService {
 	public int getTotalDataCount(BomDTO dto) {
 		return bomDao.getTotalDataCount(dto);
 	}
+	@Override
+	public BomDTO selectOne(String bom_id) {
+	    return bomDao.selectOne(bom_id);
+	}
+
+	@Override
+	public int updateBom(BomDTO bomDTO) {
+		int result = -1;
+	    result = bomDao.updateBom(bomDTO);  
+	    return result;  
+	}
+	
+	@Override
+	public int insertBom(BomDTO bomDTO) {
+		System.out.println("서비스 실행");
+		int result = -1;
+	    result = bomDao.insertBom(bomDTO);  
+	    return result;  
+	}
+	
+	@Override
+	public int deleteBom(String bom_id) {
+		int result = -1;
+	    result = bomDao.deleteBom(bom_id);  
+	    return result;  
+	}
 
 }
