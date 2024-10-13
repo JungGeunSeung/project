@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.gaw.dao.BoardDAO;
 import kr.or.gaw.dto.BoardDTO;
+import kr.or.gaw.dto.PostsDTO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -63,6 +64,11 @@ public class BoardServiceImpl implements BoardService {
 		int result = -1;
 		result = boardDAO.deleteBoard(board_id);
 		return result;
+	}
+
+	@Override
+	public List listPosts(PostsDTO dto) {
+		return boardDAO.listPosts(dto);
 	}
 
 

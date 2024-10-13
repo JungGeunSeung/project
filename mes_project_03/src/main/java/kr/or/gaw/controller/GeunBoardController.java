@@ -3,15 +3,20 @@ package kr.or.gaw.controller;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.gaw.dto.BoardDTO;
+import kr.or.gaw.dto.PostsDTO;
 import kr.or.gaw.service.BoardService;
 
 @Controller
@@ -66,5 +71,38 @@ public class GeunBoardController {
 		result = boardservice.deleteBoard(board_id);
 		return "redirect:board";
 	}
+	
+	@RequestMapping("/allposts")
+	public String allposts(Model model, PostsDTO dto) {
+		
+		// 방어 코딩: page와 countPerPage가 null인 경우 기본값 설정
+	    if (dto.getPage() == null) {
+	        dto.setPage(1); // 기본 페이지 값
+	    }
+	    if (dto.getCountPerPage() == null) {
+	        dto.setCountPerPage(10); // 기본 페이지 당 글 수 설정
+	    }
+		
+		List list = new ArrayList();
+		list = boardservice.listPosts(dto);
+		model.addAttribute("list", list);
+		return "bulletin/allposts";
+	}
+	
+	@PostMapping("/post.ajax")
+    @ResponseBody
+    public Map<String, Object> getBoardData(@RequestBody Map<String, String> requestData) {
+        String boardName = requestData.get("board_name");
+
+        // 여기서 boardName을 활용하여 비즈니스 로직 처리
+        System.out.println("받은 보드 이름: " + boardName);
+
+        // 응답 데이터 생성
+        Map<String, Object> response = new HashMap();
+        response.put("status", "success");
+        response.put("message", "Board name received: " + boardName);
+
+        return response; // JSON 형식으로 응답
+    }
 	
 }

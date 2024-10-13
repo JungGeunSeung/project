@@ -13,6 +13,8 @@ public class PostsDTO {
 	private Date updated_at;
 	private String pinned;
 	private int view_cnt;
+	private Integer page;
+	private Integer countPerPage;
 	
 	public String getPost_id() {
 		return post_id;
@@ -68,12 +70,22 @@ public class PostsDTO {
 	public void setView_cnt(int view_cnt) {
 		this.view_cnt = view_cnt;
 	}
-	
-	@Override
-	public String toString() {
-		return "PostsDTO [post_id=" + post_id + ", board_id=" + board_id + ", title=" + title + ", content=" + content
-				+ ", author_id=" + author_id + ", created_at=" + created_at + ", updated_at=" + updated_at + ", pinned="
-				+ pinned + ", view_cnt=" + view_cnt + "]";
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
 	}
+	public Integer getPage() {
+		return page;
+	}
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+	public Integer getCountPerPage() {
+		return countPerPage;
+	}
+	public void setCountPerPage(Integer countPerPage) {
+		this.countPerPage = countPerPage;
+	}
+	
+
 	
 }

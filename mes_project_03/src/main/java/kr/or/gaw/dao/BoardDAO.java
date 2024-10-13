@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.gaw.dto.BoardDTO;
+import kr.or.gaw.dto.PostsDTO;
 
 @Mapper
 public interface BoardDAO {
@@ -16,4 +17,5 @@ public interface BoardDAO {
 	int deleteBoard(String board_id);
 	int boardDuplicate(String board_id);
 	int maxBoardID();
+	List listPosts(PostsDTO dto);
 }

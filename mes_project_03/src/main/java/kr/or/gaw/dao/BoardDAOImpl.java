@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.gaw.dto.BoardDTO;
+import kr.or.gaw.dto.PostsDTO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -22,21 +23,21 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public List listBoard() {
 		
-		List<BoardDTO> result = sqlSession.selectList("kr.or.gaw.dao.EmpDAO.listBoard");
+		List<BoardDTO> result = sqlSession.selectList("kr.or.gaw.dao.BoardDAO.listBoard");
 		return result;
 	}
 	// 중복 검사
 	@Override
 	public int boardDuplicate(String board_id) {
 		int result = -1;
-		result = sqlSession.selectOne("kr.or.gaw.dao.EmpDAO.boardDuplicate", board_id);
+		result = sqlSession.selectOne("kr.or.gaw.dao.BoardDAO.boardDuplicate", board_id);
 		return result;
 	}
 	
 	@Override
 	public int maxBoardID() {
 		int result = -1;
-		result = sqlSession.selectOne("kr.or.gaw.dao.EmpDAO.maxBoardID");
+		result = sqlSession.selectOne("kr.or.gaw.dao.BoardDAO.maxBoardID");
 		return result;
 	}
 
@@ -51,7 +52,7 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int insertBoard(BoardDTO dto) {
 		int result = -1;
-		result = sqlSession.insert("kr.or.gaw.dao.EmpDAO.insertBoard", dto);
+		result = sqlSession.insert("kr.or.gaw.dao.BoardDAO.insertBoard", dto);
 		return result;
 	}
 
@@ -59,7 +60,7 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int updateBoard(BoardDTO dto) {
 		int result = -1;
-		result = sqlSession.update("kr.or.gaw.dao.EmpDAO.updateBoard", dto);
+		result = sqlSession.update("kr.or.gaw.dao.BoardDAO.updateBoard", dto);
 		return result;
 	}
 
@@ -69,6 +70,10 @@ public class BoardDAOImpl implements BoardDAO {
 		int result = -1;
 		result = sqlSession.delete("kr.or.gaw.dao.EmpDAO.deleteBoard", board_id);
 		return result;
+	}
+	@Override
+	public List listPosts(PostsDTO dto) {
+		return sqlSession.selectList("kr.or.gaw.dao.BoardDAO.listPosts", dto);
 	}
 
 

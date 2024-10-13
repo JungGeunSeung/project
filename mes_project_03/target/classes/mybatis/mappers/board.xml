@@ -36,4 +36,35 @@
 		delete from board where board_id=#{board_id}
 	</delete>
 	
+	<!-- ///////////////////////////게시글////////////////////////////// -->
+	
+	<select id="listPosts" resultType="kr.or.gaw.dto.PostsDTO" parameterType="PostsDTO">
+		SELECT *
+		FROM (
+		    SELECT rownum rnum, post_id, board_id, title, content, author_id, created_at, updated_at, pinned, view_cnt
+		    FROM (
+		        SELECT post_id, board_id, title, content, author_id, created_at, updated_at, pinned, view_cnt
+		        FROM posts
+		        ORDER BY created_at DESC
+		    )
+		)
+		WHERE rnum >= #{page} AND rnum &lt;= #{countPerPage};
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

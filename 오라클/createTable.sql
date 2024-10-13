@@ -154,6 +154,7 @@ CREATE TABLE dept (
 CREATE TABLE board (
 	board_id	VARCHAR2(50)	NULL,
 	board_name	VARCHAR2(255)	NULL,
+    description varchar2(255) null,
 	created_by	VARCHAR2(50)	NULL,
 	created_at	DATE	NULL
 );
