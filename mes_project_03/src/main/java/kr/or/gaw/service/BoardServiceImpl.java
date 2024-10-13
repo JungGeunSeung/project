@@ -71,5 +71,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.listPosts(dto);
 	}
 
+	@Override
+	public PostsDTO selectPostById(String postId) {
+		return boardDAO.selectPostById(postId);
+	}
+
 
 }

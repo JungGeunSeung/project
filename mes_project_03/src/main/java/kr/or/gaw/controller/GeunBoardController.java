@@ -10,9 +10,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.gaw.dto.BoardDTO;
@@ -24,6 +26,9 @@ public class GeunBoardController {
 	
 	@Autowired
 	BoardService boardservice;
+	
+	
+	
 	
 	@RequestMapping("/board")
 	public String board(Model model) {
@@ -84,8 +89,11 @@ public class GeunBoardController {
 	    }
 		
 		List list = new ArrayList();
+		List list2 = new ArrayList();
 		list = boardservice.listPosts(dto);
-		model.addAttribute("list", list);
+		list2 = boardservice.listBoard();
+		model.addAttribute("post", list);
+		model.addAttribute("board", list2);
 		return "bulletin/allposts";
 	}
 	
@@ -105,4 +113,17 @@ public class GeunBoardController {
         return response; // JSON 형식으로 응답
     }
 	
+	// 게시글 읽는 페이지
+	 @GetMapping("/post/read")
+	    public String readPost(@RequestParam("post_id") String postId, Model model) {
+	        PostsDTO post = boardservice.selectPostById(postId);
+	        model.addAttribute("post", post);
+	        return "bulletin/postOne";
+	    }
+	 
+	 // 게시글 수정 페이지
+	 @RequestMapping("/post/modify")
+	 public String modifypost() {
+		 return "bulletin/postModify";
+	 }
 }

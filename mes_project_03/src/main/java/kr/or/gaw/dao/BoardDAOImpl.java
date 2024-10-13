@@ -71,11 +71,16 @@ public class BoardDAOImpl implements BoardDAO {
 		result = sqlSession.delete("kr.or.gaw.dao.EmpDAO.deleteBoard", board_id);
 		return result;
 	}
+	
+	////////////////////////////////// 게시글 관련 메소드
 	@Override
 	public List listPosts(PostsDTO dto) {
 		return sqlSession.selectList("kr.or.gaw.dao.BoardDAO.listPosts", dto);
 	}
 
-
+	@Override
+    public PostsDTO selectPostById(String postId) {
+        return sqlSession.selectOne("kr.or.gaw.dao.BoardDAO.postOne", postId);
+    }
 
 }

@@ -18,4 +18,5 @@ public interface BoardDAO {
 	int boardDuplicate(String board_id);
 	int maxBoardID();
 	List listPosts(PostsDTO dto);
+	PostsDTO selectPostById(String postId);
 }

@@ -11,6 +11,27 @@
 	</appender>
 	
 	<!-- Application Loggers -->
+	
+	<!-- Spring Beans 관련 패키지 로그를 INFO로 설정 -->
+    <logger name="org.springframework.beans">
+        <level value="INFO"/>
+    </logger>
+    
+    <!-- Spring Web 패키지 로그를 INFO로 설정 -->
+    <logger name="org.springframework.web">
+        <level value="INFO"/>
+    </logger>
+    
+    <!-- Spring Context 패키지 로그를 INFO로 설정 -->
+    <logger name="org.springframework.context">
+        <level value="INFO"/>
+    </logger>
+
+    <!-- 기타 로그 레벨 설정 -->
+    <logger name="org.springframework">
+        <level value="INFO"/>
+    </logger>
+    
 	<logger name="kr.or.gaw">
 		<level value="info" />
 	</logger>
@@ -31,6 +52,14 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
+	
+	<logger name="org.springframework.security">
+        <level value="INFO"/>
+    </logger>
+    
+    <logger name="org.springframework.beans.factory">
+        <level value="INFO"/>
+    </logger>
 
 	<!-- Root Logger -->
 	<root>

@@ -182,6 +182,34 @@
     text-decoration: none;
 }
 
+table {
+	text-align: center;
+}
+
+table thead {
+	text-align: center;
+}
+
+table thead tr #number {
+	width: 40px;
+}
+table thead tr #board {
+	width: 120px;
+}
+table thead tr #title {
+	width: 300px;
+}
+table thead tr #author {
+	width: 50px;
+}
+table thead tr #date {
+	width: 70px;
+}
+table thead tr #view {
+	width: 40px;
+}
+
+
 </style>
 
 </head>
@@ -206,7 +234,7 @@
 					<div class="board-list">
 						<ul id="boardList">
 								<li class="board-item"><button class="boardBtn">전체</button></li>
-							<c:forEach var="list" items="${list}">
+							<c:forEach var="list" items="${board}">
 								<li class="board-item">
 									<button class="boardBtn">${list.board_name}</button>
 								</li>
@@ -229,22 +257,22 @@
 			<table>
 				<thead>
 					<tr>
-						<th>NO</th>
-						<th>게시판</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>작성일</th>
-						<th>조회</th>
+						<th id="number">NO</th>
+						<th id="board">게시판</th>
+						<th id="title">제목</th>
+						<th id="author">작성자</th>
+						<th id="date">작성일</th>
+						<th id="view">조회</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="post" items="${list}">
+					<c:forEach var="post" items="${post}">
 				        <tr>
-				            <td>${post.post_id}</td>
+				            <td>${post.rnum}<input type="hidden" name="post_id" value="${ post.post_id }"></td>
 				            <td>${post.board_name}</td>
-				            <td>${post.title}</td>
-				            <td>${post.author_id}</td>
-				            <td><fmt:formatDate value="${post.created_at}" pattern="yyyy.MM.dd" /></td>
+				            <td><a href="post/read?post_id=${post.post_id }">${post.title}</a></td>
+				            <td>${post.author_name}</td>
+				            <td><fmt:formatDate value="${post.created_at}" pattern="yyyy.MM.dd" /><input type="hidden" name="updated_at" value="${ post.updated_at }"></td>
 				            <td>${post.view_cnt}</td>
 				        </tr>
 				    </c:forEach>

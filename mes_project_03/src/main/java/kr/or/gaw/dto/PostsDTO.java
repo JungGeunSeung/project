@@ -6,15 +6,20 @@ public class PostsDTO {
 
 	private String post_id;
 	private String board_id;
+	private String board_name;
 	private String title;
 	private String content;
 	private String author_id;
+	private String name;
+	private String author_name;
 	private Date created_at;
 	private Date updated_at;
 	private String pinned;
 	private int view_cnt;
 	private Integer page;
 	private Integer countPerPage;
+	private int rnum;
+	
 	
 	public String getPost_id() {
 		return post_id;
@@ -84,6 +89,30 @@ public class PostsDTO {
 	}
 	public void setCountPerPage(Integer countPerPage) {
 		this.countPerPage = countPerPage;
+	}
+	public String getBoard_name() {
+		return board_name;
+	}
+	public void setBoard_name(String board_name) {
+		this.board_name = board_name;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getAuthor_name() {
+		return author_name;
+	}
+	public void setAuthor_name(String author_name) {
+		this.author_name = author_name;
+	}
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 	
 

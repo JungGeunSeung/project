@@ -39,17 +39,41 @@
 	<!-- ///////////////////////////게시글////////////////////////////// -->
 	
 	<select id="listPosts" resultType="kr.or.gaw.dto.PostsDTO" parameterType="PostsDTO">
-		SELECT *
-		FROM (
-		    SELECT rownum rnum, post_id, board_id, title, content, author_id, created_at, updated_at, pinned, view_cnt
-		    FROM (
-		        SELECT post_id, board_id, title, content, author_id, created_at, updated_at, pinned, view_cnt
-		        FROM posts
-		        ORDER BY created_at DESC
-		    )
-		)
-		WHERE rnum >= #{page} AND rnum &lt;= #{countPerPage};
+    SELECT *
+	FROM (
+	    SELECT rownum rnum, p.post_id, p.board_id, b.board_name, p.title, p.content, p.author_id, e.name AS author_name, 
+	           p.created_at, p.updated_at, p.pinned, p.view_cnt
+	    FROM (
+	        SELECT post_id, board_id, title, content, author_id, created_at, updated_at, pinned, view_cnt
+	        FROM posts
+	        ORDER BY created_at DESC
+	    ) p
+	    LEFT JOIN board b ON p.board_id = b.board_id  
+	    LEFT JOIN emp e ON p.author_id = e.user_id  
+	)
+	WHERE rnum &gt;= #{page} AND rnum &lt;= #{countPerPage}
+
 	</select>
+	
+	<select id="selectPostById" resultType="PostsDTO" parameterType="PostsDTO">
+		SELECT 
+        p.post_id,
+        p.board_id,
+        b.board_name, -- board 테이블에서 board_name 가져오기
+        p.title,
+        p.content,
+        p.author_id,
+        e.name AS author_name, -- emp 테이블에서 name 가져오기
+        p.created_at,
+        p.updated_at,
+        p.pinned,
+        p.view_cnt
+    FROM posts p
+    LEFT JOIN board b ON p.board_id = b.board_id -- board_name을 가져오기 위해 JOIN
+    LEFT JOIN emp e ON p.author_id = e.user_id -- author_id에 해당하는 이름을 가져오기 위해 JOIN
+    WHERE p.post_id = #{postId}
+	</select>
+
 	
 	
 	

@@ -9,10 +9,6 @@ table {
   border-radius: 5px;
   overflow: hidden;
 }
-
-th {
-  text-align: left;
-}
   
 thead {
   font-weight: bold;

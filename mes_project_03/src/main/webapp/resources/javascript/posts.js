@@ -72,7 +72,7 @@ $(document).ready(function() {
             // AJAX 요청
             $.ajax({
                 type: "POST",
-                url: "/post.ajax", // 컨트롤러 URL
+                url: "post.ajax", // 컨트롤러 URL
                 contentType: "application/json; charset=UTF-8",
                 data: JSON.stringify({ "board_name": boardName }), // JSON 형식으로 데이터 전송
                 success: function(response) {
