@@ -50,10 +50,15 @@
 	            LEFT JOIN board b ON p.board_id = b.board_id  
 	            LEFT JOIN emp e ON p.author_id = e.user_id  
 	            WHERE 1=1
-	            <!-- 검색 조건에 따른 WHERE 절 -->
+	            <!-- 게시판 필터 추가 -->
+	            <if test="board_id != 'all'">
+	                AND p.board_id = #{board_id}
+	            </if>
+	            <!-- 제목으로 검색 -->
 	            <if test="searchType == 'title'">
 	                AND p.title LIKE '%' || #{searchKeyword} || '%'
 	            </if>
+	            <!-- 작성자로 검색 -->
 	            <if test="searchType == 'author_id'">
 	                AND e.name LIKE '%' || #{searchKeyword} || '%'
 	            </if>
@@ -65,6 +70,16 @@
 	    WHERE rnum &gt;= #{startRow}
 	</select>
 	
+	<!-- 게시글 수정 -->
+	<update id="updatePost" parameterType="kr.or.gaw.dto.BoardDTO">
+		update posts set board_id = #{board_id} ,title= #{title}, content = #{content}, updated_at = #{updated_at}, pinned = #{pinned} where post_id= #{post_id}
+	</update>
+	
+	<!--  게시글 삭제 -->
+	<delete id="deletePost" parameterType="kr.or.gaw.dto.BoardDTO">
+		delete posts where post_id=#{post_id}
+	</delete>
+
 	<!-- 검색 조건을 포함한 게시물 구하기 -->
 	<select id="totalPostsWithSearch" resultType="int" parameterType="kr.or.gaw.dto.PostsDTO">
 	    SELECT COUNT(*) FROM posts p
@@ -105,22 +120,6 @@
 	
 	<!-- 게시판별 게시글 뽑아오기 -->
 	<select id="selectBoardByPost" parameterType="String" resultType="PostsDTO">
-		select * from posts where board_id = #{board_id}
-	</select>
-
-	<!-- 댓글 관련 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-	<!-- 게시글에 해당하는 댓글 뽑기 -->
-	<select id="listComments" resultType="kr.or.gaw.dto.CommentsDTO" parameterType="String">
-	    SELECT c.comment_id, c.post_id, p.title AS post_title, e.name AS employee_name, c.content, c.created_at
-		FROM comments c
-		JOIN emp e ON c.employee_id = e.user_id
-		JOIN posts p ON c.post_id = p.post_id
-		WHERE c.post_id = #{post_id}
-		ORDER BY c.comment_id ASC
-	</select>
-	
-	<select id="getPostsByBoardId" parameterType="String" resultType="PostsDTO">
 		SELECT 
 		    ROW_NUMBER() OVER (ORDER BY p.created_at DESC) AS rnum,  -- 게시글 생성일 기준으로 행 번호를 생성
 		    p.post_id, 
@@ -137,6 +136,22 @@
 		LEFT JOIN board b ON p.board_id = b.board_id
 		LEFT JOIN emp e ON p.author_id = e.user_id
 		WHERE p.board_id = #{board_id}
+	</select>
+
+	<!-- 댓글 관련 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+	<!-- 게시글에 해당하는 댓글 뽑기 -->
+	<select id="listComments" resultType="kr.or.gaw.dto.CommentsDTO" parameterType="String">
+	    SELECT c.comment_id, c.post_id, p.title AS post_title, e.name AS employee_name, c.content, c.created_at
+		FROM comments c
+		JOIN emp e ON c.employee_id = e.user_id
+		JOIN posts p ON c.post_id = p.post_id
+		WHERE c.post_id = #{post_id}
+		ORDER BY c.comment_id ASC
+	</select>
+	
+	<select id="getPostsByBoardId" parameterType="String" resultType="PostsDTO">
+	select * from posts where board_id = #{board_id}
 	</select>
 
 	

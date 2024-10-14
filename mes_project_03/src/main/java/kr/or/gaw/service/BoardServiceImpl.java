@@ -121,5 +121,15 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.selectBoardByPost(board_id);
 	}
 
+	@Override
+	public int deletePost(String post_id) {
+		return boardDAO.deletePost(post_id);
+	}
+
+	@Override
+	public int updatePost(PostsDTO dto) {
+		return boardDAO.updatePost(dto);
+	}
+
 
 }

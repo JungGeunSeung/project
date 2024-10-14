@@ -80,8 +80,11 @@ public class GeunBoardController {
 		return "redirect:board";
 	}
 	
+	///////////////////////// 게시글 관련 /////////////////////////////////////////
+	
 	@RequestMapping("/allposts")
 	public String allposts(Model model,
+	                       @RequestParam(value = "board_id", required = false) String boardId,
 	                       @RequestParam(value = "countPerPage", required = false) Integer countPerPage,
 	                       @RequestParam(value = "page", required = false) Integer page,
 	                       @RequestParam(value = "searchType", required = false) String searchType,
@@ -94,38 +97,39 @@ public class GeunBoardController {
 	    if (countPerPage == null) {
 	        countPerPage = 10;
 	    }
-
-	    // 검색 조건이 없는 경우 기본값 설정
-	    if (searchType == null) {
+	    if (boardId == null || boardId.isEmpty()) {
+	        boardId = "all";
+	    }
+	    if (searchType == null || searchType.isEmpty()) {
 	        searchType = "all";
 	    }
 	    if (searchKeyword == null) {
 	        searchKeyword = "";
 	    }
 
-	    // PostsDTO에 검색 관련 정보 추가
+	    // DTO 설정
 	    PostsDTO dto = new PostsDTO();
 	    dto.setPage(page);
 	    dto.setCountPerPage(countPerPage);
 	    dto.setSearchType(searchType);
 	    dto.setSearchKeyword(searchKeyword);
-	    
-	 // startRow와 endRow 계산
+	    dto.setBoard_id(boardId);
+
+	    // 페이지 범위 계산
 	    int startRow = (dto.getPage() - 1) * dto.getCountPerPage() + 1;
 	    int endRow = dto.getPage() * dto.getCountPerPage();
-
-	    
 	    dto.setStartRow(startRow);
 	    dto.setEndRow(endRow);
-	    
+
 	    // 게시물 목록 가져오기
 	    List<PostsDTO> postList = boardservice.listPosts(dto);
 	    List<BoardDTO> boardList = boardservice.listBoard();
 
-	    int totalPosts = boardservice.totalPostsWithSearch(dto); // 검색 조건에 맞는 총 게시물 수
+	    // 총 게시물 수 계산
+	    int totalPosts = boardservice.totalPostsWithSearch(dto);
 	    int totalPages = (int) Math.ceil((double) totalPosts / countPerPage);
 
-	    // 페이지네이션 계산
+	    // 페이지네이션 정보 계산
 	    int displayPageCount = 5;
 	    int startPage = Math.max(1, page - displayPageCount / 2);
 	    int endPage = Math.min(totalPages, startPage + displayPageCount - 1);
@@ -135,7 +139,7 @@ public class GeunBoardController {
 	    int prevPage = page - 1;
 	    int nextPage = page + 1;
 
-	    // 페이지네이션 정보 추가
+	    // 페이지네이션 정보를 모델에 추가
 	    Map<String, Object> pagination = new HashMap();
 	    pagination.put("currentPage", page);
 	    pagination.put("totalPages", totalPages);
@@ -144,23 +148,19 @@ public class GeunBoardController {
 	    pagination.put("hasPrev", hasPrev);
 	    pagination.put("hasNext", hasNext);
 	    pagination.put("prevPage", prevPage);
-	    pagination.put("nextPage", nextPage);
 	    pagination.put("countPerPage", countPerPage);
+	    pagination.put("nextPage", hasNext ? nextPage : totalPages); // nextPage 값을 설정
 
-	    // 모델에 추가
+	    // 모델에 데이터 추가
 	    model.addAttribute("pagination", pagination);
 	    model.addAttribute("post", postList);
 	    model.addAttribute("board", boardList);
-	    model.addAttribute("searchType", searchType);   // 검색 필터를 유지
-	    model.addAttribute("searchKeyword", searchKeyword);  // 검색어를 유지
+	    model.addAttribute("searchType", searchType);
+	    model.addAttribute("searchKeyword", searchKeyword);
+	    model.addAttribute("board_id", boardId); // 게시판 필터 유지
 
 	    return "bulletin/allposts";
 	}
-
-
-
-
-
 
 
 	
@@ -173,44 +173,43 @@ public class GeunBoardController {
 	        @RequestParam(value = "searchType", required = false) String searchType,
 	        @RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
 
+	    // 게시판 ID와 다른 파라미터 받기
 	    String boardId = requestData.get("board_id");
-	    List<PostsDTO> list = new ArrayList();
-	    
-	    // 게시판 ID가 "all"인 경우 전체 게시글을 조회 (페이지네이션 포함)
+
+	    // 기본값 설정
+	    if (page == null) {
+	        page = 1;
+	    }
+	    if (countPerPage == null) {
+	        countPerPage = 10;
+	    }
+	    if (searchType == null) {
+	        searchType = "all";
+	    }
+	    if (searchKeyword == null) {
+	        searchKeyword = "";
+	    }
+
+	    // DTO 설정
+	    PostsDTO dto = new PostsDTO();
+	    dto.setPage(page);
+	    dto.setCountPerPage(countPerPage);
+	    dto.setSearchType(searchType);
+	    dto.setSearchKeyword(searchKeyword);
+	    dto.setBoard_id(boardId);
+
+	    // 페이지 범위 설정
+	    int startRow = (page - 1) * countPerPage + 1;
+	    int endRow = page * countPerPage;
+	    dto.setStartRow(startRow);
+	    dto.setEndRow(endRow);
+
+	    // 게시물 목록 가져오기 (게시판 필터 포함)
+	    List<PostsDTO> list;
 	    if ("all".equals(boardId)) {
-	        PostsDTO dto = new PostsDTO();
-
-	        // 기본값 설정
-	        if (page == null) {
-	            page = 1;
-	        }
-	        if (countPerPage == null) {
-	            countPerPage = 10;
-	        }
-
-	        if (searchType == null) {
-	            searchType = "all";
-	        }
-	        if (searchKeyword == null) {
-	            searchKeyword = "";
-	        }
-
-	        // 페이지네이션 범위 설정
-	        int startRow = (page - 1) * countPerPage + 1;
-	        int endRow = page * countPerPage;
-
-	        dto.setPage(page);
-	        dto.setCountPerPage(countPerPage);
-	        dto.setSearchType(searchType);
-	        dto.setSearchKeyword(searchKeyword);
-	        dto.setStartRow(startRow);
-	        dto.setEndRow(endRow);
-
-	        list = boardservice.listPosts(dto);  // 검색 및 페이징 처리된 게시글 목록 가져오기
-
+	        list = boardservice.listPosts(dto); // 검색 조건 포함 전체 게시글 가져오기
 	    } else {
-	        // 특정 게시판의 게시글 목록 조회
-	        list = boardservice.selectBoardByPost(boardId);
+	        list = boardservice.selectBoardByPost(boardId); // 특정 게시판 게시글 가져오기
 	    }
 
 	    // 응답 데이터 생성
@@ -218,11 +217,12 @@ public class GeunBoardController {
 	    response.put("status", "success");
 	    response.put("list", list);
 
-	    return response; // JSON 형식으로 응답
+	    return response; // JSON 형식으로 반환
 	}
 
+
 	
-	// 게시글 읽는 페이지
+	// 게시글 하나 읽는 페이지
 	 @GetMapping("/post.read")
 	    public String readPost(@RequestParam("post_id") String postId, Model model) {
 	        PostsDTO post = boardservice.selectPostById(postId);
@@ -232,11 +232,41 @@ public class GeunBoardController {
 	        return "bulletin/postOne";
 	    }
 	 
-	 // 게시글 수정 페이지
+	 // 게시글 수정 페이지 입장
 	 @RequestMapping("/post.modify")
-	 public String modifypost() {
+	 public String modifypost(Model model, @RequestParam("post_id") String postId, PostsDTO dto) {
+		 
+		 dto = boardservice.selectPostById(postId);
+		 List list = new ArrayList();
+		 list = boardservice.listBoard();
+		 model.addAttribute("dto", dto);
+		 model.addAttribute("list", list);
 		 return "bulletin/postModify";
 	 }
+	 
+	 @RequestMapping("/post.modify.do")
+	 public String modifypostDo(PostsDTO dto, @RequestParam("post_id") String postId,@RequestParam("pinned") boolean pinned) {
+		 dto.setPost_id(postId);
+		 
+		 if(pinned) {
+			 dto.setPinned("Y");
+		 } else {
+			 dto.setPinned("N");
+		 }
+		 
+		 int result = boardservice.updatePost(dto);
+		 return "redirect:post.read?post_id=" + dto.getPost_id();
+	 }
+	 
+	 // 게시글 작성 페이지
+	 @RequestMapping("/post.insert")
+	 public String insertpost() {
+		 return "bulletin/postInsert";
+	 }
+	 
+	 
+	 
+	 ///////////////////////// 댓글 관련 /////////////////////////////////////////
 	 
 	 // 댓글 등록
 	 @RequestMapping("/comment.insert")

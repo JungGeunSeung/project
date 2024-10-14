@@ -25,4 +25,6 @@ public interface BoardService {
 	int totalPosts();
 	int totalPostsWithSearch(PostsDTO dto);
 	List selectBoardByPost(String board_id);
+	int deletePost(String post_id);
+	int updatePost(PostsDTO dto);
 }

@@ -127,5 +127,13 @@ public class BoardDAOImpl implements BoardDAO {
 	public List selectBoardByPost(String board_id) {
 		return sqlSession.selectList("kr.or.gaw.dao.BoardDAO.selectBoardByPost", board_id);
 	}
+	@Override
+	public int deletePost(String post_id) {
+		return sqlSession.delete("kr.or.gaw.dao.BoardDAO.deletePost", post_id);
+	}
+	@Override
+	public int updatePost(PostsDTO dto) {
+		return sqlSession.update("kr.or.gaw.dao.BoardDAO.updatePost", dto);
+	}
 
 }
