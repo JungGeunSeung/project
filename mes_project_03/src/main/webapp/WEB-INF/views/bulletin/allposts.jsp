@@ -54,19 +54,18 @@
 					<button class="prev" id="prevBtn">«</button>
 					<div class="board-list">
 						<ul id="boardList">
-						    <li class="board-item">
-						        <button class="boardBtn" data-board-id="all" data-board-name="전체글" data-board-desc="전체 글을 조회합니다.">전체</button>
-						    </li>
-						    <c:forEach var="list" items="${board}">
-						        <li class="board-item">
-						            <button class="boardBtn" 
-						                    data-board-id="${list.board_id}" 
-						                    data-board-name="${list.board_name}" 
-						                    data-board-desc="${list.description}">
-						                ${list.board_name}
-						            </button>
-						        </li>
-						    </c:forEach>
+							<li class="board-item">
+								<button class="boardBtn" data-board-id="all"
+									data-board-name="전체글" data-board-desc="전체 글을 조회합니다.">전체</button>
+							</li>
+							<c:forEach var="list" items="${board}">
+								<li class="board-item">
+									<button class="boardBtn" data-board-id="${list.board_id}"
+										data-board-name="${list.board_name}"
+										data-board-desc="${list.description}">
+										${list.board_name}</button>
+								</li>
+							</c:forEach>
 						</ul>
 					</div>
 					<button class="next" id="nextBtn">»</button>
@@ -118,7 +117,7 @@
 				</div>
 			</div>
 
-			<table>
+			<table id="postTable">
 				<thead>
 					<tr>
 						<th id="number">NO</th>

@@ -165,20 +165,62 @@ public class GeunBoardController {
 
 	
 	@PostMapping("/post.ajax")
-    @ResponseBody
-    public Map<String, Object> getBoardData(@RequestBody Map<String, String> requestData) {
-        String boardName = requestData.get("board_name");
+	@ResponseBody
+	public Map<String, Object> getBoardData(
+	        @RequestBody Map<String, String> requestData,
+	        @RequestParam(value = "countPerPage", required = false) Integer countPerPage,
+	        @RequestParam(value = "page", required = false) Integer page,
+	        @RequestParam(value = "searchType", required = false) String searchType,
+	        @RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
 
-        // 여기서 boardName을 활용하여 비즈니스 로직 처리
-        System.out.println("받은 보드 이름: " + boardName);
+	    String boardId = requestData.get("board_id");
+	    List<PostsDTO> list = new ArrayList();
+	    
+	    // 게시판 ID가 "all"인 경우 전체 게시글을 조회 (페이지네이션 포함)
+	    if ("all".equals(boardId)) {
+	        PostsDTO dto = new PostsDTO();
 
-        // 응답 데이터 생성
-        Map<String, Object> response = new HashMap();
-        response.put("status", "success");
-        response.put("message", "Board name received: " + boardName);
+	        // 기본값 설정
+	        if (page == null) {
+	            page = 1;
+	        }
+	        if (countPerPage == null) {
+	            countPerPage = 10;
+	        }
 
-        return response; // JSON 형식으로 응답
-    }
+	        if (searchType == null) {
+	            searchType = "all";
+	        }
+	        if (searchKeyword == null) {
+	            searchKeyword = "";
+	        }
+
+	        // 페이지네이션 범위 설정
+	        int startRow = (page - 1) * countPerPage + 1;
+	        int endRow = page * countPerPage;
+
+	        dto.setPage(page);
+	        dto.setCountPerPage(countPerPage);
+	        dto.setSearchType(searchType);
+	        dto.setSearchKeyword(searchKeyword);
+	        dto.setStartRow(startRow);
+	        dto.setEndRow(endRow);
+
+	        list = boardservice.listPosts(dto);  // 검색 및 페이징 처리된 게시글 목록 가져오기
+
+	    } else {
+	        // 특정 게시판의 게시글 목록 조회
+	        list = boardservice.selectBoardByPost(boardId);
+	    }
+
+	    // 응답 데이터 생성
+	    Map<String, Object> response = new HashMap();
+	    response.put("status", "success");
+	    response.put("list", list);
+
+	    return response; // JSON 형식으로 응답
+	}
+
 	
 	// 게시글 읽는 페이지
 	 @GetMapping("/post.read")

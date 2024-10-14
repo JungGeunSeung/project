@@ -63,29 +63,56 @@ $(document).ready(function() {
     slideTo(0); // '전체' 버튼을 가운데로 이동
 });
 
-// 아작스로 게시글 가져오기
 $(document).ready(function() {
-        // 버튼 클릭 이벤트
-        $('.boardBtn').click(function() {
-            var boardName = $(this).text(); // 버튼 텍스트 가져오기
+    // 버튼 클릭 이벤트
+    $('.boardBtn').click(function() {
+        var boardId = $(this).data('board-id'); // 버튼 텍스트 가져오기
 
-            // AJAX 요청
-            $.ajax({
-                type: "POST",
-                url: "post.ajax", // 컨트롤러 URL
-                contentType: "application/json; charset=UTF-8",
-                data: JSON.stringify({ "board_name": boardName }), // JSON 형식으로 데이터 전송
-                success: function(response) {
-                    // 성공적으로 응답 받았을 때 처리
-                    console.log("응답 데이터:", response);
-                },
-                error: function(error) {
-                    // 에러 처리
-                    console.error("에러 발생:", error);
-                }
-            });
+        // AJAX 요청
+        $.ajax({
+            type: "POST",
+            url: "post.ajax", // 컨트롤러 URL
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify({ "board_id": boardId }), // JSON 형식으로 데이터 전송
+            success: function(response) {
+                // 성공적으로 응답 받았을 때 처리
+                console.log("응답 데이터:", response);
+
+                // 기존 테이블 내용을 모두 지우고 새로운 데이터를 추가
+                var tableBody = $("#postTable tbody");
+                tableBody.empty(); // 기존 테이블 내용 제거
+
+                // 응답받은 리스트 데이터를 반복하여 테이블에 추가
+                $.each(response.list, function(index, post) {
+                    var row = '<tr>' +
+                        '<td>' + post.rnum + '<input type="hidden" name="post_id" value="' + post.post_id + '"></td>' +
+                        '<td>' + post.board_name + '</td>' +
+                        '<td><a href="post.read?post_id=' + post.post_id + '">' + post.title + '</a></td>' +
+                        '<td>' + post.author_name + '</td>' +
+                        '<td>' + formatDate(post.created_at) + '<input type="hidden" name="updated_at" value="' + post.updated_at + '"></td>' +
+                        '<td>' + post.view_cnt + '</td>' +
+                    '</tr>';
+                    
+                    tableBody.append(row); // 새로운 행을 테이블에 추가
+                });
+            },
+            error: function(error) {
+                // 에러 처리
+                console.error("에러 발생:", error);
+            }
         });
     });
+
+    // 날짜 포맷팅 함수 (JavaScript에서 날짜 포맷 변경)
+    function formatDate(dateString) {
+        var date = new Date(dateString);
+        var day = ('0' + date.getDate()).slice(-2);
+        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+        var year = date.getFullYear();
+        return year + '.' + month + '.' + day;
+    }
+});
+
     
     
     // 슬라이드에 있는 게시판을 클릭하면 게시글이 바뀌는 아작스

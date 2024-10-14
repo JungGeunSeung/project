@@ -102,7 +102,13 @@
     LEFT JOIN emp e ON p.author_id = e.user_id -- author_id에 해당하는 이름을 가져오기 위해 JOIN
     WHERE p.post_id = #{postId}
 	</select>
+	
+	<!-- 게시판별 게시글 뽑아오기 -->
+	<select id="selectBoardByPost" parameterType="String" resultType="PostsDTO">
+		select * from posts where board_id = #{board_id}
+	</select>
 
+	<!-- 댓글 관련 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 	<!-- 게시글에 해당하는 댓글 뽑기 -->
 	<select id="listComments" resultType="kr.or.gaw.dto.CommentsDTO" parameterType="String">
@@ -115,10 +121,24 @@
 	</select>
 	
 	<select id="getPostsByBoardId" parameterType="String" resultType="PostsDTO">
-	select * from posts where board_id = #{board_id}
+		SELECT 
+		    ROW_NUMBER() OVER (ORDER BY p.created_at DESC) AS rnum,  -- 게시글 생성일 기준으로 행 번호를 생성
+		    p.post_id, 
+		    p.board_id, 
+		    b.board_name, 
+		    p.title,  
+		    p.author_id, 
+		    e.name AS author_name, 
+		    p.created_at, 
+		    p.updated_at, 
+		    p.pinned, 
+		    p.view_cnt
+		FROM posts p
+		LEFT JOIN board b ON p.board_id = b.board_id
+		LEFT JOIN emp e ON p.author_id = e.user_id
+		WHERE p.board_id = #{board_id}
 	</select>
 
-	<!-- 댓글 관련 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
 	<!-- 댓글추가 -->
 	<insert id="insertComment" parameterType="kr.or.gaw.dto.CommentsDTO">

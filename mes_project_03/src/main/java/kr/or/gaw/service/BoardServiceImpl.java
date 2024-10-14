@@ -116,5 +116,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.totalPostsWithSearch(dto);
 	}
 
+	@Override
+	public List selectBoardByPost(String board_id) {
+		return boardDAO.selectBoardByPost(board_id);
+	}
+
 
 }

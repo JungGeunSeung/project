@@ -27,4 +27,5 @@ public interface BoardDAO {
 	int deleteComment(String comment_id);
 	int totalPosts();
 	int totalPostsWithSearch(PostsDTO dto);
+	List selectBoardByPost(String board_id);
 }

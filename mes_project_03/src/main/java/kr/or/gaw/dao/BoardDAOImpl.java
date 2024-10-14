@@ -123,5 +123,9 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		return sqlSession.selectOne("kr.or.gaw.dao.BoardDAO.totalPostsWithSearch", dto);
 	}
+	@Override
+	public List selectBoardByPost(String board_id) {
+		return sqlSession.selectList("kr.or.gaw.dao.BoardDAO.selectBoardByPost", board_id);
+	}
 
 }
