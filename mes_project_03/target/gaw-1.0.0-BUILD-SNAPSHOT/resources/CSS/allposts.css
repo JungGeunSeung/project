@@ -196,3 +196,7 @@ table thead tr #date {
 table thead tr #view {
 	width: 40px;
 }
+
+.newpost {
+	float: right;
+}

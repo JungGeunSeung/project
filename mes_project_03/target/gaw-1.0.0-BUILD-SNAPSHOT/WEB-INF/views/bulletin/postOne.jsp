@@ -245,8 +245,15 @@ body {
 
 			<div class="content">${post.content }</div>
 			<div class="content-btns">
-				<button class="btn">수정</button>
-				<button class="btn">삭제</button>
+				<form action="post.modify" method="get">
+				<input type="hidden" name="post_id" value="${post.post_id}">
+				<button class="btn">글 수정</button>
+				</form>
+				
+				<form action="post.delete">
+				<input type="hidden" name="post_id" value="${post.post_id}">
+				<button class="btn">글 삭제</button>
+				</form>
 			</div>
 		</div>
 		<div class="comment-header">

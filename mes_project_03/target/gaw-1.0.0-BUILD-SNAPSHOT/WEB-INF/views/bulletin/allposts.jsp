@@ -47,6 +47,7 @@
 		int nextPage = (Integer) pagination.get("nextPage");
 		%>
 		<div class="container">
+			<div class="newpost"><button class="btn newPostBtn"><sapn>글쓰기</sapn></button></div>
 			<h1>전체글</h1>
 			<span>전체 글을 조회합니다.</span>
 			<div class="search-bar">
@@ -54,31 +55,31 @@
 					<button class="prev" id="prevBtn">«</button>
 					<div class="board-list">
 						<ul id="boardList">
-						    <li class="board-item">
-						        <button class="boardBtn" data-board-id="all" data-board-name="전체글" data-board-desc="전체 글을 조회합니다.">전체</button>
-						    </li>
-						    <c:forEach var="list" items="${board}">
-						        <li class="board-item">
-						            <button class="boardBtn" 
-						                    data-board-id="${list.board_id}" 
-						                    data-board-name="${list.board_name}" 
-						                    data-board-desc="${list.description}">
-						                ${list.board_name}
-						            </button>
-						        </li>
-						    </c:forEach>
+							<li class="board-item">
+								<button class="boardBtn" data-board-id="all"
+									data-board-name="전체글" data-board-desc="전체 글을 조회합니다.">전체</button>
+							</li>
+							<c:forEach var="list" items="${board}">
+								<li class="board-item">
+									<button class="boardBtn" data-board-id="${list.board_id}"
+										data-board-name="${list.board_name}"
+										data- board-desc="${list.description}">
+										${list.board_name}</button>
+								</li>
+							</c:forEach>
 						</ul>
 					</div>
 					<button class="next" id="nextBtn">»</button>
 				</div>
 				<div class="search-type">
 					<form id="searchForm" action="allposts" method="get">
+						<input id="selectBoard_id" type="hidden" name="board_id" value="">
 						<select name="searchType" id="searchType">
 							<option value="title"
 								${param.searchType == 'title' ? 'selected' : ''}>제목</option>
 							<option value="author_id"
 								${param.searchType == 'author_id' ? 'selected' : ''}>작성자</option>
-						</select> <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요."
+						</select> <input id="searchInputText" type="text" name="searchKeyword" placeholder="검색어를 입력하세요."
 							value="${param.searchKeyword}" />
 						<button type="submit" class="btn">
 							<span>조회</span>
@@ -118,7 +119,7 @@
 				</div>
 			</div>
 
-			<table>
+			<table id="postTable">
 				<thead>
 					<tr>
 						<th id="number">NO</th>

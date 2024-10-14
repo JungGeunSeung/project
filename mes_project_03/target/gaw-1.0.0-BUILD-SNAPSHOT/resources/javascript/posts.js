@@ -61,32 +61,74 @@ $(document).ready(function() {
     // 초기 로딩 시 첫 번째 항목('전체')을 선택하고 가운데로 이동
     setActiveButton(0);
     slideTo(0); // '전체' 버튼을 가운데로 이동
-});
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // 게시판 버튼 클릭 시 AJAX 요청
+    $('.boardBtn').click(function() {
+        var boardId = $(this).data('board-id'); // 선택한 게시판 ID 가져오기
+        var searchType = $('#searchType').val(); // 검색 타입
+        var searchKeyword = $('#searchKeyword').val(); // 검색 키워드
+        var page = $('#currentPage').val(); // 현재 페이지
+        var countPerPage = $('#countPerPage').val(); // 페이지 당 게시물 수
+        $('#selectBoard_id').val(boardId);
+		var boardName = $(this).data('board-name');  // 버튼의 data-board-name 값 가져오기
+        var boardDesc = $(this).data('board-desc');  // 버튼의 data-board-desc 값 가져오기
 
-// 아작스로 게시글 가져오기
-$(document).ready(function() {
-        // 버튼 클릭 이벤트
-        $('.boardBtn').click(function() {
-            var boardName = $(this).text(); // 버튼 텍스트 가져오기
+        // h1과 span 태그 내용을 변경
+        $('h1').text(boardName);  // h1 태그 내용 변경
+        $('span').text(boardDesc);  // span 태그 내용 변경
 
-            // AJAX 요청
-            $.ajax({
-                type: "POST",
-                url: "post.ajax", // 컨트롤러 URL
-                contentType: "application/json; charset=UTF-8",
-                data: JSON.stringify({ "board_name": boardName }), // JSON 형식으로 데이터 전송
-                success: function(response) {
-                    // 성공적으로 응답 받았을 때 처리
-                    console.log("응답 데이터:", response);
-                },
-                error: function(error) {
-                    // 에러 처리
-                    console.error("에러 발생:", error);
-                }
-            });
+        // AJAX 요청
+        $.ajax({
+            type: "POST",
+            url: "post.ajax",
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify({
+                "board_id": boardId,
+                "searchType": searchType,
+                "searchKeyword": searchKeyword,
+                "page": page,
+                "countPerPage": countPerPage
+            }), // 모든 조건을 JSON 형식으로 전송
+            success: function(response) {
+                // 응답 데이터를 이용해 테이블 업데이트
+                var tableBody = $("#postTable tbody");
+                tableBody.empty();
+
+                $.each(response.list, function(index, post) {
+                    var row = '<tr>' +
+                        '<td>' + post.rnum + '</td>' +
+                        '<td>' + post.board_name + '</td>' +
+                        '<td><a href="post.read?post_id=' + post.post_id + '">' + post.title + '</a></td>' +
+                        '<td>' + post.author_name + '</td>' +
+                        '<td>' + formatDate(post.created_at) + '</td>' +
+                        '<td>' + post.view_cnt + '</td>' +
+                    '</tr>';
+                    tableBody.append(row);
+                });
+            },
+            error: function(error) {
+                console.error("에러 발생:", error);
+            }
         });
+        if (window.location.search.length > 0) {
+		    var newUrl = window.location.origin + window.location.pathname;
+		    window.history.replaceState({}, document.title, newUrl);
+		}
+		
+		$('#searchInputText').val('');
     });
     
-    
-    // 슬라이드에 있는 게시판을 클릭하면 게시글이 바뀌는 아작스
+    $('.newPostBtn').click(function(){
+    	window.location.href = 'post.insert';
+    });
+});
+
+// 날짜 포맷팅 함수 (JavaScript에서 날짜 포맷 변경)
+function formatDate(dateString) {
+    var date = new Date(dateString);
+    var day = ('0' + date.getDate()).slice(-2);
+    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+    var year = date.getFullYear();
+    return year + '.' + month + '.' + day;
+}
 

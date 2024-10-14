@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -19,7 +19,7 @@
 <title>게시글 수정</title>
 <style>
 .container {
-    width: 80%;
+    width: 60%;
     margin: 20px auto;
     background-color: white;
     padding: 20px;
@@ -29,7 +29,17 @@
 
 /* 제목 입력창 스타일 */
 .title-input {
-    width: 100%;
+    width: 88%;
+    padding: 15px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* 게시판 선택 스타일 */
+.board-input {
+    width: 91%;
     padding: 15px;
     font-size: 16px;
     margin-bottom: 20px;
@@ -39,7 +49,7 @@
 
 /* 본문 에디터의 영역 */
 .editor {
-    width: 100%;
+    width: 90%;
     height: 400px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -102,34 +112,25 @@
 	<!-- 메인 콘텐츠 -->
 	<article>
 		<div class="container">
-	        <h1>카페 글쓰기</h1>
-	
-	        <!-- 게시판 선택 부분 -->
-	        <select class="title-input">
-	            <option value="">게시판을 선택해 주세요.</option>
-	            <option value="1">게시판 1</option>
-	            <option value="2">게시판 2</option>
-	        </select>
-	
-	        <!-- 제목 입력 -->
-	        <input type="text" class="title-input" placeholder="제목을 입력해 주세요.">
-	
-	        <!-- 글쓰기 본문 에디터 -->
-	        <textarea class="editor" placeholder="내용을 입력하세요."></textarea>
-	
-	        <!-- 태그 입력 -->
-	        <div class="tag-input">#태그를 입력해 주세요 (최대 10개)</div>
-	
-	        <!-- 옵션 박스 -->
-	        <div class="options">
-	            <h4>공개 설정</h4>
-	            <input type="checkbox"> 댓글 허용<br>
-	            <input type="checkbox"> 외부 공유 허용<br>
-	            <input type="checkbox"> 복사·저작 허용<br>
-	        </div>
-	
-	        <!-- 등록 버튼 -->
-	        <button class="submit-btn">등록</button>
+	        <h1>글 수정하기</h1>
+			<form id="modifyForm" action="post.modify.do" method="post">
+		        <!-- 게시판 선택 부분 -->
+		        <select name="board_id" class="board-input">
+		            <c:forEach var="board" items="${list}">
+		            <option value="${board.board_id}">${board.board_name}</option>
+		            </c:forEach>
+		        </select>
+				<input type="hidden" name="post_id" value="${dto.post_id}">
+				<input id="updateDate" type="hidden" name="updated_at">
+		        <!-- 제목 입력 -->
+		        <input id="modifyTitle" type="text" name="title" class="title-input" placeholder="제목을 입력해 주세요." value="${dto.title}">
+				<input type="checkbox" name="pinned">공지사항으로 등록<br>
+		        <!-- 글쓰기 본문 에디터 -->
+		        <textarea id="modifyContent" name="content" class="editor" placeholder="내용을 입력하세요." >${dto.content}</textarea>
+				
+		        <!-- 등록 버튼 -->
+		        <button class="submit-btn">등록</button>
+	        </form>
 	    </div>
 	</article>
 
@@ -137,5 +138,35 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />
 	</footer>
+	<script>
+	document.querySelector('#modifyForm').addEventListener('submit', function(event) {
+		event.preventDafault();
+		
+		if(document.querySelector('#modifyTitle') == null || document.querySelector('#modifyTitle') == '') {
+			alert('제목은 필수입니다.');
+			return;
+		} else if(document.querySelector('#modifyContent') == null || document.querySelector('#modifyContent') == '') {
+			alert('내용은 필수입니다.');
+			return;
+		}
+		const now = new Date();
+
+		// 연도, 월, 일
+		const year = now.getFullYear();
+		const month = String(now.getMonth() + 1).padStart(2, '0');
+		const day = String(now.getDate()).padStart(2, '0');
+
+		// 시, 분, 초
+		const hours = String(now.getHours()).padStart(2, '0');
+		const minutes = String(now.getMinutes()).padStart(2, '0');
+		const seconds = String(now.getSeconds()).padStart(2, '0');
+
+		// 원하는 형식으로 조합
+		const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+		document.querySelector('#updateDate').value = formattedDateTime;
+		
+		document.querySelector('#modifyForm').submit();
+	})
+	</script>
 </body>
 </html>
