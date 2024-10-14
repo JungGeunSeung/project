@@ -24,38 +24,76 @@
 	</select>
 
 	<!-- BOM 총 데이터 개수 조회 -->
-	<select id="getTotalDataCount"
-		parameterType="kr.or.gaw.dto.BomDTO" resultType="int">
-		SELECT count(bom_id) FROM bom order by Bom_id desc
-		</select>
+	<!-- <select id="getTotalDataCount" -->
+	<!-- parameterType="kr.or.gaw.dto.BomDTO" resultType="int"> -->
+	<!-- SELECT count(bom_id) FROM bom order by Bom_id desc -->
+	<!-- </select> -->
+	<select id="getTotalDataCount" parameterType="map"
+		resultType="int">
+		SELECT count(bom_id) FROM bom
+	</select>
+	<!-- 수정하기 눌렀을때 나오는 쿼리 -->
+	<select id="selecBomtOne" parameterType="string"
+		resultType="kr.or.gaw.dto.BomDTO">
+		SELECT bom_id, product_id, material_id, quantity, version,
+		create_at
+		FROM bom
+		WHERE bom_id = #{bom_id}
+	</select>
+	<!-- BOM 수정 쿼리 -->
+	<update id="updateBom" parameterType="kr.or.gaw.dto.BomDTO">
+		UPDATE bom
+		SET product_id = #{product_id},
+		material_id = #{material_id},
+		quantity = #{quantity},
+		version = #{version},
+		create_at = #{create_at}
+		WHERE bom_id = #{bom_id}
+	</update>
+	<insert id="insertBom" parameterType="kr.or.gaw.dto.BomDTO">
+		INSERT INTO bom
+		(BOM_ID, PRODUCT_ID, MATERIAL_ID, QUANTITY, VERSION, CREATE_AT)
+		VALUES
+		(#{bom_id}, #{product_id}, #{material_id}, #{quantity}, #{version}, #{create_at})
+	</insert>
+<!-- 삭제 -->
+	<delete id="deleteBom" parameterType="kr.or.gaw.dto.BomDTO">
+		delete from bom WHERE bom_id = #{bom_id}
+	</delete>
+	<!-- BOM 정보를 가져오는 쿼리 -->
+	<select id="selectBom" resultType="kr.or.gaw.dto.BomDTO">
+		SELECT * FROM bom WHERE bom_id = #{id}
+	</select>
+<!-- 큰 테이블 -->
+	<select id="selectProduct" resultType="kr.or.gaw.dto.BomDTO"
+		parameterType="kr.or.gaw.dto.BomDTO">
+		SELECT *
+		FROM (
+		SELECT p.product_id,
+		p.name,
+		p.standard,
+		p.color,
+		COUNT(e.bom_id) AS bom_count,
+		SUM(e.quantity) AS total_quantity,
+		ROW_NUMBER() OVER (ORDER BY p.name) AS rnum
+		FROM product p
+		LEFT JOIN bom e ON p.product_id = e.product_id
+		GROUP BY p.name, p.standard, p.color, p.product_id
+		)
+		WHERE rnum &lt;= #{page} * #{countperpage}
+		AND rnum &gt;= (#{page} - 1) * #{countperpage}
 
-		<!-- 수정하기 눌렀을때 나오는 쿼리 -->
-		<select id="selecBomtOne" parameterType="string"
-			resultType="kr.or.gaw.dto.BomDTO">
-			SELECT bom_id, product_id, material_id, quantity, version,
-			create_at
-			FROM bom
-			WHERE bom_id = #{bom_id}
-		</select>
-	    <!-- BOM 수정 쿼리 -->
-    <update id="updateBom" parameterType="kr.or.gaw.dto.BomDTO" >
-        UPDATE bom
-        SET product_id = #{product_id},
-            material_id = #{material_id},
-            quantity = #{quantity},
-            version = #{version},
-            create_at = #{create_at}
-        WHERE bom_id = #{bom_id}
-    </update>
-    <insert id="insertBom" parameterType="kr.or.gaw.dto.BomDTO">
-        INSERT INTO bom
-        (BOM_ID, PRODUCT_ID, MATERIAL_ID, QUANTITY, VERSION, CREATE_AT)
-        VALUES
-        (#{bom_id}, #{product_id}, #{material_id}, #{quantity}, #{version}, #{create_at})
-    </insert>
-    
-    <delete id="deleteBom" parameterType="kr.or.gaw.dto.BomDTO">
-    	delete from bom WHERE bom_id = #{bom_id}
-    </delete>
+	</select>
+	<!-- 작은테이블 -->
+	<select id="selectProductByBom"
+		resultType="kr.or.gaw.dto.BomDTO">
+		SELECT b.bom_id, b.material_id, m.material_name, b.quantity, b.version,
+		b.create_at
+		FROM bom b
+		LEFT JOIN material m ON b.material_id =
+		m.material_id
+		WHERE b.product_id = #{product_id}
+	</select>
+
 </mapper>
 

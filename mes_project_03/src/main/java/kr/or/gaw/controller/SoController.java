@@ -32,7 +32,7 @@ public class SoController {
 			System.out.println("List is null");
 		}
 
-		int totalDataCount = bomService.getTotalDataCount(dto); // 전체 데이터 개수를 가져오는 로직 추가
+		int totalDataCount = bomService.getTotalDataCount(dto);
 		int totalPage = (int) Math.ceil((double) totalDataCount / countperpage);
 
 		// 동적 페이지 범위 계산
@@ -44,38 +44,49 @@ public class SoController {
 		model.addAttribute("bom", list);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
-		model.addAttribute("countperpage", countperpage); // countperpage를 모델에 추가
+		model.addAttribute("countperpage", countperpage);
 
-		return "bom/bom"; // JSP 파일 경로가 올바르게 설정되었는지 확인하세요.
+		return "bom/bom";
 	}
 
 	@RequestMapping("/bomupdate")
 	public String selectBomList(@RequestParam("bom_id") String bom_id, Model model) {
-	    BomDTO bomDTO = bomService.selectOne(bom_id);
-	    model.addAttribute("bomDTO", bomDTO);
-	    return "bom/bomupdate";
+		BomDTO bomDTO = bomService.selectOne(bom_id);
+		model.addAttribute("bomDTO", bomDTO);
+		return "bom/bomupdate";
 	}
+
 	@RequestMapping(value = "/bomupdate/update", method = RequestMethod.POST)
 	public String updateBom(BomDTO bomDTO) {
-	    // 업데이트 로직 처리
-	    bomService.updateBom(bomDTO); // 서비스 레이어에서 업데이트 처리
-	    return "redirect:/bom"; // 업데이트 후 목록 페이지로 리다이렉트
+		// 업데이트 로직 처리
+		bomService.updateBom(bomDTO);
+		return "redirect:/bom";
 	}
-	
+
 	@RequestMapping("/bominsert")
 	public String insertBom(Model model) {
-	    return "bom/bominsert";
+		return "bom/bominsert";
 	}
+
 	@RequestMapping(value = "/bominsert/insert", method = RequestMethod.POST)
 	public String inserBomDo(BomDTO bomDTO) {
 		System.out.println("컨트롤러 실행");
-	    bomService.insertBom(bomDTO); // 서비스 레이어에서 업데이트 처리
-	    return "redirect:/bom"; // 업데이트 후 목록 페이지로 리다이렉트
+		bomService.insertBom(bomDTO);
+		return "redirect:/bom";
 	}
+
 	@RequestMapping("/bomdelete")
 	public String inserBomDo(@RequestParam("bom_id") String bom_id) {
 		System.out.println("딜리트 컨트롤러 실행");
-	    bomService.deleteBom(bom_id); // 서비스 레이어에서 업데이트 처리
-	    return "redirect:/bom"; // 업데이트 후 목록 페이지로 리다이렉트
+		bomService.deleteBom(bom_id);
+		return "redirect:/bom";
+	}
+
+	@RequestMapping("/bomp")
+	public List<BomDTO> getBomDetails(@RequestParam("product_id") String product_id) {
+		BomDTO bomdto = new BomDTO();
+		bomdto.setProduct_id(product_id);
+		List<BomDTO> bomp = bomService.selectBompList(bomdto); // 서비스 호출하여 BOM 상세 정보 조회
+		return bomp; // JSON 형식으로 반환됨
 	}
 }

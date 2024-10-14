@@ -53,5 +53,12 @@ public class BomServiceImpl implements BomService {
 	    result = bomDao.deleteBom(bom_id);  
 	    return result;  
 	}
+	@Override
+	public List selectBompList(BomDTO dto) {
+		List list = null;
+		list = bomDao.getBomp(dto);
+		return list;
+	}
+	
 
 }

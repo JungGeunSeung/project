@@ -10,8 +10,10 @@ import kr.or.gaw.dto.BomDTO;
 @Mapper
 public interface BOMDAO {
 
+	List<BomDTO> selectBompList(BomDTO dto);
 	List<BomDTO> selectBomList(BomDTO dto);
 	int getTotalDataCount(BomDTO dto);
+	List getBomp(BomDTO dto);
 	BomDTO selectOne(String bom_id);
 	int updateBom(BomDTO bomDTO);
 	int insertBom(BomDTO bomDTO);

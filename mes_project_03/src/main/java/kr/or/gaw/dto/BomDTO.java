@@ -7,14 +7,22 @@ import org.springframework.stereotype.Component;
 public class BomDTO {
 
 	private String bom_id;
-	
 	private String product_id;
 	private String material_id;
+	private String material_name;
 	private int quantity;
 	private String version;
 	private Date create_at;
 	private int countperpage;
 	private int page;
+	private int bom_count;
+	private int total_quantity;
+	private String name;
+	private String standard;
+	private String color;
+	private int count;
+	private String BomDetail;
+	
 	
 	public String getBom_id() {
 		return bom_id;
@@ -58,19 +66,60 @@ public class BomDTO {
 	public void setCountperpage(int countperpage) {
 		this.countperpage = countperpage;
 	}
+	public int getBom_count() {
+		return bom_count;
+	}
+	public void setBom_count(int bom_count) {
+		this.bom_count = bom_count;
+	}
+	public int getTotal_quantity() {
+		return total_quantity;
+	}
+	public void setTotal_quantity(int total_quantity) {
+		this.total_quantity = total_quantity;
+	}
 	public int getPage() {
 		return page;
 	}
 	public void setPage(int page) {
 		this.page = page;
 	}
-	
-	@Override
-	public String toString() {
-		return "BomDTO [bom_id=" + bom_id + ", product_id=" + product_id + ", material_id=" + material_id
-				+ ", quantity=" + quantity + ", version=" + version + ", create_at=" + create_at + ", countperpage="
-				+ countperpage + ", page=" + page + "]";
+	public String getName() {
+		return name;
 	}
-	
-	
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getStandard() {
+		return standard;
+	}
+	public void setStandard(String standard) {
+		this.standard = standard;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public String getBomDetail() {
+		return BomDetail;
+	}
+	public void setBomDetail(String bomDetail) {
+		BomDetail = bomDetail;
+	}
+	public String getMaterial_name() {
+		return material_name;
+	}
+	public void setMaterial_name(String material_name) {
+		this.material_name = material_name;
+	}
+
+
 }

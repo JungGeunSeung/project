@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>동의 페이지</title>
+<title>약관동의</title>
 <style>
 body {
 	font-family: Arial, sans-serif;
@@ -168,7 +168,7 @@ body {
 
 		<button id="submit-btn" class="button">다음</button>
 	</div>
-
+	
 	<script>
         const agreeAllCheckbox = document.getElementById('agree-all');
         const individualCheckboxes = document.querySelectorAll('.agree');

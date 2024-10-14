@@ -2,7 +2,7 @@
 
 /*---------------------------- 하단 ------------------------------*/
 footer {
-	background-color: #2b3a2f; /* 더 어두운 초록색 */
+	background-color: #222222; /* 어두운 색 */
 	color: white;
 	padding: 40px 0;
 }
@@ -19,7 +19,7 @@ footer {
 	text-align: center;
 	font-size: 0.85em;
 	line-height: 1.5;
-	color: #8fbf8f; /* 중간 밝기의 초록색 */
+	color: #dddddd; /* 연한 회색 */
 }
 
 .footer-bottom p {
@@ -33,7 +33,7 @@ footer {
 	right: 20px;
 	width: 40px;
 	height: 40px;
-	background-color: rgba(255, 255, 255, 0.25); /* 반투명한 흰색 */
+	background-color: rgba(255, 255, 255, 0.2); /* 반투명 흰색 */
 	border-radius: 50%;
 	display: flex;
 	align-items: center;
@@ -50,7 +50,7 @@ footer {
 
 .footer-section ul li:first-child {
 	font-weight: bold;
-	color: #b0dab0; /* 밝은 초록색으로 첫 번째 항목 강조 */
+	color: #bbbbbb; /* 연한 회색 */
 }
 
 .certifiedImg img {

@@ -15,10 +15,17 @@ public class BOMDAOImpl implements BOMDAO {
 	SqlSession sqlSession;
 
 	@Override
+	public List<BomDTO> selectBompList(BomDTO dto) {
+		List list = null;
+		
+		list = sqlSession.selectList("kr.or.gaw.dao.BOMDAO.selectProduct", dto);
+		return list;
+	}
+	@Override
 	public List<BomDTO> selectBomList(BomDTO dto) {
 		List list = null;
 		
-		list = sqlSession.selectList("kr.or.gaw.dao.BOMDAO.selectBomByPage", dto);
+		list = sqlSession.selectList("kr.or.gaw.dao.BOMDAO.selectProduct", dto);
 		return list;
 	}
 	@Override
@@ -49,4 +56,10 @@ public class BOMDAOImpl implements BOMDAO {
 	    int result = sqlSession.delete("kr.or.gaw.dao.BOMDAO.deleteBom", bom_id);
 	    return result;
 	}
+	
+	@Override
+	public List getBomp(BomDTO dto) {
+		return sqlSession.selectOne("kr.or.gaw.dao.BOMDAO.selectProductByBom", dto);
+	}
+
 }

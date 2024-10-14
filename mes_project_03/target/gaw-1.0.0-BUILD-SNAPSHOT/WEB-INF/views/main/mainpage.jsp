@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="resources/CSS/category.css">
     <link rel="stylesheet" href="resources/CSS/header.css">
     <link rel="stylesheet" href="resources/CSS/footer.css">
+    <link rel="stylesheet" href="resources/CSS/loading.css">
     <title>Grand All Win</title>
     <style>
 
@@ -48,18 +49,18 @@
 <body>
     <header>
         <!----------------- 헤더 ----------------->
-        <jsp:include page="/WEB-INF/views/main/header.jsp" />
+        <jsp:include page="/WEB-INF/views/main/tiles/header.jsp" />
     </header>
 
     <!----------------- 메뉴바 ----------------->
     <nav>
-        <jsp:include page="/WEB-INF/views/main/category.jsp" />
+        <jsp:include page="/WEB-INF/views/main/tiles/category.jsp" />
     </nav>
 
     <article>
         <div class="main-content">
             <div>
-                <h2>공지사항</h2>
+                <h2><a href="allposts">공지사항</a></h2>
             </div>
             <div>
                 <h2>실시간 생산현황</h2>
@@ -79,10 +80,12 @@
                 <span>작업지시관리</span><br>
             </div>
         </div>
+        <!-- 로딩 CSS에 해당하는 HTML -->
+	<jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
     </article>
 
     <footer>
-        <jsp:include page="/WEB-INF/views/main/footer.jsp" />
+        <jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />
     </footer>
 </body>
 
