@@ -28,7 +28,7 @@
 	<div class="low-category">
 		<div>
 			<ul>
-				<li><a href="#">생산계획</a></li>
+				<li><a href="plan">생산계획</a></li>
 				<li><a href="#">생산실적</a></li>
 				<li><a href="#">작업지시서</a></li>
 				<li><a href="#">원가관리</a></li>
