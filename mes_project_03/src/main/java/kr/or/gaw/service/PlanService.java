@@ -8,4 +8,6 @@ public interface PlanService {
 
 	List<PlanDTO> selectPlan();
 
+	public int deletePlan(PlanDTO dto);
+
 }

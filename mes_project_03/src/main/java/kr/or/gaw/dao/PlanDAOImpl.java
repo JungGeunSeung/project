@@ -19,4 +19,12 @@ public class PlanDAOImpl implements PlanDAO  {
 		System.out.println("dao들어옴"+list.size());
 		return list; 
 	}
+	
+	@Override
+	public int deletePlan(PlanDTO dto) {
+		int result = sqlSession.delete("kr.or.gaw.dao.PlanDAO.deletePlan",dto);
+		System.out.println("dao delete결과 :"+ result);
+		return result;
+	}
+	
 }

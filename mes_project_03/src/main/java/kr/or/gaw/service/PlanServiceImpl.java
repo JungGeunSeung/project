@@ -20,4 +20,11 @@ public class PlanServiceImpl implements PlanService {
 		System.out.println("서비스 들어옴"+list.size());
 		return list;
 	}
+	
+	@Override
+	public int deletePlan(PlanDTO dto) {
+		int result = planDAO.deletePlan(dto);
+		System.out.println("서비스 deletePlan : "+result);
+		return result;
+	}
 }
