@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.or.gaw.dto.BoardDTO;
 import kr.or.gaw.dto.CommentsDTO;
 import kr.or.gaw.dto.PostsDTO;
+import kr.or.gaw.dto.ReplyDTO;
 import kr.or.gaw.service.BoardService;
 
 @Controller
@@ -226,8 +228,10 @@ public class GeunBoardController {
 	    public String readPost(@RequestParam("post_id") String postId, Model model) {
 	        PostsDTO post = boardservice.selectPostById(postId);
 	        List comments = boardservice.listComments(postId);
+	        List reply = boardservice.listReply();
 	        model.addAttribute("post", post);
 	        model.addAttribute("comments", comments);
+	        model.addAttribute("reply", reply);
 	        return "bulletin/postOne";
 	    }
 	 
@@ -243,12 +247,13 @@ public class GeunBoardController {
 		 return "bulletin/postModify";
 	 }
 	 
+	 // 게시글 수정 로직
 	 @RequestMapping("/post.modify.do")
 	 public String modifypostDo(PostsDTO dto, @RequestParam("post_id") String postId,
 			 @RequestParam(value = "pinned", required = false, defaultValue = "false") boolean pinned) {
 		 
 		 dto.setPost_id(postId);
-		 
+		 dto.setAuthor_id("geun"); // 나중에 새션으로 값을 받아와 작성자를 바꿀 필요 있음
 		 if(pinned) {
 			 dto.setPinned("Y");
 		 } else {
@@ -260,10 +265,37 @@ public class GeunBoardController {
 		 return "redirect:post.read?post_id=" + dto.getPost_id();
 	 }
 	 
-	 // 게시글 작성 페이지
+	 // 게시글 작성 페이지 입장
 	 @RequestMapping("/post.insert")
-	 public String insertpost() {
+	 public String insertpost(Model model) {
+		 List list = boardservice.listBoard();
+		 model.addAttribute("list", list);
 		 return "bulletin/postInsert";
+	 }
+	 
+	 // 게시글 작성 로직
+	 @RequestMapping("/post.insert.do")
+	 public String insertpostDo(PostsDTO dto, @RequestParam(value = "pinned", required = false, defaultValue = "false") boolean pinned) {
+		 
+		 if(pinned) {
+			 dto.setPinned("Y");
+		 } else {
+			 dto.setPinned("N");
+		 }
+		 
+		 int maxnum = boardservice.maxPostId();
+			if(maxnum < 10) {
+				dto.setPost_id("P" + "00" + (maxnum+1));
+			} else if (maxnum >= 10 && maxnum < 100) {
+				dto.setPost_id("P" + "0" + (maxnum+1));
+			} else if (maxnum >= 100) {
+				dto.setPost_id("P" + (maxnum+1)); }
+			
+		 Timestamp timestamp1 = new Timestamp(System.currentTimeMillis());
+		 dto.setUpdated_at(timestamp1);
+		 dto.setAuthor_id("geun"); // 나중에 새션으로 값을 받아와 작성자를 바꿀 필요 있음
+		 int result = boardservice.insertPost(dto);
+		 return "redirect:post.read?post_id=" + dto.getPost_id();
 	 }
 	 
 	 // 게시글 삭제하기
@@ -305,7 +337,6 @@ public class GeunBoardController {
 	 @ResponseBody
 	 public Map<String, Object> updateComment(@RequestBody Map<String, String> requestData, CommentsDTO dto) {
 	     
-		 System.out.println(requestData.get("comment_id"));
 	     String commentId = requestData.get("comment_id");
 	     String content = requestData.get("content");
 	     dto.setComment_id(commentId);
@@ -347,13 +378,73 @@ public class GeunBoardController {
 	 //////// 답글관련 ////////////////////////////////////////////////////////////////////////////////
 	 
 	 @PostMapping("/reply.save")
-	    @ResponseBody
-	    public ResponseEntity<String> saveReply(@RequestParam("comment_id") Long commentId, 
-	                                            @RequestParam("content") String content) {
-	        
-		 
+	 @ResponseBody
+	 public ResponseEntity<Map<String, Object>> saveReply(@RequestParam("comment_id") String commentId, 
+	                                                      @RequestParam("content") String content) {
+	     Map<String, Object> response = new HashMap();
+	     
+	     try {
+	    	 ReplyDTO dto = new ReplyDTO();
+		        dto.setComment_id(commentId);
+		        dto.setContent(content);
+		        dto.setUser_id("geun");
+		        
+		        
+		        int maxnum = boardservice.maxReplyId();
+				if(maxnum < 10) {
+					dto.setReply_id("R" + "00" + (maxnum+1));
+				} else if (maxnum >= 10 && maxnum < 100) {
+					dto.setReply_id("R" + "0" + (maxnum+1));
+				} else if (maxnum >= 100) {
+					dto.setReply_id("R" + (maxnum+1)); }
 
-	        return ResponseEntity.ok("Success");
-	    }
+				int result = boardservice.insertReply(dto);
+	         response.put("success", true);
+	         response.put("message", "답글이 성공적으로 저장되었습니다.");
+	     } catch (Exception e) {
+	         response.put("success", false);
+	         response.put("message", "답글 저장 중 오류가 발생했습니다.");
+	     }
+	     
+	     return ResponseEntity.ok(response);
+	 }
+	 
+ 	 // 답글 삭제
+	 @PostMapping("/reply.delete")
+	 @ResponseBody
+	 public Map<String, Object> deleteReply(@RequestBody Map<String, String> requestData) {
+	     String reply_id = requestData.get("reply_id");
+
+	     // 댓글 삭제 로직 (DB에서 삭제)
+	     int result = boardservice.deleteReply(reply_id);  // 삭제된 행의 개수를 반환
+
+	     // 응답 데이터 생성
+	     Map<String, Object> response = new HashMap();
+	     response.put("success", result > 0);  // 삭제가 성공하면 true
+	     return response;
+	 }
+	 
+	// 답글 수정
+		 @PostMapping("/reply.update")
+		 @ResponseBody
+		 public Map<String, Object> updateReply(@RequestBody Map<String, String> requestData, ReplyDTO dto) {
+		     
+		     String reply_id = requestData.get("reply_id");
+		     String content = requestData.get("content");
+		     dto.setReply_id(reply_id);
+		     dto.setContent(content);
+		     
+		     // 답글 업데이트 로직
+		     int result = boardservice.updateReply(dto);
+		     
+		     // 1 이상이면 true, 그렇지 않으면 false
+		     boolean success = (result > 0);
+		     
+		     // 응답 데이터
+		     Map<String, Object> response = new HashMap();
+		     response.put("success", success);
+		     
+		     return response;  // 반드시 JSON 형식으로 반환
+		 }
 	 
 }
