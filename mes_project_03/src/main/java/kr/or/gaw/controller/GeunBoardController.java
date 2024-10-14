@@ -7,9 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -245,7 +244,9 @@ public class GeunBoardController {
 	 }
 	 
 	 @RequestMapping("/post.modify.do")
-	 public String modifypostDo(PostsDTO dto, @RequestParam("post_id") String postId,@RequestParam("pinned") boolean pinned) {
+	 public String modifypostDo(PostsDTO dto, @RequestParam("post_id") String postId,
+			 @RequestParam(value = "pinned", required = false, defaultValue = "false") boolean pinned) {
+		 
 		 dto.setPost_id(postId);
 		 
 		 if(pinned) {
@@ -253,7 +254,8 @@ public class GeunBoardController {
 		 } else {
 			 dto.setPinned("N");
 		 }
-		 
+		 Timestamp timestamp1 = new Timestamp(System.currentTimeMillis());
+		 dto.setUpdated_at(timestamp1);
 		 int result = boardservice.updatePost(dto);
 		 return "redirect:post.read?post_id=" + dto.getPost_id();
 	 }
@@ -262,6 +264,13 @@ public class GeunBoardController {
 	 @RequestMapping("/post.insert")
 	 public String insertpost() {
 		 return "bulletin/postInsert";
+	 }
+	 
+	 // 게시글 삭제하기
+	 @RequestMapping("/post.delete")
+	 public String deletepost(@RequestParam("post_id") String postId) {
+		 int result = boardservice.deletePost(postId);
+		 return "redirect:allposts";
 	 }
 	 
 	 
@@ -334,5 +343,17 @@ public class GeunBoardController {
 	     response.put("success", result > 0);  // 삭제가 성공하면 true
 	     return response;
 	 }
+	 
+	 //////// 답글관련 ////////////////////////////////////////////////////////////////////////////////
+	 
+	 @PostMapping("/reply.save")
+	    @ResponseBody
+	    public ResponseEntity<String> saveReply(@RequestParam("comment_id") Long commentId, 
+	                                            @RequestParam("content") String content) {
+	        
+		 
+
+	        return ResponseEntity.ok("Success");
+	    }
 	 
 }

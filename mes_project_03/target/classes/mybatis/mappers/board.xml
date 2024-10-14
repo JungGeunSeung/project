@@ -76,7 +76,7 @@
 	</update>
 	
 	<!--  게시글 삭제 -->
-	<delete id="deletePost" parameterType="kr.or.gaw.dto.BoardDTO">
+	<delete id="deletePost" parameterType="String">
 		delete posts where post_id=#{post_id}
 	</delete>
 
@@ -177,10 +177,21 @@
 		delete from comments where comment_id=#{comment_id}
 	</delete>
 	
-
+	<!-- /////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
+	<!-- 답글 저장하기 -->
+	<insert id="insertReply" parameterType="kr.or.gaw.dto.ReplyDTO">
+        INSERT INTO replies (reply_id, comment_id, user_id, content, created_at, updated_at)
+        VALUES (#{replyId}, #{commentId}, #{userId}, #{content}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    </insert>
 	
-	
+	<!-- 답글 수정하기 -->
+	<update id="updateReply" parameterType="kr.or.gaw.dto.ReplyDTO">
+        UPDATE replies
+        SET content = #{content}, 
+            updated_at = CURRENT_TIMESTAMP  -- 수정 시간을 현재 시간으로 업데이트
+        WHERE reply_id = #{replyId}  -- 해당 답글의 ID로 수정
+    </update>
 	
 	
 	

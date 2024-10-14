@@ -26,8 +26,15 @@ body {
 .container {
 	width: 60%;
 	margin: 0 auto;
-	padding: 20px 0px;
+	padding: 20px;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+}
+
+.container2 {
+	width: 60%;
+	padding: 20px;
 	border-bottom: 1px solid #ddd;
+	box-shadow: 0px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
 }
 
 .title {
@@ -142,10 +149,10 @@ body {
 }
 
 .profile-picture {
-	width: 50px;  /* 정사각형 크기 */
+	width: 50px; /* 정사각형 크기 */
 	height: 50px; /* 정사각형 크기 */
-	border-radius: 50%; /* 원형으로 만듦 */
-	object-fit: cover; /* 이미지가 잘리지 않도록 설정 */
+	object-fit: contain; /* 비율을 유지하면서 컨테이너 안에 맞추기 */
+    border-radius: 50%; /* 원형으로 만들고 싶을 경우 */
 	background-color: #eee; /* 이미지가 없을 때 배경색 */
 }
 
@@ -201,7 +208,6 @@ body {
 	margin: 0 auto;
 	border-bottom: 1px solid #ddd;
 	padding-bottom: 5px;
-	
 }
 
 .comment-header span {
@@ -212,6 +218,15 @@ body {
 	text-decoration: none;
 	color: black;
 	cursor: pointer;
+}
+
+.content-btns {
+	display: flex;
+	justify-content: space-between; /* 양옆에 위치하게 설정 */
+}
+
+.content-btns form {
+	margin: 0; /* 불필요한 여백 제거 */
 }
 </style>
 </head>
@@ -231,76 +246,90 @@ body {
 		<!-- 게시글 내용 -->
 		<div class="container">
 			<div class="post-navination">
-				<a href="allposts">전체글</a> > <a href="allposts?board_name=${post.board_name }">${post.board_name }</a> > <a
-					href="#">${post.title }</a>
+				<a href="allposts">전체글</a> > <a
+					href="allposts?board_name=${post.board_name }">${post.board_name }</a>
+				> <a href="#">${post.title }</a>
 			</div>
-			<div class="title"><h2>${post.title }</h2></div>
-			<div><img src="profile2.png" alt="Profile Picture" class="profile-picture">${post.author_name }</div>
+			<div class="title">
+				<h2>${post.title }</h2>
+			</div>
+			<div>
+				<img src="profile2.png" alt="Profile Picture"
+					class="profile-picture">${post.author_name }</div>
 			<div class="meta">
-				|
+				| 등록일
 				<fmt:formatDate value="${post.created_at}"
 					pattern="yyyy-MM-dd HH:mm:ss" />
-				| ${post.view_cnt }
+				| 수정일
+				<fmt:formatDate value="${post.updated_at}"
+					pattern="yyyy-MM-dd HH:mm:ss" />
+				| 조회수 ${post.view_cnt }
 			</div>
 
 			<div class="content">${post.content }</div>
 			<div class="content-btns">
 				<form action="post.modify" method="get">
-				<input type="hidden" name="post_id" value="${post.post_id}">
-				<button class="btn">글 수정</button>
+					<input type="hidden" name="post_id" value="${post.post_id}">
+					<button class="btn">글 수정</button>
 				</form>
-				
-				<form action="post.delete">
-				<input type="hidden" name="post_id" value="${post.post_id}">
-				<button class="btn">글 삭제</button>
+
+				<form id="deleteForm" action="post.delete">
+					<input type="hidden" name="post_id" value="${post.post_id}">
+					<button class="btn">글 삭제</button>
 				</form>
 			</div>
 		</div>
-		<div class="comment-header">
-			<h3>댓글</h3>
-			<span>등록순</span>
-			<span>최신순</span>
-		</div>
-		<!-- 등록된 댓글들 -->
-		<c:forEach var="comment" items="${comments}">
-		    <div class="comment-container">
-		        <!-- 사용자 프로필 사진 -->
-<%-- 		        <img src="${pageContext.request.contextPath}/resources/img/${comment.profile_image}" alt="Profile Picture" class="profile-picture"> --%>
-		        <input type="hidden" class="commentsId" id="${comment.comment_id }" name="comment_id" value="${comment.comment_id }">
-		        <div class="comment-content">
-		            <!-- 사용자 이름 및 뱃지 -->
-		            <div class="user-name">
-		            <img src="profile2.png" alt="Profile Picture" class="profile-picture">
-		                <span>${comment.employee_name}</span> 
-		            </div>
-		            
-		            <!-- 댓글 내용 -->
-		            <div class="comment-text">${comment.content}</div>
-		            
-		            <!-- 댓글 작성 시간 및 액션 -->
-		            <div class="comment-footer">
-		                <fmt:formatDate value="${comment.created_at}" pattern="yyyy.MM.dd HH:mm" /> 
-		                <span class="comment-actions">답글쓰기</span>
-		                <span class="comment-actions">수정</span>
-		                <span class="comment-actions">삭제</span>
-		                <span class="comment-actions">❤️</span>
-		            </div>
-		        </div>
-		    </div>
-		</c:forEach>
-		<!-- 댓글 작성 -->
-		<div class="comment-section">
-			<div class="comment-box">
-			<form action="comment.insert" method="post">
-				<input type="hidden" name="post_id" value="${ post.post_id }">
-				<!-- 댓글 작성자의 이름이 표시되어야 함. -->
-				<textarea class="comment-input" name="content" placeholder="댓글을 남겨보세요"></textarea>
-				<div class="comment-actions">
-					<button class="comment-submit btn">등록</button>
+			<div class="comment-header">
+				<h3>댓글</h3>
+				<span>등록순</span> <span>최신순</span>
+			</div>
+			<!-- 등록된 댓글들 -->
+			<c:forEach var="comment" items="${comments}">
+				<div class="comment-container">
+					<!-- 사용자 프로필 사진 -->
+					<%-- 		        <img src="${pageContext.request.contextPath}/resources/img/${comment.profile_image}" alt="Profile Picture" class="profile-picture"> --%>
+					<input type="hidden" class="commentsId" id="${comment.comment_id }"
+						name="comment_id" value="${comment.comment_id }">
+					<div class="comment-content">
+						<!-- 사용자 이름 및 뱃지 -->
+						<div class="user-name">
+							<img src="profile2.png" alt="Profile Picture"
+								class="profile-picture"> <span>${comment.employee_name}</span>
+						</div>
+
+						<!-- 댓글 내용 -->
+						<div class="comment-text">${comment.content}</div>
+
+						<!-- 댓글 작성 시간 및 액션 -->
+						<div class="comment-footer">
+							<fmt:formatDate value="${comment.created_at}"
+								pattern="yyyy.MM.dd HH:mm" />
+							<span class="comment-actions">답글쓰기</span> <span
+								class="comment-actions">수정</span> <span class="comment-actions">삭제</span>
+							<span class="comment-actions">❤️</span>
+						</div>
+						<!-- 답글 입력 폼 (처음에는 숨겨짐) -->
+				        <div class="reply-form" id="reply-form-${comment.comment_id}" style="display:none;">
+				            <input type="text" class="reply-input" placeholder="답글을 입력하세요" id="reply-input-${comment.comment_id}">
+				            <button class="reply-save-btn" data-comment-id="${comment.comment_id}">저장하기</button>
+				        </div>
+					</div>
 				</div>
-			</form>
+			</c:forEach>
+			<!-- 댓글 작성 -->
+			<div class="comment-section">
+				<div class="comment-box">
+					<form action="comment.insert" method="post">
+						<input type="hidden" name="post_id" value="${ post.post_id }">
+						<!-- 댓글 작성자의 이름이 표시되어야 함. -->
+						<textarea class="comment-input" name="content"
+							placeholder="댓글을 남겨보세요"></textarea>
+						<div class="comment-actions">
+							<button class="comment-submit btn">등록</button>
+						</div>
+					</form>
+				</div>
 			</div>
-		</div>
 		<!-- 로딩 CSS에 해당하는 HTML -->
 		<jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
 	</article>
@@ -310,6 +339,6 @@ body {
 		<jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />
 	</footer>
 	<script src="resources/javascript/postOne.js"></script>
-	
+
 </body>
 </html>

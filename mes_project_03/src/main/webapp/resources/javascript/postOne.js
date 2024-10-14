@@ -102,4 +102,49 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
     
+    document.getElementById('deleteForm').addEventListener('submit', function(event) {
+        var confirmed = confirm("정말 삭제하시겠습니까?");
+        if (!confirmed) {
+            // 삭제 취소 시 폼 제출 방지
+            event.preventDefault();
+        }
+    });
+    
+    //////////////////////////////////////////////////////////////
+    // "답글쓰기" 버튼을 클릭하면 답글 입력창을 토글로 보여줌
+    $(".reply-btn").click(function() {
+        var commentId = $(this).data("comment-id");
+        $("#reply-form-" + commentId).toggle(); // 해당 댓글의 입력창을 토글
+    });
+
+    // "저장하기" 버튼 클릭 시 AJAX 요청
+    $(".reply-save-btn").click(function() {
+        var commentId = $(this).data("comment-id");
+        var replyContent = $("#reply-input-" + commentId).val(); // 입력된 답글 내용
+
+        if (replyContent.trim() === "") {
+            alert("답글을 입력해주세요.");
+            return;
+        }
+
+        // AJAX로 데이터 전송
+        $.ajax({
+            url: "reply.save",
+            type: "POST",
+            data: {
+                comment_id: commentId,
+                content: replyContent
+            },
+            success: function(response) {
+                alert("답글이 성공적으로 저장되었습니다.");
+                // 필요한 경우 새로 추가된 답글을 화면에 바로 표시
+                $("#reply-form-" + commentId).hide(); // 입력창 숨기기
+                $("#reply-input-" + commentId).val(""); // 입력창 초기화
+            },
+            error: function() {
+                alert("답글 저장 중 오류가 발생했습니다.");
+            }
+        });
+    });
+    
 });
