@@ -10,7 +10,6 @@ import kr.or.gaw.dao.BoardDAO;
 import kr.or.gaw.dto.BoardDTO;
 import kr.or.gaw.dto.CommentsDTO;
 import kr.or.gaw.dto.PostsDTO;
-import kr.or.gaw.dto.ReplyDTO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -130,41 +129,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int updatePost(PostsDTO dto) {
 		return boardDAO.updatePost(dto);
-	}
-
-	@Override
-	public int insertReply(ReplyDTO dto) {
-		return boardDAO.insertReply(dto);
-	}
-
-	@Override
-	public int updateReply(ReplyDTO dto) {
-		return boardDAO.updateReply(dto);
-	}
-
-	@Override
-	public List listReply() {
-		return boardDAO.listReply();
-	}
-
-	@Override
-	public int deleteReply(String reply_id) {
-		return boardDAO.deleteReply(reply_id);
-	}
-
-	@Override
-	public int maxReplyId() {
-		return boardDAO.maxReplyId();
-	}
-
-	@Override
-	public int insertPost(PostsDTO dto) {
-		return boardDAO.insertPost(dto);
-	}
-
-	@Override
-	public int maxPostId() {
-		return boardDAO.maxPostId();
 	}
 
 

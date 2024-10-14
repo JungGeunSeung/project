@@ -19,7 +19,7 @@
 <title>게시글 수정</title>
 <style>
 .container {
-    width: 60%;
+    width: 80%;
     margin: 20px auto;
     background-color: white;
     padding: 20px;
@@ -29,17 +29,7 @@
 
 /* 제목 입력창 스타일 */
 .title-input {
-    width: 88%;
-    padding: 15px;
-    font-size: 16px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* 게시판 선택 스타일 */
-.board-input {
-    width: 91%;
+    width: 100%;
     padding: 15px;
     font-size: 16px;
     margin-bottom: 20px;
@@ -49,7 +39,7 @@
 
 /* 본문 에디터의 영역 */
 .editor {
-    width: 90%;
+    width: 100%;
     height: 400px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -113,25 +103,33 @@
 	<article>
 		<div class="container">
 	        <h1>글쓰기</h1>
-			<form action="post.insert.do" method="post">
-		        <!-- 게시판 선택 부분 -->
-			        <select name="board_id" class="board-input">
-			            <c:forEach var="board" items="${list}">
-			            <option value="${board.board_id}">${board.board_name}</option>
-			            </c:forEach>
-			        </select>
-		
-		        <!-- 제목 입력 -->
-		        <input type="text" name="title" class="title-input" placeholder="제목을 입력해 주세요.">
-		        <br>
-		        <input type="checkbox" name="pinned" value="true">공지사항으로 등록<br>
-		
-		        <!-- 글쓰기 본문 에디터 -->
-		        <textarea class="editor" name="content" placeholder="내용을 입력하세요."></textarea>
-		
-		        <!-- 등록 버튼 -->
-		        <button class="submit-btn">등록</button>
-	        </form>
+	
+	        <!-- 게시판 선택 부분 -->
+	        <select class="title-input">
+	            <option value="">게시판을 선택해 주세요.</option>
+	            <option value="1">게시판 1</option>
+	            <option value="2">게시판 2</option>
+	        </select>
+	
+	        <!-- 제목 입력 -->
+	        <input type="text" class="title-input" placeholder="제목을 입력해 주세요.">
+	
+	        <!-- 글쓰기 본문 에디터 -->
+	        <textarea class="editor" placeholder="내용을 입력하세요."></textarea>
+	
+	        <!-- 태그 입력 -->
+	        <div class="tag-input">#태그를 입력해 주세요 (최대 10개)</div>
+	
+	        <!-- 옵션 박스 -->
+	        <div class="options">
+	            <h4>공개 설정</h4>
+	            <input type="checkbox"> 댓글 허용<br>
+	            <input type="checkbox"> 외부 공유 허용<br>
+	            <input type="checkbox"> 복사·저작 허용<br>
+	        </div>
+	
+	        <!-- 등록 버튼 -->
+	        <button class="submit-btn">등록</button>
 	    </div>
 	</article>
 

@@ -96,10 +96,6 @@
 .submit-btn:hover {
     background-color: #007E33;
 }
-
-#insertContent {
-	margin-top: 10px;
-}
 </style>
 </head>
 <body>
@@ -127,10 +123,10 @@
 				<input type="hidden" name="post_id" value="${dto.post_id}">
 		        <!-- 제목 입력 -->
 		        <input id="modifyTitle" type="text" name="title" class="title-input" placeholder="제목을 입력해 주세요." value="${dto.title}">
-				<input type="hidden" name="pinned" value="false"><br>
-				<input type="checkbox" name="pinned" ${dto.pinned == 'Y' ? 'checked' : ''}>공지사항으로 등록<br>
+				<input type="hidden" name="pinned" value="false">
+				<input type="checkbox" name="pinned" value="true">공지사항으로 등록<br>
 		        <!-- 글쓰기 본문 에디터 -->
-		        <textarea id="insertContent" name="content" class="editor" placeholder="내용을 입력하세요." >${dto.content}</textarea>
+		        <textarea id="modifyContent" name="content" class="editor" placeholder="내용을 입력하세요." >${dto.content}</textarea>
 				
 		        <!-- 등록 버튼 -->
 		        <button class="submit-btn">등록</button>

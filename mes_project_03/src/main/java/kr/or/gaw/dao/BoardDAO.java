@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import kr.or.gaw.dto.BoardDTO;
 import kr.or.gaw.dto.CommentsDTO;
 import kr.or.gaw.dto.PostsDTO;
-import kr.or.gaw.dto.ReplyDTO;
 
 @Mapper
 public interface BoardDAO {
@@ -31,12 +30,4 @@ public interface BoardDAO {
 	List selectBoardByPost(String board_id);
 	int deletePost(String post_id);
 	int updatePost(PostsDTO dto);
-	int insertPost(PostsDTO dto);
-	int insertReply(ReplyDTO dto);
-	int updateReply(ReplyDTO dto);
-	List listReply();
-	int deleteReply(String reply_id);
-	int maxReplyId();
-	int maxPostId();
 }
-
