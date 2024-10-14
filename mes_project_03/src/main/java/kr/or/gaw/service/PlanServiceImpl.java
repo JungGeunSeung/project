@@ -27,4 +27,16 @@ public class PlanServiceImpl implements PlanService {
 		System.out.println("서비스 deletePlan : "+result);
 		return result;
 	}
+	
+	@Override
+	public int createPlan(PlanDTO dto) {
+		int result = planDAO.createPlan(dto);
+		return result;
+	}
+	@Override
+	public int updatePlan(PlanDTO dto) {
+		int result = planDAO.updatePlan(dto);
+		return result;
+	}
 }
+

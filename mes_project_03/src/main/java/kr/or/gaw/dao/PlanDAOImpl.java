@@ -27,4 +27,17 @@ public class PlanDAOImpl implements PlanDAO  {
 		return result;
 	}
 	
+	@Override
+	public int createPlan(PlanDTO dto) {
+		int result = sqlSession.create("kr.or.gaw.dao.PlanDAO.createPlan",dto);
+		System.out.println("dao create결과 :"+ result);
+		return result;
+	}
+	@Override
+	public int updatePlan(PlanDTO dto) {
+		int result = sqlSession.update("kr.or.gaw.dao.PlanDAO.updatePlan",dto);
+		System.out.println("dao update결과 :"+ result);
+		return result;
+	}
+	
 }
