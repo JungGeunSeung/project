@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import kr.or.gaw.dto.BoardDTO;
 import kr.or.gaw.dto.CommentsDTO;
 import kr.or.gaw.dto.PostsDTO;
+import kr.or.gaw.dto.ReplyDTO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -134,6 +135,35 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int updatePost(PostsDTO dto) {
 		return sqlSession.update("kr.or.gaw.dao.BoardDAO.updatePost", dto);
+	}
+	@Override
+	public int insertReply(ReplyDTO dto) {
+		
+		return sqlSession.insert("kr.or.gaw.dao.BoardDAO.insertReply", dto);
+	}
+	@Override
+	public int updateReply(ReplyDTO dto) {
+		return sqlSession.update("kr.or.gaw.dao.BoardDAO.updateReply", dto);
+	}
+	@Override
+	public List listReply() {
+		return sqlSession.selectList("kr.or.gaw.dao.BoardDAO.listReply");
+	}
+	@Override
+	public int deleteReply(String reply_id) {
+		return sqlSession.delete("kr.or.gaw.dao.BoardDAO.deleteReply", reply_id);
+	}
+	@Override
+	public int maxReplyId() {
+		return sqlSession.selectOne("kr.or.gaw.dao.BoardDAO.deleteReply");
+	}
+	@Override
+	public int insertPost(PostsDTO dto) {
+		return sqlSession.insert("kr.or.gaw.dao.BoardDAO.insertPost", dto);
+	}
+	@Override
+	public int maxPostId() {
+		return sqlSession.selectOne("kr.or.gaw.dao.BoardDAO.maxPostId");
 	}
 
 }
