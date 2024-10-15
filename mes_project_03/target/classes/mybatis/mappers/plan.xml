@@ -15,6 +15,24 @@
 			where plan_id = #{plan_id}
 	</delete>
 	
+	 <!-- 생산계획 생성 -->
+    <insert id="createPlan" parameterType="PlanDTO">
+        INSERT INTO plan (plan_id, product_id, start_date, end_date, quantity, created_by, status)
+        VALUES (#{plan_id}, #{product_id}, #{start_date}, #{end_date}, #{quantity}, #{created_by}, #{status})
+    </insert>
+
+    <!-- 생산계획 수정 -->
+    <update id="updatePlan" parameterType="PlanDTO">
+        UPDATE plan
+        SET product_id = #{product_id},
+            start_date = #{start_date},
+            end_date = #{end_date},
+            quantity = #{quantity},
+            created_by = #{created_by},
+            status = #{status}
+        WHERE plan_id = #{plan_id}
+    </update>
+	
 	<!-- 
 	<select id="listEmpOne" resultType="kr.or.gaw.dto.EmpDTO" parameterType="String">
 		select * from emp where user_id = #{user_id}

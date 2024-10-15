@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +30,7 @@ public class GwonController {
 	
 	@RequestMapping("/plan")
 	public String plan() {
-		return "main/plan";
+		return "/plan/plan";
 	}
 	
 	@RequestMapping(value="/deletePlan", method=RequestMethod.DELETE)
@@ -40,6 +41,26 @@ public class GwonController {
 		
 		return -1;
 	}
+	
+	 // 생산 계획 생성
+    @RequestMapping(value = "/createPlan", method = RequestMethod.POST)
+    @ResponseBody
+    public int createPlan(@RequestBody PlanDTO dto) {
+        int result = planService.createPlan(dto);
+        System.out.println("생산계획 생성 결과: " + result);
+        return result;
+    }
+
+    // 생산 계획 수정
+    @RequestMapping(value = "/updatePlan/{plan_id}", method = RequestMethod.PUT)
+    @ResponseBody
+    public int updatePlan(@PathVariable("plan_id") String planId, @RequestBody PlanDTO dto) {
+        dto.setPlan_id(planId);
+        int result = planService.updatePlan(dto);
+        System.out.println("생산계획 수정 결과: " + result);
+        return result;
+    }
+	
 	
 
 }
