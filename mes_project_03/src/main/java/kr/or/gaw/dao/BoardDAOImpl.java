@@ -165,13 +165,5 @@ public class BoardDAOImpl implements BoardDAO {
 	public int maxPostId() {
 		return sqlSession.selectOne("kr.or.gaw.dao.BoardDAO.maxPostId");
 	}
-	@Override
-	public void viewUp(String post_id) {
-		sqlSession.selectOne("kr.or.gaw.dao.BoardDAO.viewUp",post_id);
-	}
-	@Override
-	public List listPostsAnno(PostsDTO dto) {
-		return sqlSession.selectList("kr.or.gaw.dao.BoardDAO.listPostsAnno", dto);
-	}
 
 }

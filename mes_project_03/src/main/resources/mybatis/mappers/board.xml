@@ -26,7 +26,7 @@
 	<!-- 게시판 추가 -->
 	<insert id="insertBoard" parameterType="kr.or.gaw.dto.BoardDTO">
 		INSERT INTO board (board_id, description, board_name, created_by, created_at)
-		VALUES (#{board_id}, #{description}, #{board_name}, #{created_by}, systimestamp)
+		VALUES (#{board_id}, #{description}, #{board_name}, #{created_by}, #{created_at})
 	</insert>
 	<!-- 게시판 수정 -->
 	<update id="updateBoard" parameterType="kr.or.gaw.dto.BoardDTO">
@@ -38,10 +38,7 @@
 	</delete>
 	
 	<!-- ///////////////////////////게시글////////////////////////////// -->
-	<!-- 메인에 표시할 최신글 10개 뽑아오기 -->
-	<select id="mainNewPosts" parameterType="kr.or.gaw.dto.BoardDTO" resultType="kr.or.gaw.dto.BoardDTO">
-		select 
-	</select>
+	
 	<!-- 게시글 개수별로 가져오기 -->
 	<select id="listPosts" resultType="kr.or.gaw.dto.PostsDTO" parameterType="kr.or.gaw.dto.PostsDTO">
 	    SELECT * FROM (
@@ -66,21 +63,11 @@
 	                AND e.name LIKE '%' || #{searchKeyword} || '%'
 	            </if>
 	            <!-- 전체 검색일 경우 추가 조건 없음 -->
-	            ORDER BY created_at
+	            ORDER BY p.post_id
 	        ) p
-	        WHERE rownum <![CDATA[<]]>= #{endRow}
+	        WHERE rownum &lt;= #{endRow}
 	    )
-	    WHERE rnum <![CDATA[>]]>= #{startRow}
-	</select>
-	
-	<!-- 공지사항으로 등록된 게시글만 뽑아오기 -->
-	<select id="listPostsAnno" resultType="kr.or.gaw.dto.PostsDTO" parameterType="kr.or.gaw.dto.PostsDTO">
-            SELECT p.post_id, p.board_id, b.board_name, p.title, p.content, p.author_id, e.name AS author_name, 
-                   p.created_at, p.updated_at, p.pinned, p.view_cnt
-            FROM posts p
-            LEFT JOIN board b ON p.board_id = b.board_id  
-            LEFT JOIN emp e ON p.author_id = e.user_id
-            where pinned = 'Y'
+	    WHERE rnum &gt;= #{startRow}
 	</select>
 	
 	<!-- 게시글 아이디 최대 값 구하기 -->
@@ -91,7 +78,7 @@
 	
 	<!-- 게시글 수정 -->
 	<update id="updatePost" parameterType="kr.or.gaw.dto.BoardDTO">
-		update posts set board_id = #{board_id} ,title= #{title}, content = #{content}, updated_at = systimestamp, pinned = #{pinned} where post_id= #{post_id}
+		update posts set board_id = #{board_id} ,title= #{title}, content = #{content}, updated_at = #{updated_at}, pinned = #{pinned} where post_id= #{post_id}
 	</update>
 	
 	<!-- 게시글 삭제 -->
@@ -100,7 +87,7 @@
 	</delete>
 	<!-- 게시글 작성 -->
 	<insert id="insertPost" parameterType="kr.or.gaw.dto.BoardDTO">
-		insert into posts (post_id, board_id, title, content, author_id, created_at, pinned) values (#{post_id}, #{board_id}, #{title}, #{content}, #{author_id}, systimestamp, #{pinned})
+		insert into posts (post_id, board_id, title, content, author_id, created_at, pinned) values (#{post_id}, #{board_id}, #{title}, #{content}, #{author_id}, #{created_at}, #{pinned})
 	</insert>
 
 	<!-- 검색 조건을 포함한 게시물 구하기 -->
@@ -161,11 +148,6 @@
 		LEFT JOIN emp e ON p.author_id = e.user_id
 		WHERE p.board_id = #{board_id}
 	</select>
-	
-	<!-- 게시글 조회수 올리기 -->
-	<update id="viewUp" parameterType="String">
-		update posts set view_cnt = view_cnt + 1 where post_id = #{post_id}
-	</update>
 
 	<!-- 댓글 관련 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
@@ -187,7 +169,7 @@
 	<!-- 댓글추가 -->
 	<insert id="insertComment" parameterType="kr.or.gaw.dto.CommentsDTO">
 		INSERT INTO comments (comment_id, post_id, employee_id, content, created_at)
-		VALUES (#{comment_id}, #{post_id}, #{employee_id}, #{content}, systimestamp)
+		VALUES (#{comment_id}, #{post_id}, #{employee_id}, #{content}, #{created_at})
 	</insert>
 	
 	<!-- 댓글 아이디 최대값 구하기 -->
@@ -198,7 +180,7 @@
 	
 	<!-- 댓글수정 -->
 	<update id="updateComment" parameterType="kr.or.gaw.dto.CommentsDTO">
-		update comments set content = #{content}, created_at = systimestamp where comment_id= #{comment_id}
+		update comments set content = #{content}, created_at = #{created_at} where comment_id= #{comment_id}
 	</update>
 	
 	<!-- 댓글 삭제 -->

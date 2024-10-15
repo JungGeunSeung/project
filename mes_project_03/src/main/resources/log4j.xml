@@ -33,24 +33,24 @@
     </logger>
     
 	<logger name="kr.or.gaw">
-		<level value="INFO" />
+		<level value="info" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
-		<level value="INFO" />
+		<level value="info" />
 	</logger>
 	
 	<logger name="org.springframework.beans">
-		<level value="INFO" />
+		<level value="info" />
 	</logger>
 	
 	<logger name="org.springframework.context">
-		<level value="INFO" />
+		<level value="info" />
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="INFO" />
+		<level value="info" />
 	</logger>
 	
 	<logger name="org.springframework.security">
@@ -60,18 +60,6 @@
     <logger name="org.springframework.beans.factory">
         <level value="INFO"/>
     </logger>
-    
-    <logger name="jdbc.audit">
-	    <level value="INFO"/>
-	</logger>
-	
-	<logger name="jdbc.resultset">
-	    <level value="INFO"/>
-	</logger>
-	
-	<logger name="org.mybatis">
-	    <level value="INFO"/>
-	</logger>
 
 	<!-- Root Logger -->
 	<root>
