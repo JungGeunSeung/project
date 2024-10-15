@@ -258,7 +258,7 @@
             let paginationHtml = "";
 
             for (let i = 1; i <= totalPages; i++) {
-                paginationHtml += `<button class="page-btn" data-page="${i}">${i}</button>`;
+                paginationHtml += `<button class="page-btn" data-page="\${i}">\${i}</button>`;
             }
             document.querySelector("#pagination").innerHTML = paginationHtml;
 
