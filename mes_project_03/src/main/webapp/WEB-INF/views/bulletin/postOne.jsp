@@ -259,6 +259,11 @@ body {
 	color:black;
 	text-decoration: none;
 }
+
+.author span {
+	font-size: 20px;
+	margin-left: 10px;
+}
 </style>
 </head>
 <body>
@@ -282,6 +287,10 @@ body {
 			
             <div class="title">
                 <h3>${post.title }<input type="hidden" id="post_id" value="${post.post_id}"></h3>
+            </div>
+            
+            <div class="author">
+            	<span>${post.author_name }</span>
             </div>
             
             <div class="meta">

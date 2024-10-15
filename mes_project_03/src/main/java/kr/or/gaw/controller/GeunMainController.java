@@ -7,11 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,48 +43,64 @@ public class GeunMainController {
 	@Autowired
     private BCryptPasswordEncoder passwordEncoder;
 	
+	// 랜덤 숫자 계산
 	private int generateRandomNumber(int min, int max) {
         Random random = new Random();
         return random.nextInt(max - min + 1) + min; // min과 max 사이의 랜덤 숫자 생성
     }
 	
+	// 메인페이지 입장
 	@RequestMapping("/mainpage")
-	public String main(@ModelAttribute("dto") EmpDTO dto) {
+	public String main(@ModelAttribute("dto") EmpDTO dto, HttpSession session) {
+		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+		
+		if (loggedInUser == null) {
+	        return "redirect:/login"; // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+	    }
 		return "main/mainpage";
 	}
 	
+	// 로그인 페이지 입장
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
 		return "main/login";
 	}
 	
+	// 로그아웃시 로그인페이지로 리다이렉트
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout() {
+	public String logout(HttpSession session) {
+		 session.invalidate(); // 세션 무효화 및 삭제
 		return "redirect:/login?logout=true";
 	}
 	
+	// 약관동의 페이지 입장
 	@RequestMapping("/agreement")
 	public String agree() {
 		return "main/agreement";
 	}
 	
+	// 회원가입 페이지 입장
 	@RequestMapping("/sign")
 	public String sign() {
 		return "main/sign";
 	}
 	
+	// 비밀번호 찾기 입장
 	@RequestMapping("/find")
 	public String find() {
 		return "main/find";
 	}
 	
+	// 로그인 시도시 성공실패에 따라 작동하기
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam("user_id") String user_id,
 	                    @RequestParam("password") String password,
 	                    Model model,
-	                    RedirectAttributes redirectAttributes) {
+	                    RedirectAttributes redirectAttributes,
+	                    HttpSession session) {
 		EmpDTO dto = empService.listEmpOne(user_id);
 		if (dto != null && passwordEncoder.matches(password, dto.getPassword())) { // 비밀번호 확인
+			session.setAttribute("loggedInUser", dto);
 			redirectAttributes.addFlashAttribute("dto", dto);
 	        return "redirect:/mainpage"; // 로그인 성공
 	    }
