@@ -10,7 +10,7 @@ import kr.or.gaw.dto.BomDTO;
 @Service
 public interface BomService {
 	
-	List selectBompList(BomDTO dto);
+	List selectBompList(String product_id);
 	List selectBomList(BomDTO dto);
 	int getTotalDataCount(BomDTO dto);
 	public BomDTO selectOne(String Bom_id);

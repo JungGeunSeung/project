@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.gaw.dto.BomDTO;
 import kr.or.gaw.service.BomService;
@@ -82,11 +84,25 @@ public class SoController {
 		return "redirect:/bom";
 	}
 
-	@RequestMapping("/bomp")
-	public List<BomDTO> getBomDetails(@RequestParam("product_id") String product_id) {
-		BomDTO bomdto = new BomDTO();
-		bomdto.setProduct_id(product_id);
-		List<BomDTO> bomp = bomService.selectBompList(bomdto); // 서비스 호출하여 BOM 상세 정보 조회
-		return bomp; // JSON 형식으로 반환됨
+//	@RequestMapping("/bomp")
+//	public List<BomDTO> getBomDetails(@RequestParam("product_id") String product_id) {
+//		BomDTO bomdto = new BomDTO();
+//		bomdto.setProduct_id(product_id);
+//		List<BomDTO> bomp = bomService.selectBompList(bomdto); // 서비스 호출하여 BOM 상세 정보 조회
+//		return bomp; // JSON 형식으로 반환됨
+//	}
+	@PostMapping("/bomp")
+	@ResponseBody
+	public List<BomDTO> getBomByProduct(@RequestParam("product_id") String productId) {
+		List list = bomService.selectBompList(productId);
+		System.out.println(list);
+	    return list;
+	}
+	
+	
+	@RequestMapping("/organization")
+	public String organization(Model model) {
+		
+	    return "organization";
 	}
 }

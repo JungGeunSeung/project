@@ -86,12 +86,13 @@
 	</select>
 	<!-- 작은테이블 -->
 	<select id="selectProductByBom"
-		resultType="kr.or.gaw.dto.BomDTO">
+		resultType="kr.or.gaw.dto.BomDTO"
+		parameterType="String">
 		SELECT b.bom_id, b.material_id, m.material_name, b.quantity, b.version,
 		b.create_at
 		FROM bom b
 		LEFT JOIN material m ON b.material_id =
-		m.material_id
+m.material_id
 		WHERE b.product_id = #{product_id}
 	</select>
 

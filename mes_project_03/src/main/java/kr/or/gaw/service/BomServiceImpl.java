@@ -54,10 +54,8 @@ public class BomServiceImpl implements BomService {
 	    return result;  
 	}
 	@Override
-	public List selectBompList(BomDTO dto) {
-		List list = null;
-		list = bomDao.getBomp(dto);
-		return list;
+	public List selectBompList(String product_id){
+		return bomDao.selectBompList(product_id);
 	}
 	
 
