@@ -70,8 +70,8 @@
 			<ul>
 				<li><a href="#">BOM</a></li>
 				<li><a href="#">문서관리</a></li>
-				<li><a href="#">저장위치(map)</a></li>
-				<li><a href="#">조직도</a></li>
+				<li><a href="/gaw/map">저장위치(map)</a></li>
+				<li><a href="/gaw/organization">조직도</a></li>
 			</ul>
 		</div>
 	</div>

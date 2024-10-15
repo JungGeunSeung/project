@@ -6,7 +6,7 @@
 <div class="header">
 	<div class="headerBox">
 		<div class="logo">
-			<a href="#"><img src="resources/img/팀 로고 2.png" alt="메인페이지로이동"></a>
+			<a href="/gaw/mainpage"><img src="resources/img/팀 로고 2.png" alt="메인페이지로이동"></a>
 		</div>
 		<div style="display: flex; align-items: center;">
 			<p>
@@ -17,6 +17,7 @@
 			님
 			</p>
 			<a href="logout" id="logoutBtn">로그아웃</a>
+			<a href="allposts" id="boardBtn">커뮤니티</a>
 			<a href="adminpage" id="adminBtn">관리자 페이지</a>
 			<img id="lanImg" src="resources/img/지구 이모지 흰색.png"> 
 			<form class="lanBox">

@@ -70,15 +70,25 @@
 	    WHERE rnum &gt;= #{startRow}
 	</select>
 	
+	<!-- 게시글 아이디 최대 값 구하기 -->
+	<select id="maxPostId" parameterType="String" resultType="int">
+		SELECT MAX(TO_NUMBER(SUBSTR(post_id, 2)))
+		FROM posts
+	</select>
+	
 	<!-- 게시글 수정 -->
 	<update id="updatePost" parameterType="kr.or.gaw.dto.BoardDTO">
 		update posts set board_id = #{board_id} ,title= #{title}, content = #{content}, updated_at = #{updated_at}, pinned = #{pinned} where post_id= #{post_id}
 	</update>
 	
-	<!--  게시글 삭제 -->
-	<delete id="deletePost" parameterType="kr.or.gaw.dto.BoardDTO">
+	<!-- 게시글 삭제 -->
+	<delete id="deletePost" parameterType="String">
 		delete posts where post_id=#{post_id}
 	</delete>
+	<!-- 게시글 작성 -->
+	<insert id="insertPost" parameterType="kr.or.gaw.dto.BoardDTO">
+		insert into posts (post_id, board_id, title, content, author_id, created_at, pinned) values (#{post_id}, #{board_id}, #{title}, #{content}, #{author_id}, #{created_at}, #{pinned})
+	</insert>
 
 	<!-- 검색 조건을 포함한 게시물 구하기 -->
 	<select id="totalPostsWithSearch" resultType="int" parameterType="kr.or.gaw.dto.PostsDTO">
@@ -95,7 +105,8 @@
 	
 	<!-- 총 게시글의 개수 구하기 -->
 	<select id="totalPosts" resultType="int">
-		select count(*) from posts
+		SELECT MAX(TO_NUMBER(SUBSTR(post_id, 2)))
+		FROM posts
 	</select>
 	
 	<!-- 게시글 한개 뽑아오기 -->
@@ -177,12 +188,39 @@
 		delete from comments where comment_id=#{comment_id}
 	</delete>
 	
-
+	<!-- /////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
+	<!-- 답글 총 개수 구하기 -->
 	
+	<select id="maxReplyId" resultType="int">
+		SELECT MAX(TO_NUMBER(SUBSTR(reply_id, 2)))
+		FROM replies
+	</select>
+	<!-- 답글 불러오기 -->
+	<select id="listReply" resultType="kr.or.gaw.dto.ReplyDTO">
+		SELECT r.reply_id, r.comment_id, r.content, r.user_id, e.name as reply_name, created_at, updated_at
+		FROM replies r
+		JOIN emp e ON r.user_id = e.user_id
+	</select>
 	
+	<!-- 답글 저장하기 -->
+	<insert id="insertReply" parameterType="kr.or.gaw.dto.ReplyDTO">
+        INSERT INTO replies (reply_id, comment_id, user_id, content, created_at, updated_at)
+        VALUES (#{reply_id}, #{comment_id}, #{user_id}, #{content}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    </insert>
 	
+	<!-- 답글 수정하기 -->
+	<update id="updateReply" parameterType="kr.or.gaw.dto.ReplyDTO">
+        UPDATE replies
+        SET content = #{content}, 
+            updated_at = CURRENT_TIMESTAMP  -- 수정 시간을 현재 시간으로 업데이트
+        WHERE reply_id = #{reply_id}  -- 해당 답글의 ID로 수정
+    </update>
 	
+	<!-- 답글 삭제하기 -->
+	<delete id="deleteReply" parameterType="String" >
+		delete from replies where reply_id = #{reply_id}
+	</delete>
 	
 	
 	
