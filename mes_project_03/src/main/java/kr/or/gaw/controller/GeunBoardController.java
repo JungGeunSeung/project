@@ -98,7 +98,7 @@ public class GeunBoardController {
 	        page = 1;
 	    }
 	    if (countPerPage == null) {
-	        countPerPage = 10;
+	        countPerPage = 20;
 	    }
 	    if (boardId == null || boardId.isEmpty()) {
 	        boardId = "all";
@@ -126,10 +126,12 @@ public class GeunBoardController {
 
 	    // 게시물 목록 가져오기
 	    List<PostsDTO> postList = boardservice.listPosts(dto);
+	    List<PostsDTO> postList2 = boardservice.listPostsAnno(dto);
 	    List<BoardDTO> boardList = boardservice.listBoard();
+	    
 
 	    // 총 게시물 수 계산
-	    int totalPosts = boardservice.totalPostsWithSearch(dto);
+	    int totalPosts = boardservice.totalPostsWithSearch(dto) - postList2.size();
 	    int totalPages = (int) Math.ceil((double) totalPosts / countPerPage);
 
 	    // 페이지네이션 정보 계산
@@ -157,6 +159,7 @@ public class GeunBoardController {
 	    // 모델에 데이터 추가
 	    model.addAttribute("pagination", pagination);
 	    model.addAttribute("post", postList);
+	    model.addAttribute("postAnno", postList2);
 	    model.addAttribute("board", boardList);
 	    model.addAttribute("searchType", searchType);
 	    model.addAttribute("searchKeyword", searchKeyword);
@@ -228,9 +231,10 @@ public class GeunBoardController {
 	// 게시글 하나 읽는 페이지
 	 @GetMapping("/post.read")
 	    public String readPost(@RequestParam("post_id") String postId, Model model) {
-	        PostsDTO post = boardservice.selectPostById(postId);
-	        List comments = boardservice.listComments(postId);
-	        List reply = boardservice.listReply();
+	        PostsDTO post = boardservice.selectPostById(postId); // 게시글 한개 뽑아 오기
+	        List comments = boardservice.listComments(postId); // 그 게시글에 해당하는 댓글 뽑아오기
+	        List reply = boardservice.listReply(); // 그 게시글의 해당하는 답글 뽑아 오기
+	        boardservice.viewUp(postId); // 조회수 증가
 	        model.addAttribute("post", post);
 	        model.addAttribute("comments", comments);
 	        model.addAttribute("reply", reply);
@@ -239,7 +243,8 @@ public class GeunBoardController {
 	 
 	 // 게시글 수정 페이지 입장
 	 @RequestMapping("/post.modify")
-	 public String modifypost(Model model, @RequestParam("post_id") String postId, PostsDTO dto) {
+	 public String modifypost(Model model, @RequestParam("post_id") String postId, PostsDTO dto,
+			 @RequestParam(value = "pinned", required = false, defaultValue = "false") boolean pinned) {
 		 
 		 dto = boardservice.selectPostById(postId);
 		 List list = new ArrayList();

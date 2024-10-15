@@ -19,6 +19,25 @@
 <link rel="icon" sizes="32x32" href="resources/img/favicon3.png"
 	type="image/png">
 <title>게시판</title>
+<style>
+
+.Announcement-Tr {
+	background-color: rgba(231, 231, 231, 0.497);
+	border-radius: 10px;
+	color: rgb(143, 33, 33);
+}
+
+.postTitle {
+	text-align: left;
+}
+
+.newPostIcon {
+	font-size: 12px;
+	margin-left: 15px;
+	color: red;
+	display: none;
+}
+</style>
 </head>
 <body>
 	<!-- 헤더 -->
@@ -47,7 +66,10 @@
 		int nextPage = (Integer) pagination.get("nextPage");
 		%>
 		<div class="container">
-			<div class="newpost"><button class="btn newPostBtn"><sapn>글쓰기</sapn></button></div>
+			<div class="newpost">
+			<button class="btn newPostBtn"><sapn>글쓰기</sapn></button>
+			<button class="btn newBoardBtn"><sapn>게시판 관리</sapn></button>
+			</div>
 			<h1>전체글</h1>
 			<span>전체 글을 조회합니다.</span>
 			<div class="search-bar">
@@ -131,18 +153,35 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="post" items="${post}">
-						<tr>
-							<td>${post.rnum}<input type="hidden" name="post_id"
-								value="${ post.post_id }"></td>
-							<td>${post.board_name}</td>
-							<td><a href="post.read?post_id=${post.post_id }">${post.title}</a></td>
-							<td>${post.author_name}</td>
-							<td><fmt:formatDate value="${post.created_at}"
-									pattern="yyyy.MM.dd" /><input type="hidden" name="updated_at"
-								value="${ post.updated_at }"></td>
-							<td>${post.view_cnt}</td>
-						</tr>
+					<c:if test="${ pagination.currentPage == 1 }">
+						<c:forEach var="post" items="${postAnno}">
+								<tr class="Announcement-Tr">
+									<td class="Announcement"><span>공지사항</span><input type="hidden" name="post_id"
+										value="${ post.post_id }"></td>
+									<td class="Announcement">${post.board_name}</td>
+									<td class="Announcement postTitle"><a href="post.read?post_id=${post.post_id }">${post.title}</a>
+									<input type="hidden" class="created_at" value="${ post.created_at }"><span class="newPostIcon">new</span></td>
+									<td class="Announcement">${post.author_name}</td>
+									<td class="Announcement"><fmt:formatDate value="${post.created_at}" pattern="yyyy-MM-dd HH:mm:ss" />
+									</td>
+									<td class="Announcement">${post.view_cnt}</td>
+								</tr>
+						</c:forEach>
+					</c:if>
+					<c:forEach var="post" items="${post}" varStatus="status">
+						<c:if test="${post.pinned == 'N' }">
+							<tr>
+								<td>${status.index}<input type="hidden" name="post_id"
+									value="${ post.post_id }"></td>
+								<td>${post.board_name}</td>
+								<td class="postTitle"><a href="post.read?post_id=${post.post_id }">${post.title}</a><span class="newPostIcon">new</span></td>
+								<td>${post.author_name}</td>
+								<td><fmt:formatDate value="${post.created_at}"
+										pattern="yyyy-MM-dd HH:mm:ss" /><input type="hidden" name="updated_at"
+									value="${ post.updated_at }"></td>
+								<td>${post.view_cnt}</td>
+							</tr>
+						</c:if>
 					</c:forEach>
 				</tbody>
 			</table>

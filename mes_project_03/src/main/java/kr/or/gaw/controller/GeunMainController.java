@@ -53,10 +53,10 @@ public class GeunMainController {
 	@RequestMapping("/mainpage")
 	public String main(@ModelAttribute("dto") EmpDTO dto, HttpSession session) {
 		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
-		
 		if (loggedInUser == null) {
 	        return "redirect:/login"; // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
 	    }
+		
 		return "main/mainpage";
 	}
 	
