@@ -29,7 +29,7 @@ public class PlanDAOImpl implements PlanDAO  {
 	
 	@Override
 	public int createPlan(PlanDTO dto) {
-		int result = sqlSession.create("kr.or.gaw.dao.PlanDAO.createPlan",dto);
+		int result = sqlSession.insert("kr.or.gaw.dao.PlanDAO.createPlan",dto);
 		System.out.println("dao create결과 :"+ result);
 		return result;
 	}

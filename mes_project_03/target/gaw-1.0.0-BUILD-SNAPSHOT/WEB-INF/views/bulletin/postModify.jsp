@@ -96,6 +96,10 @@
 .submit-btn:hover {
     background-color: #007E33;
 }
+
+#insertContent {
+	margin-top: 10px;
+}
 </style>
 </head>
 <body>
@@ -121,12 +125,12 @@
 		            </c:forEach>
 		        </select>
 				<input type="hidden" name="post_id" value="${dto.post_id}">
-				<input id="updateDate" type="hidden" name="updated_at">
 		        <!-- 제목 입력 -->
 		        <input id="modifyTitle" type="text" name="title" class="title-input" placeholder="제목을 입력해 주세요." value="${dto.title}">
-				<input type="checkbox" name="pinned">공지사항으로 등록<br>
+				<input type="hidden" name="pinned" value="false"><br>
+				<input type="checkbox" name="pinned" ${dto.pinned == 'Y' ? 'checked' : ''}>공지사항으로 등록<br>
 		        <!-- 글쓰기 본문 에디터 -->
-		        <textarea id="modifyContent" name="content" class="editor" placeholder="내용을 입력하세요." >${dto.content}</textarea>
+		        <textarea id="insertContent" name="content" class="editor" placeholder="내용을 입력하세요." >${dto.content}</textarea>
 				
 		        <!-- 등록 버튼 -->
 		        <button class="submit-btn">등록</button>
@@ -149,21 +153,6 @@
 			alert('내용은 필수입니다.');
 			return;
 		}
-		const now = new Date();
-
-		// 연도, 월, 일
-		const year = now.getFullYear();
-		const month = String(now.getMonth() + 1).padStart(2, '0');
-		const day = String(now.getDate()).padStart(2, '0');
-
-		// 시, 분, 초
-		const hours = String(now.getHours()).padStart(2, '0');
-		const minutes = String(now.getMinutes()).padStart(2, '0');
-		const seconds = String(now.getSeconds()).padStart(2, '0');
-
-		// 원하는 형식으로 조합
-		const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-		document.querySelector('#updateDate').value = formattedDateTime;
 		
 		document.querySelector('#modifyForm').submit();
 	})

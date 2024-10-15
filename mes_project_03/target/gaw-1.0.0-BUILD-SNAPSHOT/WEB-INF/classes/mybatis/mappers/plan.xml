@@ -9,6 +9,12 @@
 	<select id="selectPlan" resultType="PlanDTO">
 		select * from plan
 	</select>
+	
+	<delete id="deletePlan" parameterType="PlanDTO">
+		DELETE FROM PLAN
+			where plan_id = #{plan_id}
+	</delete>
+	
 	<!-- 
 	<select id="listEmpOne" resultType="kr.or.gaw.dto.EmpDTO" parameterType="String">
 		select * from emp where user_id = #{user_id}

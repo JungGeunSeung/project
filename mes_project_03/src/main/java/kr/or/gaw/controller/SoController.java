@@ -99,10 +99,15 @@ public class SoController {
 	    return list;
 	}
 	
-	
 	@RequestMapping("/organization")
-	public String organization(Model model) {
+	   public String organization(Model model) {
+	      
+	       return "bom/organization";
+	   }
+	
+	@RequestMapping("/map")
+	public String map(Model model) {
 		
-	    return "organization";
+		return "bom/map";
 	}
 }
