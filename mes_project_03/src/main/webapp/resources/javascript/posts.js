@@ -121,6 +121,10 @@ $(document).ready(function() {
     $('.newPostBtn').click(function(){
     	window.location.href = 'post.insert';
     });
+    
+    $('.newBoardBtn').click(function(){
+    	window.location.href = 'board';
+    });
 });
 
 // 날짜 포맷팅 함수 (JavaScript에서 날짜 포맷 변경)
@@ -132,3 +136,28 @@ function formatDate(dateString) {
     return year + '.' + month + '.' + day;
 }
 
+window.onload = function() {
+        // 모든 hidden input 요소를 선택
+        var createdAtElements = document.querySelectorAll('.created_at');
+        
+        createdAtElements.forEach(function(element) {
+            var createdAt = new Date(element.value); // created_at 값을 Date로 변환
+            var now = new Date(); // 현재 시간
+
+            // 두 시간의 차이를 분 단위로 계산
+            var diffMinutes = Math.floor((now - createdAt) / 1000 / 60);
+            console.log(diffMinutes);
+            // 9시간 30분 (570분) 이내일 경우 "new" 아이콘을 표시
+            if (diffMinutes <= 570) {
+            console.log("if문 true 실행");
+                var parentElement = element.parentElement;
+                var newPostIcon = parentElement.querySelector('.newPostIcon');
+                console.log(newPostIcon);
+                console.log(parentElement);
+
+                if (newPostIcon) {
+                    newPostIcon.style.display = 'inline'; // newPostIcon을 보이도록 설정
+                }
+            }
+        });
+    };

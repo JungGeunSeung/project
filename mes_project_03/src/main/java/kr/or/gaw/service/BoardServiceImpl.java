@@ -167,5 +167,15 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.maxPostId();
 	}
 
+	@Override
+	public void viewUp(String post_id) {
+		boardDAO.viewUp(post_id);
+	}
+
+	@Override
+	public List listPostsAnno(PostsDTO dto) {
+		return boardDAO.listPostsAnno(dto);
+	}
+
 
 }

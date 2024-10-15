@@ -38,5 +38,7 @@ public interface BoardDAO {
 	int deleteReply(String reply_id);
 	int maxReplyId();
 	int maxPostId();
+	void viewUp(String post_id);
+	List listPostsAnno(PostsDTO dto);
 }
 
