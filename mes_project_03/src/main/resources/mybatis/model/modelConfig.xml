@@ -15,6 +15,7 @@
 		<typeAlias type="kr.or.gaw.dto.CommentsDTO" alias="CommentsDTO" />
 		<typeAlias type="kr.or.gaw.dto.PlanDTO" alias="planDTO" />
 		<typeAlias type="kr.or.gaw.dto.PerformanceDTO" alias="PerformanceDTO" />
+		<typeAlias type="kr.or.gaw.dto.WorkOrderDTO" alias="WorkOrderDTO" />
 	</typeAliases>
 	
 </configuration>

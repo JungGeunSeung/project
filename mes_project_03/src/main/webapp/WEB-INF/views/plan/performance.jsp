@@ -55,13 +55,13 @@
         xhr.send();
 
         xhr.onload = function () {
-            if (typeof cb === "function") {
+            if (typeof cb == "function") {
                 cb(xhr.responseText);
             }
         };
     }
 	
-    // 생산 계획 목록을 가져오는 함수
+    // 생산 실적 목록을 가져오는 함수
     function getList() {
         ajax("selectPerformance", function (response) { // AJAX 요청
         	PerformanceList = JSON.parse(response); // 응답을 JSON으로 파싱하여 planList에 저장

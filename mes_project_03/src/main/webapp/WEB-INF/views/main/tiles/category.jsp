@@ -30,7 +30,7 @@
 			<ul>
 				<li><a href="plan">생산계획</a></li>
 				<li><a href="performance">생산실적</a></li>
-				<li><a href="#">작업지시서</a></li>
+				<li><a href="order">작업지시서</a></li>
 				<li><a href="#">원가관리</a></li>
 			</ul>
 		</div>
