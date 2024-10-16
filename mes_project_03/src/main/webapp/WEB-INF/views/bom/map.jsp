@@ -12,18 +12,22 @@
 
 
 	<style>
-	    .map1 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 70vh; 
-        width: 100%;  
+    .map1 {
+        width: 70%; 
+	    margin: auto; /* 가로, 세로 중앙 정렬 */
+	    margin-top: 50px;
+	    padding: 20px;
+	    text-align: center;
+	    border: 1px solid #ddd;
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     }
 
     .map1 img {
-        width: 95%;
-        height: 95%;
-        object-fit: cover; 
+        width: 100%;
+	    height: auto; /* 이미지 비율 유지 */
+	    margin-top: 10px;
+	    border: 1px solid #ddd;
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 	</style>
 
@@ -39,7 +43,11 @@
         <jsp:include page="/WEB-INF/views/main/tiles/category.jsp" />
     </nav>
 
-<div class="map1"><img src = "resources/img/맵.png" alt="맵 이미지"></div>
+	<div class="map1">
+		<h2>저장 위치(MAP)</h2>
+		<span>회사의 맵을 나타낸 지도 입니다.</span><br>
+		<img src = "resources/img/맵.png" alt="맵 이미지">
+	</div>
     <footer>
         <jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />
     </footer>

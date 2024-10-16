@@ -18,6 +18,13 @@
     <title>생산계획</title>
 
     <style>
+    	article {
+    		width: 70%;
+    		margin: 0 auto;
+    		border: 1px solid #ddd;
+	    	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	    	padding: 20px;
+    	}
         .modal {
             display: none;
             position: fixed;
@@ -51,6 +58,75 @@
             text-decoration: none;
             cursor: pointer;
         }
+        
+        .plan_id, .product_id, .start_date, .end_date, .quantity, .created_by, .status, .edit, .delete {
+        	text-align: center;
+        }
+        
+        .plan_id {
+        	width: 70px;
+        }
+        
+        .start_date, .end_date {
+        	width: 100px;
+        }
+        
+        .chkbox {
+        	width: 40px; 
+        }
+        
+        .edit, .delete {
+        	width: 70px;
+        }
+        
+        input[type="checkbox"] {
+        	width: 20px;
+        	height: 20px;
+        	margin: 0 auto;
+        	vertical-align: center;
+        	text-align: center;
+        }
+        
+        .actionDiv {
+        	float: right;
+        	margin-right: 20px;
+        	
+        }
+        
+        #createBtn {
+        	margin-right: 20px;
+        }
+        
+        .status {
+        	width: 50px;
+        }
+        
+        .quantity {
+        	width: 50px;
+        }
+        
+        .created_by {
+        	width: 100px;
+        }
+        
+        table {
+        	margin-top: 70px;
+        }
+        
+        #pagination button {
+        	background-color: inherit;
+        	border: none;
+        	margin: 0 5px;
+        	font-size: 16px;
+        }
+        
+        #pagination {
+        	width: 70%;
+        	margin: 0 auto;
+        	margin-top: 20px;
+        	text-align: center;
+        }
+        
     </style>
 </head>
 
@@ -64,54 +140,60 @@
         <jsp:include page="/WEB-INF/views/main/tiles/category.jsp" />
     </nav>
 
-    <button id="createBtn">생산계획 생성</button>
-    <button id="deleteSelectedBtn">선택삭제</button> <!-- 선택삭제 버튼 추가 -->
-
-    <table border="1">
-        <caption>생산계획목록</caption>
-        <thead>
-            <tr>
-                <th>선택</th>
-                <th>계획 ID</th>
-                <th>제품 ID</th>
-                <th>생산 시작일</th>
-                <th>생산 종료일</th>
-                <th>수량</th>
-                <th>작성자</th>
-                <th>상태</th>
-                <th>수정</th>
-                <th>삭제</th>
-            </tr>
-        </thead>
-        <tbody id="list"></tbody>
-    </table>
-
-    <div id="pagination"></div>
-
-    <!-- 모달 창 -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>생산계획 수정/생성</h2>
-            <form id="planForm">
-                <label for="plan_id">계획 ID:</label>
-                <input type="text" id="plan_id" name="plan_id" readonly><br><br>
-                <label for="product_id">제품 ID:</label>
-                <input type="text" id="product_id" name="product_id"><br><br>
-                <label for="start_date">생산 시작일:</label>
-                <input type="date" id="start_date" name="start_date"><br><br>
-                <label for="end_date">생산 종료일:</label>
-                <input type="date" id="end_date" name="end_date"><br><br>
-                <label for="quantity">수량:</label>
-                <input type="number" id="quantity" name="quantity"><br><br>
-                <label for="created_by">작성자:</label>
-                <input type="text" id="created_by" name="created_by"><br><br>
-                <label for="status">상태:</label>
-                <input type="text" id="status" name="status"><br><br>
-                <button type="submit">저장</button>
-            </form>
-        </div>
-    </div>
+	<article>
+    	<h2>생산계획</h2>
+    	<span>생산계획을 관리하는 페이지 입니다. 계획을 수정 및 생성 할 수 있습니다.</span>
+    	
+    	<div class="actionDiv">
+		    <button class="btn" id="createBtn">생산계획 생성</button>
+		    <button class="btn" id="deleteSelectedBtn">선택삭제</button> <!-- 선택삭제 버튼 추가 -->
+    	</div>
+	
+	    <table border="1">
+	        <caption style="display:none;">생산계획목록</caption>
+	        <thead>
+	            <tr>
+	                <th>선택</th>
+	                <th>계획 ID</th>
+	                <th>제품 ID</th>
+	                <th>생산 시작일</th>
+	                <th>생산 종료일</th>
+	                <th>수량</th>
+	                <th>작성자</th>
+	                <th>상태</th>
+	                <th colspan="2">수정 및 삭제</th>
+	            </tr>
+	        </thead>
+	        <tbody id="list"></tbody>
+	    </table>
+	
+	    <div id="pagination"></div>
+	
+	    <!-- 모달 창 -->
+	    <div id="myModal" class="modal">
+	        <div class="modal-content">
+	            <span class="close">&times;</span>
+	            <h2>생산계획 수정/생성</h2>
+	            <form id="planForm">
+	                <label for="plan_id">계획 ID:</label>
+	                <input type="text" id="plan_id" name="plan_id" readonly><br><br>
+	                <label for="product_id">제품 ID:</label>
+	                <input type="text" id="product_id" name="product_id"><br><br>
+	                <label for="start_date">생산 예정 시작일:</label>
+	                <input type="date" id="start_date" name="start_date"><br><br>
+	                <label for="end_date">생산 예정 종료일:</label>
+	                <input type="date" id="end_date" name="end_date"><br><br>
+	                <label for="quantity">계획수량:</label>
+	                <input type="number" id="quantity" name="quantity"><br><br>
+	                <label for="created_by">작성자:</label>
+	                <input type="text" id="created_by" name="created_by"><br><br>
+	                <label for="status">상태:</label>
+	                <input type="text" id="status" name="status"><br><br>
+	                <button type="submit">저장</button>
+	            </form>
+	        </div>
+	    </div>
+    </article>
 
     <script>
         let currentPage = 1;
@@ -173,16 +255,16 @@
                 const plan = paginatedItems[i];
                 html += `
                     <tr>
-                        <td><input type="checkbox" name="check" value="\${plan.plan_id}"></td>
-                        <td>\${plan.plan_id}</td>
-                        <td>\${plan.product_id}</td>
-                        <td>\${new Date(plan.start_date).toISOString().split('T')[0]}</td>
-                        <td>\${new Date(plan.end_date).toISOString().split('T')[0]}</td>
-                        <td>\${plan.quantity}</td>
-                        <td>\${plan.created_by}</td>
-                        <td>\${plan.status}</td>
-                        <td><button class="editBtn" data-plan='\${JSON.stringify(plan)}'>수정</button></td>
-                        <td><button class="deleteBtn" data-plan_id="\${plan.plan_id}">삭제</button></td>
+                        <td class="chkbox"><input type="checkbox" name="check" value="\${plan.plan_id}"></td>
+                        <td class="plan_id">\${plan.plan_id}</td>
+                        <td class="product_id">\${plan.product_id}</td>
+                        <td class="start_date">\${new Date(plan.start_date).toISOString().split('T')[0]}</td>
+                        <td class="end_date">\${new Date(plan.end_date).toISOString().split('T')[0]}</td>
+                        <td class="quantity">\${plan.quantity}</td>
+                        <td class="created_by">\${plan.created_by}</td>
+                        <td class="status">\${plan.status}</td>
+                        <td class="edit"><button class="editBtn btn" data-plan='\${JSON.stringify(plan)}'>수정</button></td>
+                        <td class="delete"><button class="deleteBtn btn" data-plan_id="\${plan.plan_id}">삭제</button></td>
                     </tr>`;
             }
             document.querySelector("#list").innerHTML = html;
