@@ -39,8 +39,18 @@
 	
 	<!-- ///////////////////////////게시글////////////////////////////// -->
 	<!-- 메인에 표시할 최신글 10개 뽑아오기 -->
-	<select id="mainNewPosts" parameterType="kr.or.gaw.dto.BoardDTO" resultType="kr.or.gaw.dto.BoardDTO">
-		select 
+	<select id="mainNewPosts" parameterType="kr.or.gaw.dto.PostsDTO" resultType="kr.or.gaw.dto.PostsDTO">
+		SELECT p.post_id, p.board_id, b.board_name, p.title, p.author_id, 
+			       e.name AS author_name, p.created_at
+			FROM (
+			    SELECT p.post_id, p.board_id, p.title, p.author_id, p.created_at
+			    FROM posts p
+			    ORDER BY p.created_at DESC
+			) p
+			LEFT JOIN board b ON p.board_id = b.board_id  
+			LEFT JOIN emp e ON p.author_id = e.user_id
+			WHERE ROWNUM <![CDATA[<]]>= 10
+			order by created_at desc
 	</select>
 	<!-- 게시글 개수별로 가져오기 -->
 	<select id="listPosts" resultType="kr.or.gaw.dto.PostsDTO" parameterType="kr.or.gaw.dto.PostsDTO">

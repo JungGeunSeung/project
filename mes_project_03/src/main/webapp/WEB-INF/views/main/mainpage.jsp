@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="resources/CSS/header.css">
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/loading.css">
+    <link rel="stylesheet" href="resources/CSS/table.css">
     <title>Grand All Win</title>
     <style>
 
@@ -61,6 +62,24 @@
         <div class="main-content">
             <div>
                 <h2><a href="allposts">공지사항</a></h2>
+                <table>
+                	<tr>
+                		<th>no</th>
+                		<th>게시판</th>
+                		<th>제목</th>
+                		<th>작성자</th>
+                		<th>작성시간</th>
+                	</tr>
+               		<c:forEach var="newpost" items="${newPost}" varStatus="status">
+                		<tr>
+                			<td>${status.index}</td>
+                			<td>${newpost.board_name}</td>
+                			<td>${newpost.title}</td>
+                			<td>${newpost.author_name}</td>
+                			<td>${newpost.disPlayTime}</td>
+                		</tr>
+               		</c:forEach>
+                </table>
             </div>
             <div>
                 <h2>실시간 생산현황</h2>

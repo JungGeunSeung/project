@@ -2,8 +2,12 @@ package kr.or.gaw.controller;
 
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -14,7 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +31,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.gaw.dto.EmpDTO;
+import kr.or.gaw.dto.PostsDTO;
+import kr.or.gaw.service.BoardService;
 import kr.or.gaw.service.EmpService;
 
 
@@ -36,6 +41,9 @@ public class GeunMainController {
 	
 	@Autowired
 	EmpService empService;
+	
+	@Autowired
+	BoardService boardservice;
 	
 	@Autowired
     private JavaMailSender mailSender;
@@ -51,11 +59,42 @@ public class GeunMainController {
 	
 	// 메인페이지 입장
 	@RequestMapping("/mainpage")
-	public String main(@ModelAttribute("dto") EmpDTO dto, HttpSession session) {
+	public String main(Model model, @ModelAttribute("dto") EmpDTO dto, HttpSession session) {
 		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
 		if (loggedInUser == null) {
 	        return "redirect:/login"; // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
 	    }
+		
+		List posts = boardservice.mainNewPosts();
+		
+		// 새로운 리스트 생성
+        List<PostsDTO> newPosts = new ArrayList();
+
+        // 전통적인 for문을 사용한 게시물 처리
+        for (int i = 0; i < posts.size(); i++) {
+            PostsDTO post = (PostsDTO) posts.get(i); // 게시물 가져오기
+            Timestamp createdAt = post.getCreated_at(); // DB의 Timestamp 타입
+
+            // 9시간 시차 보정
+            long nineHoursInMillis = 9 * 60 * 60 * 1000;
+            Timestamp adjustedCreatedAt = new Timestamp(createdAt.getTime() + nineHoursInMillis);
+
+            // 현재 시간과 보정된 작성 시간 비교
+            boolean isMoreThanADay = (System.currentTimeMillis() - adjustedCreatedAt.getTime()) >= (24 * 60 * 60 * 1000);
+
+            // 날짜 또는 시간 포맷 설정
+            String displayTime = isMoreThanADay
+                ? new SimpleDateFormat("yyyy-MM-dd").format(adjustedCreatedAt)
+                : new SimpleDateFormat("HH:mm:ss").format(adjustedCreatedAt);
+
+            // 계산된 displayTime을 게시물에 설정
+            post.setDisPlayTime(displayTime);
+
+            // 처리된 게시물을 새로운 리스트에 추가
+            newPosts.add(post);
+        }
+		System.out.println("newPosts : "+newPosts.toString());
+		model.addAttribute("newPost", newPosts);
 		
 		return "main/mainpage";
 	}

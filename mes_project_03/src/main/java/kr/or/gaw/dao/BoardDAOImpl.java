@@ -173,5 +173,9 @@ public class BoardDAOImpl implements BoardDAO {
 	public List listPostsAnno(PostsDTO dto) {
 		return sqlSession.selectList("kr.or.gaw.dao.BoardDAO.listPostsAnno", dto);
 	}
+	@Override
+	public List mainNewPosts() {
+		return sqlSession.selectList("kr.or.gaw.dao.BoardDAO.mainNewPosts");
+	}
 
 }

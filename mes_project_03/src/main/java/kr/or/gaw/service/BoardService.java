@@ -37,4 +37,5 @@ public interface BoardService {
 	int maxPostId();
 	void viewUp(String post_id);
 	List listPostsAnno(PostsDTO dto);
+	List mainNewPosts();
 }

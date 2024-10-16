@@ -177,5 +177,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.listPostsAnno(dto);
 	}
 
+	@Override
+	public List mainNewPosts() {
+		return boardDAO.mainNewPosts();
+	}
+
 
 }

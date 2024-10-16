@@ -23,8 +23,21 @@ public class PostsDTO {
     private int rnum;
     private String searchType;
     private String searchKeyword;
+    private String disPlayTime;
 	
-    public void calculateRows() {
+    
+    
+
+
+	public String getDisPlayTime() {
+		return disPlayTime;
+	}
+
+	public void setDisPlayTime(String disPlayTime) {
+		this.disPlayTime = disPlayTime;
+	}
+
+	public void calculateRows() {
         if (page != null && countPerPage != null) {
             this.startRow = (page - 1) * countPerPage + 1;
             this.endRow = page * countPerPage;

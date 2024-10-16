@@ -13,6 +13,13 @@
 <link rel="stylesheet" href="resources/CSS/footer.css">
 <title>bom정보</title>
 <style>
+article {
+	width: 70%;
+	margin: 0 auto;
+	border: 1px solid #ddd;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+}
 .pagination ul {
 	list-style-type: none;
 	padding: 0;
@@ -36,6 +43,18 @@
 	background-color: #007bff;
 	color: white;
 	border: 1px solid #007bff;
+}
+
+table {
+	text-align: center;
+}
+tabel td {
+	padding: 5px;
+	height: 30px;
+}
+table tr {
+	padding: 5px;
+	height: 
 }
 </style>
 </head>
@@ -74,8 +93,7 @@
 					<th>제품 색상</th>
 					<th>제품의 BOM 개수</th>
 					<th>자제 총 사용 개수</th>
-					<th>Update</th>
-					<th>Delete</th>
+					<th colspan="2">수정 및 삭제</th>
 				</tr>
 			</thead>
 			<tbody>
