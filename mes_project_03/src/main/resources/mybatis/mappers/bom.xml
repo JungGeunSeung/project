@@ -34,21 +34,19 @@
 	</select>
 	<!-- 수정하기 눌렀을때 나오는 쿼리 -->
 	<select id="selecBomtOne" parameterType="string"
-		resultType="kr.or.gaw.dto.BomDTO">
-		SELECT bom_id, product_id, material_id, quantity, version,
-		create_at
-		FROM bom
-		WHERE bom_id = #{bom_id}
+		resultType="kr.or.gaw.dto.ProductDTO">
+		SELECT product_id, name, standard, color
+		FROM product
+		WHERE product_id = #{product_id}
 	</select>
 	<!-- BOM 수정 쿼리 -->
-	<update id="updateBom" parameterType="kr.or.gaw.dto.BomDTO">
-		UPDATE bom
+	<update id="updateBom" parameterType="kr.or.gaw.dto.ProductDTO">
+		UPDATE product
 		SET product_id = #{product_id},
-		material_id = #{material_id},
-		quantity = #{quantity},
-		version = #{version},
-		create_at = #{create_at}
-		WHERE bom_id = #{bom_id}
+		name = #{name},
+		standard = #{standard},
+		color = #{color}
+		WHERE product_id = #{product_id}
 	</update>
 	<insert id="insertBom" parameterType="kr.or.gaw.dto.BomDTO">
 		INSERT INTO bom
@@ -58,7 +56,7 @@
 	</insert>
 <!-- 삭제 -->
 	<delete id="deleteBom" parameterType="kr.or.gaw.dto.BomDTO">
-		delete from bom WHERE bom_id = #{bom_id}
+		delete from bom WHERE product_id = #{product_id}
 	</delete>
 	<!-- BOM 정보를 가져오는 쿼리 -->
 	<select id="selectBom" resultType="kr.or.gaw.dto.BomDTO">
