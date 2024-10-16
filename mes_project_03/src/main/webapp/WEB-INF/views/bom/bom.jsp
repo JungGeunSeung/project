@@ -89,13 +89,13 @@
 						<td>${bom.total_quantity}</td>
 						<td>
 							<form action="/gaw/bomupdate" method="post">
-								<input type="hidden" value="${bom.product_id}" name="product_id">
+								<input type="hidden" value="${bom.bom_id}" name="bom_id">
 								<input type="submit" value="수정" class="btn">
 							</form>
 						</td>
 						<td>
 							<form action="bomdelete" method="post">
-								<input type="hidden" value="${bom.product_id}" name="product_id">
+								<input type="hidden" value="${bom.bom_id}" name="bom_id">
 								<input type="submit" value="삭제" class="btn">
 							</form>
 						</td>

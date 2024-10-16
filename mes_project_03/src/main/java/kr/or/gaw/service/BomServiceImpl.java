@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import kr.or.gaw.dao.BOMDAO;
 import kr.or.gaw.dto.BomDTO;
-import kr.or.gaw.dto.ProductDTO;
 
 @Service
 public class BomServiceImpl implements BomService {
@@ -29,12 +28,12 @@ public class BomServiceImpl implements BomService {
 		return bomDao.getTotalDataCount(dto);
 	}
 	@Override
-	public ProductDTO selectOne(String bom_id) {
+	public BomDTO selectOne(String bom_id) {
 	    return bomDao.selectOne(bom_id);
 	}
 
 	@Override
-	public int updateBom(ProductDTO bomDTO) {
+	public int updateBom(BomDTO bomDTO) {
 		int result = -1;
 	    result = bomDao.updateBom(bomDTO);  
 	    return result;  
