@@ -15,7 +15,7 @@ public class PlanDAOImpl implements PlanDAO  {
 	
 	@Override
 	public List<PlanDTO> selectPlan() {
-		List list = sqlSession.selectList("kr.or.gaw.dao.PlanDAO.selectPlan");
+		List<PlanDTO> list = sqlSession.selectList("kr.or.gaw.dao.PlanDAO.selectPlan");
 		System.out.println("dao들어옴"+list.size());
 		return list; 
 	}

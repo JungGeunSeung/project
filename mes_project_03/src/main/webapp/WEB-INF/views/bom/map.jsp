@@ -22,7 +22,7 @@
         <jsp:include page="/WEB-INF/views/main/tiles/category.jsp" />
     </nav>
 
-<div><img src = "resources/img/멥.png"></div>
+<div><img src = "resources/img/맵.png"></div>
     <footer>
         <jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />
     </footer>

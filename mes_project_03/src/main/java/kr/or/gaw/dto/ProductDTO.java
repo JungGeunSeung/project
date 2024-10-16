@@ -6,6 +6,7 @@ public class ProductDTO {
 	private String name;
 	private String standard;
 	private String color;
+	
 	public String getProsduct_id() {
 		return prosduct_id;
 	}

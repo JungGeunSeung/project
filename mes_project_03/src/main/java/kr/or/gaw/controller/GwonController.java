@@ -21,7 +21,7 @@ public class GwonController {
 	
 	@RequestMapping("/selectPlan")
 	@ResponseBody
-	public List selectPlan() {
+	public List<PlanDTO> selectPlan() {
 		List<PlanDTO> list = planService.selectPlan();
 		System.out.println("생산계획 컨트롤러 list.size() : "+list.size());
 		

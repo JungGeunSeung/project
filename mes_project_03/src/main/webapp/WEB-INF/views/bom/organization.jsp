@@ -22,7 +22,7 @@
         <jsp:include page="/WEB-INF/views/main/tiles/category.jsp" />
     </nav>
 
-<div><img src = "resources/img/조직도.png"></div>
+<div><img src = "resources/img/조직도.jpg"></div>
     <footer>
         <jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />
     </footer>
