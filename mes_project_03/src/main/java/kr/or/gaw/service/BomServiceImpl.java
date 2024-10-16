@@ -57,6 +57,11 @@ public class BomServiceImpl implements BomService {
 	public List selectBompList(String product_id){
 		return bomDao.selectBompList(product_id);
 	}
-	
+	// 자재 삽입 로직 추가
+	public int insertMaterial(BomDTO materialDTO) {
+	    // 자재 저장 로직
+	    System.out.println("Material 저장 로직 실행");
+	    return bomDao.insertMaterial(materialDTO); // 실제로 데이터베이스에 자재 저장하는 메서드 호출
+	}
 
 }

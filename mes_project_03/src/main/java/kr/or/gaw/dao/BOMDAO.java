@@ -17,5 +17,6 @@ public interface BOMDAO {
     int insertBom(BomDTO bomDTO);
     int deleteBom(String bom_id);
     BomDTO getBomp(BomDTO dto);
+	int insertMaterial(BomDTO materialDTO);
 }
 

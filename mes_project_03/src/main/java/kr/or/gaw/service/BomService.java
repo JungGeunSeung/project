@@ -17,5 +17,5 @@ public interface BomService {
 	public int updateBom(BomDTO bomDTO);
 	public int insertBom(BomDTO bomDTO);
 	public int deleteBom(String Bom_id);
-	
+	int insertMaterial(BomDTO materialDTO);
 }

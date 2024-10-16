@@ -62,5 +62,9 @@ public class BOMDAOImpl implements BOMDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	// 자재 저장 로직 추가
+	public int insertMaterial(BomDTO materialDTO) {
+		return sqlSession.insert("kr.or.gaw.dao.BOMDAO.insertMaterial", materialDTO);
+	}
 
 }

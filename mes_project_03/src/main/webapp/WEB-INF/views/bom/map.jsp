@@ -9,7 +9,24 @@
     <link rel="stylesheet" href="resources/CSS/header.css">
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/loading.css">
-<title>Insert title here</title>
+
+
+	<style>
+	    .map1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70vh; 
+        width: 100%;  
+    }
+
+    .map1 img {
+        width: 95%;
+        height: 95%;
+        object-fit: cover; 
+    }
+	</style>
+
 </head>
 <body>
 <header>
@@ -22,7 +39,7 @@
         <jsp:include page="/WEB-INF/views/main/tiles/category.jsp" />
     </nav>
 
-<div><img src = "resources/img/맵.png"></div>
+<div class="map1"><img src = "resources/img/맵.png" alt="맵 이미지"></div>
     <footer>
         <jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />
     </footer>
