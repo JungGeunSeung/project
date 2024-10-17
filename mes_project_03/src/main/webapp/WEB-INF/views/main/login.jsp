@@ -27,8 +27,8 @@
 			<div style="color: green;">성공적으로 로그아웃되었습니다.</div>
 		</c:if>
 		<form action="/gaw/login" method="post">
-			<input type="text" name="user_id" placeholder="아이디">
-			<input type="password" name="password" placeholder="비밀번호">
+			<input type="text" name="user_id" placeholder="아이디" value="geun">
+			<input type="password" name="password" placeholder="비밀번호" value="1234">
 			<button type="submit" class="submit-btn">로그인</button>
 		</form>
 		<div class="signup">

@@ -16,6 +16,8 @@
 		<typeAlias type="kr.or.gaw.dto.PlanDTO" alias="planDTO" />
 		<typeAlias type="kr.or.gaw.dto.PerformanceDTO" alias="PerformanceDTO" />
 		<typeAlias type="kr.or.gaw.dto.WorkOrderDTO" alias="WorkOrderDTO" />
+		<typeAlias type="kr.or.gaw.dto.StandardDTO" alias="StandardDTO" />
+		<typeAlias type="kr.or.gaw.dto.StockMoveDTO" alias="StockMoveDTO" />
 	</typeAliases>
 	
 </configuration>

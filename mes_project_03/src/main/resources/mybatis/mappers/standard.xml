@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<!--     무조건 DAO가 위치한 패키지로 namespace 해야하는가? -->
+<mapper namespace="kr.or.gaw.dao.StandardDAO">
+
+	<select id="selectStandard" resultType="StandardDTO">
+		select * from quality_standard
+	</select>
+	
+	<delete id="deleteStandard" parameterType="StandardDTO">
+		DELETE FROM quality_standard
+			where standard_id = #{standard_id}
+	</delete>
+	
+	
+	
+</mapper>
