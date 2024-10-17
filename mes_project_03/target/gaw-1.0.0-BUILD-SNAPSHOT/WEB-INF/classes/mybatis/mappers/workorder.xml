@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <!--     무조건 DAO가 위치한 패키지로 namespace 해야하는가? -->
-<mapper namespace="kr.or.gaw.dao.OderDAO">
+<mapper namespace="kr.or.gaw.dao.OrderDAO">
 
 	<select id="selectOrder" resultType="WorkOrderDTO">
 		select * from workOrder

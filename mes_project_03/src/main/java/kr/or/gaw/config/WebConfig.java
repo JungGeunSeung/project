@@ -2,9 +2,11 @@ package kr.or.gaw.config;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.validation.MessageCodesResolver;
 import org.springframework.validation.Validator;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -24,6 +26,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration 
 public class WebConfig implements WebMvcConfigurer {
 
+	@Bean
+    public LoginInterceptor loginInterceptor() {
+        return new LoginInterceptor();
+    }
+	
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		// TODO Auto-generated method stub
@@ -92,11 +99,9 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		 registry.addInterceptor(new LoginInterceptor())
-         .addPathPatterns("/mainpage","/board","/allposts","post.read", "/post.read", 
-        		 "/post.delete", "/post.insert", "/post.modify",
-        		 "/reply.save", "/reply.delete", "/reply.update") // 로그인 필수 페이지
-         .excludePathPatterns("/login", "/sign"); // 로그인 없이 접근 가능한 페이지
+	    registry.addInterceptor(new LoginInterceptor())
+	        .addPathPatterns("/**") // 모든 요청에 대해 인터셉터 적용
+	        .excludePathPatterns("/login", "/sign", "/agreement", "/css/**", "/js/**", "/images/**"); // 예외 경로 설정
 	}
 
 	@Override
@@ -134,6 +139,12 @@ public class WebConfig implements WebMvcConfigurer {
 		// 소원
 		 registry.addMapping("/**").allowedOrigins("*");
 		
+	}
+	
+	public void configure(HttpSecurity http) throws Exception {
+	    http.authorizeRequests()
+	        .antMatchers("/login", "/sign", "/css/**", "/js/**", "/images/**").permitAll()
+	        .anyRequest().authenticated();
 	}
 	
 	

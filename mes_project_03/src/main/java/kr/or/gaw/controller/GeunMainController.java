@@ -274,7 +274,8 @@ public class GeunMainController {
 	@PostMapping("/check-duplicate.ajax")
     @ResponseBody
     public Map<String, Object> checkDuplicate(@RequestBody Map<String, String> requestData) {
-        String user_id = requestData.get("userId");
+        String user_id = requestData.get("user_id");
+        System.out.println("user_id : "+user_id);
         boolean isDuplicate = empService.isUserIdDuplicate(user_id);
         
         Map<String, Object> response = new HashMap();

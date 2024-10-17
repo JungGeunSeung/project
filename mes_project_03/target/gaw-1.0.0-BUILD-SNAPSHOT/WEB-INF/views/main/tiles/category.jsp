@@ -44,7 +44,7 @@
 		</div>
 		<div>
 			<ul>
-				<li><a href="#">판매(출고)</a></li>
+				<li><a href="stock">판매(출고)</a></li>
 				<li><a href="#">거래처관리</a></li>
 				<li><a href="#">명세서관리</a></li>
 				<li><a href="#">미수금관리</a></li>
@@ -68,7 +68,7 @@
 		</div>
 		<div>
 			<ul>
-				<li><a href="#">BOM</a></li>
+				<li><a href="/gaw/bom">BOM</a></li>
 				<li><a href="#">문서관리</a></li>
 				<li><a href="/gaw/map">저장위치(map)</a></li>
 				<li><a href="/gaw/organization">조직도</a></li>

@@ -55,7 +55,7 @@
         xhr.send();
 
         xhr.onload = function () {
-            if (typeof cb === "function") {
+            if (typeof cb == "function") {
                 cb(xhr.responseText);
             }
         };

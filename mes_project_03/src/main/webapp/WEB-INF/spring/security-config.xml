@@ -18,7 +18,7 @@
 
 		<!-- /admin/** 경로는 관리자 권한이 있는 사용자만 접근 가능 -->
 		<intercept-url pattern="/admin/**"
-			access="hasRole('ROLE_ADMIN')" />
+			access="hasRole('부장')" />
 
 		<!-- /user/** 경로는 사용자 권한이 있는 사용자만 접근 가능 -->
 		<intercept-url pattern="/user/**"

@@ -14,4 +14,7 @@ public interface EmpDAO {
 	int insertEmp(EmpDTO dto);
 	int isUserIdDuplicate(String user_id);
 	int updateEmpPassword(EmpDTO dto);
+	List filterListEmp();
+	List deptList();
+	int empUpdateToAdmin(EmpDTO dto);
 }

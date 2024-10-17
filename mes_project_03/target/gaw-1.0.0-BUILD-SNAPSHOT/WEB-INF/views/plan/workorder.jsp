@@ -25,7 +25,8 @@
 </nav>
 
 <table border="1">
-        <caption>생산실적 목록</caption>
+        <caption>작업지시 목록</caption>
+        
         <thead>
             <tr>
                 <th>선택</th>
@@ -58,7 +59,7 @@
         xhr.send();
 
         xhr.onload = function () {
-            if (typeof cb === "function") {
+            if (typeof cb == "function") {
                 cb(xhr.responseText);
             }
         };
@@ -67,7 +68,7 @@
 	//작업지시 목록을 가져오는 함수
     function getList() {
         ajax("selectOrder", function (response) { // AJAX 요청
-        	OrderList = JSON.parse(response); // 응답을 JSON으로 파싱하여 planList에 저장
+        	OrderList = JSON.parse(response); // 응답을 JSON으로 파싱하여 OrderList에 저장
             drawList(); // 리스트 그리기
             drawPagination(); // 페이징 그리기
         }, "get");

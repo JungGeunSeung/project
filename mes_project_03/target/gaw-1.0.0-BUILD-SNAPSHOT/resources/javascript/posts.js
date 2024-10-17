@@ -146,7 +146,6 @@ window.onload = function() {
 
             // 두 시간의 차이를 분 단위로 계산
             var diffMinutes = Math.floor((now - createdAt) / 1000 / 60);
-            console.log(diffMinutes);
             // 9시간 30분 (570분) 이내일 경우 "new" 아이콘을 표시
             if (diffMinutes <= 570) {
             console.log("if문 true 실행");

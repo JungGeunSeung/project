@@ -8,6 +8,8 @@
 <title>회원가입</title>
 <link rel="stylesheet" href="resources/CSS/loading.css" />
 <link rel="stylesheet" href="resources/CSS/sign.css" />
+<link rel="icon" sizes="32x32" href="resources/img/favicon3.png"
+	type="image/png">
 </head>
 <body>
 	<div class="container">

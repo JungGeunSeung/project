@@ -47,6 +47,21 @@ public class EmpServiceImpl implements EmpService {
 			result = empDAO.updateEmpPassword(dto);
 		return result;
 	}
+
+	@Override
+	public List filterListEmp() {
+		return empDAO.filterListEmp();
+	}
+
+	@Override
+	public List deptList() {
+		return empDAO.deptList();
+	}
+
+	@Override
+	public int empUpdateToAdmin(EmpDTO dto) {
+		return empDAO.empUpdateToAdmin(dto);
+	}
 	
 	
 }

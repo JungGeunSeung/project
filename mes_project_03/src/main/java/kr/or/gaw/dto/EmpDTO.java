@@ -10,19 +10,61 @@ public class EmpDTO {
 	
 	private String user_id;
 	private String name;
+	private String user_name;
 	private String email;
 	private String phone;
 	private String dept_id;
+	private String dept_name;
 	private String position;
 	private Date hire_date;
 	private String mgr;
+	private String mgr_id;
+	private String mgr_name;
 	private String password;
 	private int enabled;
 	private Date birth_date;
 	private int gender;
 	private int nationality;
+	private String masked_phone;
+	private String masked_email;
 	
 	
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+	public String getMgr_name() {
+		return mgr_name;
+	}
+	public void setMgr_name(String mgr_name) {
+		this.mgr_name = mgr_name;
+	}
+	public String getDept_name() {
+		return dept_name;
+	}
+	public void setDept_name(String dept_name) {
+		this.dept_name = dept_name;
+	}
+	public String getMgr_id() {
+		return mgr_id;
+	}
+	public void setMgr_id(String mgr_id) {
+		this.mgr_id = mgr_id;
+	}
+	public String getMasked_phone() {
+		return masked_phone;
+	}
+	public void setMasked_phone(String masked_phone) {
+		this.masked_phone = masked_phone;
+	}
+	public String getMasked_email() {
+		return masked_email;
+	}
+	public void setMasked_email(String masked_email) {
+		this.masked_email = masked_email;
+	}
 	public String getPassword() {
 		return password;
 	}

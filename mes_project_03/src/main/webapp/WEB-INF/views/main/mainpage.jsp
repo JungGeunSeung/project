@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="resources/CSS/header.css">
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/loading.css">
-    <link rel="stylesheet" href="resources/CSS/table.css">
     <title>Grand All Win</title>
     <style>
 
@@ -30,8 +29,8 @@
     .main-content div {
         border: 1px solid #ddd;
         padding: 20px;
-        background-color: #f4f4f4;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        background-color: #def3dc;
+        box-shadow: 0 5px 10px rgba(70, 135, 109, 0.325);
         max-width: 800px;           /* 최대 너비 */
         width: 100%;                /* 가로폭 100% */
         min-height: 300px;          /* 최소 높이 */
@@ -43,7 +42,35 @@
         max-width: 900px;
         margin: 0 auto;             /* 브라우저 가운데 정렬 */
     }
-
+    
+	table {
+	  width: 100%;
+	  border-collapse: collapse;
+	  overflow: hidden;
+	  margin-top: 20px;
+	  text-align: center;
+	  border-radius: 5px;
+	}
+	  
+	thead {
+	  font-weight: bold;
+	  color: #fff;
+	  background: #116d21;
+      
+	}
+	  
+	 td, th {
+	 padding: 5px 0px;
+	  vertical-align: middle;
+	}
+	  
+	 td {
+	  border-bottom: 1px solid rgba(0,0,0,.1);
+	}
+	
+	.title {
+		width: 300px;
+	}
     </style>
 </head>
 
@@ -61,24 +88,29 @@
     <article>
         <div class="main-content">
             <div>
-                <h2><a href="allposts">공지사항</a></h2>
+                <h2 class="mainCommunity"><a href="allposts">커뮤니티</a></h2>
+                <span class="mainNewposts">최신글</span>
                 <table>
-                	<tr>
-                		<th>no</th>
-                		<th>게시판</th>
-                		<th>제목</th>
-                		<th>작성자</th>
-                		<th>작성시간</th>
-                	</tr>
-               		<c:forEach var="newpost" items="${newPost}" varStatus="status">
-                		<tr>
-                			<td>${status.index}</td>
-                			<td>${newpost.board_name}</td>
-                			<td>${newpost.title}</td>
-                			<td>${newpost.author_name}</td>
-                			<td>${newpost.disPlayTime}</td>
-                		</tr>
-               		</c:forEach>
+	                <thead>
+	                	<tr>
+	                		<th>no</th>
+	                		<th>게시판</th>
+	                		<th class="title">제목</th>
+	                		<th>작성자</th>
+	                		<th>작성시간</th>
+	                	</tr>
+                	</thead>
+                	<tbody>
+	               		<c:forEach var="newpost" items="${newPost}" varStatus="status">
+	                		<tr>
+	                			<td>${status.index + 1}</td>
+	                			<td>${newpost.board_name}</td>
+	                			<td><a href="post.read?post_id=${newpost.post_id}">${newpost.title}</a></td>
+	                			<td>${newpost.author_name}</td>
+	                			<td>${newpost.disPlayTime}</td>
+	                		</tr>
+	               		</c:forEach>
+               		</tbody>
                 </table>
             </div>
             <div>

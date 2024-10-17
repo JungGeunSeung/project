@@ -54,6 +54,21 @@ public class EmpDAOImpl implements EmpDAO {
 		
 		return result;
 	}
+
+	@Override
+	public List filterListEmp() {
+		return sqlSession.selectList("kr.or.gaw.dao.EmpDAO.filterListEmp");
+	}
+
+	@Override
+	public List deptList() {
+		return sqlSession.selectList("kr.or.gaw.dao.EmpDAO.deptList");
+	}
+
+	@Override
+	public int empUpdateToAdmin(EmpDTO dto) {
+		return sqlSession.update("kr.or.gaw.dao.EmpDAO.empUpdateToAdmin",dto);
+	}
 	
 
 }

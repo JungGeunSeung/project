@@ -160,20 +160,29 @@
         document.getElementById('signup-form').addEventListener('submit', function(event) {
             event.preventDefault(); // 기본 폼 제출 방지
 
+            // 콘솔 로그로 값 확인
+		
+            const password = document.getElementById('password').value;
+		    if (!password) {
+		        alert('비밀번호가 입력되지 않았습니다.');
+		        return;
+		    }
+		
             const inputToken = document.getElementById('verification-code').value; // 사용자가 입력한 인증 코드
-            if (inputToken != sentToken) {
-                alert('인증 코드가 일치하지 않습니다. 다시 확인해주세요.');
-                return;
-            }
-			
-			
-            // 인증 코드가 일치할 경우
-            if (passwordRegex.test(password)) {
-		        // 비밀번호가 유효할 때
+            console.log('사용자가 입력한 인증코드 : ' + inputToken)
+		    if (inputToken.toString() !== sentToken.toString()) {
+		        alert('인증 코드가 일치하지 않습니다. 다시 확인해주세요.');
+		        return;
+		    }
+		
+		    // 비밀번호 정규식 검증
+		    const passwordRegex1 = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
+		    if (passwordRegex1.test(password)) {
 		        alert('가입이 완료되었습니다!'); // 가입 완료 메시지
-            document.querySelector('#signup-form').submit();
+		        document.querySelector('#signup-form').submit();
 		    } else {
-		        alert('비밀번호 생성 규칙을 다시한번 확인해주세요');
+		        console.log('비밀번호가 유효하지 않습니다:', password);
+		        alert('비밀번호 생성 규칙을 다시한번 확인해주세요!');
 		        return;
 		    }
             
@@ -235,7 +244,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 비밀번호 유효성 검사
 	document.getElementById('password').addEventListener('input', function() {
-    const password = this.value;
+    const password = document.getElementById('password').value;
     const errorMessage = document.getElementById('password-condition');
     
 

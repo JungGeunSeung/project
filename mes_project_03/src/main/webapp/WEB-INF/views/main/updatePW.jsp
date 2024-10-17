@@ -7,6 +7,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>정보찾기</title>
 	<link rel="stylesheet" href="resources/CSS/loading.css" />
+	<link rel="icon" sizes="32x32" href="resources/img/favicon3.png"
+	type="image/png">
 	<style>
 		body {
 			font-family: Arial, sans-serif;

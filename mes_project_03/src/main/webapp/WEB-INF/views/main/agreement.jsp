@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" sizes="32x32" href="resources/img/favicon3.png"
+	type="image/png">
 <title>약관동의</title>
 <style>
 body {

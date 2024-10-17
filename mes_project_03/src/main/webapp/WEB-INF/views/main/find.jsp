@@ -8,6 +8,8 @@
 	<title>정보찾기</title>
 	<link rel="stylesheet" href="resources/CSS/loading.css" />
 	<link rel="stylesheet" href="resources/CSS/find.css" />
+	<link rel="icon" sizes="32x32" href="resources/img/favicon3.png"
+	type="image/png">
 	<style>
 	
 	</style>
