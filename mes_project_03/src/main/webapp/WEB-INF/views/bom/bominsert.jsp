@@ -38,6 +38,7 @@
     <div>
         <input type="submit" value="추가" />
     </div>
+    
 </form>
 
 	<br>
