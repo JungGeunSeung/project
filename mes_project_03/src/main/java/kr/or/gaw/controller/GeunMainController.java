@@ -146,7 +146,7 @@ public class GeunMainController {
 		return "redirect:/login?login=false"; // 로그인 실패
 	}
 	
-	
+	// 회원가입 처리 로직
 	@RequestMapping("/sign.do")
 	public String signRun(EmpDTO dto) {
 		 // 비밀번호 암호화
@@ -162,6 +162,8 @@ public class GeunMainController {
 	    empService.insertEmp(dto);
 		return "redirect:/login";
 	}
+	
+	// 비밀번호 찾기 페이지 입장
 	@RequestMapping("/updatePW")
 	public String updatePW(EmpDTO dto, Model model, String user_id, String email) {
 		dto = empService.listEmpOne(user_id);
@@ -170,6 +172,7 @@ public class GeunMainController {
 		return "main/updatePW";
 	}
 	
+	// 비밀번호 찾기 로직
 	@RequestMapping("/updatePW.do")
 	public String updatePW2(EmpDTO dto) {
 		String encodedPassword = passwordEncoder.encode(dto.getPassword());
@@ -179,6 +182,7 @@ public class GeunMainController {
 		return "redirect:/login";
 	}
 	
+	// 비밀번호 찾기에서 이메일 인증 ajax
 	@RequestMapping(value ="/email.find", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> sendEmail(@RequestBody Map<String, String> request) {
@@ -238,6 +242,7 @@ public class GeunMainController {
         }
     }
 	
+	// 회원가입에서 이메일 인증 ajax
 	@RequestMapping(value ="/email.sign", method = RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> sendEmail2(@RequestBody Map<String, String> request) {
         // 클라이언트에서 요청받은 데이터 중 'email'을 추출
@@ -271,6 +276,103 @@ public class GeunMainController {
         }
     }
 	
+	// 마이페이지에서 이메일 변경 로직
+	@PostMapping("/emailUpdate")
+	public String emailUpdate(HttpSession session,@RequestParam("email") String email) {
+		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+	        return "redirect:/login"; // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+	    }
+		
+		EmpDTO dto = (EmpDTO) loggedInUser;
+        dto.setEmail(email);
+        int result = empService.emailUpdate(dto);
+        if(result >= 1) {
+        	System.out.println("이메일 변경 완료 : " + dto.toString());
+        } else {
+        	System.out.println("이메일 변경 실패 : " + dto.toString());
+        }
+        
+        return "redirect:mypage";
+	}
+	
+	// 마이페이지에서 이름 변경 로직
+	@PostMapping("/nameUpdate")
+	public String nameUpdate(HttpSession session,@RequestParam("name") String name) {
+		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+			return "redirect:/login"; // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+		}
+		
+		EmpDTO dto = (EmpDTO) loggedInUser;
+		dto.setName(name);
+		int result = empService.nameUpdate(dto);
+		if(result >= 1) {
+			System.out.println("이름 변경 완료 : " + dto.toString());
+		} else {
+			System.out.println("이름 변경 실패 : " + dto.toString());
+		}
+		
+		return "redirect:mypage";
+	}
+	// 마이페이지에서 폰번호 변경 로직
+	@PostMapping("/phoneUpdate")
+	public String phoneUpdate(HttpSession session,@RequestParam("phone") String phone) {
+		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+		if (loggedInUser == null) {
+			return "redirect:/login"; // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+		}
+		
+		EmpDTO dto = (EmpDTO) loggedInUser;
+		dto.setPhone(phone);
+		int result = empService.phoneUpdate(dto);
+		if(result >= 1) {
+			System.out.println("폰번호 변경 완료 : " + dto.toString());
+		} else {
+			System.out.println("폰번호 변경 실패 : " + dto.toString());
+		}
+		
+		return "redirect:mypage";
+	}
+	// 마이페이지에서 비밀번호 변경 로직
+	@PostMapping("/passwordUpdate")
+	@ResponseBody
+	public Map<String, Object> updatePassword(HttpSession session, @RequestBody Map<String, String> payload) {
+	    Map<String, Object> response = new HashMap();
+
+	    EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+	    if (loggedInUser == null) {
+	        response.put("success", false);
+	        response.put("message", "로그인이 필요합니다.");
+	        return response;
+	    }
+
+	    String nowPassword = payload.get("nowpassword");
+	    String changePassword = payload.get("changepassword");
+
+	    // 현재 비밀번호 검증
+	    if (!passwordEncoder.matches(nowPassword, loggedInUser.getPassword())) {
+	        response.put("success", false);
+	        response.put("message", "현재 비밀번호가 일치하지 않습니다.");
+	        return response;
+	    }
+
+	    // 새 비밀번호 암호화 및 업데이트
+	    loggedInUser.setPassword(passwordEncoder.encode(changePassword));
+	    int result = empService.updateEmpPassword(loggedInUser);
+
+	    if (result > 0) {
+	        response.put("success", true);
+	        response.put("message", "비밀번호가 성공적으로 변경되었습니다.");
+	    } else {
+	        response.put("success", false);
+	        response.put("message", "비밀번호 변경에 실패했습니다.");
+	    }
+
+	    return response;
+	}
+		
+	// 아이디 중복체크 로직
 	@PostMapping("/check-duplicate.ajax")
     @ResponseBody
     public Map<String, Object> checkDuplicate(@RequestBody Map<String, String> requestData) {
@@ -289,4 +391,35 @@ public class GeunMainController {
         
         return response;
     }
+	
+	// 관리자 페이지 입장
+	@RequestMapping("/adminpage")
+	public String adminIn(Model model) {
+		List list = empService.filterListEmp();
+		List list1 = empService.deptList();
+		model.addAttribute("emplist", list);
+		model.addAttribute("deptlist", list1);
+		return "main/adminPage";
+	}
+	
+	// 관리자 페이지에서 회원정보 업데이트 로직
+	@PostMapping("/empUpdate.do")
+	public String adminUpdate(EmpDTO dto) {
+		int result = empService.empUpdateToAdmin(dto);
+		return "redirect:adminpage";
+	}
+	
+	// 마이페이지 입장
+	@RequestMapping("/mypage")
+	public String mypageIn(Model model, @ModelAttribute("dto") EmpDTO dto, HttpSession session) {
+		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+		
+		if (loggedInUser == null) {
+	        return "redirect:/login"; // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+	    }
+		
+		System.out.println(loggedInUser.toString());
+		model.addAttribute("user", loggedInUser);
+		return "main/mypage";
+	}
 }

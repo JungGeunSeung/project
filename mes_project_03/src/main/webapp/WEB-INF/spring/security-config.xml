@@ -17,7 +17,7 @@
 		<intercept-url pattern="/login" access="permitAll" />
 
 		<!-- /admin/** 경로는 관리자 권한이 있는 사용자만 접근 가능 -->
-		<intercept-url pattern="/admin/**"
+		<intercept-url pattern="/admin"
 			access="hasRole('부장')" />
 
 		<!-- /user/** 경로는 사용자 권한이 있는 사용자만 접근 가능 -->
@@ -57,7 +57,7 @@
 			<!-- 권한 정보를 가져오는 쿼리 -->
 			<jdbc-user-service data-source-ref="dataSource"
 				users-by-username-query="SELECT user_id, password, enabled FROM emp WHERE user_id=?"
-				authorities-by-username-query="SELECT username, authority FROM authorities WHERE username=?" />
+				authorities-by-username-query="SELECT username, position FROM authorities WHERE username=?" />
 		</authentication-provider>
 	</authentication-manager>
 
@@ -72,7 +72,7 @@
 			value="oracle.jdbc.driver.OracleDriver" />  <!-- 오라클 JDBC 드라이버 클래스 -->
 		<beans:property name="url"
 			value="jdbc:oracle:thin:@125.181.132.133:51521:XE" />  <!-- 오라클 DB 연결 URL -->
-		<beans:property name="username" value="scott2_19" />  <!-- DB 사용자명 -->
+		<beans:property name="username" value="scott2_5" />  <!-- DB 사용자명 -->
 		<beans:property name="password" value="tiger" />  <!-- DB 비밀번호 -->
 	</beans:bean>
 

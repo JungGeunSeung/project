@@ -25,10 +25,6 @@ public class PostsDTO {
     private String searchKeyword;
     private String disPlayTime;
 	
-    
-    
-
-
 	public String getDisPlayTime() {
 		return disPlayTime;
 	}
@@ -195,10 +191,15 @@ public class PostsDTO {
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
 	}
+
+	@Override
+	public String toString() {
+		return "PostsDTO [post_id=" + post_id + ", board_id=" + board_id + ", board_name=" + board_name + ", title="
+				+ title + ", content=" + content + ", author_id=" + author_id + ", name=" + name + ", author_name="
+				+ author_name + ", created_at=" + created_at + ", updated_at=" + updated_at + ", pinned=" + pinned
+				+ ", view_cnt=" + view_cnt + ", page=" + page + ", countPerPage=" + countPerPage + ", startRow="
+				+ startRow + ", endRow=" + endRow + ", rnum=" + rnum + ", searchType=" + searchType + ", searchKeyword="
+				+ searchKeyword + ", disPlayTime=" + disPlayTime + "]";
+	}
     
-    
-    
-    
-	
-	
 	}

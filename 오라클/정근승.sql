@@ -1,10 +1,12 @@
 select * from product where product_id = 'MD106M1C';
 select * from product;
+select * from material;
 select * from plan;
 select * from posts;
 select * from emp;
 select * from authorities;
 select * from dept;
+select * from bom;
 
 alter TABLE emp modify (position varchar2(50) default '인턴');
 commit;
@@ -65,4 +67,34 @@ insert into dept (dept_id, dept_name, mgr_id) values ('D006', '품질관리팀', 'geu
 insert into dept (dept_id, dept_name, mgr_id) values ('D007', '품질보증팀', 'geun');
 insert into dept (dept_id, dept_name, mgr_id) values ('D008', '품질검사팀', 'geun');
 
+SELECT 
+    a.CONSTRAINT_NAME, 
+    a.TABLE_NAME, 
+    a.R_CONSTRAINT_NAME, 
+    b.TABLE_NAME AS REFERENCED_TABLE_NAME
+FROM 
+    ALL_CONSTRAINTS a
+JOIN 
+    ALL_CONSTRAINTS b 
+    ON a.R_CONSTRAINT_NAME = b.CONSTRAINT_NAME
+WHERE 
+    a.CONSTRAINT_TYPE = 'R'
+    AND a.TABLE_NAME = UPPER('posts');
+    
+    ALTER TABLE posts
+DROP CONSTRAINT fk_b_posts;
+
+-- 테이블 외래키
+ALTER TABLE posts
+ADD CONSTRAINT fk_b_posts
+FOREIGN KEY (board_id) REFERENCES board
+ON DELETE CASCADE;
+
+ALTER TABLE comments
+DROP CONSTRAINT FK_P_COMMENTS;
+
+ALTER TABLE comments
+ADD CONSTRAINT FK_P_COMMENTS
+FOREIGN KEY (post_id) REFERENCES posts(post_id)
+ON DELETE CASCADE;
 

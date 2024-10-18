@@ -62,6 +62,21 @@ public class EmpServiceImpl implements EmpService {
 	public int empUpdateToAdmin(EmpDTO dto) {
 		return empDAO.empUpdateToAdmin(dto);
 	}
+
+	@Override
+	public int emailUpdate(EmpDTO dto) {
+		return empDAO.emailUpdate(dto);
+	}
+
+	@Override
+	public int nameUpdate(EmpDTO dto) {
+		return empDAO.nameUpdate(dto);
+	}
+
+	@Override
+	public int phoneUpdate(EmpDTO dto) {
+		return empDAO.phoneUpdate(dto);
+	}
 	
 	
 }

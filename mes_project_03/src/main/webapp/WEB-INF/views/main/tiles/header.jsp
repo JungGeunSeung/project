@@ -44,6 +44,10 @@
 			<a href="allposts" id="boardBtn">커뮤니티</a> | 
 			<% if(userposition.equals("부장")) { %>
 			<a href="adminpage" id="adminBtn">관리자 페이지</a> | <%} %>
+			<% if(userposition.equals("이사")) { %>
+			<a href="adminpage" id="adminBtn">관리자 페이지</a> | <%} %>
+			<% if(userposition.equals("대표이사")) { %>
+			<a href="adminpage" id="adminBtn">관리자 페이지</a> | <%} %>
 			<a href="mypage" id="adminBtn">마이 페이지</a> |
 			<img id="lanImg" src="resources/img/지구 이모지 흰색.png"> 
 			<form class="lanBox">

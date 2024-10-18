@@ -17,4 +17,7 @@ public interface EmpDAO {
 	List filterListEmp();
 	List deptList();
 	int empUpdateToAdmin(EmpDTO dto);
+	int emailUpdate(EmpDTO dto);
+	int nameUpdate(EmpDTO dto);
+	int phoneUpdate(EmpDTO dto);
 }

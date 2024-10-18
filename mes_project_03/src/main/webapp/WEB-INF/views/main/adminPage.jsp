@@ -61,12 +61,21 @@ article {
 	color: black;
 	text-decoration: none;
 }
+
+.modal select {
+	font-size: 18px;
+	padding: 0px;
+}
+
+.modal .modalTd {
+	padding: 0px;
+}
 </style>
 
 </head>
 <body>
+	<!------------------ 헤더 ------------------>
 	<header>
-		<!----------------- 헤더 ----------------->
 		<jsp:include page="/WEB-INF/views/main/tiles/header.jsp" />
 	</header>
 
@@ -106,6 +115,8 @@ article {
 				                <td class="mgr">${list.mgr_name}</td>
 				                <td>
 				                    <button class="btn edit-btn" id="edit-${list.user_id}" data-user-id="${list.user_id}">수정</button>
+				                    <input type="hidden" id="deptId" value="${list.dept_id }">
+				                    <input type="hidden" id="mgrId" value="${list.mgr}">
 				                </td>
 				            </tr>
 				        </c:forEach>
@@ -146,7 +157,7 @@ article {
 	            </tr>
 	            <tr>
 	                <th>소속 부서</th>
-	                <td>
+	                <td class="modalTd">
 	                    <select id="modalDeptName" name="dept_id">
 	                        <c:forEach var="dept" items="${deptlist}">
 	                            <option value="${dept.dept_id}">${dept.dept_name}</option>
@@ -156,7 +167,7 @@ article {
 	            </tr>
 	            <tr>
 	                <th>직급</th>
-	                <td>
+	                <td class="modalTd">
 	                    <select id="modalPosition" name="position">
 	                        <option value="인턴">인턴</option>
 	                        <option value="사원">사원</option>
@@ -172,7 +183,7 @@ article {
 	            </tr>
 	            <tr>
 	                <th>사수</th>
-	                <td>
+	                <td class="modalTd">
 	                    <select id="modalMgr" name="mgr">
 	                        <c:forEach var="emp" items="${emplist}">
 	                            <option value="${emp.user_id}">${emp.user_name} ${emp.position}님</option>
@@ -210,9 +221,9 @@ article {
 	        const email = row.querySelector('.masked-email').textContent.trim();
 	        const phone = row.querySelector('.masked-phone').textContent.trim();
 	        const hireDate = row.querySelector('.hire-date').textContent.trim();
-	        const deptName = row.querySelector('.dept-name').textContent.trim();
 	        const position = row.querySelector('.position').textContent.trim();
-	        const mgr = row.querySelector('.mgr').textContent.trim();
+	        const deptId = row.querySelector('#deptId').value;
+	        const mgrId = row.querySelector('#mgrId').value;
 
 	        // 모달의 테이블에 데이터 채우기
 	        document.getElementById('modalBirthDate').textContent = birthDate;
@@ -223,9 +234,9 @@ article {
 	        document.getElementById('user_id').value = userId;
 
 	        // select 요소에 값 설정
-	        document.getElementById('modalDeptName').value = deptName;
+	        document.getElementById('modalDeptName').value = deptId;
 	        document.getElementById('modalPosition').value = position;
-	        document.getElementById('modalMgr').value = mgr;
+	        document.getElementById('modalMgr').value = mgrId;
 
 	        // 모달 열기
 	        modal.style.display = 'block';
