@@ -18,6 +18,7 @@
 		<typeAlias type="kr.or.gaw.dto.WorkOrderDTO" alias="WorkOrderDTO" />
 		<typeAlias type="kr.or.gaw.dto.StandardDTO" alias="StandardDTO" />
 		<typeAlias type="kr.or.gaw.dto.StockMoveDTO" alias="StockMoveDTO" />
+		<typeAlias type="kr.or.gaw.dto.ClientDTO" alias="ClientDTO" />
 	</typeAliases>
 	
 </configuration>

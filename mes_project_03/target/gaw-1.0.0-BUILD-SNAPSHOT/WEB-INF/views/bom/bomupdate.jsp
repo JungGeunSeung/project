@@ -41,7 +41,7 @@
 
         .close {
             color: #aaa;
-            float: right;
+            float: right;s
             font-size: 28px;
             font-weight: bold;
         }
@@ -52,6 +52,64 @@
             text-decoration: none;
             cursor: pointer;
         }
+        
+        /* 모달창 배경 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* 모달창 내용 */
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  text-align: left;
+}
+
+/* 닫기 버튼 */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover, .close:focus {
+  color: #28a745; /* 초록색 */
+  cursor: pointer;
+}
+
+/* 버튼 스타일 */
+button.btn {
+  background-color: #28a745; /* 초록색 */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+button.btn:hover {
+  background-color: darkgreen;
+}
+
+button#deleteBtn {
+  background-color: red; /* 삭제 버튼은 빨간색 */
+}
+
+button#deleteBtn:hover {
+  background-color: darkred;
+}
+        
     </style>
 </head>
 
@@ -177,6 +235,87 @@
                     // AJAX 요청 또는 폼 전송으로 삭제 처리
                 }
             });
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+        	var modal = document.getElementById('bomModal');
+        	var closeBtn = document.querySelector('.close');
+        	var bomIdField = document.getElementById('bomId');
+        	var materialNameField = document.getElementById('materialName');
+        	var quantityField = document.getElementById('quantity');
+        	var versionField = document.getElementById('version');
+        	var modalForm = document.getElementById('modalForm');
+        	var deleteBtn = document.getElementById('deleteBtn');
+        	
+        	// 수정 버튼 클릭 시 모달 열기
+        	document.querySelectorAll('.editBtn').forEach(function(button) {
+        		button.addEventListener('click', function() {
+        			modal.style.display = 'block';
+        			bomIdField.value = this.getAttribute('data-bom-id');
+        			materialNameField.value = this.getAttribute('data-material-name');
+        			quantityField.value = this.getAttribute('data-quantity');
+        			versionField.value = this.getAttribute('data-version');
+        		});
+        	});
+
+        	// 닫기 버튼 클릭 시 모달 닫기
+        	closeBtn.addEventListener('click', function() {
+        		modal.style.display = 'none';
+        	});
+
+        	// 모달 외부 클릭 시 모달 닫기
+        	window.addEventListener('click', function(event) {
+        		if (event.target == modal) {
+        			modal.style.display = 'none';
+        		}
+        	});
+
+        	// 폼 제출 시 데이터 수정 처리
+        	modalForm.addEventListener('submit', function(e) {
+        		e.preventDefault();
+
+        		// 수집한 데이터를 서버에 전송
+        		var xhr = new XMLHttpRequest();
+        		xhr.open('POST', '/gaw/bomupdate', true);
+        		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        		xhr.onreadystatechange = function() {
+        			if (xhr.readyState === 4 && xhr.status === 200) {
+        				alert('수정 완료');
+        				modal.style.display = 'none';
+        				// 페이지를 다시 로드하거나 해당 행을 업데이트
+        				location.reload();
+        			}
+        		};
+
+        		// 데이터를 전송하는 부분
+        		var data = 'bom_id=' + encodeURIComponent(bomIdField.value) +
+        				   '&material_name=' + encodeURIComponent(materialNameField.value) +
+        				   '&quantity=' + encodeURIComponent(quantityField.value) +
+        				   '&version=' + encodeURIComponent(versionField.value);
+
+        		xhr.send(data);
+        	});
+
+        	// 삭제 버튼 클릭 시 삭제 처리
+        	deleteBtn.addEventListener('click', function() {
+        		if (confirm('정말로 삭제하시겠습니까?')) {
+        			// AJAX 요청으로 삭제 처리
+        			var xhr = new XMLHttpRequest();
+        			xhr.open('POST', '/bomdelete', true);  // 실제 삭제 경로로 수정 필요
+        			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        			xhr.onreadystatechange = function() {
+        				if (xhr.readyState === 4 && xhr.status === 200) {
+        					alert('삭제 완료!');
+        					modal.style.display = 'none';
+        					location.reload();
+        				}
+        			};
+
+        			xhr.send('bom_id=' + encodeURIComponent(bomIdField.value));
+        		}
+        	});
         });
     </script>
 </body>

@@ -40,9 +40,14 @@ article {
 }
 
 .pagination ul li.active a {
-	background-color: #007bff;
+	background-color: #28a745;
 	color: white;
-	border: 1px solid #007bff;
+	border: 1px solid #28a745;
+}
+.pagination ul li a:hover {
+    background-color: #28a745; /* Green color on hover */
+    color: white;
+    border: 1px solid #28a745;
 }
 
 table {
@@ -56,6 +61,68 @@ table tr {
 	padding: 5px;
 	height: 
 }
+
+/* 모달창 배경 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* 모달창 내용 */
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  text-align: left;
+}
+
+/* 닫기 버튼 */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover, .close:focus {
+  color: #28a745; /* 초록색 */
+  cursor: pointer;
+}
+
+/* 버튼 스타일 */
+button.btn {
+  background-color: #28a745; /* 초록색 */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+button.btn:hover {
+  background-color: darkgreen;
+}
+
+button#deleteBtn {
+  background-color: red; /* 삭제 버튼은 빨간색 */
+}
+
+button#deleteBtn:hover {
+  background-color: darkred;
+}
+
+
+</style>
+</head>
+
 </style>
 </head>
 
@@ -84,7 +151,7 @@ table tr {
 		<a href="/gaw/bominsert"><button class="btn">
 				<span>추가</span>
 			</button></a>
-		<table border=1 id="productTable">
+		<table  border=1 id="productTable">
 			<thead>
 				<tr>
 
@@ -130,17 +197,17 @@ table tr {
 			</tbody>
 		</table>
 		<!-- 페이지 네비게이션 -->
-		<div class="pagination">
+		<div  class="pagination">
 			<ul>
 				<!-- 이전 페이지로 이동 -->
 				<c:if test="${currentPage > 1}">
-					<li><a
+					<li><a 
 						href="?page=${currentPage - 1}&countperpage=${countperpage}">이전</a></li>
 				</c:if>
 
 				<!-- 페이지 번호 표시 -->
 				<c:forEach var="i" begin="${startPage}" end="${endPage}">
-					<li class="${i == currentPage ? 'active' : ''}"><a
+					<li class="${i == currentPage ? 'active' : ''}"><a 
 						href="?page=${i}&countperpage=${countperpage}">${i}</a></li>
 				</c:forEach>
 
@@ -150,6 +217,28 @@ table tr {
 						href="?page=${currentPage + 1}&countperpage=${countperpage}">다음</a></li>
 				</c:if>
 			</ul>
+		</div>
+		
+		<!-- Modal Structure -->
+		<div id="bomModal" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<h2 id="modalTitle">BOM 수정</h2>
+				<form id="modalForm" method="post">
+					<input type="hidden" id="bomId" name="bom_id">
+
+					<label for="materialName">Material Name:</label>
+					<input type="text" id="materialName" name="material_name" required>
+
+					<label for="quantity">Quantity:</label>
+					<input type="number" id="quantity" name="quantity" required>
+
+					<label for="version">Version:</label>
+					<input type="text" id="version" name="version" required>
+
+					<button type="submit" class="btn" id="modalSubmit">저장</button>
+				</form>
+			</div>
 		</div>
 	</article>
 	<!-- 하단 내용 -->
@@ -190,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
                 var details = '<table border="1" cellpadding="5" cellspacing="0"><thead>';
-                details += '<tr><th>BOM ID</th><th>Material ID</th><th>Material Name</th><th>Quantity</th><th>Version</th><th>Create At</th><th>수정 및 삭제</th></tr></thead><tbody>';
+                details += '<tr><th>BOM ID</th><th>Material ID</th><th>Material Name</th><th>Quantity</th><th>Version</th><th>Create At</th><th colspan="2">수정 및 삭제</th></tr></thead><tbody>';
 
                 response.forEach(function(detail) {
                     details += '<tr>';
@@ -200,8 +289,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     details += '<td>' + detail.quantity + '</td>';
                     details += '<td>' + detail.version + '</td>';
                     details += '<td>' + detail.create_at + '</td>';
-                    details += '<td>' + '<butto class="btn">수정</button>' + '</td>';
-                    details += '<td>' + '<butto class="btn">삭제</button>' + '</td>';
+                    details += '<td>' + '<button class="btn">수정</button>' + '</td>';
+                    details += '<td>' + '<button class="btn">삭제</button>' + '</td>';
                     details += '</tr>';
                 });
 
@@ -219,6 +308,89 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.send('product_id=' + encodeURIComponent(product_id));
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+	var modal = document.getElementById('bomModal');
+	var closeBtn = document.querySelector('.close');
+	var bomIdField = document.getElementById('bomId');
+	var materialNameField = document.getElementById('materialName');
+	var quantityField = document.getElementById('quantity');
+	var versionField = document.getElementById('version');
+	var modalForm = document.getElementById('modalForm');
+	var deleteBtn = document.getElementById('deleteBtn');
+	
+	// 수정 버튼 클릭 시 모달 열기
+	document.querySelectorAll('.editBtn').forEach(function(button) {
+		button.addEventListener('click', function() {
+			modal.style.display = 'block';
+			bomIdField.value = this.getAttribute('data-bom-id');
+			materialNameField.value = this.getAttribute('data-material-name');
+			quantityField.value = this.getAttribute('data-quantity');
+			versionField.value = this.getAttribute('data-version');
+		});
+	});
+
+	// 닫기 버튼 클릭 시 모달 닫기
+	closeBtn.addEventListener('click', function() {
+		modal.style.display = 'none';
+	});
+
+	// 모달 외부 클릭 시 모달 닫기
+	window.addEventListener('click', function(event) {
+		if (event.target == modal) {
+			modal.style.display = 'none';
+		}
+	});
+
+	// 폼 제출 시 데이터 수정 처리
+	modalForm.addEventListener('submit', function(e) {
+		e.preventDefault();
+
+		// 수집한 데이터를 서버에 전송
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', '/gaw/bomupdate', true);
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				alert('수정 완료');
+				modal.style.display = 'none';
+				// 페이지를 다시 로드하거나 해당 행을 업데이트
+				location.reload();
+			}
+		};
+
+		// 데이터를 전송하는 부분
+		var data = 'bom_id=' + encodeURIComponent(bomIdField.value) +
+				   '&material_name=' + encodeURIComponent(materialNameField.value) +
+				   '&quantity=' + encodeURIComponent(quantityField.value) +
+				   '&version=' + encodeURIComponent(versionField.value);
+
+		xhr.send(data);
+	});
+
+	// 삭제 버튼 클릭 시 삭제 처리
+	deleteBtn.addEventListener('click', function() {
+		if (confirm('정말로 삭제하시겠습니까?')) {
+			// AJAX 요청으로 삭제 처리
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', '/bomdelete', true);  // 실제 삭제 경로로 수정 필요
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					alert('삭제 완료!');
+					modal.style.display = 'none';
+					location.reload();
+				}
+			};
+
+			xhr.send('bom_id=' + encodeURIComponent(bomIdField.value));
+		}
+	});
+});
+
 </script>
 
 </body>

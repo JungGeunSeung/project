@@ -8,7 +8,7 @@ public class ClientDTO {
 	private String name;
 	private String location;
 	private String contact;
-	private int phone;
+	private String phone;
 	private String email;
 	private Date create_at;
 	
@@ -36,10 +36,10 @@ public class ClientDTO {
 	public void setContact(String contact) {
 		this.contact = contact;
 	}
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	public String getEmail() {

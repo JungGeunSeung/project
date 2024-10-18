@@ -15,22 +15,6 @@
 			where move_id = #{move_id}
 	</delete>
 	
-	 <!-- 생산계획 생성 -->
-     <!-- <insert id="createOrder" parameterType="WorkOrderDTO">
-        INSERT INTO plan (plan_id, product_id, start_date, end_date, quantity, created_by, status)
-        VALUES (#{order_id}, #{product_id}, #{start_date}, #{end_date}, #{quantity}, #{created_by}, #{status})
-    </insert>
- -->
-    <!-- 생산계획 수정 -->
-    <!-- <update id="updateOrder" parameterType="WorkOrderDTO">
-        UPDATE plan
-        SET product_id = #{product_id},
-            start_date = #{start_date},
-            end_date = #{end_date},
-            quantity = #{quantity},
-            created_by = #{created_by},
-            status = #{status}
-        WHERE plan_id = #{plan_id}
-    </update> -->
+	
 	
 </mapper>

@@ -45,7 +45,7 @@
 		<div>
 			<ul>
 				<li><a href="stock">판매(출고)</a></li>
-				<li><a href="#">거래처관리</a></li>
+				<li><a href="client_m">거래처관리</a></li>
 				<li><a href="#">명세서관리</a></li>
 				<li><a href="#">미수금관리</a></li>
 			</ul>
