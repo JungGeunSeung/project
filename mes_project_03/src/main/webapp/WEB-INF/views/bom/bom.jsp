@@ -61,7 +61,18 @@ table tr {
 	padding: 5px;
 	height: 
 }
+    /* 페이지당 항목 수와 추가 버튼을 동일한 라인에 배치 */
+    .top-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end; /* 오른쪽 정렬 */
+        margin-bottom: 20px;
+    }
 
+    /* 페이지당 항목 선택 */
+    .top-section form {
+        margin-bottom: 10px; /* 추가 버튼과 간격을 주기 위한 마진 */
+    }
 /* 모달창 배경 */
 .modal {
   display: none;
@@ -137,6 +148,9 @@ button#deleteBtn:hover {
 		<jsp:include page="/WEB-INF/views/main/tiles/category.jsp" />
 	</nav>
 	<article>
+	 <h1>정보/BOM</h1>
+    <span></span>
+     <div class="top-section">
 		<form method="get" action="/gaw/bom">
 			<label for="countperpage">페이지당 항목 수:</label> <select
 				name="countperpage" id="countperpage" onchange="this.form.submit()">
@@ -148,9 +162,13 @@ button#deleteBtn:hover {
 		</form>
 
 
-		<a href="/gaw/bominsert"><button class="btn">
-				<span>추가</span>
-			</button></a>
+		   <!-- 왼쪽 상단에 추가 버튼 배치 -->
+        <a href="/gaw/bom">
+            <button class="btn">
+                <span>추가</span>
+            </button>
+        </a>
+    </div>
 		<table  border=1 id="productTable">
 			<thead>
 				<tr>

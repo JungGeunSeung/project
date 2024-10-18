@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="resources/CSS/category.css">
     <link rel="stylesheet" href="resources/CSS/header.css">
     <link rel="stylesheet" href="resources/CSS/footer.css">
-    <title>재고 관리</title>
+    <title>제품 관리</title>
     <style>
         /* 전체 컨테이너 */
         article {
@@ -56,6 +56,8 @@
         .btn:hover {
             background-color: #218838;
         }
+
+        
    /* 페이지당 항목 수와 추가 버튼을 동일한 라인에 배치 */
     .top-section {
         display: flex;
@@ -68,6 +70,7 @@
     .top-section form {
         margin-bottom: 10px; /* 추가 버튼과 간격을 주기 위한 마진 */
     }
+
 
         .pagination ul {
             list-style-type: none;
@@ -113,31 +116,27 @@
         <jsp:include page="/WEB-INF/views/main/tiles/category.jsp" />
     </nav>
 
+
     <article>
-        <h1>재고 관리</h1>
-        
-        <div class="top-section">
-            <!-- 페이지당 항목 수 선택 -->
-            <form method="get" action="/gaw/inventory">
-                <label for="countperpage">페이지당 항목 수:</label>
-                <select name="countperpage" id="countperpage" onchange="this.form.submit()">
-                    <option value="10" ${countperpage == 10 ? 'selected' : ''}>10</option>
-                    <option value="20" ${countperpage == 20 ? 'selected' : ''}>20</option>
-                    <option value="50" ${countperpage == 50 ? 'selected' : ''}>50</option>
-                    <option value="100" ${countperpage == 100 ? 'selected' : ''}>100</option>
-                </select>
-                <input type="hidden" name="page" value="${currentPage}">
-            </form>
-
-            <!-- 추가 버튼 -->
-            <a href="/gaw/inventoryinsert">
-                <button class="btn">
-                    <span>추가</span>
-                </button>
-            </a>
-        </div>
-
-        <!-- 재고 리스트 테이블 -->
+    <h1>제품 관리</h1>
+    <span></span>
+     <div class="top-section">
+    		<form  method="get" action="/gaw/material">
+			<label for="countperpage">페이지당 항목 수:</label> <select
+				name="countperpage" id="countperpage" onchange="this.form.submit()">
+				<option value="10" ${countperpage==10 ? 'selected' : '' }>10</option>
+				<option value="20" ${countperpage==20 ? 'selected' : '' }>20</option>
+				<option value="50" ${countperpage==50 ? 'selected' : '' }>50</option>
+				<option value="100" ${countperpage==100 ? 'selected' : '' }>100</option>
+			</select> <input type="hidden" name="page" value="${currentPage}">
+		</form>
+    
+      <a href="/gaw/material">
+            <button class="btn">
+                <span>추가</span>
+            </button>
+        </a>
+    </div>
         <table id="productTable">
             <tr>
                 <th>재고 ID</th>
@@ -146,12 +145,12 @@
                 <th>제품 위치</th>
                 <th colspan="2">수정 및 삭제</th>
             </tr>
-            <c:forEach var="inventory" items="${inventoryList}">
+            <c:forEach var="material" items="${materialList}">
                 <tr>
-                    <td>${inventory.inventory_id}</td>
-                    <td>${inventory.product_id}</td>
-                    <td>${inventory.quantity}</td>
-                    <td>${inventory.location}</td>
+                    <td>${material.material_id}</td>
+                    <td>${material.material_name}</td>
+                    <td>${material.quantity}</td>
+                    <td>${material.unit}</td>
                     <td>
                         <form action="/gaw/inventoryupdate" method="post">
                             <input type="hidden" value="${inventory.inventory_id}" name="inventory_id">
@@ -168,8 +167,7 @@
             </c:forEach>
         </table>
 
-        <!-- 페이징 -->
-       	<div  class="pagination">
+        	<div  class="pagination">
 			<ul>
 				<!-- 이전 페이지로 이동 -->
 				<c:if test="${currentPage > 1}">

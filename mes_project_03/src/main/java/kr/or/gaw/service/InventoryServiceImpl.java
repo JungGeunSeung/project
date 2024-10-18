@@ -1,10 +1,8 @@
 package kr.or.gaw.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import kr.or.gaw.dao.InventoryDAO;
 import kr.or.gaw.dto.InventoryDTO;
 
@@ -37,5 +35,15 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public void delete(String inventoryId) {
         inventoryDAO.delete(inventoryId);
+    }
+
+    @Override
+    public List<InventoryDTO> selectInventoryList(InventoryDTO dto) {
+        return inventoryDAO.selectInventoryList(dto);
+    }
+
+    @Override
+    public int getTotalDataCount(InventoryDTO dto) {
+        return inventoryDAO.getTotalDataCount(dto);
     }
 }

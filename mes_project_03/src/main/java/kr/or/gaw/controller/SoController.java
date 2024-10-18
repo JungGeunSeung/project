@@ -2,6 +2,8 @@ package kr.or.gaw.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.gaw.dto.BomDTO;
-import kr.or.gaw.dto.MaterialDTO;
+import kr.or.gaw.dto.EmpDTO;
 import kr.or.gaw.service.BomService;
 
 @Controller
@@ -26,9 +28,13 @@ public class SoController {
 	BomService bomService;
 	// BOM 목록 가져오기
 	@RequestMapping("/bom")
-	public String selectBomList(BomDTO dto, Model model, @RequestParam(value = "page", defaultValue = "1") Integer page,
+	public String selectBomList(BomDTO dto, Model model, @RequestParam(value = "page", defaultValue = "1") Integer page,HttpSession session ,
 			@RequestParam(value = "countperpage", defaultValue = "10") Integer countperpage) {
 
+		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+	      if (loggedInUser == null) {
+	           return "redirect:/login";       }
+	      
 		dto.setPage(page);
 		dto.setCountperpage(countperpage);
 		List<BomDTO> list = bomService.selectBomList(dto);
@@ -57,33 +63,53 @@ public class SoController {
 	}
 	// BOM 상세 페이지
 	@RequestMapping("/bomupdate")
-	public String selectBomList(@RequestParam("bom_id") String bom_id, Model model) {
+	public String selectBomList(@RequestParam("bom_id") String bom_id, Model model, HttpSession session ) {
+		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+	      if (loggedInUser == null) {
+	           return "redirect:/login";       }
+	      
 		BomDTO bomDTO = bomService.selectOne(bom_id);
 		model.addAttribute("bomDTO", bomDTO);
 		return "bom/bomupdate";
 	}
 	// BOM 업데이트
 	@RequestMapping(value = "/bomupdate/update", method = RequestMethod.POST)
-	public String updateBom(BomDTO bomDTO) {
+	public String updateBom(BomDTO bomDTO, HttpSession session ) {
+		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+	      if (loggedInUser == null) {
+	           return "redirect:/login";       }
+	      
 		// 업데이트 로직 처리
 		bomService.updateBom(bomDTO);
 		return "redirect:/bom";
 	}
 	// BOM 추가 페이지
 	@RequestMapping("/bominsert")
-	public String insertBom(Model model) {
+	public String insertBom(Model model, HttpSession session ) {
+		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+	      if (loggedInUser == null) {
+	           return "redirect:/login";       }
+	      
 		return "bom/bominsert";
 	}
 	// BOM 추가
 	@RequestMapping(value = "/bominsert/insert", method = RequestMethod.POST)
-	public String inserBomDo(BomDTO bomDTO) {
+	public String inserBomDo(BomDTO bomDTO, HttpSession session ) {
+		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+	      if (loggedInUser == null) {
+	           return "redirect:/login";       }
+	      
 		System.out.println("컨트롤러 실행");
 		bomService.insertBom(bomDTO);
 		return "redirect:/bom";
 	}
 	// BOM 삭제
 	@RequestMapping("/bomdelete")
-	public String inserBomDo(@RequestParam("bom_id") String bom_id) {
+	public String inserBomDo(@RequestParam("bom_id") String bom_id, HttpSession session ) {
+		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+	      if (loggedInUser == null) {
+	           return "redirect:/login";       }
+	      
 		System.out.println("딜리트 컨트롤러 실행");
 		bomService.deleteBom(bom_id);
 		return "redirect:/bom";
@@ -92,26 +118,34 @@ public class SoController {
 
 	@PostMapping("/bomp")
 	@ResponseBody
-	public List<BomDTO> getBomByProduct(@RequestParam("product_id") String productId) {
+	public List<BomDTO> getBomByProduct(@RequestParam("product_id") String productId, HttpSession session ) {
+	      
 		List list = bomService.selectBompList(productId);
 		System.out.println(list);
 	    return list;
 	}
 	
 	@RequestMapping("/organization")
-	   public String organization(Model model) {
+	   public String organization(Model model, HttpSession session ) {
+		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+	      if (loggedInUser == null) {
+	           return "redirect:/login";       }
 	      
 	       return "bom/organization";
 	   }
 	
 	@RequestMapping("/map")
-	public String map(Model model) {
+	public String map(Model model, HttpSession session ) {
+		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+	      if (loggedInUser == null) {
+	           return "redirect:/login";       }
 		
 		return "bom/map";
 	}
 	// BOM 생성 (POST /createBom)
 	@PostMapping("/createBom")
-	public ResponseEntity<String> createBom(@RequestBody BomDTO bomDTO) {
+	public ResponseEntity<String> createBom(@RequestBody BomDTO bomDTO, HttpSession session ) {
+	      
 	    try {
 	        bomService.insertBom(bomDTO);
 	        return ResponseEntity.ok("BOM created successfully");
@@ -122,7 +156,8 @@ public class SoController {
 
 	// 자재 생성 (POST /createMaterial)
 	@PostMapping("/createMaterial")
-	public ResponseEntity<String> createMaterial(@RequestBody BomDTO materialDTO) {
+	public ResponseEntity<String> createMaterial(@RequestBody BomDTO materialDTO, HttpSession session ) {
+		
 	    try {
 	        bomService.insertMaterial(materialDTO);
 	        return ResponseEntity.ok("Material created successfully");
@@ -133,7 +168,8 @@ public class SoController {
 
 	// BOM 업데이트 (PUT /updateBom)
 	@PutMapping("/updateBom/bom_id")
-	public ResponseEntity<String> updateBom(@PathVariable String bom_id, @RequestBody BomDTO bomDTO) {
+	public ResponseEntity<String> updateBom(@PathVariable String bom_id, @RequestBody BomDTO bomDTO,HttpSession session  ) {
+	
 	    try {
 	        bomDTO.setBom_id(bom_id); // ID 설정
 	        bomService.updateBom(bomDTO); // 업데이트 로직 호출
