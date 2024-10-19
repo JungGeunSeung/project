@@ -1,6 +1,8 @@
 package kr.or.gaw.controller;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -28,6 +30,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.gaw.dto.EmpDTO;
@@ -421,5 +425,73 @@ public class GeunMainController {
 		System.out.println(loggedInUser.toString());
 		model.addAttribute("user", loggedInUser);
 		return "main/mypage";
+	}
+	
+	// 마이페이지에서 프로필 사진 업로드하기
+	@RequestMapping("upload.do")
+	public String upload(MultipartHttpServletRequest req, HttpSession session) {
+	    EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+
+	    // 파일을 담을 수 있는 클래스
+	    MultipartFile mf = req.getFile("file1");
+
+	    if (mf == null || mf.isEmpty()) {
+	        System.out.println("파일이 비어있습니다.");
+	        return "redirect:mypage?error=emptyfile";
+	    }
+
+	    try {
+	        long filesize = mf.getSize();
+	        long time = System.currentTimeMillis();
+	        System.out.println("filesize : " + filesize);
+
+	        String originalFileName = mf.getOriginalFilename();
+	        System.out.println("originalFileName : " + originalFileName);
+	        
+	        // 확장자 추출
+	        String ext = "";
+	        int dotIndex = originalFileName.lastIndexOf('.');
+	        if (dotIndex > 0) {
+	            ext = originalFileName.substring(dotIndex + 1).toLowerCase();
+	        }
+
+	        // 저장할 경로
+	        String path = "D:" + File.separator + "project" + File.separator + 
+	                      "mes_project_03" + File.separator + 
+	                      "src" + File.separator + "main" + File.separator + 
+	                      "webapp" + File.separator + "resources" + File.separator + "profile";
+
+	        // 고유한 파일 이름 생성 (충돌 방지)
+	        String safeFileName = path + File.separator + loggedInUser.getUser_id() + "_" + time + "." + ext;
+
+	        // URL 경로를 프로필에 저장
+	        String profileUrl = "resources/profile/" + loggedInUser.getUser_id() + "_" + time + "." + ext;
+	        loggedInUser.setProfile_url(profileUrl);
+
+	        // 프로필 정보 업데이트
+	        int result = empService.profileUpdate(loggedInUser);
+
+	        // 파일 저장
+	        File file = new File(safeFileName);
+	        mf.transferTo(file);
+	        
+
+	    } catch (IllegalStateException e ) {
+	        e.printStackTrace();
+	        return "redirect:mypage?error=uploadfailed";
+	    } catch (IOException e) {
+	    	e.printStackTrace();
+	    	return "redirect:mypage?error=uploadfailed";
+	    }
+
+	    return "redirect:mypage";
+	}
+	
+	// 마이페이지에서 프로필 사진 삭제하기
+	@RequestMapping("deleteProfile.do")
+	public String deleteProfile(HttpSession session) {
+		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+		int result = empService.profileDelete(loggedInUser);
+		return "redirect:mypage";
 	}
 }

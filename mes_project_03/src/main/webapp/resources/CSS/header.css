@@ -114,3 +114,10 @@ a:hover {
 #logoutBtn:hover {
 	text-decoration: underline;
 }
+
+.profileImgheader {
+	width: 25px;
+	height: 25px;
+	vertical-align: bottom;
+	border-radius: 5px;
+}

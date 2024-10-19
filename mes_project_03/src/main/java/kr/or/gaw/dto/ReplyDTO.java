@@ -11,6 +11,17 @@ public class ReplyDTO {
     private String reply_name;
     private Timestamp created_at;
     private Timestamp updated_at;
+    private String profile_url;
+    
+    
+    
+    
+	public String getProfile_url() {
+		return profile_url;
+	}
+	public void setProfile_url(String profile_url) {
+		this.profile_url = profile_url;
+	}
 	public String getReply_id() {
 		return reply_id;
 	}

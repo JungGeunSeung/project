@@ -20,4 +20,6 @@ public interface EmpDAO {
 	int emailUpdate(EmpDTO dto);
 	int nameUpdate(EmpDTO dto);
 	int phoneUpdate(EmpDTO dto);
+	int profileUpdate(EmpDTO dto);
+	int profileDelete(EmpDTO dto);
 }

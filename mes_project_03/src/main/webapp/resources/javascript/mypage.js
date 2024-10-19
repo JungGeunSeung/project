@@ -160,3 +160,15 @@ form.addEventListener('submit', function (e) {
 
 changePasswordInput.addEventListener('keyup', validatePassword);
 retypePasswordInput.addEventListener('keyup', checkPasswordMatch);
+
+window.addEventListener('load', function(){
+	document.querySelector('#profileDeleteBtn').addEventListener('click', function(){
+		if(confirm("현재 프로필 사진을 삭제하시겠습니까?")){
+			window.location.href="deleteProfile.do";
+		} else {
+			return;
+		}
+		
+	});
+});
+

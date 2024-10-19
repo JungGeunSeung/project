@@ -5,8 +5,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<link rel="icon" sizes="32x32" href="resources/img/favicon3.png"
-	type="image/png">
+<style>
+
+</style>	
 <div class="header">
 	<div class="headerBox">
 		<div class="logo">
@@ -19,6 +20,7 @@
 			<% 
 			String username ="";
 			String userposition ="";
+			String userprofile ="";
 			try {
 		        EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
 
@@ -30,12 +32,14 @@
 
 		        username = loggedInUser.getName();
 		        userposition = loggedInUser.getPosition();
+		        userprofile = loggedInUser.getProfile_url();
 
 		    } catch (Exception e) {
 		        // 예외 발생 시 로그인 페이지로 리다이렉트
 		        response.sendRedirect("/gaw/login");
 		        return;
 		    } %>
+		    <img class="profileImgheader" src="<%=userprofile%>">
 			<%= username %>
 			</a>
 			님!

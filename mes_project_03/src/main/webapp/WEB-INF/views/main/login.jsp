@@ -28,7 +28,7 @@
 		</c:if>
 		<form action="/gaw/login" method="post">
 			<input type="text" name="user_id" placeholder="아이디" value="geun">
-			<input type="password" name="password" placeholder="비밀번호" value="1234">
+			<input type="password" name="password" placeholder="비밀번호" value="!qwer123">
 			<button type="submit" class="submit-btn">로그인</button>
 		</form>
 		<div class="signup">

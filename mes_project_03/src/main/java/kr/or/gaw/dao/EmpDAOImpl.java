@@ -84,6 +84,16 @@ public class EmpDAOImpl implements EmpDAO {
 	public int phoneUpdate(EmpDTO dto) {
 		return sqlSession.update("kr.or.gaw.dao.EmpDAO.phoneUpdate",dto);
 	}
+
+	@Override
+	public int profileUpdate(EmpDTO dto) {
+		return sqlSession.update("kr.or.gaw.dao.EmpDAO.profileUpdate",dto);
+	}
+
+	@Override
+	public int profileDelete(EmpDTO dto) {
+		return sqlSession.update("kr.or.gaw.dao.EmpDAO.profileDelete",dto);
+	}
 	
 
 }

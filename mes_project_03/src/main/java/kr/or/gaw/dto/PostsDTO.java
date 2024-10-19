@@ -24,7 +24,18 @@ public class PostsDTO {
     private String searchType;
     private String searchKeyword;
     private String disPlayTime;
+    private String profile_url;
+    
+    
 	
+	public String getProfile_url() {
+		return profile_url;
+	}
+
+	public void setProfile_url(String profile_url) {
+		this.profile_url = profile_url;
+	}
+
 	public String getDisPlayTime() {
 		return disPlayTime;
 	}

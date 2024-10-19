@@ -77,6 +77,16 @@ public class EmpServiceImpl implements EmpService {
 	public int phoneUpdate(EmpDTO dto) {
 		return empDAO.phoneUpdate(dto);
 	}
+
+	@Override
+	public int profileUpdate(EmpDTO dto) {
+		return empDAO.profileUpdate(dto);
+	}
+
+	@Override
+	public int profileDelete(EmpDTO dto) {
+		return empDAO.profileDelete(dto);
+	}
 	
 	
 }

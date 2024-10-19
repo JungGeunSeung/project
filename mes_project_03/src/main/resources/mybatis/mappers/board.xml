@@ -145,7 +145,8 @@
         p.created_at,
         p.updated_at,
         p.pinned,
-        p.view_cnt
+        p.view_cnt,
+        e.profile_url
     FROM posts p
     LEFT JOIN board b ON p.board_id = b.board_id -- board_name을 가져오기 위해 JOIN
     LEFT JOIN emp e ON p.author_id = e.user_id -- author_id에 해당하는 이름을 가져오기 위해 JOIN
@@ -181,7 +182,7 @@
 
 	<!-- 게시글에 해당하는 댓글 뽑기 -->
 	<select id="listComments" resultType="kr.or.gaw.dto.CommentsDTO" parameterType="String">
-	    SELECT c.comment_id, c.post_id, p.title AS post_title, e.name AS employee_name, c.content, c.created_at
+	    SELECT c.comment_id, c.post_id, p.title AS post_title, e.name AS employee_name, c.content, c.created_at, e.profile_url
 		FROM comments c
 		JOIN emp e ON c.employee_id = e.user_id
 		JOIN posts p ON c.post_id = p.post_id
@@ -226,7 +227,7 @@
 	</select>
 	<!-- 답글 불러오기 -->
 	<select id="listReply" resultType="kr.or.gaw.dto.ReplyDTO">
-		SELECT r.reply_id, r.comment_id, r.content, r.user_id, e.name as reply_name, created_at, updated_at
+		SELECT r.reply_id, r.comment_id, r.content, r.user_id, e.name as reply_name, created_at, updated_at, e.profile_url
 		FROM replies r
 		JOIN emp e ON r.user_id = e.user_id
 	</select>

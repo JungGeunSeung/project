@@ -10,7 +10,8 @@ select * from bom;
 
 alter TABLE emp modify (position varchar2(50) default 'юнео');
 commit;
-
+alter table emp add (profile_url clob default 'resources/profile/defaultProfile.png');
+alter table emp drop column profile_url;
 SELECT p.post_id, p.board_id, b.board_name, p.title, p.author_id, 
        e.name AS author_name, p.created_at
 FROM (
@@ -97,4 +98,8 @@ ALTER TABLE comments
 ADD CONSTRAINT FK_P_COMMENTS
 FOREIGN KEY (post_id) REFERENCES posts(post_id)
 ON DELETE CASCADE;
+
+SELECT r.reply_id, r.comment_id, r.content, r.user_id, e.name as reply_name, created_at, updated_at, e.profile_url
+		FROM replies r
+		JOIN emp e ON r.user_id = e.user_id
 

@@ -11,7 +11,16 @@ public class CommentsDTO {
 	private String content;
 	private Timestamp created_at;
 	private String employee_name;
+	private String profile_url;
 	
+	
+	
+	public String getProfile_url() {
+		return profile_url;
+	}
+	public void setProfile_url(String profile_url) {
+		this.profile_url = profile_url;
+	}
 	public String getComment_id() {
 		return comment_id;
 	}
