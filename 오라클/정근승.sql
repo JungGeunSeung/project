@@ -7,7 +7,10 @@ select * from emp;
 select * from authorities;
 select * from dept;
 select * from bom;
-
+select * from equipment;
+select * from maintenance;
+rollback;
+update emp set enabled = 0, name = name || '(≈ª≈«‘)' where user_id='geun1';
 alter TABLE emp modify (position varchar2(50) default '¿Œ≈œ');
 commit;
 alter table emp add (profile_url clob default 'resources/profile/defaultProfile.png');
@@ -80,7 +83,7 @@ JOIN
     ON a.R_CONSTRAINT_NAME = b.CONSTRAINT_NAME
 WHERE 
     a.CONSTRAINT_TYPE = 'R'
-    AND a.TABLE_NAME = UPPER('posts');
+    AND a.TABLE_NAME = UPPER('equipment');
     
     ALTER TABLE posts
 DROP CONSTRAINT fk_b_posts;
@@ -101,5 +104,18 @@ ON DELETE CASCADE;
 
 SELECT r.reply_id, r.comment_id, r.content, r.user_id, e.name as reply_name, created_at, updated_at, e.profile_url
 		FROM replies r
-		JOIN emp e ON r.user_id = e.user_id
+		JOIN emp e ON r.user_id = e.user_id;
+        
+SELECT *
+FROM (
+    SELECT equip_id, name, type, location, status, purchase, last, rownum AS rnum
+    FROM (
+        SELECT equip_id, name, type, location, status, purchase, last
+        FROM equipment
+        WHERE 1=1
+        ORDER BY equip_id
+    )
+    WHERE rownum <= 10
+)
+WHERE rnum >= 1;
 
