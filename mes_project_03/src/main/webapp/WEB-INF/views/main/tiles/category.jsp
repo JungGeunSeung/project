@@ -39,7 +39,7 @@
 				<li><a href="inventory">재고관리</a></li>
 				<li><a href="material">자재관리</a></li>
 				<li><a href="materialReq">구매/발주</a></li>
-				<li><a href="#">원가관리</a></li>
+				<li><a href="cost">원가관리</a></li>
 			</ul>
 		</div>
 		<div>

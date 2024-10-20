@@ -15,6 +15,7 @@ public class RequestDTO {
 	private int countperpage; // 페이지당 항목 수
 	private int totalPage; // 전체 페이지 수
 	private int offset; // SQL 쿼리의 OFFSET
+	
 	public String getRequest_id() {
 		return request_id;
 	}

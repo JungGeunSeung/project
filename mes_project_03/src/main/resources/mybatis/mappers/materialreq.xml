@@ -17,9 +17,9 @@
 	<insert id="insertRequest"
 		parameterType="kr.or.gaw.dto.RequestDTO">
 		INSERT INTO materialrequest (request_id, material_id, request_by, req_date,
-		quatity, status)
+		quantity, status)
 		VALUES (#{request_id}, #{material_id}, #{request_by}, #{req_date},
-		#{quatity}, #{status})
+		#{quantity}, #{status})
 	</insert>
 
 	<update id="updateRequest"
@@ -27,7 +27,7 @@
 		UPDATE materialrequest
 		SET material_id = #{material_id}, request_by = #{request_by}, req_date =
 		#{req_date},
-		quatity = #{quatity}, status = #{status}
+		quantity = #{quantity}, status = #{status}
 		WHERE request_id = #{request_id}
 	</update>
 

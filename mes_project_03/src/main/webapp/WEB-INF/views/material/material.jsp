@@ -116,27 +116,27 @@
         <jsp:include page="/WEB-INF/views/main/tiles/category.jsp" />
     </nav>
 
-
     <article>
-    <h1>제품 관리</h1>
-    <span></span>
-     <div class="top-section">
-    		<form  method="get" action="/gaw/material">
-			<label for="countperpage">페이지당 항목 수:</label> <select
-				name="countperpage" id="countperpage" onchange="this.form.submit()">
-				<option value="10" ${countperpage==10 ? 'selected' : '' }>10</option>
-				<option value="20" ${countperpage==20 ? 'selected' : '' }>20</option>
-				<option value="50" ${countperpage==50 ? 'selected' : '' }>50</option>
-				<option value="100" ${countperpage==100 ? 'selected' : '' }>100</option>
-			</select> <input type="hidden" name="page" value="${currentPage}">
-		</form>
-    
-      <a href="/gaw/material">
-            <button class="btn">
-                <span>추가</span>
+        <h1>제품 관리</h1>
+        <div class="top-section">
+            <form method="get" action="/gaw/material">
+                <label for="countperpage">페이지당 항목 수:</label>
+                <select name="countperpage" id="countperpage" onchange="this.form.submit()">
+                    <option value="10" ${countperpage == 10 ? 'selected' : ''}>10</option>
+                    <option value="20" ${countperpage == 20 ? 'selected' : ''}>20</option>
+                    <option value="50" ${countperpage == 50 ? 'selected' : ''}>50</option>
+                    <option value="100" ${countperpage == 100 ? 'selected' : ''}>100</option>
+                </select>
+                <input type="hidden" name="page" value="${currentPage}">
+            </form>
+
+            <!-- 추가 버튼 -->
+            <button class="btn" onclick="openInsertModal()">
+                추가
             </button>
-        </a>
-    </div>
+        </div>
+
+        <!-- 재고 리스트 테이블 -->
         <table id="productTable">
             <tr>
                 <th>재고 ID</th>
@@ -152,14 +152,14 @@
                     <td>${material.quantity}</td>
                     <td>${material.unit}</td>
                     <td>
-                        <form action="/gaw/inventoryupdate" method="post">
-                            <input type="hidden" value="${inventory.inventory_id}" name="inventory_id">
-                            <input type="submit" value="수정" class="btn">
-                        </form>
+                        <!-- 수정 버튼 -->
+                        <button class="btn" onclick="openUpdateModal('${material.material_id}', '${material.material_name}', '${material.quantity}', '${material.unit}')">
+                            수정
+                        </button>
                     </td>
                     <td>
                         <form action="/gaw/inventorydelete" method="post">
-                            <input type="hidden" value="${inventory.inventory_id}" name="inventory_id">
+                            <input type="hidden" value="${material.material_id}" name="material_id">
                             <input type="submit" value="삭제" class="btn">
                         </form>
                     </td>
@@ -167,28 +167,119 @@
             </c:forEach>
         </table>
 
-        	<div  class="pagination">
-			<ul>
-				<!-- 이전 페이지로 이동 -->
-				<c:if test="${currentPage > 1}">
-					<li><a 
-						href="?page=${currentPage - 1}&countperpage=${countperpage}">이전</a></li>
-				</c:if>
-
-				<!-- 페이지 번호 표시 -->
-				<c:forEach var="i" begin="${startPage}" end="${endPage}">
-					<li class="${i == currentPage ? 'active' : ''}"><a 
-						href="?page=${i}&countperpage=${countperpage}">${i}</a></li>
-				</c:forEach>
-
-				<!-- 다음 페이지로 이동 -->
-				<c:if test="${currentPage < totalPage}">
-					<li><a
-						href="?page=${currentPage + 1}&countperpage=${countperpage}">다음</a></li>
-				</c:if>
-			</ul>
-		</div>
+        <!-- 페이징 -->
+        <div class="pagination">
+            <!-- 페이지네이션 구현 -->
+        </div>
     </article>
-</body>
 
+    <!-- 추가 모달 -->
+    <div id="insertModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeInsertModal()">&times;</span>
+            <h2>재고 추가</h2>
+            <form action="/gaw/material/insert" method="post">
+                <label for="material_name">제품 이름:</label>
+                <input type="text" id="material_name" name="material_name" required><br>
+                <label for="quantity">수량:</label>
+                <input type="number" id="quantity" name="quantity" required><br>
+                <label for="unit">단위:</label>
+                <input type="text" id="unit" name="unit" required><br>
+                <input type="submit" value="추가" class="btn">
+            </form>
+        </div>
+    </div>
+
+    <!-- 수정 모달 -->
+    <div id="updateModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeUpdateModal()">&times;</span>
+            <h2>재고 수정</h2>
+            <form action="/gaw/material/update" method="post">
+                <input type="hidden" id="update_material_id" name="material_id">
+                <label for="update_material_name">제품 이름:</label>
+                <input type="text" id="update_material_name" name="material_name" required><br>
+                <label for="update_quantity">수량:</label>
+                <input type="number" id="update_quantity" name="quantity" required><br>
+                <label for="update_unit">단위:</label>
+                <input type="text" id="update_unit" name="unit" required><br>
+                <input type="submit" value="수정" class="btn">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 추가 모달 열기
+        function openInsertModal() {
+            document.getElementById('insertModal').style.display = 'block';
+        }
+
+        // 추가 모달 닫기
+        function closeInsertModal() {
+            document.getElementById('insertModal').style.display = 'none';
+        }
+
+        // 수정 모달 열기
+        function openUpdateModal(id, name, quantity, unit) {
+            document.getElementById('update_material_id').value = id;
+            document.getElementById('update_material_name').value = name;
+            document.getElementById('update_quantity').value = quantity;
+            document.getElementById('update_unit').value = unit;
+            document.getElementById('updateModal').style.display = 'block';
+        }
+
+        // 수정 모달 닫기
+        function closeUpdateModal() {
+            document.getElementById('updateModal').style.display = 'none';
+        }
+
+        // 모달 외부 클릭 시 모달 닫기
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('insertModal')) {
+                closeInsertModal();
+            } else if (event.target == document.getElementById('updateModal')) {
+                closeUpdateModal();
+            }
+        }
+    </script>
+
+    <style>
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</body>
 </html>

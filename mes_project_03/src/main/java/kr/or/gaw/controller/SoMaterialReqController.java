@@ -63,16 +63,17 @@ public class SoMaterialReqController {
         return "materialreq/materialreq"; // 반환할 JSP 페이지 이름
     }
 
-    // 새로운 요청 추가 폼
-    @GetMapping("/add")
-    public String addRequestForm(Model model, HttpSession session) {
-    	EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-             return "redirect:/login";       }
-        
-        model.addAttribute("request", new RequestDTO());
-        return "materialreq/addRequest";
-    }
+	/*
+	 * // 새로운 요청 추가 폼
+	 * 
+	 * @GetMapping("/add") public String addRequestForm(Model model, HttpSession
+	 * session) { EmpDTO loggedInUser = (EmpDTO)
+	 * session.getAttribute("loggedInUser"); if (loggedInUser == null) { return
+	 * "redirect:/login"; }
+	 * 
+	 * model.addAttribute("request", new RequestDTO()); return
+	 * "materialreq/addRequest"; }
+	 */
 
     // 새로운 요청 추가 처리
     @PostMapping("/add")
@@ -85,21 +86,22 @@ public class SoMaterialReqController {
         return "redirect:/materialreq";
     }
 
-    // 요청 수정 폼
-    @GetMapping("/update/id")
-    public String updateRequestForm(@PathVariable("id") String request_id, Model model, HttpSession session) {
-    	EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-             return "redirect:/login";       }
-        
-        RequestDTO request = materialReqService.getRequestById(request_id);
-        model.addAttribute("request", request);
-        return "materialreq/materialrequpdate";
-    }
+	/*
+	 * // 요청 수정 폼
+	 * 
+	 * @GetMapping("/update/id") public String updateRequestForm(@PathVariable("id")
+	 * String request_id, Model model, HttpSession session) { EmpDTO loggedInUser =
+	 * (EmpDTO) session.getAttribute("loggedInUser"); if (loggedInUser == null) {
+	 * return "redirect:/login"; }
+	 * 
+	 * RequestDTO request = materialReqService.getRequestById(request_id);
+	 * model.addAttribute("request", request); return
+	 * "materialreq/materialrequpdate"; }
+	 */
 
     // 요청 수정 처리
     @PostMapping("/update")
-    public String updateRequest(@ModelAttribute("request") RequestDTO request, HttpSession session) {
+    public String updateRequest(@ModelAttribute RequestDTO request, HttpSession session) {
     	EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
         if (loggedInUser == null) {
              return "redirect:/login";       }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.gaw.dao.CostDAO">
+
+    <!-- Read (페이징 처리된 원가 목록 조회) -->
+    <select id="selectCostList" parameterType="map" resultType="kr.or.gaw.dto.CostDTO">
+        SELECT * FROM (
+            SELECT A.*, ROWNUM rnum
+            FROM (
+                SELECT * 
+                FROM cost
+                ORDER BY create_at DESC
+            ) A
+            WHERE ROWNUM &lt;= #{offset} + #{countperpage}
+        )
+        WHERE rnum &gt; #{offset}
+    </select>
+
+    <!-- 총 데이터 수 가져오기 -->
+    <select id="getTotalDataCount" parameterType="kr.or.gaw.dto.CostDTO" resultType="int">
+        SELECT COUNT(*)
+        FROM cost
+        WHERE product_id = #{product_id}
+    </select>
+
+    <!-- Create (원가 추가) -->
+    <insert id="insertCost" parameterType="kr.or.gaw.dto.CostDTO">
+        INSERT INTO cost (cost_id, product_id, material_cost, labor_cost, over_cost, total, create_at)
+        VALUES (#{cost_id}, #{product_id}, #{material_cost}, #{labor_cost}, #{over_cost}, #{total}, SYSDATE)
+    </insert>
+
+    <!-- Update (원가 수정) -->
+    <update id="updateCost" parameterType="kr.or.gaw.dto.CostDTO">
+        UPDATE cost 
+        SET product_id = #{product_id}, material_cost = #{material_cost}, 
+            labor_cost = #{labor_cost}, over_cost = #{over_cost}, total = #{total}
+        WHERE cost_id = #{cost_id}
+    </update>
+
+</mapper>

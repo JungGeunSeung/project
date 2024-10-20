@@ -56,18 +56,19 @@
         .btn:hover {
             background-color: #218838;
         }
-   /* 페이지당 항목 수와 추가 버튼을 동일한 라인에 배치 */
-    .top-section {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end; /* 오른쪽 정렬 */
-        margin-bottom: 20px;
-    }
 
-    /* 페이지당 항목 선택 */
-    .top-section form {
-        margin-bottom: 10px; /* 추가 버튼과 간격을 주기 위한 마진 */
-    }
+        /* 페이지당 항목 수와 추가 버튼을 동일한 라인에 배치 */
+        .top-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-bottom: 20px;
+        }
+
+        /* 페이지당 항목 선택 */
+        .top-section form {
+            margin-bottom: 10px;
+        }
 
         .pagination ul {
             list-style-type: none;
@@ -98,6 +99,41 @@
             background-color: #28a745;
             color: white;
             border: 1px solid #28a745;
+        }
+
+        /* 모달창 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -130,11 +166,9 @@
             </form>
 
             <!-- 추가 버튼 -->
-            <a href="/gaw/inventoryinsert">
-                <button class="btn">
-                    <span>추가</span>
-                </button>
-            </a>
+            <button id="openAddModal" class="btn">
+                <span>추가</span>
+            </button>
         </div>
 
         <!-- 재고 리스트 테이블 -->
@@ -153,10 +187,7 @@
                     <td>${inventory.quantity}</td>
                     <td>${inventory.location}</td>
                     <td>
-                        <form action="/gaw/inventoryupdate" method="post">
-                            <input type="hidden" value="${inventory.inventory_id}" name="inventory_id">
-                            <input type="submit" value="수정" class="btn">
-                        </form>
+                        <button class="btn openEditModal" data-id="${inventory.inventory_id}" data-product="${inventory.product_id}" data-quantity="${inventory.quantity}" data-location="${inventory.location}">수정</button>
                     </td>
                     <td>
                         <form action="/gaw/inventorydelete" method="post">
@@ -169,28 +200,85 @@
         </table>
 
         <!-- 페이징 -->
-       	<div  class="pagination">
-			<ul>
-				<!-- 이전 페이지로 이동 -->
-				<c:if test="${currentPage > 1}">
-					<li><a 
-						href="?page=${currentPage - 1}&countperpage=${countperpage}">이전</a></li>
-				</c:if>
+        <div class="pagination">
+            <ul>
+                <!-- 이전 페이지로 이동 -->
+                <c:if test="${currentPage > 1}">
+                    <li><a href="?page=${currentPage - 1}&countperpage=${countperpage}">이전</a></li>
+                </c:if>
 
-				<!-- 페이지 번호 표시 -->
-				<c:forEach var="i" begin="${startPage}" end="${endPage}">
-					<li class="${i == currentPage ? 'active' : ''}"><a 
-						href="?page=${i}&countperpage=${countperpage}">${i}</a></li>
-				</c:forEach>
+                <!-- 페이지 번호 표시 -->
+                <c:forEach var="i" begin="${startPage}" end="${endPage}">
+                    <li class="${i == currentPage ? 'active' : ''}"><a href="?page=${i}&countperpage=${countperpage}">${i}</a></li>
+                </c:forEach>
 
-				<!-- 다음 페이지로 이동 -->
-				<c:if test="${currentPage < totalPage}">
-					<li><a
-						href="?page=${currentPage + 1}&countperpage=${countperpage}">다음</a></li>
-				</c:if>
-			</ul>
-		</div>
+                <!-- 다음 페이지로 이동 -->
+                <c:if test="${currentPage < totalPage}">
+                    <li><a href="?page=${currentPage + 1}&countperpage=${countperpage}">다음</a></li>
+                </c:if>
+            </ul>
+        </div>
     </article>
+
+    <!-- 추가/수정 모달 -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">재고 추가</h2>
+            <form id="modalForm" method="post" action="">
+                <input type="hidden" id="inventoryId" name="inventory_id">
+                <label for="productId">제품 ID:</label>
+                <input type="text" id="productId" name="product_id" required><br><br>
+                <label for="quantity">수량:</label>
+                <input type="number" id="quantity" name="quantity" required><br><br>
+                <label for="location">위치:</label>
+                <input type="text" id="location" name="location" required><br><br>
+                <button type="submit" class="btn">저장</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 모달 열기 및 닫기
+        var modal = document.getElementById("modal");
+        var span = document.getElementsByClassName("close")[0];
+        
+        // 추가 버튼 클릭 시
+        document.getElementById("openAddModal").onclick = function() {
+            document.getElementById("modalTitle").innerText = "재고 추가";
+            document.getElementById("modalForm").action = "/gaw/inventory/insert";
+            document.getElementById("inventoryId").value = "";
+            document.getElementById("productId").value = "";
+            document.getElementById("quantity").value = "";
+            document.getElementById("location").value = "";
+            modal.style.display = "block";
+        };
+
+        // 수정 버튼 클릭 시
+        document.querySelectorAll(".openEditModal").forEach(button => {
+            button.onclick = function() {
+                document.getElementById("modalTitle").innerText = "재고 수정";
+                document.getElementById("modalForm").action = "/gaw/inventory/update";
+                document.getElementById("inventoryId").value = this.dataset.id;
+                document.getElementById("productId").value = this.dataset.product;
+                document.getElementById("quantity").value = this.dataset.quantity;
+                document.getElementById("location").value = this.dataset.location;
+                modal.style.display = "block";
+            };
+        });
+
+        // 모달 닫기
+        span.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        // 모달 외부 클릭 시 닫기
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
 </body>
 
 </html>

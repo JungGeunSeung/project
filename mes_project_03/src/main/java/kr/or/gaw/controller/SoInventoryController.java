@@ -2,6 +2,7 @@ package kr.or.gaw.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,30 +69,37 @@ public class SoInventoryController {
         return "inventory/view";  // view.jsp로 반환
     }
 
-    @PostMapping("/insert")
-    public String insert(@ModelAttribute HttpSession session , InventoryDTO inventoryDTO) {
-    	EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+    @PostMapping("/inventory/insert")
+    public String insert(HttpServletRequest request, @ModelAttribute InventoryDTO inventoryDTO) {
+        HttpSession session = request.getSession();
+        EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
         if (loggedInUser == null) {
-             return "redirect:/login";       }
+            return "redirect:/login";
+        }
         inventoryService.insert(inventoryDTO);
         return "redirect:/inventory";  // 삽입 후 리스트 페이지로 리디렉션
     }
 
-    @PostMapping("/update")
-    public String update(@ModelAttribute HttpSession session , InventoryDTO inventoryDTO) {
-    	EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+    @PostMapping("/inventory/update")
+    public String update(HttpServletRequest request, @ModelAttribute InventoryDTO inventoryDTO) {
+        HttpSession session = request.getSession();
+        EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
         if (loggedInUser == null) {
-        	return "redirect:/login";       }
+            return "redirect:/login";
+        }
         inventoryService.update(inventoryDTO);
         return "redirect:/inventory";  // 수정 후 리스트 페이지로 리디렉션
     }
 
-    @GetMapping("/delete")
-    public String delete(@RequestParam("inventoryId") String inventoryId, HttpSession session ) {
-    	EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+    @GetMapping("/inventory/delete")
+    public String delete(@RequestParam("inventoryId") String inventoryId, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
         if (loggedInUser == null) {
-             return "redirect:/login";       }
+            return "redirect:/login";
+        }
         inventoryService.delete(inventoryId);
         return "redirect:/inventory";  // 삭제 후 리스트 페이지로 리디렉션
     }
+
 }
