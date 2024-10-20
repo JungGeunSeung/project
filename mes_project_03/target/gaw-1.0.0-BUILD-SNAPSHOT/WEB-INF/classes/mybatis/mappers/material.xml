@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.gaw.dao.MaterialDAO">
+    
+    <!-- 페이징을 위한 자재 목록 조회 (Oracle) -->
+    <select id="selectMaterialList" parameterType="kr.or.gaw.dto.MaterialDTO" resultType="kr.or.gaw.dto.MaterialDTO">
+        SELECT *
+        FROM (
+            SELECT a.*, ROWNUM rnum
+            FROM (
+                SELECT * FROM material
+                <where>
+                    <!-- 조건이 있을 경우 추가 -->
+                    <!-- 예: <if test="material_name != null"> material_name = #{material_name} </if> -->
+                </where>
+                ORDER BY material_id
+            ) a
+            WHERE ROWNUM &lt;= #{offset} + #{countperpage}
+        )
+        WHERE rnum &gt; #{offset}
+    </select>
+
+    <!-- 모든 자재 목록 조회 -->
+    <select id="selectAll" resultType="kr.or.gaw.dto.MaterialDTO">
+        SELECT * FROM material
+    </select>
+
+    <!-- 특정 자재 조회 -->
+    <select id="selectById" parameterType="String" resultType="kr.or.gaw.dto.MaterialDTO">
+        SELECT * FROM material WHERE material_id = #{materialId}
+    </select>
+
+    <!-- 새로운 자재 추가 -->
+    <insert id="insert" parameterType="kr.or.gaw.dto.MaterialDTO">
+        INSERT INTO material (material_id, material_name, standard, quantity, unit)
+        VALUES (#{material_id}, #{material_name}, #{standard}, #{quantity}, #{unit})
+    </insert>
+
+    <!-- 자재 업데이트 -->
+    <update id="update" parameterType="kr.or.gaw.dto.MaterialDTO">
+        UPDATE material
+        SET material_name = #{material_name}, standard = #{standard}, quantity = #{quantity}, unit = #{unit}
+        WHERE material_id = #{material_id}
+    </update>
+
+    <!-- 자재 삭제 -->
+    <delete id="delete" parameterType="String">
+        DELETE FROM material WHERE material_id = #{material_Id}
+    </delete>
+
+    <!-- 페이징을 위한 총 데이터 수 조회 -->
+    <select id="getTotalDataCount" parameterType="kr.or.gaw.dto.MaterialDTO" resultType="int">
+        SELECT COUNT(*) FROM material
+        <where>
+            <!-- 조건이 있을 경우 추가 -->
+            <!-- 예: <if test="material_name != null"> material_name = #{material_name} </if> -->
+        </where>
+    </select>
+
+</mapper>

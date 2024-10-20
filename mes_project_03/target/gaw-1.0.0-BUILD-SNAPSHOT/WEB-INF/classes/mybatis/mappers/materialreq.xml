@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.gaw.dao.MaterialReqDAO">
+
+	<select id="selectAll" resultType="kr.or.gaw.dto.RequestDTO">
+		SELECT * FROM materialrequest
+	</select>
+
+	<select id="selectById" parameterType="String"
+		resultType="kr.or.gaw.dto.RequestDTO">
+		SELECT * FROM materialrequest WHERE request_id = #{request_id}
+	</select>
+
+	<insert id="insertRequest"
+		parameterType="kr.or.gaw.dto.RequestDTO">
+		INSERT INTO materialrequest (request_id, material_id, request_by, req_date,
+		quantity, status)
+		VALUES (#{request_id}, #{material_id}, #{request_by}, #{req_date},
+		#{quantity}, #{status})
+	</insert>
+
+	<update id="updateRequest"
+		parameterType="kr.or.gaw.dto.RequestDTO">
+		UPDATE materialrequest
+		SET material_id = #{material_id}, request_by = #{request_by}, req_date =
+		#{req_date},
+		quantity = #{quantity}, status = #{status}
+		WHERE request_id = #{request_id}
+	</update>
+
+	<update id="endRequest" parameterType="String">
+		UPDATE materialrequest
+		SET status = '종료'
+		WHERE request_id = #{request_id}
+	</update>
+
+	<!-- 페이징 쿼리 -->
+	<select id="selectRequestsByPage"
+		parameterType="kr.or.gaw.dto.RequestDTO"
+		resultType="kr.or.gaw.dto.RequestDTO">
+		SELECT *
+		FROM (
+		SELECT a.*, ROWNUM rnum
+		FROM (
+		SELECT *
+		FROM materialrequest
+		ORDER BY req_date DESC
+		) a
+		WHERE ROWNUM &lt;= #{offset} + #{countperpage}
+		)
+		WHERE rnum &gt; #{offset}
+
+	</select>
+
+	<select id="selectTotalRequestCount"
+		parameterType="kr.or.gaw.dto.RequestDTO" resultType="int">
+		SELECT COUNT(*)
+		FROM materialrequest
+	</select>
+
+</mapper>

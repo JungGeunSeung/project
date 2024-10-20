@@ -19,5 +19,6 @@ public interface EmpService {
 	int phoneUpdate(EmpDTO dto);
 	int profileUpdate(EmpDTO dto);
 	int profileDelete(EmpDTO dto);
+	int deleteEmp(EmpDTO dto);
 	
 }

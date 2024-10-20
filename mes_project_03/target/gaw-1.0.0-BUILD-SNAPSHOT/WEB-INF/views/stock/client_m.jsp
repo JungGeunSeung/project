@@ -26,13 +26,12 @@
 </nav>
 
 
-
 <table border="1">
         <caption>거래처</caption>
+<!-- 거래처를 추가하는 버튼 만들기 -->
         
         <thead>
             <tr>
-                <th>선택</th>
                 <th>거래처 ID</th>
                 <th>업체명</th>
                 <th>업체주소</th>
@@ -51,7 +50,7 @@
 <script>
 
 let currentPage = 1;
-const itemsPerPage = 10;
+const itemsPerPage = 5;
 let ClientList = [];
 
 // AJAX 요청 함수
@@ -87,7 +86,6 @@ function drawList(){
     	const client = paginatedItems[i];
     	html += `
              <tr>
-                 <td><input type="checkbox" name="check" value="\${client.client_id}"></td>
                  <td>\${client.client_id}</td>
                  <td>\${client.name}</td>
                  <td>\${client.location}</td>

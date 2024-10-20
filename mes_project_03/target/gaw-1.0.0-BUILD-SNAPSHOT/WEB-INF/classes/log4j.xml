@@ -2,69 +2,60 @@
 <!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-	<!-- Appenders -->
-	<appender name="console" class="org.apache.log4j.ConsoleAppender">
-		<param name="Target" value="System.out" />
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
-		</layout>
-	</appender>
-	
-	<!-- Application Loggers -->
-	
-	<!-- Spring Beans 관련 패키지 로그를 INFO로 설정 -->
-    <logger name="org.springframework.beans">
-        <level value="INFO"/>
-    </logger>
+    <!-- Appenders -->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p: %c - %m%n" />
+        </layout>
+    </appender>
+
+    <!-- Application Loggers -->
     
-    <!-- Spring Web 패키지 로그를 INFO로 설정 -->
-    <logger name="org.springframework.web">
-        <level value="INFO"/>
-    </logger>
-    
-    <!-- Spring Context 패키지 로그를 INFO로 설정 -->
-    <logger name="org.springframework.context">
-        <level value="INFO"/>
+    <logger name="org.springframework" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="console" />
     </logger>
 
-    <!-- 기타 로그 레벨 설정 -->
-    <logger name="org.springframework">
-        <level value="INFO"/>
-    </logger>
-    
-	<logger name="kr.or.gaw">
-		<level value="info" />
-	</logger>
-	
-	<!-- 3rdparty Loggers -->
-	<logger name="org.springframework.core">
-		<level value="info" />
-	</logger>
-	
-	<logger name="org.springframework.beans">
-		<level value="info" />
-	</logger>
-	
-	<logger name="org.springframework.context">
-		<level value="info" />
-	</logger>
-
-	<logger name="org.springframework.web">
-		<level value="info" />
-	</logger>
-	
-	<logger name="org.springframework.security">
-        <level value="INFO"/>
-    </logger>
-    
-    <logger name="org.springframework.beans.factory">
-        <level value="INFO"/>
+    <logger name="kr.or.gaw" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="console" />
     </logger>
 
-	<!-- Root Logger -->
-	<root>
-		<priority value="warn" />
-		<appender-ref ref="console" />
-	</root>
+    <logger name="org.springframework.security" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="org.springframework.web" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="org.springframework.context" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="org.springframework.beans" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="console" />
+    </logger>
 	
+	<logger name="org.springframework.security.web.FilterChainProxy" additivity="false">
+	    <level value="INFO" />  <!-- WARN 또는 INFO로 조정 -->
+	    <appender-ref ref="console" />
+	</logger>
+	
+	<logger name="org.springframework.security.oauth2" additivity="false">
+	    <level value="WARN" />  <!-- 필요한 경우 WARN로 조정 -->
+	    <appender-ref ref="console" />
+	</logger>
+
+    <!-- Root Logger -->
+    <root>
+        <priority value="WARN" />
+        <appender-ref ref="console" />
+    </root>
+
 </log4j:configuration>

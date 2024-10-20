@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="resources/CSS/loading.css">
 <link rel="stylesheet" href="resources/CSS/btn.css">
 <link rel="stylesheet" href="resources/CSS/table.css">
+<link rel="icon" sizes="32x32" href="resources/img/favicon3.png" type="image/png">
 <title>관리자 페이지</title>
 
 <style>
@@ -198,7 +199,9 @@ article {
 	    </div>
 	</div>
 
-
+	<!-- 로딩 CSS에 해당하는 HTML -->
+	<jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
+	
 	<footer>
 		<jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />
 	</footer>

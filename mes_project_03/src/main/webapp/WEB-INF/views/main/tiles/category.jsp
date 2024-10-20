@@ -31,7 +31,6 @@
 				<li><a href="plan">생산계획</a></li>
 				<li><a href="performance">생산실적</a></li>
 				<li><a href="order">작업지시서</a></li>
-				<li><a href="#">원가관리</a></li>
 			</ul>
 		</div>
 		<div>
@@ -60,10 +59,10 @@
 		</div>
 		<div>
 			<ul>
+				<li><a href="/gaw/equip">설비관리</a></li>
 				<li><a href="#">유지보수</a></li>
 				<li><a href="#">모니터링</a></li>
 				<li><a href="#">비가동이력</a></li>
-				<li><a href="#">안전관리</a></li>
 			</ul>
 		</div>
 		<div>

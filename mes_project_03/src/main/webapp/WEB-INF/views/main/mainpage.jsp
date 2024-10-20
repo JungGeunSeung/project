@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="resources/CSS/header.css">
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/loading.css">
+    <link rel="icon" sizes="32x32" href="resources/img/favicon3.png" type="image/png">
     <title>Grand All Win</title>
     <style>
 

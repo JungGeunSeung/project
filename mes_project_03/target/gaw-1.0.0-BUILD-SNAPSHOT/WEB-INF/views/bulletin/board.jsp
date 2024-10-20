@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="resources/CSS/footer.css">
 <link rel="stylesheet" href="resources/CSS/loading.css">
 <link rel="stylesheet" href="resources/CSS/btn.css">
+<link rel="icon" sizes="32x32" href="resources/img/favicon3.png" type="image/png">
 <title>Grand All Win</title>
 <style>
 /* 전체 페이지를 플렉스박스로 중앙 정렬 */
@@ -186,9 +187,9 @@ article {
             </form>
         </article>
     </div>
+    </article>
     <!-- 로딩 CSS에 해당하는 HTML -->
 	<jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
-    </article>
     
     <!------------------- 하단 내용 ------------------->
     <footer>

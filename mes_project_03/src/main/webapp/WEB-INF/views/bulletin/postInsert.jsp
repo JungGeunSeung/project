@@ -134,7 +134,10 @@
 	        </form>
 	    </div>
 	</article>
-
+	
+	<!-- 로딩 CSS에 해당하는 HTML -->
+	<jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
+	
 	<!-- 하단 내용 -->
 	<footer>
 		<jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />

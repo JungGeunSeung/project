@@ -14,8 +14,7 @@
 <link rel="stylesheet" href="resources/CSS/loading.css">
 <link rel="stylesheet" href="resources/CSS/btn.css">
 <link rel="stylesheet" href="resources/CSS/table.css">
-<link rel="icon" sizes="32x32" href="resources/img/favicon3.png"
-	type="image/png">
+<link rel="icon" sizes="32x32" href="resources/img/favicon3.png" type="image/png">
 <title>${post.title }</title>
 
 <style>
@@ -384,7 +383,8 @@ body {
             </form>
         </div>
     </article>
-
+	<!-- 로딩 CSS에 해당하는 HTML -->
+	<jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
     <!-- 푸터 -->
     <footer>
         <jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />

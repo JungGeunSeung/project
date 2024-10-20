@@ -14,8 +14,7 @@
 <link rel="stylesheet" href="resources/CSS/loading.css">
 <link rel="stylesheet" href="resources/CSS/btn.css">
 <link rel="stylesheet" href="resources/CSS/table.css">
-<link rel="icon" sizes="32x32" href="resources/img/favicon3.png"
-	type="image/png">
+<link rel="icon" sizes="32x32" href="resources/img/favicon3.png" type="image/png">
 <title>${post.title }</title>
 
 <style>
@@ -264,6 +263,13 @@ body {
 	font-size: 20px;
 	margin-left: 10px;
 }
+
+.profileImg {
+	border: 1px soild green;
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+}
 </style>
 </head>
 <body>
@@ -290,6 +296,7 @@ body {
             </div>
             
             <div class="author">
+            	<img class="profileImg" src="${post.profile_url}">
             	<span>${post.author_name }</span>
             </div>
             
@@ -320,14 +327,17 @@ body {
         </div>
         <c:forEach var="comment" items="${comments}">
             <div class="comment-container">
-                <!-- 댓글 내용 및 수정/삭제 버튼 -->
                 <input type="hidden" class="commentsId" id="${comment.comment_id}" name="comment_id" value="${comment.comment_id}">
                 <div class="comment-content">
-                    <div class="user-name"><span>${comment.employee_name}</span></div>
+                    <div class="user-name">
+	                    <img class="profileImg" src="${comment.profile_url}">
+	                    <span>${comment.employee_name}</span>
+                    </div>
                     <div class="comment-text">${comment.content}</div>
                     <div class="comment-footer">
                         <fmt:formatDate value="${comment.created_at}" pattern="yyyy.MM.dd HH:mm" />
                         <span class="comment-actions reply-btn" data-comment-id="${comment.comment_id}">답글쓰기</span>
+		                <!-- 댓글 내용 및 수정/삭제 버튼 -->
                         <span class="comment-actions commentModifyBtn">수정</span>
                         <span class="comment-actions commentDeleteBtn">삭제</span>
                     </div>
@@ -337,9 +347,13 @@ body {
                         <c:if test="${reply.comment_id == comment.comment_id}">
                             <div class="reply-container">
                                 <input type="hidden" class="replyId" name="reply_id" value="${reply.reply_id}">
-                                <div class="reply-comment">${comment.employee_name}님에게 답글</div>
-                                <div class="reply-name">${reply.reply_name }</div>
-                                <div class="reply-text">${reply.content}</div>
+                                <div class="reply-comment"><span>${comment.employee_name}님에게 답글</span></div>
+                                
+                                <div class="reply-name">
+	                                <img class="profileImg" src="${reply.profile_url}">
+	                                <span>${reply.reply_name }</span>
+                                </div>
+                                <div class="reply-text"><span>${reply.content}</span></div>
                                 <div class="comment-footer">
                                     <fmt:formatDate value="${reply.updated_at}" pattern="yyyy.MM.dd HH:mm" />
                                     <span class="comment-actions replyModifyBtn">수정</span>
@@ -369,7 +383,8 @@ body {
             </form>
         </div>
     </article>
-
+	<!-- 로딩 CSS에 해당하는 HTML -->
+	<jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
     <!-- 푸터 -->
     <footer>
         <jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />

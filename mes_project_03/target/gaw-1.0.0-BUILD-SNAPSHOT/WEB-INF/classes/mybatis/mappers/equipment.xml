@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="kr.or.gaw.dao.EquipmentDAO">
+
+	<!-- 설비 리스트 뽑기 -->
+	<select id="listEquip" resultType="kr.or.gaw.dto.EquipmentDTO" parameterType="kr.or.gaw.dto.EquipmentDTO">
+	    SELECT *
+		FROM (
+		    SELECT equip_id, name, type, location, status, purchase, last, rownum AS rnum
+		    FROM (
+		        SELECT equip_id, name, type, location, status, purchase, last
+		        FROM equipment
+		        WHERE 1=1
+		        
+	            <!-- 설비 아이디로 검색 -->
+	            <if test="searchType == 'equip_id'">
+	                AND equip_id LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+	            <!-- 설비 명으로 검색 -->
+	            <if test="searchType == 'name'">
+	                AND name LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+	            <!-- 설비 타입으로 검색 -->
+	            <if test="searchType == 'type'">
+	                AND type LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+	            
+	            <!-- 설비 위치로 검색 -->
+	            <if test="searchType == 'location'">
+	                AND location LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+	            
+	            <!-- 설비 상태로 검색 -->
+	            <if test="searchType == 'status'">
+	                AND status LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+	            ORDER BY equip_id
+	        )
+	        WHERE rownum <![CDATA[<]]>= #{endRow}
+	    )
+	    WHERE rnum <![CDATA[>]]>= #{startRow}
+	</select>
+	
+	<!-- 검색조건이 있는 설비 총개수 구하기 -->
+	<select id="totalEquipmentWithSearch" resultType="int" parameterType="kr.or.gaw.dto.EquipmentDTO">
+	    SELECT COUNT(*) FROM equipment
+	    WHERE 1=1
+	    
+	    <!-- 설비 아이디로 검색 -->
+        <if test="searchType == 'equip_id'">
+            AND equip_id LIKE '%' || #{searchKeyword} || '%'
+        </if>
+        
+        <!-- 설비 명으로 검색 -->
+        <if test="searchType == 'name'">
+            AND name LIKE '%' || #{searchKeyword} || '%'
+        </if>
+        
+        <!-- 설비 타입으로 검색 -->
+        <if test="searchType == 'type'">
+            AND type = #{searchKeyword}
+        </if>
+        
+        <!-- 설비 위치로 검색 -->
+        <if test="searchType == 'location'">
+            AND location = #{searchKeyword}
+        </if>
+        
+        <!-- 설비 상태로 검색 -->
+        <if test="searchType == 'status'">
+            AND status = #{searchKeyword}
+        </if>
+        
+	</select>
+	
+	<!-- 설비 타입만 뽑아오기 -->
+	<select id="searchTypeEquip" resultType="String">
+		select DISTINCT type from equipment
+	</select>
+	
+	<!-- 설비 위치만 뽑아오기 -->
+	<select id="searchLocationEquip" resultType="String">
+		select DISTINCT location from equipment
+	</select>
+	
+	<!-- 설비 상태만 뽑아오기 -->
+	<select id="searchStatusEquip" resultType="String">
+		select DISTINCT status from equipment
+	</select>
+	
+	<!-- 설비 추가하기 -->
+	<insert id="insertEquip" parameterType="kr.or.gaw.dto.EquipmentDTO">
+		INSERT INTO equipment (equip_id, name, type, location, status, purchase, last)
+		VALUES (#{equip_id}, #{name}, #{type}, #{location}, #{status}, #{purchase}, null)
+	</insert>
+	
+	<!-- 설비 수정하기 -->
+	<update id="updateEquip" parameterType="kr.or.gaw.dto.EquipmentDTO">
+		update equipment set name= #{name}, type = #{type}, location = #{location}, status = #{status}, purchase = #{purchase} where equip_id= #{equip_id}
+	</update>
+	
+	<!-- 설비 삭제하기 -->
+	<delete id="deleteEquip" parameterType="kr.or.gaw.dto.EquipmentDTO">
+		delete from equipment where equip_id=#{equip_id}
+	</delete>
+	
+	
+	
+	
+</mapper>

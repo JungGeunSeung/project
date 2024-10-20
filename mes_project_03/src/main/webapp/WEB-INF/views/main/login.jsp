@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>login</title>
 <link rel="stylesheet" href="resources/CSS/login.css" />
+<link rel="icon" sizes="32x32" href="resources/img/favicon3.png" type="image/png">
 
 </head>
 <body>

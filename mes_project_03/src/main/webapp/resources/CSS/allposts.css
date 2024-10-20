@@ -1,16 +1,17 @@
 @charset "EUC-KR";
 
 .container {
-	width: 70%;
-	margin: 20px auto;
-	background-color: #fff;
-	padding: 20px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 70%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .search-bar {
-	align-items: center;
-	margin-bottom: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
 }
 
 .board-container {
@@ -22,27 +23,25 @@
     justify-content: space-between;
 }
 
-/* prev, next 버튼을 슬라이드 바깥의 양옆에 배치 */
+/* prev, next 버튼 */
 .prev, .next {
     cursor: pointer;
     background-color: inherit;
     border: none;
-    color: black;
     font-size: 18px;
     padding: 10px;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
-    display: block;
 }
 
 .prev {
-    left: -50px; /* 슬라이드 왼쪽 바깥에 위치 */
+    left: -50px;
 }
 
 .next {
-    right: -50px; /* 슬라이드 오른쪽 바깥에 위치 */
+    right: -50px;
 }
 
 .board-list {
@@ -50,7 +49,7 @@
     overflow: hidden;
     background-color: #e5ffd8;
     border-radius: 10px;
-    padding: 0px 20px;
+    padding: 0 20px;
 }
 
 #boardList {
@@ -62,7 +61,6 @@
 }
 
 .board-item {
-    min-width: auto;
     text-align: center;
     margin-right: 10px;
 }
@@ -72,62 +70,54 @@
     background-color: inherit;
     cursor: pointer;
     border: none;
-    transition: background-color 0.3s ease; /* 색상 변경 시 애니메이션 추가 */
+    transition: background-color 0.3s ease;
 }
 
-.boardBtn:hover {
-    background-color: #3bdf25da; /* 호버 시 색상 변경 */
-    border-radius: 5px;
-}
-
-/* 클릭한 버튼에 호버 색상을 유지하기 위한 클래스 */
+.boardBtn:hover,
 .boardBtn.active-btn {
-    background-color: #3bdf25da; /* 선택된 버튼에 동일한 색상 유지 */
+    background-color: #3bdf25da;
     border-radius: 5px;
 }
-
 
 .search-type {
-	text-align: right;
-	margin: 30px 0;
+    text-align: right;
+    margin: 30px 0;
 }
 
-.search-type select, .search-type input[type="text"] {
-	padding: 5px;
-	margin-left: 10px;
+.search-type select,
+.search-type input[type="text"] {
+    padding: 5px;
+    margin-left: 10px;
+    border: 1px solid green;
 }
 
 .search-type input[type="text"] {
-	width: 200px;
-	margin-right: 10px;
-	border: 1px solid rgb(138, 206, 138);
+    width: 200px;
+    margin-right: 10px;
+    border-color: rgb(138, 206, 138);
 }
 
 .search-type input[type="text"]:focus {
-	border: 1px solid green;
+    border-color: green;
 }
 
 .search-type input[type="text"]::placeholder {
-	color: rgb(0, 77, 0);
+    color: rgb(0, 77, 0);
 }
 
 .search-type select {
-	width: 100px;
-	border: 1px solid green;
-	color: green;
-	border-radius: 5px;
-	appearance: none;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	text-align: center;
+    width: 100px;
+    border-radius: 5px;
+    text-align: center;
+    appearance: none;
 }
 
 .search-type select option:hover {
-	background-color: green;
-	color: white;
+    background-color: green;
+    color: white;
 }
 
-/* Pagination 스타일 추가 */
+/* Pagination 스타일 */
 .pagination {
     text-align: center;
     margin-top: 20px;
@@ -145,58 +135,64 @@
     text-decoration: none;
 }
 
-.pagination .page-numbers:hover {
-    background-color: #3bdf25da;
-    color: white;
-}
-
+.pagination .page-numbers:hover,
 .pagination .page-numbers.active {
     background-color: #3bdf25da;
     color: white;
 }
 
 .pagination .prev2, .pagination .next2 {
-    cursor: pointer;
+    font-size: 18px;
+    margin: 0 10px;
     background-color: inherit;
     border: none;
-    font-size: 18px;
-    color: black;
-    margin: 0 10px;
+    cursor: pointer;
     text-decoration: none;
 }
 
 #countPerPageForm {
-	margin-top: 20px;
-	
+    margin-top: 20px;
 }
 
+/* 테이블 스타일 */
 table {
-	text-align: center;
+    text-align: center;
+    width: 100%;
+    border-collapse: collapse;
 }
 
 table thead {
-	text-align: center;
+    font-weight: bold;
 }
 
-table thead tr #number {
-	width: 40px;
+table thead tr th {
+    padding: 10px;
 }
-table thead tr #board {
-	width: 120px;
+
+#number {
+    width: 40px;
 }
-table thead tr #title {
-	width: 300px;
+
+#board {
+    width: 120px;
 }
-table thead tr #author {
-	width: 50px;
+
+#title {
+    width: 300px;
 }
-table thead tr #date {
-	width: 70px;
+
+#author {
+    width: 50px;
 }
-table thead tr #view {
-	width: 40px;
+
+#date {
+    width: 70px;
+}
+
+#view {
+    width: 40px;
 }
 
 .newpost {
-	float: right;
+    float: right;
 }

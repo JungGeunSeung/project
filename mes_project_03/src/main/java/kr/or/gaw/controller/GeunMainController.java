@@ -142,7 +142,7 @@ public class GeunMainController {
 	                    RedirectAttributes redirectAttributes,
 	                    HttpSession session) {
 		EmpDTO dto = empService.listEmpOne(user_id);
-		if (dto != null && passwordEncoder.matches(password, dto.getPassword())) { // 비밀번호 확인
+		if (dto != null && passwordEncoder.matches(password, dto.getPassword()) && dto.getEnabled() == 1) { // 비밀번호 확인과 로그인 가능상태 여부 확인
 			session.setAttribute("loggedInUser", dto);
 			redirectAttributes.addFlashAttribute("dto", dto);
 	        return "redirect:/mainpage"; // 로그인 성공
@@ -494,4 +494,18 @@ public class GeunMainController {
 		int result = empService.profileDelete(loggedInUser);
 		return "redirect:mypage";
 	}
+	
+	@RequestMapping("deleteEmp")
+	public String deleteEmp() {
+		return "main/deleteEmp";
+	}
+	
+	@RequestMapping("deleteEmp.do")
+	public String deleteEmp2(HttpSession session) {
+		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+		int result = empService.deleteEmp(loggedInUser);
+		return "redirect:logout";
+	}
+	
+	
 }

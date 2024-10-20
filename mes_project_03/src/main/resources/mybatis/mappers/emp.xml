@@ -33,9 +33,9 @@
 	</update>
 	
 	<!-- 회원 탈퇴 -->
-	<delete id="deleteEmp" parameterType="kr.or.gaw.dto.EmpDTO">
-		delete from emp where user_id=#{user_id}
-	</delete>
+	<update id="deleteEmp" parameterType="kr.or.gaw.dto.EmpDTO">
+		update emp set enabled = 0, name = name || '(탈퇴함)' where user_id=#{user_id}
+	</update>
 	<!-- ///////////////////////////////////////////////////////////////////////////// -->
 	<!-- 필터 처리된 아이디 조회하기 -->
 	<select id="filterListEmp" resultType="kr.or.gaw.dto.EmpDTO">
@@ -90,6 +90,7 @@
 	
 	<!-- 마이페이지에서 프로필사진 삭제 -->
 	<update id="profileDelete" parameterType="kr.or.gaw.dto.EmpDTO">
-		update emp set profile_url = 'resources/profile/defaultProfile.jpg' where user_id = #{user_id}
+		update emp set profile_url = 'resources/profile/defaultProfile.png' where user_id = #{user_id}
 	</update>
+	
 </mapper>

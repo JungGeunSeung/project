@@ -7,7 +7,7 @@
 <title>재고관리</title>
 </head>
 <body>
-	<h1>Inventory List</h1>
+	<h1>제품 관리</h1>
     <table border="1">
         <tr>
             <th>재고 ID</th>
@@ -32,6 +32,6 @@
             </tr>
         </c:forEach>
     </table>
-    <a href="/inventory/new">New Inventory</a>
+   
 </body>
 </html>

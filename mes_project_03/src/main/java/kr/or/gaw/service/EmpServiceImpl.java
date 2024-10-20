@@ -87,6 +87,11 @@ public class EmpServiceImpl implements EmpService {
 	public int profileDelete(EmpDTO dto) {
 		return empDAO.profileDelete(dto);
 	}
+
+	@Override
+	public int deleteEmp(EmpDTO dto) {
+		return empDAO.deleteEmp(dto);
+	}
 	
 	
 }

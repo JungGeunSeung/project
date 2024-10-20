@@ -16,7 +16,7 @@
 		<div style="display: flex; align-items: center;">
 			<p>
 			어서오세요.
-			<a id="profileTag" href="#">
+			<a id="profileTag" href="mypage">
 			<% 
 			String username ="";
 			String userposition ="";
@@ -41,8 +41,8 @@
 		    } %>
 		    <img class="profileImgheader" src="<%=userprofile%>">
 			<%= username %>
-			</a>
 			님!
+			</a>
 			</p>
 			<a href="logout" id="logoutBtn">로그아웃</a> | 
 			<a href="allposts" id="boardBtn">커뮤니티</a> | 

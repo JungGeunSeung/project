@@ -94,6 +94,11 @@ public class EmpDAOImpl implements EmpDAO {
 	public int profileDelete(EmpDTO dto) {
 		return sqlSession.update("kr.or.gaw.dao.EmpDAO.profileDelete",dto);
 	}
+
+	@Override
+	public int deleteEmp(EmpDTO dto) {
+		return sqlSession.update("kr.or.gaw.dao.EmpDAO.deleteEmp",dto);
+	}
 	
 
 }
