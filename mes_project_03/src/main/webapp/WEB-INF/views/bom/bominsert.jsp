@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+
 	<br>
 <form action="bominsert/insert" method="post">
     <div>

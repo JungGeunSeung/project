@@ -1,7 +1,9 @@
 package kr.or.gaw.controller;
 
 import java.util.List;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import kr.or.gaw.dto.CostDTO;
 import kr.or.gaw.dto.EmpDTO;
 import kr.or.gaw.service.CostService;
@@ -62,21 +65,30 @@ public class SoCostController {
 
     // Create (원가 생성)
     @PostMapping("/add")
-    public String insertCost(CostDTO cost) {
+    public String insertCost(CostDTO cost,HttpSession session) {
+    	EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+             return "redirect:/login";       }
         costService.insertCost(cost);
         return "redirect:/cost";
     }
 
     // Update (원가 수정)
     @PostMapping("/update")
-    public String updateCost(CostDTO cost) {
+    public String updateCost(CostDTO cost,HttpSession session) {
+    	EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+             return "redirect:/login";       }
         costService.updateCost(cost);
         return "redirect:/cost";
     }
 
     // Complete (원가 완료 처리)
     @PostMapping("/complete")
-    public String completeCost(@RequestParam("cost_id") String cost_id) {
+    public String completeCost(@RequestParam("cost_id") String cost_id,HttpSession session) {
+    	EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+             return "redirect:/login";       }
         costService.completeCost(cost_id);  // 완료 상태로 변경하는 서비스 호출
         return "redirect:/cost";
     }
