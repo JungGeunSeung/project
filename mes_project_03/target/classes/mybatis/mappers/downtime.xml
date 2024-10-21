@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="kr.or.gaw.dao.EquipmentDAO">
+
+	<!-- 비가동 리스트 뽑기 -->
+	<select id="listDowntime" resultType="kr.or.gaw.dto.DowntimeDTO" parameterType="kr.or.gaw.dto.DowntimeDTO">
+	    SELECT *
+		    FROM (
+		        SELECT 
+		            d.downtime_id, 
+		            d.equip_id, 
+		            d.start_time, 
+		            d.end_time, 
+		            d.reason, 
+		            d.user_id, 
+		            d.comments, 
+		            e.name as equip_name, 
+		            p.name as emp_name,
+		            p.position as emp_position,
+		            ROW_NUMBER() OVER (ORDER BY d.downtime_id) AS rnum
+		        FROM equip_downtime d
+		        LEFT JOIN equipment e ON d.equip_id = e.equip_id
+		        LEFT JOIN emp p ON d.user_id = p.user_id
+		        WHERE 1=1
+			    <!-- 비가동 코드로 검색 -->
+	            <if test="searchType == 'downtime_id'">
+	                AND d.downtime_id LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+			    <!-- 설비코드로 검색 -->
+	            <if test="searchType == 'equip_id'">
+	                AND d.equip_id LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+			    <!-- 설비이름으로 검색 -->
+	            <if test="searchType == 'equip_name'">
+	                AND e.name LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+			    <!-- 비가동이력 작성자로 검색 -->
+	            <if test="searchType == 'user_name'">
+	                AND p.name LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+			    <!-- 비가동이력 시작날짜로 검색 -->
+		        <if test="searchType == 'start_time'">
+		            AND d.start_time <![CDATA[>]]>= #{start_time}
+		        </if>
+			    <!-- 비가동이력 끝난날짜로 검색 -->
+		        <if test="searchType == 'end_time'">
+		            AND d.end_time <![CDATA[>]]>= #{end_time}
+		        </if>
+		        )
+			WHERE rnum BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<!-- 검색조건이 있는 비가동 총개수 구하기 -->
+	<select id="totalDowntimeWithSearch" resultType="int" parameterType="kr.or.gaw.dto.DowntimeDTO">
+	    SELECT COUNT(*) FROM equip_downtime
+	</select>
+
+	<!-- 비가동 최대 아이디 값 구하기 -->	
+	<select id="maxDowntimeID" parameterType="String" resultType="int">
+		SELECT MAX(TO_NUMBER(SUBSTR(downtime_id, 4)))
+		FROM equip_downtime
+	</select>
+	
+	<!-- 비가동 추가하기 -->
+	<insert id="insertDowntime" parameterType="kr.or.gaw.dto.DowntimeDTO">
+		INSERT INTO equip_downtime (downtime_id, equip_id, start_time, end_time, reason, user_id, comments)
+		VALUES (#{downtime_id}, #{equip_id}, #{start_time, javaType=java.sql.Timestamp}, #{end_time, javaType=java.sql.Timestamp}, #{reason}, #{user_id}, #{comments})
+	</insert>
+	
+	<!-- 비가동 수정하기 -->
+	<update id="updateDowntime" parameterType="kr.or.gaw.dto.DowntimeDTO">
+		update equip_downtime set equip_id= #{equip_id}, start_time = #{start_time, javaType=java.sql.Timestamp}, end_time = #{end_time, javaType=java.sql.Timestamp}, 
+				reason = #{reason}, user_id = #{user_id}, comments = #{comments}  where downtime_id= #{downtime_id}
+	</update>
+	
+	<!-- 비가동 삭제하기 -->
+	<delete id="deleteDowntime" parameterType="String">
+		delete from equip_downtime where downtime_id=#{downtime_id}
+	</delete>
+</mapper>

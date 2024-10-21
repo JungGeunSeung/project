@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="kr.or.gaw.dao.EquipmentDAO">
+
+	<!-- 유지보수 리스트 뽑기 -->
+	<select id="listMaintenance" resultType="kr.or.gaw.dto.MaintenanceDTO" parameterType="kr.or.gaw.dto.MaintenanceDTO">
+	    SELECT *
+			FROM (
+			    SELECT 
+			        m.main_id, 
+			        m.equip_id, 
+			        e.name AS equip_name, 
+			        e.type AS equip_type, 
+			        m.main_date, 
+			        m.performed_by, 
+			        p.name AS performer_name, 
+			        p.position as performer_position, 
+			        m.description, 
+			        ROW_NUMBER() OVER (ORDER BY m.main_id) AS rnum
+			    FROM maintenance m
+			    LEFT JOIN equipment e ON m.equip_id = e.equip_id
+			    LEFT JOIN emp p ON m.performed_by = p.user_id
+			    WHERE 1=1
+			    <!-- 유지보수 코드로 검색 -->
+	            <if test="searchType == 'main_id'">
+	                AND m.main_id LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+			    <!-- 유지보수 설비코드로 검색 -->
+	            <if test="searchType == 'equip_id'">
+	                AND m.equip_id LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+			    <!-- 유지보수 설비이름로 검색 -->
+	            <if test="searchType == 'equip_name'">
+	                AND e.name LIKE '%' || #{searchKeyword} || '%'
+	            </if>
+			    <!-- 유지보수 설비타입로 검색 -->
+	            <if test="searchType == 'type'">
+	                AND e.type = #{searchKeyword}
+	            </if>
+			    <!-- 유지보수 점검자로 검색 -->
+	            <if test="searchType == 'performer_name'">
+	                AND m.performed_by = #{searchKeyword}
+	            </if>
+			    <!-- 유지보수 날짜로 검색 -->
+		        <if test="searchType == 'main_date'">
+		            AND m.main_date BETWEEN #{startdate} AND #{enddate}
+		        </if>
+			)
+			WHERE rnum BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<!-- 유지보수 설비아이디랑 설비이름 뽑기 -->
+	<select id="listEquipIDandName" resultType="kr.or.gaw.dto.MaintenanceDTO" parameterType="kr.or.gaw.dto.MaintenanceDTO">
+	    SELECT equip_id, name AS equip_name, type FROM equipment
+	</select>
+	
+	<!-- 검색조건이 있는 유지보수 총개수 구하기 -->
+	<select id="totalMaintenanceWithSearch" resultType="int" parameterType="kr.or.gaw.dto.MaintenanceDTO">
+	    SELECT COUNT(*) FROM maintenance
+	    WHERE 1=1
+	</select>
+
+	<!-- 유지보수 최대 아이디 값 구하기 -->	
+	<select id="maxMaintenanceID" parameterType="String" resultType="int">
+		SELECT MAX(TO_NUMBER(SUBSTR(main_id, 6)))
+		FROM maintenance
+	</select>
+	
+	<!-- 유지 보수 추가하기 -->
+	<insert id="insertMaintenance" parameterType="kr.or.gaw.dto.MaintenanceDTO">
+		INSERT INTO maintenance (main_id, equip_id, main_date, performed_by, description)
+		VALUES (#{main_id}, #{equip_id}, #{main_date}, #{performed_by}, #{description})
+	</insert>
+	
+	<!-- 유지 보수 수정하기 -->
+	<update id="updateMaintenance" parameterType="kr.or.gaw.dto.MaintenanceDTO">
+		update maintenance set main_date= #{main_date}, performed_by = #{performed_by}, description = #{description} where main_id= #{main_id}
+	</update>
+	
+	<!-- 유지 보수 삭제하기 -->
+	<delete id="deleteMaintenance" parameterType="String">
+		delete from maintenance where main_id=#{main_id}
+	</delete>
+	
+	
+	
+	
+</mapper>
