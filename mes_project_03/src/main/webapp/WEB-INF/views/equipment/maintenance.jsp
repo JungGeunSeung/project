@@ -748,7 +748,7 @@ label {
 		})
         .then(data => {
             if (data.success) {
-                alert('유지보수가 성공적으로 수정되었습니다.' + data.message);
+                alert('유지보수가 성공적으로 수정되었습니다.');
                 location.href = 'maintenance'; // 페이지 리다이렉트
             } else {
                 alert('유지보수 수정에 실패했습니다. 다시 시도하세요.' + data.message);

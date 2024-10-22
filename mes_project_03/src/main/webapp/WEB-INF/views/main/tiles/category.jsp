@@ -61,14 +61,12 @@
 			<ul>
 				<li><a href="/gaw/equip">설비관리</a></li>
 				<li><a href="/gaw/maintenance#">유지보수</a></li>
-				<li><a href="#">모니터링</a></li>
 				<li><a href="/gaw/downtime">비가동이력</a></li>
 			</ul>
 		</div>
 		<div>
 			<ul>
 				<li><a href="/gaw/bom">BOM</a></li>
-				<li><a href="#">문서관리</a></li>
 				<li><a href="/gaw/map">저장위치(map)</a></li>
 				<li><a href="/gaw/organization">조직도</a></li>
 			</ul>

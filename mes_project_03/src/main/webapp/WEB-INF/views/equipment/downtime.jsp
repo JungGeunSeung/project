@@ -806,7 +806,7 @@ label {
 	    	event.preventDefault();
 	        const row = event.target.closest('tr'); // 클릭된 버튼의 부모 행 가져오기
 	        const downtime_id = row.cells[0].textContent; // main_id 가져오기
-
+			console.log(downtime_id)
 	        // 삭제 확인 창 표시
 	        const confirmed = confirm(`비가동 ID: \${downtime_id}를 정말로 삭제하시겠습니까?`);
 
