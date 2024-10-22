@@ -19,4 +19,13 @@ public class OrderServiceImpl implements OrderService {
 		List list = orderDAO.selectOrder();
 		return list;
 	}
+	// 삭제 메서드
+    @Override
+    public int deleteOrder(String orderId) {
+        System.out.println("삭제 "+orderId);
+
+        return orderDAO.deleteOrder(orderId);
+    }
+
+
 }

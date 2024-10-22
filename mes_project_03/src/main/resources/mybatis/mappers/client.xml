@@ -12,8 +12,8 @@
 	
 	<!-- 고객 생성 -->
     <insert id="createClient" parameterType="ClientDTO">
-        INSERT INTO plan (client_id, name, location, contact, email, create_at)
-        VALUES (#{client_id}, #{name}, #{location}, #{contact}, #{email}, #{create_at})
+        INSERT INTO client (client_id, name, location, contact, phone, email, create_at)
+        VALUES (#{client_id}, #{name}, #{location}, #{contact}, #{phone}, #{email}, SYSDATE)
     </insert>
 	
 	 

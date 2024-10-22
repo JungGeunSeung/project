@@ -3,41 +3,53 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
-<!--     무조건 DAO가 위치한 패키지로 namespace 해야하는가? -->
+<!-- 무조건 DAO가 위치한 패키지로 namespace 해야하는가? -->
 <mapper namespace="kr.or.gaw.dao.PlanDAO">
 
 	<select id="selectPlan" resultType="PlanDTO">
-		select * from plan
+SELECT p.plan_id, p.product_ID, p.start_date, p.end_date, p.quantity, p.created_by, p.status, e.name AS emp_name, r.name AS product_name
+FROM plan p
+INNER JOIN emp e ON p.created_by = e.user_id
+INNER JOIN product r ON p.product_ID = r.product_id
+ORDER BY plan_id ASC
 	</select>
 	
 	<delete id="deletePlan" parameterType="PlanDTO">
-		DELETE FROM PLAN
-			where plan_id = #{plan_id}
+	
+	DELETE FROM plan
+	WHERE plan_id = #{plan_id}
+	
 	</delete>
 	
 	 <!-- 생산계획 생성 -->
     <insert id="createPlan" parameterType="PlanDTO">
         INSERT INTO plan (plan_id, product_id, start_date, end_date, quantity, created_by, status)
-        VALUES (#{plan_id}, #{product_id}, #{start_date}, #{end_date}, #{quantity}, #{created_by}, #{status})
+        VALUES (#{plan_id}, #{product_id}, TO_DATE(#{start_date}, 'YYYY-MM-DD'), TO_DATE(#{end_date}, 'YYYY-MM-DD'), #{quantity}, #{created_by}, #{status})
     </insert>
 
     <!-- 생산계획 수정 -->
     <update id="updatePlan" parameterType="PlanDTO">
         UPDATE plan
         SET product_id = #{product_id},
-            start_date = #{start_date},
-            end_date = #{end_date},
+            start_date = TO_DATE(#{start_date},'YYYY-MM-DD'),
+            end_date = TO_DATE(#{end_date},'YYYY-MM-DD'),
             quantity = #{quantity},
             created_by = #{created_by},
             status = #{status}
         WHERE plan_id = #{plan_id}
     </update>
-	
-	
-	
-<!-- 	<select id="isUserIdDuplicate" parameterType="String" resultType="int"> 
-		SELECT COUNT(*) FROM emp WHERE user_id = #{user_id} 
-		</select> -->
+    
+<!--     <select id=max_planid resultType="PlanDTO"> -->
+<!-- 		SELECT 'p' || LPAD(TO_NUMBER(SUBSTR(plan_id, 2)) + 1, 3, '0') AS new_plan_id -->
+<!-- 			FROM ( -->
+<!-- 			    SELECT plan_id -->
+<!-- 			    FROM plan -->
+<!-- 			    ORDER BY plan_id DESC -->
+<!-- 			) -->
+<!-- 			WHERE ROWNUM = 1 -->
+<!--     </select> -->
+    
+
 
 	
 </mapper>

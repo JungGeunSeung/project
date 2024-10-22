@@ -15,7 +15,28 @@
     <link rel="stylesheet" href="resources/CSS/loading.css">
     <link rel="icon" sizes="32x32" href="resources/img/favicon3.png" type="image/png">
 <title>작업 지시</title>
+
+<style>
+article {
+	width: 70%;
+	margin: 0 auto;
+	border: 1px solid #ddd;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+}
+.actionDiv {
+	float: right;
+	margin-right: 20px;
+}
+#createBtn {
+	width: 120%;
+	padding : 0 2px;
+}
+
+</style>
+
 </head>
+
 <body>
 <header>
     <jsp:include page="/WEB-INF/views/main/tiles/header.jsp" />
@@ -24,32 +45,39 @@
 	<jsp:include page="/WEB-INF/views/main/tiles/category.jsp" />
 </nav>
 
+<article>
+		<h2>작업 지시</h2>
+		<span>작업지시를 관리하는 페이지 입니다. 작업을 지시 및 완료 할 수 있습니다.</span>
+
+	<div class="actionDiv">
+			<span><button class="btn" id="createBtn">작업지시서 생성</button></span>
+		</div>
 <table border="1">
-        <caption>작업지시 목록</caption>
-        
         <thead>
             <tr>
-                <th>선택</th>
                 <th>작업 ID</th>
                 <th>계획 ID</th>
                 <th>담당자 id</th>
                 <th>사용 기계</th>
                 <th>작업 시작 일자</th>
                 <th>작업 종료 일자</th>
-                <th>작업 상태(지시,진행,완료)</th>
+                <th>작업 상태<br>(지시,진행,완료)</th>
                 <th>생산 수량</th>
-                <th>부량 수량</th>
+                <th>불량 수량</th>
                 <th>삭제</th>
+                <th>완료</th>
             </tr>
         </thead>
         <tbody id="list"></tbody>
     </table>
     
 	<div id="pagination"></div>
+</article>
+
 
 <script>
 	let currentPage = 1;
-	const itemsPerPage = 10;
+	const itemsPerPage = 20;
 	let OrderList = [];
 	
 	// AJAX 요청 함수
@@ -79,29 +107,71 @@
 		const start = (currentPage - 1) * itemsPerPage;
         const end = start + itemsPerPage;
         const paginatedItems = OrderList.slice(start, end);
-        
+
         let html = "";
         for(let i =0;i<paginatedItems.length;i++){
         	const order = paginatedItems[i];
+        	let statusColor = "";
+        	switch (order.status) {
+            case "완료":
+                statusColor = "color: green; transparent; -webkit-text-stroke: 1px;";
+                break;
+            case "진행":
+                statusColor = "color: orange; transparent; -webkit-text-stroke: 1px;";
+                break;
+            case "지시":
+                statusColor = "color: red; transparent; -webkit-text-stroke: 1px;";
+                break;
+            default:
+                statusColor = "";
+        		}
+        	
         	html += `
                  <tr>
-                     <td><input type="checkbox" name="check" value="\${order.order_id}"></td>
                      <td>\${order.order_id}</td>
                      <td>\${order.plan_id}</td>
-                     <td>\${order.mgr_id}</td>
-                     <td>\${order.equip_id}</td>
+                     <td>\${order.emp_name}</td>
+                     <td>\${order.equipment_name}</td>
                      <td>\${new Date(order.start_date).toISOString().split('T')[0]}</td>
                      <td>\${new Date(order.end_date).toISOString().split('T')[0]}</td>
-                     <td>\${order.status}</td>
+                     <td style="\${statusColor}">\${order.status}</td>
                      <td>\${order.quantity}</td>
                      <td>\${order.defect_quantity}</td>
                      <td><button class="deleteBtn" data-per_id="\${order.order_id}" id="btn_\${paginatedItems[i].order_id}">삭제</button></td>
+                     <td><button class="updateBtn" data-per_id="\${order.order_id}" id="btn_\${paginatedItems[i].order_id}">완료</button></td>
                  </tr>`;
         }
         document.querySelector("#list").innerHTML = html;
-		
-        //삭제 이벤트 추가하는 곳
+        addDeleteEventListeners(); // 삭제 버튼에 이벤트 추가
+        addEditEventListeners();   // 수정 버튼에 이벤트 추가
+        
+        window.addEventListener("load", getList);
 	}
+        
+        // 삭제 버튼 클릭 이벤트 추가
+function addDeleteEventListeners() {
+    const deleteButtons = document.querySelectorAll(".deleteBtn");
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const orderId = this.getAttribute("data-per_id");
+            if (confirm("해당 작업지시를 삭제하시겠습니까?")) {
+                const xhr = new XMLHttpRequest();
+               	console.log(orderId);
+                xhr.open("DELETE", `deleteOrder/${orderId}`);
+                xhr.onload = function () {
+                    if (xhr.status === 200 && xhr.responseText === "success") {
+                        alert("삭제되었습니다.");
+                        getList(); // 삭제 후 리스트 갱신
+                    } else {
+                        alert("삭제에 실패했습니다.");
+                    }
+                };
+                xhr.send();
+            }
+        });
+    });
+}
+	
 	
 	// 페이징 버튼을 그리는 함수
     function drawPagination() {

@@ -28,4 +28,11 @@ public class StockDAOImpl implements StockDAO {
 		System.out.println("DAO 들어옴 오라클 연결 : "+list);
 		return list;
 	}
+	
+	@Override
+    public int createClient(ClientDTO client) {
+        return sqlSession.insert("kr.or.gaw.dao.StockDAO.createClient", client);
+    }
+	
+	
 }

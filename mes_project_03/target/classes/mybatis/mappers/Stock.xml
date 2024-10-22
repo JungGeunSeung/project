@@ -14,7 +14,5 @@
 		DELETE FROM stockmove
 			where move_id = #{move_id}
 	</delete>
-	
-	
-	
+
 </mapper>

@@ -29,4 +29,9 @@ public class StockServiceImpl implements StockService {
 		return list;
 	}
 	
+	@Override
+    public int createClient(ClientDTO client) {
+        return stockDAO.createClient(client);
+    }
+	
 }

@@ -13,7 +13,21 @@ public class WorkOrderDTO {
 	private String status;
 	private int quantity;
 	private int defect_quantity;
+	private String emp_name;
+	private String equipment_name;
 	
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
+	}
+	public String getEquipment_name() {
+		return equipment_name;
+	}
+	public void setEquipment_name(String equipment_name) {
+		this.equipment_name = equipment_name;
+	}
 	public String getOrder_id() {
 		return order_id;
 	}
@@ -73,7 +87,8 @@ public class WorkOrderDTO {
 	public String toString() {
 		return "WorkOrderDTO [order_id=" + order_id + ", plan_id=" + plan_id + ", mgr_id=" + mgr_id + ", equiP_id="
 				+ equiP_id + ", start_date=" + start_date + ", end_date=" + end_date + ", status=" + status
-				+ ", quantity=" + quantity + ", defect_quantity=" + defect_quantity + "]";
+				+ ", quantity=" + quantity + ", defect_quantity=" + defect_quantity + ", emp_name=" + emp_name
+				+ ", equipment_name=" + equipment_name + "]";
 	}
 	
 }

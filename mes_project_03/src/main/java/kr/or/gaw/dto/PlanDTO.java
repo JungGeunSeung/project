@@ -11,7 +11,22 @@ public class PlanDTO {
 	private int quantity;
 	private String created_by;
 	private String status;
+	private String emp_name;
+	private String product_name;
 	
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+	
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
+	}
 	public String getPlan_id() {
 		return plan_id;
 	}
@@ -59,7 +74,8 @@ public class PlanDTO {
 	public String toString() {
 		return "PlanDTO [plan_id=" + plan_id + ", product_id=" + product_id + ", start_date=" + start_date
 				+ ", end_date=" + end_date + ", quantity=" + quantity + ", created_by=" + created_by + ", status="
-				+ status + "]";
+				+ status + ", emp_name=" + emp_name + ", product_name=" + product_name
+				+ "]";
 	}
 	
 }

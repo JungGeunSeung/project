@@ -9,5 +9,6 @@ public interface StockDAO {
 
 	List<StockMoveDTO> selectStock();
 	List<ClientDTO> selectClient();
+	int createClient(ClientDTO client);
 	
 }

@@ -7,7 +7,26 @@
 <mapper namespace="kr.or.gaw.dao.OrderDAO">
 
 	<select id="selectOrder" resultType="WorkOrderDTO">
-		select * from workOrder
+		SELECT 
+    w.order_id, 
+    w.plan_id, 
+    w.mgr_id, 
+    w.equip_id, 
+    w.start_date, 
+    w.end_date, 
+    w.status, 
+    w.quantity, 
+    w.defect_quantity, 
+    e.name AS emp_name, 
+    q.name AS equipment_name
+FROM 
+    workOrder w
+INNER JOIN 
+    emp e ON w.mgr_id = e.user_id
+INNER JOIN 
+    equipment q ON w.equip_id = q.equip_id
+ORDER BY 
+    w.order_id ASC
 	</select>
 	
 	<delete id="deleteOrder" parameterType="WorkOrderDTO">
@@ -15,12 +34,18 @@
 			where order_id = #{order_id}
 	</delete>
 	
-	 <!-- 생산계획 생성 -->
-     <!-- <insert id="createOrder" parameterType="WorkOrderDTO">
-        INSERT INTO plan (plan_id, product_id, start_date, end_date, quantity, created_by, status)
-        VALUES (#{order_id}, #{product_id}, #{start_date}, #{end_date}, #{quantity}, #{created_by}, #{status})
+	 <!-- 작업지시서 생성 -->
+     <insert id="createOrder" parameterType="WorkOrderDTO">
+        INSERT INTO plan (order_id, plan_id, mgr_id, equip_id, start_date, end_date, status, quantity, defect_quantity)
+        VALUES (#{order_id}, #{plan_id}, #{mgr_id}, #{equip_id}, TO_DATE(#{start_date}, 'YYYY-MM-DD'), TO_DATE(#{end_date}, 'YYYY-MM-DD'), #{status}, #{quantity}, #{defect_quantity})
     </insert>
- -->
+    
+    <!-- 작업지시 삭제 -->
+    <delete id="deleteOrder" parameterType="WorkOrderDTO">
+        DELETE FROM workOrder WHERE order_id=#{order_id}
+    </delete>
+    
+    
     <!-- 생산계획 수정 -->
     <!-- <update id="updateOrder" parameterType="WorkOrderDTO">
         UPDATE plan

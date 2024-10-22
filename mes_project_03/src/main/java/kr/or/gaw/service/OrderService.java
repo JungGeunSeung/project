@@ -7,5 +7,5 @@ import kr.or.gaw.dto.WorkOrderDTO;
 public interface OrderService {
 
 	List<WorkOrderDTO> selectOrder();
-
+	int deleteOrder(String orderId);
 }

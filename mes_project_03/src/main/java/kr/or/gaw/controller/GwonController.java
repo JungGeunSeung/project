@@ -2,6 +2,8 @@ package kr.or.gaw.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.or.gaw.dto.EmpDTO;
 import kr.or.gaw.dto.PlanDTO;
 import kr.or.gaw.service.PlanService;
 
@@ -29,17 +32,20 @@ public class GwonController {
 	}
 	
 	@RequestMapping("/plan")
-	public String plan() {
+	public String plan(HttpSession session) {
+		EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+	      if (loggedInUser == null) {
+	           return "redirect:/login";       }
+	      
 		return "/plan/plan";
 	}
 	
 	@RequestMapping(value="/deletePlan", method=RequestMethod.DELETE)
 	@ResponseBody
 	public int deletePlan(@RequestBody PlanDTO dto) {
-		System.out.println();
 		int result = planService.deletePlan(dto);
-		
-		return -1;
+		System.out.println("삭제결과" +result);
+		return result;
 	}
 	
 	 // 생산 계획 생성
@@ -52,7 +58,7 @@ public class GwonController {
     }
 
     // 생산 계획 수정
-    @RequestMapping(value = "/updatePlan/{plan_id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/updatePlan", method = RequestMethod.PUT)
     @ResponseBody
     public int updatePlan(@PathVariable("plan_id") String planId, @RequestBody PlanDTO dto) {
         dto.setPlan_id(planId);
