@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="kr.or.gaw.dao.MainDAO">
+
+	<select id="mainpageProductPerformance" resultType="kr.or.gaw.dto.MainDTO">
+		SELECT 
+		    a.name as product_name,
+		    SUM(p.actual) AS total_actual,
+		    SUM(p.defect_quantity) AS total_defect_quantity,
+		    TO_CHAR(ROUND(SUM(p.defect_quantity) / SUM(p.actual) * 100, 2), '90.00') AS defect_rate
+		FROM 
+		    performance p
+		LEFT JOIN 
+		    workorder w ON w.order_id = p.order_id
+		LEFT JOIN 
+		    plan l ON l.plan_id = w.plan_id
+		LEFT JOIN 
+		    product a ON a.product_id = l.product_id
+		GROUP BY 
+		    a.name
+		ORDER BY 
+		    a.name
+	</select>
+	
+	<select id="mainpagePlan" resultType="kr.or.gaw.dto.MainDTO">
+		SELECT 
+		    p.start_date,
+		    MAX(CASE WHEN w.name = '모션데스크 (모터100)' THEN p.quantity || '개 ' || p.status ELSE '-' END) AS motion,
+		    MAX(CASE WHEN w.name = '일반데스크' THEN p.quantity || '개 ' || p.status ELSE '-' END) AS nomal,
+		    MAX(CASE WHEN w.name = '3단서랍장' THEN p.quantity || '개 ' || p.status ELSE '-' END) AS drawers3,
+		    MAX(CASE WHEN w.name = '4단서랍장' THEN p.quantity || '개 ' || p.status ELSE '-' END) AS drawers4,
+		    MAX(CASE WHEN w.name = '5단서랍장' THEN p.quantity || '개 ' || p.status ELSE '-' END) AS drawers5
+		FROM plan p
+		LEFT JOIN product w ON p.product_id = w.product_id
+		WHERE p.start_date >= SYSDATE - 7 AND p.start_date <![CDATA[<]]>= SYSDATE + 7
+		GROUP BY p.start_date
+		ORDER BY p.start_date
+	</select>
+
+</mapper>

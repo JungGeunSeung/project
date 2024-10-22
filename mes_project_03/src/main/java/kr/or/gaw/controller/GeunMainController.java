@@ -38,6 +38,7 @@ import kr.or.gaw.dto.EmpDTO;
 import kr.or.gaw.dto.PostsDTO;
 import kr.or.gaw.service.BoardService;
 import kr.or.gaw.service.EmpService;
+import kr.or.gaw.service.MainService;
 
 
 @Controller
@@ -48,6 +49,9 @@ public class GeunMainController {
 	
 	@Autowired
 	BoardService boardservice;
+	
+	@Autowired
+	MainService mainService;
 	
 	@Autowired
     private JavaMailSender mailSender;
@@ -69,8 +73,10 @@ public class GeunMainController {
 	        return "redirect:/login"; // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
 	    }
 		
+		// 메인페이지에 보여질 리스트들
 		List posts = boardservice.mainNewPosts();
-		
+		List performance = mainService.mainpageProductPerformance();
+		List mainpagePlan = mainService.mainpagePlan();
 		// 새로운 리스트 생성
         List<PostsDTO> newPosts = new ArrayList();
 
@@ -99,6 +105,8 @@ public class GeunMainController {
         }
 		System.out.println("newPosts : "+newPosts.toString());
 		model.addAttribute("newPost", newPosts);
+		model.addAttribute("performance", performance);
+		model.addAttribute("plan", mainpagePlan);
 		
 		return "main/mainpage";
 	}
@@ -456,7 +464,8 @@ public class GeunMainController {
 	        }
 
 	        // 저장할 경로
-	        String path = "D:" + File.separator + "project" + File.separator + 
+	        String path = "C:"+ File.separator + "Users"+ File.separator + 
+	        			  "bijou"+ File.separator +"Documents" + File.separator + "project" + File.separator + 
 	                      "mes_project_03" + File.separator + 
 	                      "src" + File.separator + "main" + File.separator + 
 	                      "webapp" + File.separator + "resources" + File.separator + "profile";
@@ -506,6 +515,8 @@ public class GeunMainController {
 		int result = empService.deleteEmp(loggedInUser);
 		return "redirect:logout";
 	}
+	
+	////////////////////////////////////////////////////////////////////////////////
 	
 	
 }

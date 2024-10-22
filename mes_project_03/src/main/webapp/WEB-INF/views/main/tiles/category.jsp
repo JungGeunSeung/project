@@ -5,7 +5,7 @@
 	<!----------------- 상위 카테고리 ----------------->
 	<div class="high-category">
 		<div>
-			<a href="#">생산/제조</a>
+			<a href="/gaw/plan">생산/제조</a>
 		</div>
 		<div>
 			<a href="#">제품관리</a>
@@ -17,10 +17,10 @@
 			<a href="#">품질관리</a>
 		</div>
 		<div>
-			<a href="#">설비관리</a>
+			<a href="/gaw/equip">설비관리</a>
 		</div>
 		<div>
-			<a href="#">정보 / BOM</a>
+			<a href="/gaw/bom">정보 / BOM</a>
 		</div>
 	</div>
 
@@ -28,23 +28,23 @@
 	<div class="low-category">
 		<div>
 			<ul>
-				<li><a href="plan">생산계획</a></li>
-				<li><a href="performance">생산실적</a></li>
-				<li><a href="order">작업지시서</a></li>
+				<li><a href="/gaw/plan">생산계획</a></li>
+				<li><a href="/gaw/performance">생산실적</a></li>
+				<li><a href="/gaw/order">작업지시서</a></li>
 			</ul>
 		</div>
 		<div>
 			<ul>
-				<li><a href="inventory">재고관리</a></li>
-				<li><a href="material">자재관리</a></li>
-				<li><a href="materialReq">구매/발주</a></li>
-				<li><a href="cost">원가관리</a></li>
+				<li><a href="/gaw/inventory">재고관리</a></li>
+				<li><a href="/gaw/material">자재관리</a></li>
+				<li><a href="/gaw/materialReq">구매/발주</a></li>
+				<li><a href="/gaw/cost">원가관리</a></li>
 			</ul>
 		</div>
 		<div>
 			<ul>
-				<li><a href="stock">판매(출고)</a></li>
-				<li><a href="client_m">거래처관리</a></li>
+				<li><a href="/gaw/stock">판매(출고)</a></li>
+				<li><a href="/gaw/client_m">거래처관리</a></li>
 				<li><a href="#">명세서관리</a></li>
 				<li><a href="#">미수금관리</a></li>
 			</ul>
@@ -60,9 +60,9 @@
 		<div>
 			<ul>
 				<li><a href="/gaw/equip">설비관리</a></li>
-				<li><a href="#">유지보수</a></li>
+				<li><a href="/gaw/maintenance#">유지보수</a></li>
 				<li><a href="#">모니터링</a></li>
-				<li><a href="#">비가동이력</a></li>
+				<li><a href="/gaw/downtime">비가동이력</a></li>
 			</ul>
 		</div>
 		<div>

@@ -68,8 +68,8 @@
 		%>
 		<div class="container">
 			<div class="newpost">
-			<button class="btn newPostBtn"><sapn>글쓰기</sapn></button>
-			<button class="btn newBoardBtn"><sapn>게시판 관리</sapn></button>
+			<button class="btn newPostBtn"><span>글쓰기</span></button>
+			<button class="btn newBoardBtn"><span>게시판 관리</span></button>
 			</div>
 			<h1>전체글</h1>
 			<span>전체 글을 조회합니다.</span>
