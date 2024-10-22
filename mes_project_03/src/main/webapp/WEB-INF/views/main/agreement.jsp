@@ -12,7 +12,7 @@
 <style>
 body {
 	font-family: Arial, sans-serif;
-	background-color: #e6f7e1; /* 연한 초록 배경 */
+	background-color: #333333;
 	color: #2e7d32; /* 짙은 초록 텍스트 */
 	padding: 20px;
 }
@@ -20,9 +20,11 @@ body {
 .container {
 	width: 500px;
 	margin: 0 auto;
+	margin-top: 50px;
 	background-color: #c8e6c9; /* 연한 초록 컨테이너 */
 	padding: 20px;
 	border-radius: 10px;
+	box-shadow: 10px 20px 50px rgb(75, 137, 77);
 }
 
 .logo {
