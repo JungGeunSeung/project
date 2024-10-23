@@ -27,11 +27,12 @@
 
 			<!-- 비밀번호 입력 -->
 			<div class="form-group">
+				<span style="color: green;">비밀번호는 숫자,문자,특수문자 각 1개이상을 포함하여 8~20 글자 이내가 되야 합니다.</span>
 				<label for="password"><img src="resources/img/자물쇠.png"
 					class="icon">비밀번호</label> <input type="password" id="password"
 					name="password" placeholder="비밀번호 입력"><br>
 					<!-- 경고 메시지 -->
-				<span id="password-condition" style="color: red; display: none; font-size:12px;">비밀번호는 숫자,문자,특수문자를 포함하여 8~20 글자 이내가 되야 합니다.</span>
+				<span id="password-condition" style="color: red; display: none; font-size:12px;">비밀번호는 숫자,문자,특수문자 각 1개이상을 포함하여 8~20 글자 이내가 되야 합니다.</span>
 			</div>
 
 			<!-- 비밀번호 확인 -->

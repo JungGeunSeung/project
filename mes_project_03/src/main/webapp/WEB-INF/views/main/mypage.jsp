@@ -205,7 +205,7 @@
                 <button id="outBtn" class="btn" onclick="home();"><span>나가기</span></button>
             </div>
             <div class="withdrawal">
-                탈퇴를 원하시면 우측의 <a href="" onclick="window.open('deleteEmp', 'popupWindow', 'width=500,height=300,scrollbars=no,resizable=no'); return false;">회원탈퇴</a> 버튼을 눌러주세요.
+                탈퇴를 원하시면 <a href="" onclick="window.open('deleteEmp', 'popupWindow', 'width=500,height=300,scrollbars=no,resizable=no'); return false;">회원탈퇴</a>을 눌러주세요.
             </div>
         </div>
     </article>
