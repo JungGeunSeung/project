@@ -24,12 +24,12 @@ public class MaterialReqServiceImpl implements MaterialReqService {
 
     @Override
     public void addRequest(RequestDTO request) {
-        materialReqDAO.insertRequest(request);
+        materialReqDAO.insertRequest(request); // DAO를 통해 DB에 데이터 삽입
     }
 
     @Override
     public void updateRequest(RequestDTO request) {
-        materialReqDAO.updateRequest(request);
+        materialReqDAO.updateRequest(request); // DAO의 update 메서드를 호출
     }
 
     @Override
@@ -46,4 +46,6 @@ public class MaterialReqServiceImpl implements MaterialReqService {
     public List<RequestDTO> getRequestsByPage(RequestDTO dto) {
         return materialReqDAO.selectRequestsByPage(dto);
     }
+    
+
 }

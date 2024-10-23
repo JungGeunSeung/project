@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="resources/CSS/category.css">
 <link rel="stylesheet" href="resources/CSS/header.css">
 <link rel="stylesheet" href="resources/CSS/footer.css">
+<link rel="stylesheet" href="resources/CSS/loading.css">
+<link rel="icon" sizes="32x32" href="resources/img/favicon3.png" type="image/png">
 <title>bom정보</title>
 <style>
 article {
@@ -117,7 +119,7 @@ table tr {
 button.btn {
 	background-color: #28a745; /* 초록색 */
 	color: white;
-/* 	padding: 10px 20px; */
+	/* 	padding: 10px 20px; */
 	border: none;
 	cursor: pointer;
 }
@@ -178,8 +180,10 @@ button#deleteBtn:hover {
 					<th>제품명</th>
 					<th>제품 규격</th>
 					<th>제품 색상</th>
-					<th>제품의 <br>BOM 개수</th>
-					<th>자제 총 <br>사용 개수</th>
+					<th>제품의 <br>BOM 개수
+					</th>
+					<th>자제 총 <br>사용 개수
+					</th>
 					<th colspan="2">수정 및 삭제</th>
 				</tr>
 			</thead>
@@ -244,28 +248,13 @@ button#deleteBtn:hover {
 			</ul>
 		</div>
 
-		<!-- Modal Structure -->
-		<div id="bomModal" class="modal">
-			<div class="modal-content">
-				<span class="close">&times;</span>
-				<h2 id="modalTitle">BOM 수정</h2>
-				<form id="modalForm" method="post">
-					<input type="hidden" id="bomId" name="bom_id"> <label
-						for="materialName">Material Name:</label> <input type="text"
-						id="materialName" name="material_name" required> <label
-						for="quantity">Quantity:</label> <input type="number"
-						id="quantity" name="quantity" required> <label
-						for="version">Version:</label> <input type="text" id="version"
-						name="version" required>
 
-					<button type="submit" class="btn" id="modalSubmit">저장</button>
-				</form>
-			</div>
-		</div>
 	</article>
 	<!-- 하단 내용 -->
 	<footer>
 		<jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />
+		<!-- 로딩 CSS에 해당하는 HTML -->
+   <jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
 	</footer>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -320,11 +309,23 @@ button#deleteBtn:hover {
 														var response = JSON
 																.parse(xhr.responseText);
 														var details = '<table border="1" cellpadding="5" cellspacing="0"><thead>';
-														details += '<tr><th>BOM ID</th><th>Material ID</th><th>Material Name</th><th>Quantity</th><th>Version</th><th>Create At</th><th colspan="2">수정 및 삭제</th></tr></thead><tbody>';
+														details += '<tr><th>제품명</th><th>제품 이름</th><th>자재 이름</th><th>사용 개수</th><th>버전</th><th>생성일</th><th colspan="2">수정 및 삭제</th></tr></thead><tbody>';
 
 														response
 																.forEach(function(
 																		detail) {
+																	const create_at = new Date(
+																			detail.create_at)
+																	const y = create_at
+																			.getFullYear()
+																	const m = String(
+																			create_at
+																					.getMonth() + 1)
+																			.padStart(
+																					2,
+																					'0')
+																	const d = create_at
+																			.getDate()
 																	details += '<tr>';
 																	details += '<td>'
 																			+ detail.bom_id
@@ -342,8 +343,13 @@ button#deleteBtn:hover {
 																			+ detail.version
 																			+ '</td>';
 																	details += '<td>'
-																			+ detail.create_at
-																			+ '</td>';
+																			+ y
+																			+ '년'
+																			+ m
+																			+ '월'
+																			+ d
+																			+ '일';
+																	+'</td>';
 																	details += '<td>'
 																			+ '<button class="btn">수정</button>'
 																			+ '</td>';
@@ -376,126 +382,135 @@ button#deleteBtn:hover {
 											});
 						});
 
-		document
-				.addEventListener(
-						'DOMContentLoaded',
-						function() {
-							var modal = document.getElementById('bomModal');
-							var closeBtn = document.querySelector('.close');
-							var bomIdField = document.getElementById('bomId');
-							var materialNameField = document
-									.getElementById('materialName');
-							var quantityField = document
-									.getElementById('quantity');
-							var versionField = document
-									.getElementById('version');
-							var modalForm = document
-									.getElementById('modalForm');
-							var deleteBtn = document
-									.getElementById('deleteBtn');
+		document.addEventListener('DOMContentLoaded', function() {
+		    // 수정 모달 관련 변수
+		    var editModal = document.getElementById('editModal');
+		    var closeEditBtn = document.querySelector('.close-edit');
+		    var bomIdEditField = document.getElementById('bomIdEdit');
+		    var materialNameEditField = document.getElementById('materialNameEdit');
+		    var quantityEditField = document.getElementById('quantityEdit');
+		    var versionEditField = document.getElementById('versionEdit');
+		    var editForm = document.getElementById('editForm');
 
-							// 수정 버튼 클릭 시 모달 열기
-							document
-									.querySelectorAll('.editBtn')
-									.forEach(
-											function(button) {
-												button
-														.addEventListener(
-																'click',
-																function() {
-																	modal.style.display = 'block';
-																	bomIdField.value = this
-																			.getAttribute('data-bom-id');
-																	materialNameField.value = this
-																			.getAttribute('data-material-name');
-																	quantityField.value = this
-																			.getAttribute('data-quantity');
-																	versionField.value = this
-																			.getAttribute('data-version');
-																});
-											});
+		    // 삭제 모달 관련 변수
+		    var deleteModal = document.getElementById('deleteModal'); 
+		    var closeDeleteBtn = document.querySelector('.close-delete');
+		    var bomIdDeleteField = document.getElementById('bomIdDelete');
+		    var deleteForm = document.getElementById('deleteForm');
 
-							// 닫기 버튼 클릭 시 모달 닫기
-							closeBtn.addEventListener('click', function() {
-								modal.style.display = 'none';
-							});
+		    // 테이블에서 수정 버튼 클릭 시 수정 모달창 열기
+		    document.querySelector('#productTable tbody').addEventListener('click', function(e) {
+		        if (e.target.textContent === '수정') {
+		            var row = e.target.closest('tr');
+		            bomIdEditField.value = row.querySelector('[name="bom_id"]').value;
+		            materialNameEditField.value = row.querySelector('td:nth-child(3)').textContent;
+		            quantityEditField.value = row.querySelector('td:nth-child(4)').textContent;
+		            versionEditField.value = row.querySelector('td:nth-child(5)').textContent;
+		            editModal.style.display = 'block';
+		        }
+		    });
 
-							// 모달 외부 클릭 시 모달 닫기
-							window.addEventListener('click', function(event) {
-								if (event.target == modal) {
-									modal.style.display = 'none';
-								}
-							});
+		    // 수정 모달 닫기 버튼 클릭 시
+		    closeEditBtn.addEventListener('click', function() {
+		        editModal.style.display = 'none';
+		    });
 
-							// 폼 제출 시 데이터 수정 처리
-							modalForm
-									.addEventListener(
-											'submit',
-											function(e) {
-												e.preventDefault();
+		    // 테이블에서 삭제 버튼 클릭 시 삭제 모달창 열기
+		    document.querySelector('#productTable tbody').addEventListener('click', function(e) {
+		        if (e.target.textContent === '삭제') {
+		            var row = e.target.closest('tr');
+		            bomIdDeleteField.value = row.querySelector('[name="bom_id"]').value;
+		            deleteModal.style.display = 'block';
+		        }
+		    });
 
-												// 수집한 데이터를 서버에 전송
-												var xhr = new XMLHttpRequest();
-												xhr.open('POST',
-														'/gaw/bomupdate', true);
-												xhr
-														.setRequestHeader(
-																'Content-Type',
-																'application/x-www-form-urlencoded');
+		    // 삭제 모달 닫기 버튼 클릭 시
+		    closeDeleteBtn.addEventListener('click', function() {
+		        deleteModal.style.display = 'none';
+		    });
 
-												xhr.onreadystatechange = function() {
-													if (xhr.readyState === 4
-															&& xhr.status === 200) {
-														alert('수정 완료');
-														modal.style.display = 'none';
-														// 페이지를 다시 로드하거나 해당 행을 업데이트
-														location.reload();
-													}
-												};
+		    // 모달 외부 클릭 시 닫기
+		    window.addEventListener('click', function(event) {
+		        if (event.target === editModal) {
+		            editModal.style.display = 'none';
+		        } else if (event.target === deleteModal) {
+		            deleteModal.style.display = 'none';
+		        }
+		    });
 
-												// 데이터를 전송하는 부분
-												var data = 'bom_id='
-														+ encodeURIComponent(bomIdField.value)
-														+ '&material_name='
-														+ encodeURIComponent(materialNameField.value)
-														+ '&quantity='
-														+ encodeURIComponent(quantityField.value)
-														+ '&version='
-														+ encodeURIComponent(versionField.value);
+		    // 수정 폼 제출 이벤트 처리
+		    editForm.addEventListener('submit', function(e) {
+		        e.preventDefault();
+		        // 수정 데이터를 서버로 전송하는 로직 추가
+		        var xhr = new XMLHttpRequest();
+		        xhr.open('POST', '/gaw/bomupdate', true);
+		        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		        xhr.onreadystatechange = function() {
+		            if (xhr.readyState === 4 && xhr.status === 200) {
+		                alert('수정 완료');
+		                editModal.style.display = 'none';
+		                location.reload();
+		            }
+		        };
+		        var data = 'bom_id=' + encodeURIComponent(bomIdEditField.value) +
+		                   '&material_name=' + encodeURIComponent(materialNameEditField.value) +
+		                   '&quantity=' + encodeURIComponent(quantityEditField.value) +
+		                   '&version=' + encodeURIComponent(versionEditField.value);
+		        xhr.send(data);
+		    });
 
-												xhr.send(data);
-											});
+		    // 삭제 폼 제출 이벤트 처리
+		    deleteForm.addEventListener('submit', function(e) {
+		        e.preventDefault();
+		        // 삭제 데이터를 서버로 전송하는 로직 추가
+		        var xhr = new XMLHttpRequest();
+		        xhr.open('POST', '/bomdelete', true);
+		        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		        xhr.onreadystatechange = function() {
+		            if (xhr.readyState === 4 && xhr.status === 200) {
+		                alert('삭제 완료');
+		                deleteModal.style.display = 'none';
+		                location.reload();
+		            }
+		        };
+		        var data = 'bom_id=' + encodeURIComponent(bomIdDeleteField.value);
+		        xhr.send(data);
+		    });
+		});
+        // 수정 모달 열기
+        function openEditModal(bomId, materialName, quantity, version) {
+            document.getElementById('bomIdEdit').value = bomId;
+            document.getElementById('materialNameEdit').value = materialName;
+            document.getElementById('quantityEdit').value = quantity;
+            document.getElementById('versionEdit').value = version;
+            document.getElementById('editModal').style.display = 'block';
+        }
 
-							// 삭제 버튼 클릭 시 삭제 처리
-							deleteBtn
-									.addEventListener(
-											'click',
-											function() {
-												if (confirm('정말로 삭제하시겠습니까?')) {
-													// AJAX 요청으로 삭제 처리
-													var xhr = new XMLHttpRequest();
-													xhr.open('POST',
-															'/bomdelete', true); // 실제 삭제 경로로 수정 필요
-													xhr
-															.setRequestHeader(
-																	'Content-Type',
-																	'application/x-www-form-urlencoded');
+        // 수정 모달 닫기
+        document.querySelector('.close-edit').onclick = function() {
+            document.getElementById('editModal').style.display = 'none';
+        };
 
-													xhr.onreadystatechange = function() {
-														if (xhr.readyState === 4
-																&& xhr.status === 200) {
-															alert('삭제 완료!');
-															modal.style.display = 'none';
-															location.reload();
-														}
-													};
-
-													xhr
-															.send('bom_id='
-																	+ encodeURIComponent(bomIdField.value));
-												}
-											});
-						});
+        // 수정 폼 제출 처리
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // 서버로 수정 요청을 보냄 (Ajax)
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/gaw/bomupdate', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    alert('수정 완료');
+                    document.getElementById('editModal').style.display = 'none';
+                    location.reload();
+                }
+            };
+            var data = 'bom_id=' + encodeURIComponent(document.getElementById('bomIdEdit').value) +
+                       '&material_name=' + encodeURIComponent(document.getElementById('materialNameEdit').value) +
+                       '&quantity=' + encodeURIComponent(document.getElementById('quantityEdit').value) +
+                       '&version=' + encodeURIComponent(document.getElementById('versionEdit').value);
+            xhr.send(data);
+        });
 	</script>
 
 </body>

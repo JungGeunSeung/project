@@ -104,13 +104,16 @@ public class SoMaterialController {
         return "redirect:/material";  // 수정 후 리스트 페이지로 리디렉션
     }
 
-    // 특정 자재를 삭제하는 메서드
-    @GetMapping("/delete")
-    public String delete(@RequestParam("material_id") String material_id, HttpSession session) {
-    	EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+    @PostMapping("/deleteChildren")
+    public String deleteChildren(@RequestParam("material_id") String materialId, HttpSession session) {
+        System.out.println("deleteChildren 호출됨 - materialId: " + materialId);
+        EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
         if (loggedInUser == null) {
-             return "redirect:/login";       }
-        materialService.delete(material_id);
-        return "redirect:/material";  // 삭제 후 리스트 페이지로 리디렉션
+            return "redirect:/login";
+        }
+
+        materialService.deleteChildRecords(materialId);
+        return "redirect:/material";
     }
+  
 }

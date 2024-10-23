@@ -41,6 +41,11 @@ public class MaterialDAOImpl implements MaterialDAO {
     }
 
     @Override
+    public void deleteChildRecords(String materialId) {
+        sqlSession.delete(namespace + ".deleteChildRecords", materialId);
+    }
+
+    @Override
     public void delete(String materialId) {
         sqlSession.delete(namespace + ".delete", materialId);
     }

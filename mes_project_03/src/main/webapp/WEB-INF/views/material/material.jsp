@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="resources/CSS/category.css">
 <link rel="stylesheet" href="resources/CSS/header.css">
 <link rel="stylesheet" href="resources/CSS/footer.css">
+<link rel="stylesheet" href="resources/CSS/loading.css">
+<link rel="icon" sizes="32x32" href="resources/img/favicon3.png" type="image/png">
 <title>자재 관리</title>
 <style>
 /* 전체 컨테이너 */
@@ -48,7 +50,7 @@ table td {
 	background-color: #28a745;
 	color: white;
 	border: none;
-/* 	padding: 5px 15px; */
+	/* 	padding: 5px 15px; */
 	cursor: pointer;
 	border-radius: 5px;
 }
@@ -100,10 +102,47 @@ table td {
 	color: white;
 	border: 1px solid #28a745;
 }
+
+/* 모달 스타일 */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgb(0, 0, 0);
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+	max-width: 600px;
+}
+
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
 </style>
 </head>
 
 <body>
+
 	<!-- 헤더 -->
 	<header>
 		<jsp:include page="/WEB-INF/views/main/tiles/header.jsp" />
@@ -115,8 +154,8 @@ table td {
 	</nav>
 
 	<article>
-		<h1>제품 관리</h1>
-		<span>제품 관리하는 페이지 입니다</span>
+		<h1>자재 관리</h1>
+		<span>자재 관리하는 페이지 입니다</span>
 		<div class="top-section">
 			<form method="get" action="/gaw/material">
 				<label for="countperpage">페이지당 항목 수:</label> <select
@@ -129,11 +168,8 @@ table td {
 			</form>
 
 			<!-- 추가 버튼 -->
-			<a href="/gaw/material">
-				<button class="btn">
-					<span>추가</span>
-				</button>
-			</a>
+			<button class="btn" onclick="openInsertModal()">
+				<span>추가</span>
 		</div>
 
 		<!-- 재고 리스트 테이블 -->
@@ -159,13 +195,13 @@ table td {
 						</button>
 					</td>
 					<td>
-						<form action="/gaw/inventorydelete" method="post">
-							<input type="hidden" value="${material.material_id}"
-								name="material_id">
-							<button type="submit" class="btn">
-								<span>삭제</span>
-							</button>
-						</form>
+						<!-- 삭제 버튼 -->
+<form action="/gaw/material/deleteChildren" method="post">
+    <input type="hidden" value="${material.material_id}" name="material_id">
+    <button class="btn" type="submit">
+        삭제
+    </button>
+</form>
 					</td>
 				</tr>
 			</c:forEach>
@@ -183,6 +219,8 @@ table td {
 			<span class="close" onclick="closeInsertModal()">&times;</span>
 			<h2>재고 추가</h2>
 			<form action="/gaw/material/insert" method="post">
+				<label for="material_name">제품 ID:</label> <input type="text"
+					id="material_name" name="material_name" required><br>
 				<label for="material_name">제품 이름:</label> <input type="text"
 					id="material_name" name="material_name" required><br>
 				<label for="quantity">수량:</label> <input type="number" id="quantity"
@@ -244,44 +282,33 @@ table td {
 				closeUpdateModal();
 			}
 		}
+		
+		function deleteMaterial(materialId) {
+		    if (confirm("정말 삭제하시겠습니까?")) {
+		        $.ajax({
+		            url: '/gaw/material/deleteChildren',
+		            type: 'POST',
+		            data: { material_id: materialId },
+		            headers: {
+		                'X-CSRF-TOKEN': $('meta[name="_csrf"]').attr('content')  // CSRF 토큰 설정
+		            },
+		            success: function(response) {
+		                alert('삭제되었습니다.');
+		                location.reload();  // 삭제 후 페이지 새로고침
+		            },
+		            error: function(error) {
+		                alert('삭제에 실패했습니다.');
+		            }
+		        });
+		    }
+		}
 	</script>
+	<!-- 하단 내용 -->
+	<footer>
+		<jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />
+	</footer>
+	<!-- 로딩 CSS에 해당하는 HTML -->
+   <jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
 
-	<style>
-/* 모달 스타일 */
-.modal {
-	display: none;
-	position: fixed;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgb(0, 0, 0);
-	background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-	background-color: #fefefe;
-	margin: 15% auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
-	max-width: 600px;
-}
-
-.close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.close:hover, .close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
-</style>
 </body>
 </html>

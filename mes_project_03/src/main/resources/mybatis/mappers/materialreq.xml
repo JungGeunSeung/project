@@ -22,14 +22,12 @@
 		#{quantity}, #{status})
 	</insert>
 
-	<update id="updateRequest"
-		parameterType="kr.or.gaw.dto.RequestDTO">
-		UPDATE materialrequest
-		SET material_id = #{material_id}, request_by = #{request_by}, req_date =
-		#{req_date},
-		quantity = #{quantity}, status = #{status}
-		WHERE request_id = #{request_id}
-	</update>
+	<update id="updateRequest" parameterType="kr.or.gaw.dto.RequestDTO">
+    UPDATE materialrequest
+    SET material_id = #{material_id}, request_by = #{request_by}, req_date = #{req_date},
+    quantity = #{quantity}, status = #{status}
+    WHERE request_id = #{request_id}
+</update>
 
 	<update id="endRequest" parameterType="String">
 		UPDATE materialrequest
@@ -60,5 +58,6 @@
 		SELECT COUNT(*)
 		FROM materialrequest
 	</select>
+
 
 </mapper>

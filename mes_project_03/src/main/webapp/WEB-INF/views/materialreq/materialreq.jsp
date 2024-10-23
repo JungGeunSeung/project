@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="resources/CSS/category.css">
 <link rel="stylesheet" href="resources/CSS/header.css">
 <link rel="stylesheet" href="resources/CSS/footer.css">
+<link rel="stylesheet" href="resources/CSS/loading.css">
+<link rel="icon" sizes="32x32" href="resources/img/favicon3.png" type="image/png">
 <title>구매/발주 관리</title>
 <style>
 /* 전체 컨테이너 */
@@ -45,12 +47,18 @@ table td {
 
 /* 버튼 스타일링 */
 .btn {
-	background-color: #28a745;
-	color: white;
-	border: none;
-/* 	padding: 5px 15px; */
-	cursor: pointer;
-	border-radius: 5px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* 추가 버튼을 오른쪽에 배치 */
+.add-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
 }
 
 .btn:hover {
@@ -139,33 +147,27 @@ table td {
 </style>
 
 <script>
-	// 모달 열기
-	function openModal(modalId) {
-		document.getElementById(modalId).style.display = "block";
-	}
+//모달 열기
+function openModal(modalId) {
+    document.getElementById(modalId).style.display = "block";
+}
 
-	// 모달 닫기
-	function closeModal(modalId) {
-		document.getElementById(modalId).style.display = "none";
-	}
+// 모달 닫기
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = "none";
+}
 
-	// 수정 모달에 데이터 채우기
-	function openUpdateModal(requestId, materialId, quantity) {
-		document.getElementById('update_request_id').value = requestId;
-		document.getElementById('update_material_id').value = materialId;
-		document.getElementById('update_quantity').value = quantity;
-		openModal('updateModal');
-	}
-
-	// 외부 클릭 시 모달 닫기
-	window.onclick = function(event) {
-		var modals = document.getElementsByClassName("modal");
-		for (var i = 0; i < modals.length; i++) {
-			if (event.target == modals[i]) {
-				modals[i].style.display = "none";
-			}
-		}
-	}
+// 수정 모달에 데이터 채우기
+function openUpdateModal(requestId, materialId, request_by, req_date, quantity, status) {
+    console.log("Modal Opened with: ", requestId, materialId, request_by, req_date, quantity, status); // 확인용 로그
+    document.getElementById('update_request_id').value = requestId;
+    document.getElementById('update_material_id').value = materialId;
+    document.getElementById('update_request_by').value = request_by; 
+    document.getElementById('update_req_date').value = req_date;
+    document.getElementById('update_quantity').value = quantity;
+    document.getElementById('update_status').value = status;
+    openModal('updateModal');
+}
 </script>
 </head>
 
@@ -193,15 +195,12 @@ table td {
 					<option value="100" ${countperpage==100 ? 'selected' : '' }>100</option>
 				</select> <input type="hidden" name="page" value="${currentPage}">
 			</form>
-
-			<!-- 추가 버튼 -->
-			 <a href="/gaw/materialreq">
-            <button class="btn">
-                <span>추가</span>
-            </button>
-        </a>
 		</div>
 
+	<!-- 추가 버튼 -->
+	<div class="add-btn-container">
+    <button class="btn" onclick="openModal('addModal')">추가</button>
+</div>
 		<table id="productTable">
 			<thead>
 				<tr>
@@ -211,8 +210,7 @@ table td {
 					<th>요청 날짜</th>
 					<th>요청 수량</th>
 					<th>요청 상태</th>
-					<th colspan="2">수정 및 종료</th>
-
+					<th> 수정 </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -224,20 +222,13 @@ table td {
 						<td>${request.req_date}</td>
 						<td>${request.quantity}</td>
 						<td>${request.status}</td>
-						<td>
-							<button class="btn"
-								onclick="openUpdateModal('${request.request_id}', '${request.material_id}', '${request.quantity}')">수정</button>
-						</td>
-						<td>
-							<form action="/materialReq/end" method="post">
-								<input type="hidden" value="${request.request_id}"
-									name="request_id">
-								<button type="submit" class="btn">
-									<span>종료</span>
-								</button>
-							</form>
-						</td>
-					</tr>
+					<td>
+						<!-- 수정 버튼 -->
+						<button class="btn"
+							onclick="openUpdateModal('${request.request_id}', '${request.material_id}', '${request.request_by}', '${request.req_date}','${request.quantity}','${request.status}')">
+							<span>수정</span>
+						</button>
+					</td>
 				</c:forEach>
 			</tbody>
 		</table>
@@ -259,37 +250,46 @@ table td {
 			</ul>
 		</div>
 
-		<!-- 추가 모달 -->
-		<div id="addModal" class="modal">
-			<div class="modal-content">
-				<span class="close" onclick="closeModal('addModal')">&times;</span>
-				<h2>추가 요청</h2>
-				<form action="/gaw/materialReq/add" method="post">
-					자재 ID: <input type="text" name="material_id"><br> 요청
-					수량: <input type="number" name="quantity"><br> 자재 ID: <input
-						type="text" id="update_material_id" name="material_id"><br>
-					요청 수량: <input type="number" id="update_quantity" name="quantity"><br>
-					<input type="submit" value="추가" class="btn">
-				</form>
-			</div>
-		</div>
-
-		<!-- 수정 모달 -->
-		<div id="updateModal" class="modal">
-			<div class="modal-content">
-				<span class="close" onclick="closeModal('updateModal')">&times;</span>
-				<h2>수정 요청</h2>
-				<form action="/gaw/materialReq/update" method="post">
-					요청 ID: <input type="text" id="update_request_id" name="request_id"
-						readonly><br> 자재 ID: <input type="text"
-						id="update_material_id" name="material_id"><br> 요청
-					수량: <input type="number" id="update_quantity" name="quantity"><br>
-					<input type="submit" value="수정" class="btn">
-				</form>
-			</div>
-		</div>
+<!-- 추가 모달 -->
+<div id="addModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('addModal')">&times;</span>
+        <h2>추가 요청</h2>
+      <form action="/gaw/materialReq/add" method="post">
+    요청 ID: <input type="text" name="request_id" required><br>
+    자재 ID: <input type="text" name="material_id" required><br>
+    요청자: <input type="text" name="request_by" required><br>
+    요청 날짜: <input type="date" name="req_date" required><br>
+    요청 수량: <input type="number" name="quantity" required><br>
+    요청 상태: <input type="text" name="status" required><br>
+    <input type="submit" value="추가" class="btn">
+</form>
+    </div>
+</div>
+	<!-- 수정 모달 -->
+	<div id="updateModal" class="modal">
+	    <div class="modal-content">
+	        <span class="close" onclick="closeModal('updateModal')">&times;</span>
+	        <h2>수정 요청</h2>
+	         <form action="${pageContext.request.contextPath}/materialReq/update" method="post">
+	            요청 ID: <input type="text" id="update_request_id" name="request_id" required><br>
+	            자재 ID: <input type="text" id="update_material_id" name="material_id" required><br>
+	            요청자: <input type="text" id="update_request_by" name="request_by" required><br>
+	            요청 날짜: <input type="date" id="update_req_date" name="req_date" required><br>
+	            요청 수량: <input type="number" id="update_quantity" name="quantity" required><br>
+	            요청 상태: <input type="text" id="update_status" name="status" required><br>
+	            <input type="submit" value="수정" class="btn">
+	        </form>
+	    </div>
+	</div>
 
 	</article>
+		<!-- 하단 내용 -->
+	<footer>
+		<jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />
+	</footer>
+	<!-- 로딩 CSS에 해당하는 HTML -->
+   <jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
 </body>
 
 </html>

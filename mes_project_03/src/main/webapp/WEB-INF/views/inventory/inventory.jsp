@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="resources/CSS/category.css">
 <link rel="stylesheet" href="resources/CSS/header.css">
 <link rel="stylesheet" href="resources/CSS/footer.css">
+<link rel="stylesheet" href="resources/CSS/loading.css">
+<link rel="icon" sizes="32x32" href="resources/img/favicon3.png" type="image/png">
 <title>재고 관리</title>
 <style>
 /* 전체 컨테이너 */
@@ -41,6 +43,9 @@ table th {
 
 table td {
 	height: 40px;
+}
+#a{
+ width:30%; 
 }
 
 /* 버튼 스타일링 */
@@ -101,16 +106,15 @@ table td {
 	border: 1px solid #28a745;
 }
 
-/* 모달창 스타일 */
 .modal {
-	display: none;
-	position: fixed;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    position: fixed;
+    z-index: 1000; /* 충분히 높은 값을 설정 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -164,21 +168,21 @@ table td {
 			</form>
 
 			<!-- 추가 버튼 -->
-			<a href="/gaw/inventory">
-				<button class="btn">
-					<span>추가</span>
-				</button>
-			</a>
+			
+    <button class="btn" id="openAddModal">
+        <span>추가</span>
+    </button>
+</a>
 		</div>
 
 		<!-- 재고 리스트 테이블 -->
 		<table id="productTable">
 			<tr>
-				<th>제품 ID</th>
-				<th>제품 이름</th>
-				<th>제품 수량</th>
-				<th>제품 위치</th>
-				<th colspan="2">수정 및 삭제</th>
+				<th >제품 ID</th>
+				<th >제품 이름</th>
+				<th >제품 수량</th>
+				<th >제품 위치</th>
+				<th id="a" colspan="2">수정 및 삭제</th> 
 			</tr>
 			<c:forEach var="inventory" items="${inventoryList}">
 				<tr class="bom-row">
@@ -196,7 +200,7 @@ table td {
 						</button>
 					</td>
 					<td>
-						<form action="/gaw/inventorydelete" method="post">
+						<form action="/gaw/inventory/delete" method="post">
 							<input type="hidden" value="${inventory.inventory_id}"
 								name="inventory_id">
 							<button type="submit" class="btn">
@@ -236,11 +240,14 @@ table td {
 	<div id="modal" class="modal">
 		<div class="modal-content">
 			<span class="close">&times;</span>
-			<h2 id="modalTitle">재고 추가</h2>
+			<div id="modalTitle"></div>
 			<form id="modalForm" method="post" action="">
-				<input type="hidden" id="inventoryId" name="inventory_id"> <label
-					for="productId">제품 ID:</label> <input type="text" id="productId"
-					name="product_id" required><br>
+			<label
+					for="inventoryId">제품 ID:</label>
+				<input type="text" id="inventoryId" name="inventory_id"> <br><br>
+				<label
+					for="productId">제품 이름:</label> <input type="text" id="productId"
+					name="product_id" required> <br>
 				<br> <label for="quantity">수량:</label> <input type="number"
 					id="quantity" name="quantity" required><br>
 				<br> <label for="location">위치:</label> <input type="text"
@@ -253,32 +260,35 @@ table td {
 
 	<script>
         // 모달 열기 및 닫기
+        document.addEventListener("DOMContentLoaded", function() {
         var modal = document.getElementById("modal");
         var span = document.getElementsByClassName("close")[0];
-        
-        // 추가 버튼 클릭 시
-        document.getElementById("openAddModal").onclick = function() {
-            document.getElementById("modalTitle").innerText = "재고 추가";
-            document.getElementById("modalForm").action = "/gaw/inventory/insert";
-            document.getElementById("inventoryId").value = "";
-            document.getElementById("productId").value = "";
-            document.getElementById("quantity").value = "";
-            document.getElementById("location").value = "";
-            modal.style.display = "block";
-        };
 
-        // 수정 버튼 클릭 시
+        // 추가 버튼 클릭 시 모달 열기
+        document.getElementById("openAddModal").onclick = function() {
+    document.getElementById("modalTitle").innerText = "재고 추가";
+    document.getElementById("modalForm").action = "/gaw/inventory/insert";
+    // 추가는 새로운 데이터를 입력하는 것이므로 기존 데이터를 비워야 함
+    document.getElementById("inventoryId").value = "";  // 빈 값으로 초기화
+    document.getElementById("productId").value = "";    // 빈 값으로 초기화
+    document.getElementById("quantity").value = "";     // 빈 값으로 초기화
+    document.getElementById("location").value = "";     // 빈 값으로 초기화
+    modal.style.display = "block";  // 모달 열기
+};
+
+        // 수정 버튼 클릭 시 모달 열기
         document.querySelectorAll(".openEditModal").forEach(button => {
-            button.onclick = function() {
-                document.getElementById("modalTitle").innerText = "재고 수정";
-                document.getElementById("modalForm").action = "/gaw/inventory/update";
-                document.getElementById("inventoryId").value = this.dataset.id;
-                document.getElementById("productId").value = this.dataset.product;
-                document.getElementById("quantity").value = this.dataset.quantity;
-                document.getElementById("location").value = this.dataset.location;
-                modal.style.display = "block";
-            };
-        });
+    button.onclick = function() {
+        document.getElementById("modalTitle").innerText = "재고 수정";
+        document.getElementById("modalForm").action = "/gaw/inventory/update";
+        // 수정할 데이터를 모달에 채워 넣음
+        document.getElementById("inventoryId").value = this.dataset.id;
+        document.getElementById("productId").value = this.dataset.product;
+        document.getElementById("quantity").value = this.dataset.quantity;
+        document.getElementById("location").value = this.dataset.location;
+        modal.style.display = "block";  // 모달 열기
+    };
+});
 
         // 모달 닫기
         span.onclick = function() {
@@ -291,7 +301,14 @@ table td {
                 modal.style.display = "none";
             }
         };
+    });
     </script>
+	<!-- 하단 내용 -->
+	<footer>
+		<jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />
+	</footer>
+	<!-- 로딩 CSS에 해당하는 HTML -->
+   <jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
 </body>
 
 </html>

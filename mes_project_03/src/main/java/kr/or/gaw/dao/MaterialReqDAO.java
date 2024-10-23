@@ -8,7 +8,7 @@ import kr.or.gaw.dto.RequestDTO;
 public interface MaterialReqDAO {
     List<RequestDTO> selectAll(); // 모든 요청 조회
     RequestDTO selectById(String request_id); // 특정 요청 조회
-    void insertRequest(RequestDTO request); // 새로운 요청 삽입
+    void insertRequest(RequestDTO request); // 요청을 DB에 삽입하는 메서드
     void updateRequest(RequestDTO request); // 요청 업데이트
     void endRequest(String request_id); // 요청을 종료 상태로 업데이트
 

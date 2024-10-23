@@ -3,6 +3,8 @@ package kr.or.gaw.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import kr.or.gaw.dao.MaterialDAO;
 import kr.or.gaw.dto.MaterialDTO;
 
@@ -45,5 +47,11 @@ public class MaterialServiceImpl implements MaterialService {
     @Override
     public int getTotalDataCount(MaterialDTO dto) {
         return materialDAO.getTotalDataCount(dto);
+    }
+
+    @Override
+    @Transactional
+    public void deleteChildRecords(String materialId) {
+        materialDAO.deleteChildRecords(materialId);
     }
 }

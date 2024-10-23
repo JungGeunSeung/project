@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,62 +61,26 @@ public class SoMaterialReqController {
 
         return "materialreq/materialreq"; // 반환할 JSP 페이지 이름
     }
-
-	/*
-	 * // 새로운 요청 추가 폼
-	 * 
-	 * @GetMapping("/add") public String addRequestForm(Model model, HttpSession
-	 * session) { EmpDTO loggedInUser = (EmpDTO)
-	 * session.getAttribute("loggedInUser"); if (loggedInUser == null) { return
-	 * "redirect:/login"; }
-	 * 
-	 * model.addAttribute("request", new RequestDTO()); return
-	 * "materialreq/addRequest"; }
-	 */
-
-    // 새로운 요청 추가 처리
     @PostMapping("/add")
-    public String addRequest(@ModelAttribute("request") RequestDTO request, HttpSession session) {
-    	EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-             return "redirect:/login";       }
-        
-        materialReqService.addRequest(request);
-        return "redirect:/materialreq";
+    public String addRequest(@ModelAttribute RequestDTO request, HttpSession session) {
+        EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+        return "redirect:/materialReq"; // 정상 처리 후 목록 페이지로 리다이렉트
     }
-
-	/*
-	 * // 요청 수정 폼
-	 * 
-	 * @GetMapping("/update/id") public String updateRequestForm(@PathVariable("id")
-	 * String request_id, Model model, HttpSession session) { EmpDTO loggedInUser =
-	 * (EmpDTO) session.getAttribute("loggedInUser"); if (loggedInUser == null) {
-	 * return "redirect:/login"; }
-	 * 
-	 * RequestDTO request = materialReqService.getRequestById(request_id);
-	 * model.addAttribute("request", request); return
-	 * "materialreq/materialrequpdate"; }
-	 */
-
-    // 요청 수정 처리
     @PostMapping("/update")
     public String updateRequest(@ModelAttribute RequestDTO request, HttpSession session) {
-    	EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
+        EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
         if (loggedInUser == null) {
-             return "redirect:/login";       }
+            return "redirect:/login";
+        }
         
-        materialReqService.updateRequest(request);
-        return "redirect:/materialreq";
-    }
+        try {
+            materialReqService.updateRequest(request);
+        } catch (Exception e) {
+            // 에러 발생 시 처리 로직
+            return "redirect:/materialReq?error";
+        }
 
-    // 요청 종료 처리
-    @GetMapping("/end/id")
-    public String endRequest(@PathVariable("id") String request_id, HttpSession session) {
-    	EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-             return "redirect:/login";       }
-        
-        materialReqService.endRequest(request_id);
-        return "redirect:/materialreq";
+        return "redirect:/materialReq";
     }
+	
 }

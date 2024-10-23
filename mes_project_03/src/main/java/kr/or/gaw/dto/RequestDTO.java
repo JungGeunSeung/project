@@ -10,6 +10,13 @@ public class RequestDTO {
 	private Date req_date;
 	private int quantity;
 	private String status;
+	private String material_name;
+	public String getMaterial_name() {
+		return material_name;
+	}
+	public void setMaterial_name(String material_name) {
+		this.material_name = material_name;
+	}
 	private int totalCount; // 전체 항목 수
 	private int Page; // 현재 페이지
 	private int countperpage; // 페이지당 항목 수

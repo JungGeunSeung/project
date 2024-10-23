@@ -77,7 +77,7 @@ public class SoInventoryController {
             return "redirect:/login";
         }
         inventoryService.insert(inventoryDTO);
-        return "redirect:/inventory";  // 삽입 후 리스트 페이지로 리디렉션
+        return "redirect:/inventory";
     }
 
     @PostMapping("/inventory/update")
@@ -88,11 +88,11 @@ public class SoInventoryController {
             return "redirect:/login";
         }
         inventoryService.update(inventoryDTO);
-        return "redirect:/inventory";  // 수정 후 리스트 페이지로 리디렉션
+        return "redirect:/inventory";
     }
 
-    @GetMapping("/inventory/delete")
-    public String delete(@RequestParam("inventoryId") String inventoryId, HttpServletRequest request) {
+    @RequestMapping("/inventory/delete")
+    public String delete(@RequestParam("inventory_id") String inventoryId, HttpServletRequest request) {
         HttpSession session = request.getSession();
         EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
         if (loggedInUser == null) {

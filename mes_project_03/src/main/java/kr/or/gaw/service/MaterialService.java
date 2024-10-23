@@ -18,4 +18,6 @@ public interface MaterialService {
     List<MaterialDTO> selectMaterialList(MaterialDTO dto);  // 페이징 자재 목록 조회
 
     int getTotalDataCount(MaterialDTO dto);  // 페이징을 위한 총 데이터 수 계산
+    
+    void deleteChildRecords(String materialId);  // 자식 테이블의 레코드만 삭제
 }

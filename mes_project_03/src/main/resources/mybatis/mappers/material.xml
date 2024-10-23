@@ -34,10 +34,10 @@
     </select>
 
     <!-- 새로운 자재 추가 -->
-    <insert id="insert" parameterType="kr.or.gaw.dto.MaterialDTO">
-        INSERT INTO material (material_id, material_name, standard, quantity, unit)
-        VALUES (#{material_id}, #{material_name}, #{standard}, #{quantity}, #{unit})
-    </insert>
+       <insert id="insert" parameterType="kr.or.gaw.dto.MaterialDTO">
+    INSERT INTO material (material_id, material_name, standard, quantity, unit)
+    VALUES (material_seq.NEXTVAL, #{material_name}, #{standard}, #{quantity}, #{unit})
+</insert>
 
     <!-- 자재 업데이트 -->
     <update id="update" parameterType="kr.or.gaw.dto.MaterialDTO">
@@ -47,9 +47,12 @@
     </update>
 
     <!-- 자재 삭제 -->
-    <delete id="delete" parameterType="String">
-        DELETE FROM material WHERE material_id = #{material_Id}
-    </delete>
+    <!-- 자식 테이블의 레코드만 삭제 -->
+  
+<delete id="deleteChildRecords" parameterType="String">
+    DELETE FROM material WHERE material_id = #{materialId}
+</delete>
+
 
     <!-- 페이징을 위한 총 데이터 수 조회 -->
     <select id="getTotalDataCount" parameterType="kr.or.gaw.dto.MaterialDTO" resultType="int">
@@ -59,5 +62,6 @@
             <!-- 예: <if test="material_name != null"> material_name = #{material_name} </if> -->
         </where>
     </select>
+
 
 </mapper>
