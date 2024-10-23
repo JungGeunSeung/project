@@ -8,10 +8,10 @@
 			<div style="display: flex; align-items: center;">
 				<img id="lanImg" src="resources/img/지구 이모지 흰색.png">
 				<form class="lanBox">
-					<select>
-						<option selected>한국어</option>
-						<option>영어</option>
-						<option>일본어</option>
+					<select id="languageSelect">
+						<option value="ko" selected>한국어</option>
+						<option value="en">영어</option>
+						<option value="ja">일본어</option>
 					</select>
 				</form>
 			</div>

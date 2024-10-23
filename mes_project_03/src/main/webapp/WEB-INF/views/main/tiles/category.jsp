@@ -46,7 +46,6 @@
 				<li><a href="/gaw/stock">판매(출고)</a></li>
 				<li><a href="/gaw/client_m">거래처관리</a></li>
 				<li><a href="#">명세서관리</a></li>
-				<li><a href="#">미수금관리</a></li>
 			</ul>
 		</div>
 		<div>

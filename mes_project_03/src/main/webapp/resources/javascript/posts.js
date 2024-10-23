@@ -75,7 +75,7 @@ $(document).ready(function() {
 
         // h1과 span 태그 내용을 변경
         $('h1').text(boardName);  // h1 태그 내용 변경
-        $('span').text(boardDesc);  // span 태그 내용 변경
+        $('#postdesc').text(boardDesc);  // span 태그 내용 변경
 
         // AJAX 요청
         $.ajax({

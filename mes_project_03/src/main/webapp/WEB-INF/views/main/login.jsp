@@ -7,7 +7,9 @@
 <meta charset="UTF-8">
 <title>login</title>
 <link rel="stylesheet" href="resources/CSS/login.css" />
+<link rel="stylesheet" href="resources/CSS/loading.css" />
 <link rel="icon" sizes="32x32" href="resources/img/favicon3.png" type="image/png">
+<script src="resources/javascript/translate.js"></script>
 
 </head>
 <body>
@@ -28,8 +30,8 @@
 			<div style="color: green;">성공적으로 로그아웃되었습니다.</div>
 		</c:if>
 		<form action="/gaw/login" method="post">
-			<input type="text" name="user_id" placeholder="아이디" value="geun">
-			<input type="password" name="password" placeholder="비밀번호" value="!qwer123">
+			<input type="text" name="user_id" placeholder="아이디" value="">
+			<input type="password" name="password" placeholder="비밀번호" value="">
 			<button type="submit" class="submit-btn">로그인</button>
 		</form>
 		<div class="signup">
@@ -44,5 +46,7 @@
 			<a href="#">이용약관</a> | <a href="#">개인정보처리방침</a>
 		</div>
 	</div>
+	<!-- 로딩 CSS에 해당하는 HTML -->
+   <jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
 </body>
 </html>

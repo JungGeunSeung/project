@@ -63,6 +63,7 @@
 	            LEFT JOIN board b ON p.board_id = b.board_id  
 	            LEFT JOIN emp e ON p.author_id = e.user_id  
 	            WHERE 1=1
+	           	and p.pinned = 'N'
 	            <!-- 게시판 필터 추가 -->
 	            <if test="board_id != 'all'">
 	                AND p.board_id = #{board_id}

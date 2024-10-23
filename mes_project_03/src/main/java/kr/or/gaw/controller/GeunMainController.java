@@ -144,13 +144,13 @@ public class GeunMainController {
 	
 	// 로그인 시도시 성공실패에 따라 작동하기
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@RequestParam("user_id") String user_id,
-	                    @RequestParam("password") String password,
-	                    Model model,
-	                    RedirectAttributes redirectAttributes,
-	                    HttpSession session) {
+	public String login(@RequestParam("user_id") String user_id, @RequestParam("password") String password, Model model,
+			RedirectAttributes redirectAttributes, HttpSession session) {
+		
+		// service로 로그인정보를 넘기는 메소드
 		EmpDTO dto = empService.listEmpOne(user_id);
-		if (dto != null && passwordEncoder.matches(password, dto.getPassword()) && dto.getEnabled() == 1) { // 비밀번호 확인과 로그인 가능상태 여부 확인
+		// 비밀번호 확인과 로그인 가능상태 여부 확인
+		if (dto != null && passwordEncoder.matches(password, dto.getPassword()) && dto.getEnabled() == 1) { 
 			session.setAttribute("loggedInUser", dto);
 			redirectAttributes.addFlashAttribute("dto", dto);
 	        return "redirect:/mainpage"; // 로그인 성공
@@ -260,7 +260,7 @@ public class GeunMainController {
         // 클라이언트에서 요청받은 데이터 중 'email'을 추출
         String email = request.get("email");
 
-        // UUID를 사용해 고유한 인증 코드를 생성
+        // UUID를 사용해 고유한 인증 코드 6자리를 생성
         int token = generateRandomNumber(100000, 999999);
 
         // 이메일 메시지를 구성 (받는 사람, 제목, 내용)
@@ -439,15 +439,12 @@ public class GeunMainController {
 	@RequestMapping("upload.do")
 	public String upload(MultipartHttpServletRequest req, HttpSession session) {
 	    EmpDTO loggedInUser = (EmpDTO) session.getAttribute("loggedInUser");
-
 	    // 파일을 담을 수 있는 클래스
 	    MultipartFile mf = req.getFile("file1");
-
 	    if (mf == null || mf.isEmpty()) {
 	        System.out.println("파일이 비어있습니다.");
 	        return "redirect:mypage?error=emptyfile";
 	    }
-
 	    try {
 	        long filesize = mf.getSize();
 	        long time = System.currentTimeMillis();
@@ -462,29 +459,20 @@ public class GeunMainController {
 	        if (dotIndex > 0) {
 	            ext = originalFileName.substring(dotIndex + 1).toLowerCase();
 	        }
-
 	        // 저장할 경로
-	        String path = "C:"+ File.separator + "Users"+ File.separator + 
-	        			  "bijou"+ File.separator +"Documents" + File.separator + "project" + File.separator + 
-	                      "mes_project_03" + File.separator + 
-	                      "src" + File.separator + "main" + File.separator + 
+	        String path = "C:"+ File.separator + "Users"+ File.separator + "bijou"+ File.separator +"Documents" + File.separator + "project" + File.separator + 
+	                      "mes_project_03" + File.separator + "src" + File.separator + "main" + File.separator + 
 	                      "webapp" + File.separator + "resources" + File.separator + "profile";
-
 	        // 고유한 파일 이름 생성 (충돌 방지)
 	        String safeFileName = path + File.separator + loggedInUser.getUser_id() + "_" + time + "." + ext;
-
 	        // URL 경로를 프로필에 저장
 	        String profileUrl = "resources/profile/" + loggedInUser.getUser_id() + "_" + time + "." + ext;
 	        loggedInUser.setProfile_url(profileUrl);
-
 	        // 프로필 정보 업데이트
 	        int result = empService.profileUpdate(loggedInUser);
-
 	        // 파일 저장
 	        File file = new File(safeFileName);
 	        mf.transferTo(file);
-	        
-
 	    } catch (IllegalStateException e ) {
 	        e.printStackTrace();
 	        return "redirect:mypage?error=uploadfailed";
@@ -492,7 +480,6 @@ public class GeunMainController {
 	    	e.printStackTrace();
 	    	return "redirect:mypage?error=uploadfailed";
 	    }
-
 	    return "redirect:mypage";
 	}
 	

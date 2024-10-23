@@ -72,7 +72,7 @@
 			<button class="btn newBoardBtn"><span>게시판 관리</span></button>
 			</div>
 			<h1>전체글</h1>
-			<span>전체 글을 조회합니다.</span>
+			<span id="postdesc">전체 글을 조회합니다.</span>
 			<div class="search-bar">
 				<div class="board-container">
 					<button class="prev" id="prevBtn">«</button>
@@ -172,7 +172,7 @@
 					<c:forEach var="post" items="${post}" varStatus="status">
 						<c:if test="${post.pinned == 'N' }">
 							<tr>
-								<td>${status.index}<input type="hidden" name="post_id"
+								<td>${status.index + 1}<input type="hidden" name="post_id"
 									value="${ post.post_id }"></td>
 								<td>${post.board_name}</td>
 								<td class="postTitle"><a href="post.read?post_id=${post.post_id }">${post.title}</a><span class="newPostIcon">new</span></td>

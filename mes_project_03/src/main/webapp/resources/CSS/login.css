@@ -50,10 +50,20 @@ body {
 .lanBox select {
 	background-color: inherit;
 	/* 선택 박스도 초록 */
-	color: white;
 	border: none;
 	padding: 5px;
 	border-radius: 1px;
+	color: white;
+}
+option {
+	background-color: lightgreen;
+	border: none;
+	padding: 5px;
+	border-radius: 1px;
+}
+
+option:hover {
+	color: black;
 }
 
 .lanBox {

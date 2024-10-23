@@ -14,7 +14,8 @@
 <link rel="stylesheet" href="resources/CSS/loading.css">
 <link rel="stylesheet" href="resources/CSS/btn.css">
 <link rel="stylesheet" href="resources/CSS/table.css">
-<link rel="icon" sizes="32x32" href="resources/img/favicon3.png" type="image/png">
+<link rel="icon" sizes="32x32" href="resources/img/favicon3.png"
+	type="image/png">
 <title>${post.title }</title>
 
 <style>
@@ -138,7 +139,6 @@ body {
 	margin: 20px auto;
 	border-bottom: 1px solid #ddd;
 	padding: 10px 0;
-	display: flex;
 	align-items: flex-start;
 	gap: 15px;
 }
@@ -228,6 +228,10 @@ body {
 	margin: 0; /* 불필요한 여백 제거 */
 }
 
+.reply-form {
+	display: block;
+}
+
 .reply-input {
 	height: 40px;
 	padding: 5px;
@@ -240,7 +244,7 @@ body {
 	margin-bottom: 5px;
 }
 
-.reply-comment{
+.reply-comment {
 	font-size: .7em;
 	color: #bbbbbb;
 }
@@ -255,7 +259,7 @@ body {
 }
 
 .navination {
-	color:black;
+	color: black;
 	text-decoration: none;
 }
 
@@ -273,124 +277,142 @@ body {
 </style>
 </head>
 <body>
-    <!-- 헤더 및 메뉴바 -->
-    <header>
-        <jsp:include page="/WEB-INF/views/main/tiles/header.jsp" />
-    </header>
-    <nav>
-        <jsp:include page="/WEB-INF/views/main/tiles/category.jsp" />
-    </nav>
+	<!-- 헤더 및 메뉴바 -->
+	<header>
+		<jsp:include page="/WEB-INF/views/main/tiles/header.jsp" />
+	</header>
+	<nav>
+		<jsp:include page="/WEB-INF/views/main/tiles/category.jsp" />
+	</nav>
 
-    <!-- 메인 콘텐츠 -->
-    <article>
-        <!-- 게시글 내용 -->
-        <div class="container">
-        
-        	<div class="navination">
-                <a href="allposts">전체글</a> >
-                <a href="allposts?board_name=${post.board_name }">${post.board_name }</a>
+	<!-- 메인 콘텐츠 -->
+	<article>
+		<!-- 게시글 내용 -->
+		<div class="container">
+
+			<div class="navination">
+				<a href="allposts">전체글</a> > <a
+					href="allposts?board_name=${post.board_name }">${post.board_name }</a>
 			</div>
-			
-            <div class="title">
-                <h3>${post.title }<input type="hidden" id="post_id" value="${post.post_id}"></h3>
-            </div>
-            
-            <div class="author">
-            	<img class="profileImg" src="${post.profile_url}">
-            	<span>${post.author_name }</span>
-            </div>
-            
-            <div class="meta">
-                | 등록일 <fmt:formatDate value="${post.created_at}" pattern="yyyy-MM-dd HH:mm:ss" />
-                | 수정일 <fmt:formatDate value="${post.updated_at}" pattern="yyyy-MM-dd HH:mm:ss" />
-                | 조회수 ${post.view_cnt }
-            </div>
-            
-            <div class="content">${post.content }</div>
-            
-            <div class="content-btns">
+
+			<div class="title">
+				<h3>${post.title }<input type="hidden" id="post_id"
+						value="${post.post_id}">
+				</h3>
+			</div>
+
+			<div class="author">
+				<img class="profileImg" src="${post.profile_url}"> <span>${post.author_name }</span>
+			</div>
+
+			<div class="meta">
+				| 등록일
+				<fmt:formatDate value="${post.created_at}"
+					pattern="yyyy-MM-dd HH:mm:ss" />
+				| 수정일
+				<fmt:formatDate value="${post.updated_at}"
+					pattern="yyyy-MM-dd HH:mm:ss" />
+				| 조회수 ${post.view_cnt }
+			</div>
+
+			<div class="content">${post.content }</div>
+
+			<div class="content-btns">
 				<form action="post.modify">
-					<input type="hidden" name="post_id" id="post_id" value="${post.post_id}">
-		            <button class="btn">수정</button>
-	            </form>
-	            
-	            <form action="post.delete">
-	            	<input type="hidden" name="post_id" id="post_id" value="${post.post_id}">
-	            	<button class="btn">삭제</button>
-	            </form>
-            </div>
-        </div>
+					<input type="hidden" name="post_id" id="post_id"
+						value="${post.post_id}">
+					<button class="btn">수정</button>
+				</form>
 
-        <!-- 댓글 섹션 -->
-        <div class="comment-header">
-            <h3>댓글</h3>
-        </div>
-        <c:forEach var="comment" items="${comments}">
-            <div class="comment-container">
-                <input type="hidden" class="commentsId" id="${comment.comment_id}" name="comment_id" value="${comment.comment_id}">
-                <div class="comment-content">
-                    <div class="user-name">
-	                    <img class="profileImg" src="${comment.profile_url}">
-	                    <span>${comment.employee_name}</span>
-                    </div>
-                    <div class="comment-text">${comment.content}</div>
-                    <div class="comment-footer">
-                        <fmt:formatDate value="${comment.created_at}" pattern="yyyy.MM.dd HH:mm" />
-                        <span class="comment-actions reply-btn" data-comment-id="${comment.comment_id}">답글쓰기</span>
-		                <!-- 댓글 내용 및 수정/삭제 버튼 -->
-                        <span class="comment-actions commentModifyBtn">수정</span>
-                        <span class="comment-actions commentDeleteBtn">삭제</span>
-                    </div>
-                    
-                    <!-- 답글 리스트 -->
-                    <c:forEach var="reply" items="${reply}">
-                        <c:if test="${reply.comment_id == comment.comment_id}">
-                            <div class="reply-container">
-                                <input type="hidden" class="replyId" name="reply_id" value="${reply.reply_id}">
-                                <div class="reply-comment"><span>${comment.employee_name}님에게 답글</span></div>
-                                
-                                <div class="reply-name">
-	                                <img class="profileImg" src="${reply.profile_url}">
-	                                <span>${reply.reply_name }</span>
-                                </div>
-                                <div class="reply-text"><span>${reply.content}</span></div>
-                                <div class="comment-footer">
-                                    <fmt:formatDate value="${reply.updated_at}" pattern="yyyy.MM.dd HH:mm" />
-                                    <span class="comment-actions replyModifyBtn">수정</span>
-                                    <span class="comment-actions replyDeleteBtn">삭제</span>
-                                </div>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                </div>
+				<form action="post.delete">
+					<input type="hidden" name="post_id" id="post_id"
+						value="${post.post_id}">
+					<button class="btn">삭제</button>
+				</form>
+			</div>
+		</div>
 
-                <!-- 답글 작성 폼 -->
-                <div class="reply-form" id="reply-form-${comment.comment_id}" style="display: none;">
-                    <textarea class="reply-input" id="reply-input-${comment.comment_id}" placeholder="답글을 입력하세요"></textarea>
-                    <button class="reply-save-btn btn" data-comment-id="${comment.comment_id}">저장하기</button>
-                </div>
-            </div>
-        </c:forEach>
+		<!-- 댓글 섹션 -->
+		<div class="comment-header">
+			<h3>댓글</h3>
+		</div>
+		<c:forEach var="comment" items="${comments}">
+			<div class="comment-container">
+				<input type="hidden" class="commentsId" id="${comment.comment_id}"
+					name="comment_id" value="${comment.comment_id}">
+				<div class="comment-content">
+					<div class="user-name">
+						<img class="profileImg" src="${comment.profile_url}"> <span>${comment.employee_name}</span>
+					</div>
+					<div class="comment-text">${comment.content}</div>
+					<div class="comment-footer">
+						<fmt:formatDate value="${comment.created_at}"
+							pattern="yyyy.MM.dd HH:mm" />
+						<span class="comment-actions reply-btn"
+							data-comment-id="${comment.comment_id}">답글쓰기</span>
+						<!-- 댓글 내용 및 수정/삭제 버튼 -->
+						<span class="comment-actions commentModifyBtn">수정</span> <span
+							class="comment-actions commentDeleteBtn">삭제</span>
+					</div>
 
-        <!-- 댓글 작성 폼 -->
-        <div class="comment-section">
-            <form action="comment.insert" method="post">
-                <input type="hidden" name="post_id" value="${post.post_id}">
-                <textarea class="comment-input" name="content" placeholder="댓글을 남겨보세요"></textarea>
-                <div class="comment-actions">
-                    <button class="comment-submit btn">등록</button>
-                </div>
-            </form>
-        </div>
-    </article>
+					<!-- 답글 리스트 -->
+					<c:forEach var="reply" items="${reply}">
+						<c:if test="${reply.comment_id == comment.comment_id}">
+							<div class="reply-container">
+								<input type="hidden" class="replyId" name="reply_id"
+									value="${reply.reply_id}">
+								<div class="reply-comment">
+									<span>${comment.employee_name}님에게 답글</span>
+								</div>
+
+								<div class="reply-name">
+									<img class="profileImg" src="${reply.profile_url}"> <span>${reply.reply_name }</span>
+								</div>
+								<div class="reply-text">
+									<span>${reply.content}</span>
+								</div>
+								<div class="comment-footer">
+									<fmt:formatDate value="${reply.updated_at}"
+										pattern="yyyy.MM.dd HH:mm" />
+									<span class="comment-actions replyModifyBtn">수정</span> <span
+										class="comment-actions replyDeleteBtn">삭제</span>
+								</div>
+							</div>
+						</c:if>
+					</c:forEach>
+				</div>
+
+				<!-- 답글 작성 폼 -->
+				<div class="reply-form" id="reply-form-${comment.comment_id}"
+					style="display: none;">
+					<textarea class="reply-input"
+						id="reply-input-${comment.comment_id}" placeholder="답글을 입력하세요"></textarea>
+					<button class="reply-save-btn btn"
+						data-comment-id="${comment.comment_id}">저장하기</button>
+				</div>
+			</div>
+		</c:forEach>
+
+		<!-- 댓글 작성 폼 -->
+		<div class="comment-section">
+			<form action="comment.insert" method="post">
+				<input type="hidden" name="post_id" value="${post.post_id}">
+				<textarea class="comment-input" name="content"
+					placeholder="댓글을 남겨보세요"></textarea>
+				<div class="comment-actions">
+					<button class="comment-submit btn">등록</button>
+				</div>
+			</form>
+		</div>
+	</article>
 	<!-- 로딩 CSS에 해당하는 HTML -->
 	<jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
-    <!-- 푸터 -->
-    <footer>
-        <jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />
-    </footer>
+	<!-- 푸터 -->
+	<footer>
+		<jsp:include page="/WEB-INF/views/main/tiles/footer.jsp" />
+	</footer>
 
-    <!-- 스크립트 포함 -->
-    <script src="resources/javascript/postOne.js"></script>
+	<!-- 스크립트 포함 -->
+	<script src="resources/javascript/postOne.js"></script>
 </body>
 </html>
