@@ -8,16 +8,16 @@
 	</div>
 	<div class="certifiedImg">
 		<p>인증 목록</p>
-		<img src="resources/img/ce.png" alt="CE인증마크">
-		<img src="resources/img/fmApproved.jpg" alt="FM인증마크">
-		<img src="resources/img/iaf.png" alt="IAF인증마크">
-		<img src="resources/img/iso.png" alt="ISO인증마크">
-		<img src="resources/img/kab.png" alt="KAB인증마크">
-		<img src="resources/img/kc.png" alt="KC인증마크">
-		<img src="resources/img/kr.jpg" alt="KR인증마크">
-		<img src="resources/img/ksa.png" alt="KSA인증마크">
-		<img src="resources/img/nsf.png" alt="NSF인증마크">
-		<img src="resources/img/tuv.png" alt="TUV인증마크">
+		<img src="resources/img/mark.jpg" alt="CE인증마크">
+		<img src="resources/img/mark.jpg" alt="FM인증마크">
+		<img src="resources/img/mark.jpg" alt="IAF인증마크">
+		<img src="resources/img/mark.jpg" alt="ISO인증마크">
+		<img src="resources/img/mark.jpg" alt="KAB인증마크">
+		<img src="resources/img/mark.jpg" alt="KC인증마크">
+		<img src="resources/img/mark.jpg" alt="KR인증마크">
+		<img src="resources/img/mark.jpg" alt="KSA인증마크">
+		<img src="resources/img/mark.jpg" alt="NSF인증마크">
+		<img src="resources/img/mark.jpg" alt="TUV인증마크">
 	</div>
 	<!-- 위로 가기 버튼 -->
 	<div class="back-to-top"
