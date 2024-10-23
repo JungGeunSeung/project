@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import kr.or.gaw.dao.PerformanceDAO;
 import kr.or.gaw.dto.PerformanceDTO;
-import kr.or.gaw.dto.PlanDTO;
 
 @Service
 public class PerformanceServiceImpl implements PerformanceService {
@@ -28,4 +27,11 @@ public class PerformanceServiceImpl implements PerformanceService {
 		System.out.println("서비스 deletePerformance : "+result);
 		return result;
 	}
+	
+	 // performance 테이블에 데이터를 삽입하는 메서드
+    public int insertPerformance(PerformanceDTO performanceDTO) {
+        return performanceDAO.insertPerformance(performanceDTO);
+    }
+	
+	
 }

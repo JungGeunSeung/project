@@ -8,5 +8,6 @@ import kr.or.gaw.dto.WorkOrderDTO;
 public interface OrderDAO {
 	List<WorkOrderDTO>selectOrder();
 	int deleteOrder(String orderId);
+	int createWorkOrder(WorkOrderDTO workOrderDTO);
 	
 }

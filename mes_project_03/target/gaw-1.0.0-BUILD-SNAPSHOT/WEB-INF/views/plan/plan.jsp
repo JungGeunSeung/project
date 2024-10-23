@@ -39,6 +39,17 @@ article {
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
 }
+.modal2{
+	display: none;
+	position: fixed;
+	z-index: 1;
+	padding-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+}
 
 .modal-content {
 	background-color: #fefefe;
@@ -117,7 +128,7 @@ table {
 
 #pagination button {
 	background-color: inherit;
-	border: none;
+	border: 1px;
 	margin: 0 5px;
 	font-size: 16px;
 }
@@ -132,6 +143,8 @@ table {
 #createBtn {
 	width: 100%;
 }
+
+
 </style>
 </head>
 
@@ -181,6 +194,7 @@ table {
 					<th>작성자</th>
 					<th>상태</th>
 					<th colspan="2">수정 및 삭제</th>
+					<th>작업지시서</th>
 				</tr>
 			</thead>
 			<tbody id="list"></tbody>
@@ -215,6 +229,47 @@ table {
 				</form>
 			</div>
 		</div>
+		
+		<!-- 작업지시서 작성 모달 -->
+<div id="workOrderModal" class="modal2">
+    <div class="modal-content">
+        <span class="closeWorkOrder">&times;</span>
+        <h2>작업지시서 작성</h2>
+        <form id="workOrderForm">
+            <label for="plan_id">계획 ID:</label><br>
+            <input type="text" id="work_plan_id" name="plan_id" readonly><br><br>
+            
+            <label for="mgr_id">관리자 ID:</label><br>
+            <input type="text" id="mgr_id" name="mgr_id"><br><br>
+
+            <label for="equip_id">설비 ID:</label><br>
+            <input type="text" id="equip_id" name="equip_id"><br><br>
+
+            <label for="start_date">작업 시작일:</label><br>
+            <input type="date" id="work_start_date" name="start_date"><br><br>
+
+            <label for="end_date">작업 종료일:</label><br>
+            <input type="date" id="work_end_date" name="end_date"><br><br>
+
+            <label for="status">상태:</label><br>
+            <select id="work_status" name="status">
+                <option value="계획">계획</option>
+                <option value="진행">진행</option>
+                <option value="완료">완료</option>
+            </select><br><br>
+
+            <label for="quantity">계획 수량:</label><br>
+            <input type="number" id="work_quantity" name="quantity"><br><br>
+
+            <label for="defect_quantity">불량 수량:</label><br>
+            <input type="number" id="defect_quantity" name="defect_quantity"><br><br>
+
+            <button type="submit" class="btn">작업지시서 저장</button>
+        </form>
+    </div>
+</div>
+
+		
 		
 	</article>
 
@@ -253,6 +308,80 @@ function openModal(plan) {
     document.getElementById("createBtn").addEventListener("click", function () {
         openModal(null);
     });
+    
+ // 작업지시서 모달 열기 함수
+    function openWorkOrderModal(planId) {
+        const workOrderModal = document.getElementById("workOrderModal");
+        workOrderModal.style.display = "block"; // 모달 열기
+        document.getElementById("work_plan_id").value = planId; // 선택된 계획 ID 설정
+    }
+
+    // 작업지시서 모달 닫기
+    const closeWorkOrderBtn = document.querySelector(".closeWorkOrder");
+    closeWorkOrderBtn.addEventListener("click", function() {
+        const workOrderModal = document.getElementById("workOrderModal");
+        workOrderModal.style.display = "none"; // 모달 닫기
+    });
+
+    // 작업지시서 저장 폼 제출 이벤트 처리
+    document.getElementById("workOrderForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const workOrderData = {
+            plan_id: document.getElementById("work_plan_id").value,
+            mgr_id: document.getElementById("mgr_id").value,
+            equip_id: document.getElementById("equip_id").value,
+            start_date: document.getElementById("work_start_date").value,
+            end_date: document.getElementById("work_end_date").value,
+            status: document.getElementById("work_status").value,
+            quantity: document.getElementById("work_quantity").value,
+            defect_quantity: document.getElementById("defect_quantity").value
+        };
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "createWorkOrder", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify(workOrderData));
+
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                alert("작업지시서가 성공적으로 생성되었습니다.");
+                const workOrderModal = document.getElementById("workOrderModal");
+                workOrderModal.style.display = "none"; // 모달 닫기
+            } else {
+                alert("작업지시서 생성에 실패했습니다.");
+            }
+        };
+    });
+
+    // 작업지시서 버튼 클릭 이벤트 추가
+    function attachWorkOrderButtons() {
+        document.querySelectorAll(".createWorkOrderBtn").forEach(button => {
+            button.addEventListener("click", function() {
+                const planId = this.dataset.plan; // 선택된 계획 ID 가져오기
+                console.log(planId)
+                openWorkOrderModal(planId); // 작업지시서 모달 열기
+            });
+        });
+    }
+
+    // 페이지 로드 시 작업지시서 버튼 이벤트 핸들러 추가
+    window.addEventListener("load", function() {
+        getList(); // 페이지 로드 시 리스트 가져오기
+    });
+
+    // 리스트 가져오기 함수
+    function getList() {
+        ajax("selectPlan", function (response) {
+            planList = JSON.parse(response);
+            drawList();
+            drawPagination();
+            attachWorkOrderButtons(); // 작업지시서 버튼 이벤트 추가
+        }, "GET");
+    }
+
+
+
 
     // AJAX 요청 함수
     function ajax(url, cb, method) {
@@ -304,6 +433,7 @@ function openModal(plan) {
                     <td class="status" style="\${statusColor}">\${plan.status}</td>
                     <td class="edit"><sapn><button type="button" class="editBtn btn" data-plan='\${JSON.stringify(plan)}'>수정</button></span></td>
                     <td class="delete"><span><button type="button" data-plan="\${plan.plan_id}" class="deleteBtn btn" id="btn_\${plan.plan_id}">삭제</button></span></td>
+                    <td class="createWorkOrder"><button type="button" class="createWorkOrderBtn btn" data-plan='\${plan.plan_id}'>작업지시서 작성</button></td> 
                 </tr>`;
         	}
         document.querySelector("#list").innerHTML = html;
@@ -321,7 +451,7 @@ function openModal(plan) {
         const delBtnList = document.querySelectorAll("[id^=btn_]");
         for (let btn of delBtnList) {
             btn.addEventListener("click", function (event) {
-           
+           		
             	const id = event.target.getAttribute("id")
                 const plan = event.target.getAttribute("data-plan");
                 console.log("삭제할 계획 ID: ", plan);

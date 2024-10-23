@@ -15,6 +15,38 @@
 <link rel="stylesheet" href="resources/CSS/loading.css">
 <link rel="icon" sizes="32x32" href="resources/img/favicon3.png" type="image/png">
 <title>판매(출고)</title>
+
+<style>
+article {
+	width: 70%;
+	margin: 0 auto;
+	border: 1px solid #ddd;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+}
+.actionDiv {
+	float: right;
+	margin-right: 20px;
+}
+#createBtn {
+	width: 100%;
+	padding: 0 7px;
+}
+
+#pagination button {
+	background-color: inherit;
+	border: none;
+	margin: 0 5px;
+	font-size: 16px;
+}
+
+#pagination {
+	width: 70%;
+	margin: 0 auto;
+	margin-top: 20px;
+	text-align: center;
+}
+</style>
 </head>
 <body>
 <header>
@@ -23,12 +55,13 @@
 <nav>
 	<jsp:include page="/WEB-INF/views/main/tiles/category.jsp" />
 </nav>
+
+<article>
 <table border="1">
         <caption>판매(출고)</caption>
         
         <thead>
             <tr>
-                <th>선택</th>
                 <th>입출고기록 ID</th>
                 <th>제품 ID</th>
                 <th>입고/출고</th>
@@ -43,6 +76,7 @@
     
 	<div id="pagination"></div>
 	
+	</article>
 <script>
 
 let currentPage = 1;
@@ -82,7 +116,6 @@ function drawList(){
     	const stock = paginatedItems[i];
     	html += `
              <tr>
-                 <td><input type="checkbox" name="check" value="\${stock.order_id}"></td>
                  <td>\${stock.move_id}</td>
                  <td>\${stock.product_id}</td>
                  <td>\${stock.type}</td>

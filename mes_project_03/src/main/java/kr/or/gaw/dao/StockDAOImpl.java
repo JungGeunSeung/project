@@ -34,5 +34,17 @@ public class StockDAOImpl implements StockDAO {
         return sqlSession.insert("kr.or.gaw.dao.StockDAO.createClient", client);
     }
 	
+	@Override
+	public int updateClient(ClientDTO client) {
+	    return sqlSession.update("kr.or.gaw.dao.StockDAO.updateClient", client); // 수정 쿼리 실행
+	}
+	
+	@Override
+	public int deleteClient(String clientId) {
+	    System.out.println("dao롤러 삭제 "+clientId);
+
+	    return sqlSession.delete("kr.or.gaw.dao.StockDAO.deleteClient", clientId);
+	}
+
 	
 }

@@ -10,4 +10,6 @@ public interface StockService {
 	List<StockMoveDTO> selectStock();
 	List<ClientDTO> selectClient();
 	int createClient(ClientDTO client);
+	int updateClient(ClientDTO client);
+	int deleteClient(String clientId);
 }

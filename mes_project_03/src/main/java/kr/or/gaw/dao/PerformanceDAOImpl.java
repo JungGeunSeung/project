@@ -26,4 +26,9 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		System.out.println("per delet : "+result);
 		return result;
 	}
+	
+	// performance 테이블에 데이터를 삽입하는 메서드
+    public int insertPerformance(PerformanceDTO performanceDTO) {
+        return sqlSession.insert("kr.or.gaw.dao.PerformanceDAO.insertPerformance", performanceDTO);
+    }
 }

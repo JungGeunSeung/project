@@ -15,6 +15,11 @@
 			where per_id = #{per_id}
 	</delete>
 	
+	<insert id="insertPerformance" parameterType="PerformanceDTO">
+    INSERT INTO performance (per_id, order_id, actual, defect_quantity, production_date)
+    VALUES (#{per_id}, #{order_id}, #{actual}, #{defect_quantity}, #{production_date})
+</insert>
+	
 
 	
 </mapper>

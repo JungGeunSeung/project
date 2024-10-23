@@ -24,5 +24,10 @@ public class OrderDAOImpl implements OrderDAO {
 
         return sqlSession.delete("kr.or.gaw.dao.OrderDAO.deleteOrder", orderId);
     }
+    
+    @Override
+    public int createWorkOrder(WorkOrderDTO workOrderDTO) {
+        return sqlSession.insert("kr.or.gaw.dao.WorkOrderDAO.createWorkOrder", workOrderDTO); // MyBatis 쿼리 실행
+    }
 
 }

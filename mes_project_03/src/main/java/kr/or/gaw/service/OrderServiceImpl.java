@@ -27,5 +27,12 @@ public class OrderServiceImpl implements OrderService {
         return orderDAO.deleteOrder(orderId);
     }
 
+    @Override
+    public int createWorkOrder(WorkOrderDTO workOrderDTO) {
+        return orderDAO.createWorkOrder(workOrderDTO); // DAO 호출
+    }
+    
+
+
 
 }

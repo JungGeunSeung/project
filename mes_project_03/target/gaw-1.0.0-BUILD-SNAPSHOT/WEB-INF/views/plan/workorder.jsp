@@ -77,7 +77,7 @@ article {
 
 <script>
 	let currentPage = 1;
-	const itemsPerPage = 10;
+	const itemsPerPage = 20;
 	let OrderList = [];
 	
 	// AJAX 요청 함수
@@ -149,22 +149,28 @@ article {
 	}
         
         // 삭제 버튼 클릭 이벤트 추가
-	function addDeleteEventListeners() {
-	    const deleteButtons = document.querySelectorAll(".deleteBtn");
-	    deleteButtons.forEach(button => {
-	        button.addEventListener("click", function () {
-	            const orderId = this.getAttribute("data-per_id");
-	            const xhr = new XMLHttpRequest();
-	            xhr.open("DELETE", `deleteOrder/${orderId}`);
-	            xhr.onload = function () {
-	                if (xhr.status === 200) {
-	                    getList(); // 삭제 후 리스트 갱신
-	                }
-	            };
-	            xhr.send();
-	        });
-	    });
-	}
+function addDeleteEventListeners() {
+    const deleteButtons = document.querySelectorAll(".deleteBtn");
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const orderId = this.getAttribute("data-per_id");
+            if (confirm("해당 작업지시를 삭제하시겠습니까?")) {
+                const xhr = new XMLHttpRequest();
+               	console.log(orderId);
+                xhr.open("DELETE", `deleteOrder/${orderId}`);
+                xhr.onload = function () {
+                    if (xhr.status === 200 && xhr.responseText === "success") {
+                        alert("삭제되었습니다.");
+                        getList(); // 삭제 후 리스트 갱신
+                    } else {
+                        alert("삭제에 실패했습니다.");
+                    }
+                };
+                xhr.send();
+            }
+        });
+    });
+}
 	
 	
 	// 페이징 버튼을 그리는 함수

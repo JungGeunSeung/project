@@ -12,10 +12,18 @@
 	
 	<!-- 고객 생성 -->
     <insert id="createClient" parameterType="ClientDTO">
-        INSERT INTO plan (client_id, name, location, contact, email, create_at)
-        VALUES (#{client_id}, #{name}, #{location}, #{contact}, #{email}, #{create_at})
+        INSERT INTO client (client_id, name, location, contact, phone, email, create_at)
+        VALUES (#{client_id}, #{name}, #{location}, #{contact}, #{phone}, #{email}, SYSDATE)
     </insert>
 	
-	 
+	 <update id="updateClient" parameterType="ClientDTO">
+    UPDATE client
+    SET location = #{location}, contact = #{contact}, phone = #{phone}
+    WHERE client_id = #{client_id}
+	</update>
+	
+	<delete id="deleteClient" parameterType="ClientDTO">
+    DELETE FROM client WHERE client_id = #{client_id}
+</delete>
 	
 </mapper>

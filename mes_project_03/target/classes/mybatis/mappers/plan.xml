@@ -39,15 +39,7 @@ ORDER BY plan_id ASC
         WHERE plan_id = #{plan_id}
     </update>
     
-<!--     <select id=max_planid resultType="PlanDTO"> -->
-<!-- 		SELECT 'p' || LPAD(TO_NUMBER(SUBSTR(plan_id, 2)) + 1, 3, '0') AS new_plan_id -->
-<!-- 			FROM ( -->
-<!-- 			    SELECT plan_id -->
-<!-- 			    FROM plan -->
-<!-- 			    ORDER BY plan_id DESC -->
-<!-- 			) -->
-<!-- 			WHERE ROWNUM = 1 -->
-<!--     </select> -->
+
     
 
 

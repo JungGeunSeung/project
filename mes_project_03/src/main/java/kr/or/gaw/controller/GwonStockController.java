@@ -6,8 +6,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.gaw.dto.ClientDTO;
@@ -55,7 +57,7 @@ public class GwonStockController {
 	}
 	
 //	거래처를 추가하는 매서드
-	@RequestMapping("/createClient")
+	@RequestMapping(value = "/createClient", method = RequestMethod.POST)
     @ResponseBody
     public String createClient(@RequestBody ClientDTO client) {
         int result = stockService.createClient(client);
@@ -65,4 +67,27 @@ public class GwonStockController {
             return "failure";
         }
     }
+	
+	// 거래처 수정 메서드
+	@RequestMapping(value = "/updateClient/{client_id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public String updateClient(@RequestBody ClientDTO client, @PathVariable("client_id") String clientId) {
+	    client.setClient_id(clientId); // 경로 변수로 받은 client_id 설정
+	    int result = stockService.updateClient(client); // 수정 서비스 호출
+	    if (result > 0) {
+	        return "success";
+	    } else {
+	        return "failure";
+	    }
+	}
+	
+	// 거래처 삭제 메서드
+	@RequestMapping(value = "/deleteClient/{client_id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public String deleteClient(@PathVariable("client_id") String clientId) {
+	    int result = stockService.deleteClient(clientId); // 삭제 서비스 호출
+	    System.out.println("컨트롤러 삭제 "+result);
+	    return result > 0 ? "success" : "failure";
+	}
+
 }

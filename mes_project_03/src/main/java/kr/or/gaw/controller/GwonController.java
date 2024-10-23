@@ -1,6 +1,7 @@
 package kr.or.gaw.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.gaw.dto.EmpDTO;
 import kr.or.gaw.dto.PlanDTO;
+import kr.or.gaw.dto.WorkOrderDTO;
+import kr.or.gaw.service.OrderService;
 import kr.or.gaw.service.PlanService;
 
 @Controller
@@ -67,6 +70,20 @@ public class GwonController {
         return result;
     }
 	
-	
+    @Autowired
+    OrderService orderService; // 서비스 추가
+    
+    // 작업지시서 생성
+    @RequestMapping(value = "/createWorkOrder", method = RequestMethod.POST)
+    @ResponseBody
+    public int createWorkOrder(@RequestBody WorkOrderDTO workOrderDTO) {
+    	String orderId = UUID.randomUUID().toString();
+        workOrderDTO.setOrder_id(orderId); // 생성된 ORDER_ID를 DTO에 설정
+        
+        int result = orderService.createWorkOrder(workOrderDTO);
+        System.out.println("작업지시서 생성 결과: " + result);
+        return result;
+    }
+
 
 }

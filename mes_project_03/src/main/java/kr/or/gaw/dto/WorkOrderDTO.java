@@ -7,10 +7,17 @@ public class WorkOrderDTO {
 	private String order_id;
 	private String plan_id;
 	private String mgr_id;
-	private String equiP_id;
+	private String equip_id;
 	private Date start_date;
 	private Date end_date;
 	private String status;
+	public String getEquip_id() {
+		return equip_id;
+	}
+	public void setEquip_id(String equip_id) {
+		this.equip_id = equip_id;
+	}
+
 	private int quantity;
 	private int defect_quantity;
 	private String emp_name;
@@ -46,12 +53,7 @@ public class WorkOrderDTO {
 	public void setMgr_id(String mgr_id) {
 		this.mgr_id = mgr_id;
 	}
-	public String getEquiP_id() {
-		return equiP_id;
-	}
-	public void setEquiP_id(String equiP_id) {
-		this.equiP_id = equiP_id;
-	}
+
 	public Date getStart_date() {
 		return start_date;
 	}
@@ -85,8 +87,8 @@ public class WorkOrderDTO {
 	
 	@Override
 	public String toString() {
-		return "WorkOrderDTO [order_id=" + order_id + ", plan_id=" + plan_id + ", mgr_id=" + mgr_id + ", equiP_id="
-				+ equiP_id + ", start_date=" + start_date + ", end_date=" + end_date + ", status=" + status
+		return "WorkOrderDTO [order_id=" + order_id + ", plan_id=" + plan_id + ", mgr_id=" + mgr_id + ", equip_id="
+				+ equip_id + ", start_date=" + start_date + ", end_date=" + end_date + ", status=" + status
 				+ ", quantity=" + quantity + ", defect_quantity=" + defect_quantity + ", emp_name=" + emp_name
 				+ ", equipment_name=" + equipment_name + "]";
 	}

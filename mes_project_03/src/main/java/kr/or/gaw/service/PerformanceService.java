@@ -8,4 +8,5 @@ public interface PerformanceService {
 
 	List<PerformanceDTO> selectPerformance();
 	public int deletePerformance(PerformanceDTO dto);
+	int insertPerformance(PerformanceDTO performanceDTO);
 }

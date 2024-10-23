@@ -39,6 +39,12 @@
         INSERT INTO plan (order_id, plan_id, mgr_id, equip_id, start_date, end_date, status, quantity, defect_quantity)
         VALUES (#{order_id}, #{plan_id}, #{mgr_id}, #{equip_id}, TO_DATE(#{start_date}, 'YYYY-MM-DD'), TO_DATE(#{end_date}, 'YYYY-MM-DD'), #{status}, #{quantity}, #{defect_quantity})
     </insert>
+    
+    <insert id="createWorkOrder" parameterType="WorkOrderDTO">
+    INSERT INTO workOrder (order_id, plan_id, mgr_id, equip_id, start_date, end_date, status, quantity, defect_quantity)
+    VALUES (#{order_id}, #{plan_id}, #{mgr_id}, #{equip_id}, TO_DATE(#{start_date}, 'YYYY-MM-DD'), TO_DATE(#{end_date}, 'YYYY-MM-DD'), #{status}, #{quantity}, #{defect_quantity})
+</insert>
+    
 
     
 	

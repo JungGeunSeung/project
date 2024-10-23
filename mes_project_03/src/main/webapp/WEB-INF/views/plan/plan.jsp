@@ -31,7 +31,7 @@ article {
 .modal {
 	display: none;
 	position: fixed;
-	z-index: 1;
+	z-index: 1000;
 	padding-top: 100px;
 	left: 0;
 	top: 0;
@@ -39,6 +39,7 @@ article {
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
 }
+
 
 .modal-content {
 	background-color: #fefefe;
@@ -79,7 +80,7 @@ article {
 }
 
 .edit, .delete {
-	width: 70px;
+	width: 50px;
 }
 
 input[type="checkbox"] {
@@ -88,6 +89,10 @@ input[type="checkbox"] {
 	margin: 0 auto;
 	vertical-align: center;
 	text-align: center;
+}
+.btn{
+	width: 50px;
+	
 }
 
 .actionDiv {
@@ -108,7 +113,7 @@ input[type="checkbox"] {
 }
 
 .created_by {
-	width: 100px;
+/* 	width: 100px; */
 }
 
 table {
@@ -132,6 +137,12 @@ table {
 #createBtn {
 	width: 100%;
 }
+
+td.btn{
+	width: 50px;
+	padding: -10px -2px;
+}
+
 </style>
 </head>
 
@@ -178,9 +189,10 @@ table {
 					<th>생산 시작일</th>
 					<th>생산 종료일</th>
 					<th>수량</th>
-					<th>작성자</th>
+					<th style="width: 70px;">작성자</th>
 					<th>상태</th>
 					<th colspan="2">수정 및 삭제</th>
+					<th style="width: 100px;">작업지시서</th>
 				</tr>
 			</thead>
 			<tbody id="list"></tbody>
@@ -212,9 +224,42 @@ table {
 						<option value="진행">진행</option>
 						<option value="완료">완료</option>
 					</select><br> <br> <span><button class="btn" type="submit">저장</button></span>
+
 				</form>
 			</div>
 		</div>
+		
+		<!-- 작업지시서 작성 모달 -->
+<div id="workOrderModal" class="modal">
+    <div class="modal-content">
+        <span class="closeWorkOrder">&times;</span>
+        <h2> 계획 ID:<span id="work_plan_id"></span> 작업지시서 작성</h2>
+        <form id="workOrderForm">
+            <label for="mgr_id">관리자 ID:</label><br>
+            <input type="text" id="mgr_id" name="mgr_id"><br><br>
+
+            <label for="equip_id">설비 ID:</label><br>
+            <input type="text" id="equip_id" name="equip_id"><br><br>
+
+            <label for="start_date">작업 시작일:</label><br>
+            <input type="date" id="work_start_date" name="start_date"><br>
+
+            <label for="end_date">작업 종료일:</label><br>
+            <input type="date" id="work_end_date" name="end_date"><br><br>
+
+            <label for="status">상태:</label>
+            <input id="work_status" value="지시">
+            <br><br>
+
+            <label for="quantity">계획 수량:</label><br>
+            <input type="number" id="work_quantity" name="quantity"><br><br>
+
+            <button type="submit" class="btn" id="createBtn">작업지시서 저장</button>
+        </form>
+    </div>
+</div>
+
+		
 		
 	</article>
 
@@ -246,13 +291,113 @@ function openModal(plan) {
 
     // 모달 창 닫기
     closeModalBtn.addEventListener("click", function () {
-        modal.style.display = "none";
+        modal.style.display = "none"
     });
 
     // 생성 버튼 클릭 시 모달 창 열기
     document.getElementById("createBtn").addEventListener("click", function () {
         openModal(null);
     });
+    
+ // 작업지시서 모달 열기 함수
+    function openWorkOrderModal(planId) {
+        const workOrderModal = document.getElementById("workOrderModal");
+        workOrderModal.style.display = "block"; // 모달 열기
+        document.getElementById("work_plan_id").value = planId; // 선택된 계획 ID 설정
+        document.getElementById("work_plan_id").innerText = planId;
+
+    }
+
+    // 작업지시서 모달 닫기
+    const closeWorkOrderBtn = document.querySelector(".closeWorkOrder");
+    closeWorkOrderBtn.addEventListener("click", function() {
+        const workOrderModal = document.getElementById("workOrderModal");
+        workOrderModal.style.display = "none"; // 모달 닫기
+    });
+
+ // 작업지시서 저장 폼 제출 이벤트 처리
+    // 작업지시서 저장 폼 제출 이벤트 처리
+document.getElementById("workOrderForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // 기본 제출 동작 막기
+
+    // AJAX로 마지막 order_id 가져오기 (예시: 서버에서 lastOrderId를 제공한다고 가정)
+    fetch("getLastOrderId")
+        .then(response => response.json())
+        .then(data => {
+            const lastOrderId = data.lastOrderId; // 서버에서 제공된 마지막 order_id
+            const newOrderId = lastOrderId + 1; // 마지막 order_id에 1을 추가
+
+            // 수량 가져오기
+            const quantity = document.getElementById("work_quantity").value;
+
+            // 데이터 수집
+            const workOrderData = {
+                order_id: newOrderId, // 새로운 order_id
+                plan_id: document.getElementById("work_plan_id").innerText,  // span에서 값 가져오기
+                mgr_id: document.getElementById("mgr_id").value,
+                equip_id: document.getElementById("equip_id").value,
+                start_date: document.getElementById("work_start_date").value,
+                end_date: document.getElementById("work_end_date").value,
+                status: document.getElementById("work_status").value,
+                quantity: quantity,
+                defect_quantity: (quantity * 0.01).toFixed(2) // 수량의 1%로 defect_quantity 설정 (소수점 2자리까지)
+            };
+
+            console.log("전송할 작업지시서 데이터:", workOrderData);
+
+            // AJAX 요청
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "createWorkOrder", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify(workOrderData));
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    alert("작업지시서가 성공적으로 생성되었습니다.");
+                    const workOrderModal = document.getElementById("workOrderModal");
+                    workOrderModal.style.display = "none"; // 모달 닫기
+                } else {
+                    alert("작업지시서 생성에 실패했습니다.");
+                    console.error("에러 메시지:", xhr.responseText);
+                }
+            };
+
+            xhr.onerror = function() {
+                alert("요청을 처리하는 중 오류가 발생했습니다.");
+                console.error("요청 오류:", xhr.responseText);
+            };
+        })
+        .catch(error => {
+            console.error("order_id 가져오기 실패:", error);
+            alert("작업지시서 생성에 실패했습니다. order_id를 가져오지 못했습니다.");
+        });
+});
+
+
+    
+ // 작업지시서 버튼 이벤트 추가
+    function attachWorkOrderButtons() {
+        const buttons = document.querySelectorAll(".createWorkOrderBtn");
+        buttons.forEach(button => {
+            button.addEventListener("click", function() {
+                const planId = this.dataset.plan; // 선택된 계획 ID 가져오기
+                console.log("작업지시서 모달 열기: ", planId);
+                openWorkOrderModal(planId); // 작업지시서 모달 열기
+            });
+        });
+    }
+
+    
+
+    // 리스트 가져오기 함수
+    function getList() {
+        ajax("selectPlan", function (response) {
+            planList = JSON.parse(response);
+            drawList();
+            drawPagination();
+            attachWorkOrderButtons(); // 작업지시서 버튼 이벤트 추가
+        }, "GET");
+    }
 
     // AJAX 요청 함수
     function ajax(url, cb, method) {
@@ -304,6 +449,7 @@ function openModal(plan) {
                     <td class="status" style="\${statusColor}">\${plan.status}</td>
                     <td class="edit"><sapn><button type="button" class="editBtn btn" data-plan='\${JSON.stringify(plan)}'>수정</button></span></td>
                     <td class="delete"><span><button type="button" data-plan="\${plan.plan_id}" class="deleteBtn btn" id="btn_\${plan.plan_id}">삭제</button></span></td>
+                    <td class="createWorkOrder"><button type="button" class="createWorkOrderBtn" data-plan='\${plan.plan_id}'>작업지시서<br>작성</button></td> 
                 </tr>`;
         	}
         document.querySelector("#list").innerHTML = html;
@@ -321,7 +467,7 @@ function openModal(plan) {
         const delBtnList = document.querySelectorAll("[id^=btn_]");
         for (let btn of delBtnList) {
             btn.addEventListener("click", function (event) {
-           
+           		
             	const id = event.target.getAttribute("id")
                 const plan = event.target.getAttribute("data-plan");
                 console.log("삭제할 계획 ID: ", plan);
@@ -342,6 +488,9 @@ function openModal(plan) {
                 }
             });
         }
+        // 작업지시서 버튼 이벤트 등록
+        attachWorkOrderButtons();
+
     	}catch(e){
 			console.log("ahax ERROR :url",url,e);
 		}
@@ -396,7 +545,7 @@ function openModal(plan) {
         console.log("전송할 데이터:", planData);
         
         const method = planData.plan_id ? "PUT" : "POST";
-        const url = method === "POST" ? "createPlan" : `updatePlan/${planData.plan_id}`;
+        const url = `updatePlan/${planData.plan_id}`;
         
         const xhr3 = new XMLHttpRequest();
         xhr3.open(method, url); 

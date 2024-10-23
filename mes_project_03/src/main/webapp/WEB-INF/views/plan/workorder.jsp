@@ -38,6 +38,8 @@ article {
 </head>
 
 <body>
+<!-- 로딩 CSS에 해당하는 HTML -->
+   <jsp:include page="/WEB-INF/views/main/tiles/loading.jsp" />
 <header>
     <jsp:include page="/WEB-INF/views/main/tiles/header.jsp" />
 </header>
@@ -49,9 +51,6 @@ article {
 		<h2>작업 지시</h2>
 		<span>작업지시를 관리하는 페이지 입니다. 작업을 지시 및 완료 할 수 있습니다.</span>
 
-	<div class="actionDiv">
-			<span><button class="btn" id="createBtn">작업지시서 생성</button></span>
-		</div>
 <table border="1">
         <thead>
             <tr>
@@ -65,7 +64,7 @@ article {
                 <th>생산 수량</th>
                 <th>불량 수량</th>
                 <th>삭제</th>
-                <th>완료</th>
+                <th>완료/진행</th>
             </tr>
         </thead>
         <tbody id="list"></tbody>
@@ -112,20 +111,26 @@ article {
         for(let i =0;i<paginatedItems.length;i++){
         	const order = paginatedItems[i];
         	let statusColor = "";
+        	let buttonHtml = "";
         	switch (order.status) {
-            case "완료":
+        	case "완료":
                 statusColor = "color: green; transparent; -webkit-text-stroke: 1px;";
+                buttonHtml = ""; // 완료 상태에는 버튼 없음
                 break;
             case "진행":
                 statusColor = "color: orange; transparent; -webkit-text-stroke: 1px;";
+                // 진행 상태일 때는 완료 버튼만 표시
+                buttonHtml = `<button class="completeBtn" data-plan="${order.plan_id}" id="completeBtn_${order.plan_id}">완료</button>`;
                 break;
             case "지시":
                 statusColor = "color: red; transparent; -webkit-text-stroke: 1px;";
+                // 지시 상태일 때는 진행 버튼만 표시
+                buttonHtml = `<button class="startProcessBtn" data-plan="${order.plan_id}" id="startProcessBtn_${order.plan_id}">진행</button>`;
                 break;
             default:
                 statusColor = "";
-        		}
-        	
+                buttonHtml = ""; // 기본 상태에서는 버튼 없음
+        	}
         	html += `
                  <tr>
                      <td>\${order.order_id}</td>
@@ -138,15 +143,38 @@ article {
                      <td>\${order.quantity}</td>
                      <td>\${order.defect_quantity}</td>
                      <td><button class="deleteBtn" data-per_id="\${order.order_id}" id="btn_\${paginatedItems[i].order_id}">삭제</button></td>
-                     <td><button class="updateBtn" data-per_id="\${order.order_id}" id="btn_\${paginatedItems[i].order_id}">완료</button></td>
+                     <td>\${buttonHtml}</td>
                  </tr>`;
         }
         document.querySelector("#list").innerHTML = html;
-        addDeleteEventListeners(); // 삭제 버튼에 이벤트 추가
-        addEditEventListeners();   // 수정 버튼에 이벤트 추가
-        
-        window.addEventListener("load", getList);
+     // 각 버튼에 대한 이벤트 리스너 추가
+        addProcessButtonListeners(); // 진행 버튼 이벤트
+        addCompleteButtonListeners(); // 완료 버튼 이벤트
+        addDeleteEventListeners(); // 삭제 버튼 이벤트
 	}
+	 // 진행 버튼 클릭 이벤트 추가
+    function addProcessButtonListeners() {
+        const startProcessBtns = document.querySelectorAll(".startProcessBtn");
+        startProcessBtns.forEach(button => {
+            button.addEventListener("click", function () {
+                const orderId = this.dataset.id;
+                updateOrderStatus(orderId, "진행"); // 상태를 "진행"으로 변경
+            });
+        });
+    }
+	 
+    // 완료 버튼 클릭 이벤트 추가
+    function addCompleteButtonListeners() {
+        const completeBtns = document.querySelectorAll(".completeBtn");
+        completeBtns.forEach(button => {
+            button.addEventListener("click", function () {
+                const orderId = this.dataset.id;
+                updateOrderStatus(orderId, "완료"); // 상태를 "완료"로 변경
+                // 완료 시 performance 테이블에 기록 추가 로직 필요
+                insertPerformanceRecord(orderId);
+            });
+        });
+    }
         
         // 삭제 버튼 클릭 이벤트 추가
 function addDeleteEventListeners() {
@@ -171,7 +199,44 @@ function addDeleteEventListeners() {
         });
     });
 }
+        
+//상태 업데이트 함수
+function updateOrderStatus(orderId, newStatus) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("PUT", `updateOrderStatus/${orderId}`);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify({ status: newStatus }));
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            alert(`작업 상태가 ${newStatus}으로 변경되었습니다.`);
+            getList(); // 상태 변경 후 리스트 갱신
+        } else {
+            alert("상태 변경에 실패했습니다.");
+        }
+    };
+}
 	
+//완료 시 성과 기록 추가 함수
+function insertPerformanceRecord(orderId) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", `insertPerformance/${orderId}`);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify({
+        order_id: orderId,
+        actual: 100, // 실제 수량 등 데이터를 여기에 넣음
+        defect_quantity: 5, // 불량 수량 등 데이터를 여기에 넣음
+        production_date: new Date().toISOString().split('T')[0]
+    }));
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            alert("작업 성과가 기록되었습니다.");
+        } else {
+            alert("성과 기록에 실패했습니다.");
+        }
+    };
+}
 	
 	// 페이징 버튼을 그리는 함수
     function drawPagination() {

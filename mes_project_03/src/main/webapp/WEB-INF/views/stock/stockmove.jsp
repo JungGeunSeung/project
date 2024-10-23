@@ -55,8 +55,12 @@ article {
 <nav>
 	<jsp:include page="/WEB-INF/views/main/tiles/category.jsp" />
 </nav>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 <article>
+<h2>월별 판매량</h2>
+    <canvas id="monthlySalesChart" width="400" height="200"></canvas>
 <table border="1">
         <caption>판매(출고)</caption>
         
@@ -83,6 +87,9 @@ let currentPage = 1;
 const itemsPerPage = 10;
 let StockList = [];
 
+//월별 판매량 데이터를 저장할 객체
+let monthlySalesData = {};
+
 // AJAX 요청 함수
 function ajax(url, cb, method) {
     const xhr = new XMLHttpRequest();
@@ -96,12 +103,61 @@ function ajax(url, cb, method) {
     };
 }
 
-//작업지시 목록을 가져오는 함수
+//월별 판매량 계산 함수
+function calculateMonthlySales() {
+    monthlySalesData = {};
+
+    StockList.forEach(stock => {
+        const stockDate = new Date(stock.stock_date);
+        const yearMonth = stockDate.getFullYear() + '-' + ('0' + (stockDate.getMonth() + 1)).slice(-2); // "YYYY-MM" 형식
+        const quantity = stock.quantity;
+
+        // 월별 데이터가 없으면 초기화하고, 있으면 누적
+        if (!monthlySalesData[yearMonth]) {
+            monthlySalesData[yearMonth] = 0;
+        }
+        monthlySalesData[yearMonth] += quantity;
+    });
+
+    // 월별 판매량 그래프 그리기
+    drawSalesChart();
+}
+
+//Chart.js를 사용하여 월별 판매량 그래프 그리기
+function drawSalesChart() {
+    const ctx = document.getElementById('monthlySalesChart').getContext('2d');
+    const months = Object.keys(monthlySalesData); // x축 라벨 (월)
+    const sales = Object.values(monthlySalesData); // y축 데이터 (판매량)
+
+    new Chart(ctx, {
+        type: 'bar', // 막대 그래프
+        data: {
+            labels: months, // x축: 월
+            datasets: [{
+                label: '월별 판매량',
+                data: sales, // y축: 판매량
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true // y축이 0부터 시작
+                }
+            }
+        }
+    });
+}
+
+//판매(출고) 목록을 가져오는 함수
 function getList() {
-    ajax("selectStock", function (response) { // AJAX 요청
-    	StockList = JSON.parse(response); // 응답을 JSON으로 파싱하여 OrderList에 저장
+    ajax("selectStock", function (response) {
+        StockList = JSON.parse(response);
         drawList(); // 리스트 그리기
         drawPagination(); // 페이징 그리기
+        calculateMonthlySales(); // 월별 판매량 계산
     }, "get");
 }
 

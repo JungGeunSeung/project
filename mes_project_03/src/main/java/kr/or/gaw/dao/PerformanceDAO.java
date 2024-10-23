@@ -11,4 +11,5 @@ public interface PerformanceDAO {
 
 	List<PerformanceDTO> selectPerformance();
 	public int deletePerformance(PerformanceDTO dto);
+	int insertPerformance(PerformanceDTO performanceDTO);
 }

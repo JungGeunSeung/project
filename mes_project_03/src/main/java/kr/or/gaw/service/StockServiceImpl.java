@@ -34,4 +34,16 @@ public class StockServiceImpl implements StockService {
         return stockDAO.createClient(client);
     }
 	
+	@Override
+	public int updateClient(ClientDTO client) {
+	    return stockDAO.updateClient(client); // DAO 호출
+	}
+	
+	@Override
+	public int deleteClient(String clientId) {
+	    System.out.println("서비스롤러 삭제 "+clientId);
+
+	    return stockDAO.deleteClient(clientId); // DAO 호출
+	}
+
 }
