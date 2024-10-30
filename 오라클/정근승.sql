@@ -12,8 +12,11 @@ select * from maintenance;
 select * from equip_downtime;
 select * from performance;
 select * from workOrder;
+select * from child_table;
+select * from replies;
+select * from comments;
 rollback;
-
+commit;
 update emp set enabled = 0, name = name || '(탈퇴함)' where user_id='geun1';
 alter TABLE emp modify (position varchar2(50) default '인턴');
 
@@ -57,6 +60,8 @@ UPDATE equipment SET last = to_date('10/21/2024 00:00:00', 'mm/dd/yyyy hh24:mi:s
 
 update plan set status = '진행' where start_date = sysdate;
 
+
+
 SELECT 
     p.start_date,
     MAX(CASE WHEN w.name = '모션데스크 (모터100)' THEN p.quantity || '개 ' || p.status ELSE '-' END) AS 모션데스크,
@@ -69,3 +74,28 @@ LEFT JOIN product w ON p.product_id = w.product_id
 WHERE p.start_date >= SYSDATE - 7 AND p.start_date <= SYSDATE + 7
 GROUP BY p.start_date
 ORDER BY p.start_date;
+
+select * from emp;
+select * from posts;
+update posts set author_id = 'sowon0226' where post_id = 'P010';
+update comments set employee_id = 'rudals1022' where comments.comment_id = 'C011';
+
+
+SELECT 
+		    REGEXP_REPLACE(e.user_id, '^(.{2})([^@]+)', '\1****') as user_id,
+		    e.name AS user_name, 
+		    REGEXP_REPLACE(e.email, '^(.{2})([^@]+)', '\1****') AS masked_email,
+		    REGEXP_REPLACE(e.phone, '(^[0-9]{3})([0-9]{4})([0-9]{4})', '\1****\3') AS masked_phone,
+            e.password,
+		    e.dept_id, 
+		    d.dept_name, 
+		    e.position, 
+		    e.hire_date, 
+		    e.mgr, 
+		    m.name AS mgr_name,
+		    e.enabled, 
+		    e.birth_date, 
+		    e.nationality
+		FROM emp e
+		LEFT JOIN dept d ON e.dept_id = d.dept_id
+		LEFT JOIN emp m ON e.mgr = m.user_id;
